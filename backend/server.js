@@ -20,8 +20,7 @@ mongoose.connect(URL).then(() => {
     console.error("Connection error:", error);
 });
 
-const studentroute = require("./routes/Students");
-app.use("/student", studentroute);
+
 
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
