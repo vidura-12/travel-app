@@ -1,12 +1,4 @@
 import React from 'react';
-import './style.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faUser);
-
 function footer() {
   return (
     <div>
@@ -34,7 +26,7 @@ function footer() {
                     </div>
                     <div class="about-us">
                          <h4>help</h4>
-                         <li><a href="#">FAQ</a></li>
+                         <li><a href="/feed">FAQ</a></li>
                          <li><a href="#">booking guide</a></li>
                          <li><a href="#">cancellation policy</a></li>
                          <li><a href="#">site map</a></li>
