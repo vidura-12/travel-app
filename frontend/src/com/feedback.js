@@ -31,7 +31,7 @@ function Feed() {
                               <li>traveler</li>
                          </div>
                     </div>
-                    <p>"Impressed with the variety of options available. Whether you're looking for budget-friendly or luxury, this site has it all. I had a smooth booking process from start to finish."</p>
+                    <p>"Impressed with the variety of options available. Whe you're looking for budget-friendly or luxury, this site has it all. I had a smooth booking process from start to finish."</p>
                </div>
                <div class="voice">
                     <div class="profile">
