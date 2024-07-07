@@ -6,10 +6,28 @@ const AdminLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const navigate = useNavigate();
+
+  const handleUsernameChange = (e) => {
+    const value = e.target.value;
+    const isValid = /^[A-Za-z]+$/.test(value);
+
+    if (isValid) {
+      setUsernameError('');
+    } else {
+      setUsernameError('Username should only contain characters.');
+    }
+
+    setUsername(value);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (usernameError) {
+      return;
+    }
+
     const admin = { 
       username, 
       password
@@ -65,9 +83,10 @@ const AdminLogin = () => {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleUsernameChange}
             required
           />
+          {usernameError && <p style={{ color: 'red' }}>{usernameError}</p>}
         </div>
         <div>
           <label>Password</label>
