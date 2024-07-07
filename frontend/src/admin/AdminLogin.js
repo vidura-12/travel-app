@@ -40,6 +40,9 @@ const AdminLogin = () => {
         case 'travelagent':
           navigate('/travelagent/home');
           break;
+        case 'vehiclerentle':
+          navigate('/vehiclerentle/home');
+          break;
         default:
           setError('Unknown role');
       }
