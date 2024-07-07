@@ -1,24 +1,35 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from './com/header';
+import UserLayout from './UserLayout';
+import AdminLayout from './AdminLayout';
 import Home from './com/home';
-import Footer from './com/footer';
 import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
+import AdminHome from './admin/home';
+import AdminLogin from './admin/AdminLogin';
+import SchedulerHome from './scheduler/home';
+
+
 function App() {
   return (
     <Router>
-      <div>
-        <Header />
-        <Routes>
-        <Route path="/location" exact element={<Location />} />
-          <Route path="/home" exact element={<Home/>} />
-          <Route path="/hotel" exact element={<Hotel/>} />
-          <Route path="/feed" exact element={<Feed/>} />
-        </Routes>
-        <Footer />
-      </div>
+      <Routes>
+        {/* User Routes */}
+        <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
+        <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
+        <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
+        <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
+
+        {/* Role-based Routes */}
+       
+        <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
+        
+      </Routes>
     </Router>
   );
 }
