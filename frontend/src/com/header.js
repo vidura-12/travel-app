@@ -1,5 +1,6 @@
 import React from 'react';
 import './style1.css';
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <div>
@@ -17,11 +18,11 @@ function Header() {
                 <i className="fa fa-close"></i>
               </div>
               <ul className="menu-list">
-                <li><a href="/home">Home</a></li>
+                <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Travel Packages</a></li>
-                <li><a href="/location">Destinations</a></li>
-                <li><a href="/hotel">Hotels</a></li>
+                <li><Link to="/location">Destinations</Link></li>
+                <li><Link to="/hotel">Hotels</Link></li>
               </ul>
             </div>
             <div className="auth-container">
