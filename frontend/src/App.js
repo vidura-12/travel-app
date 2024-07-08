@@ -9,7 +9,7 @@ import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import SchedulerHome from './scheduler/home';
-import agentHome from './travelagent/home';
+import AgentHome from './travelagent/home';
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
         {/* Role-based Routes */}
        
         <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
-        <Route path="/travelagent/home" element={<AdminLayout><agentHome /></AdminLayout>} />
+        <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         
       </Routes>
     </Router>
