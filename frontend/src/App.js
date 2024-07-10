@@ -31,9 +31,6 @@ function App() {
         <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
 
-        <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-
       </Routes>
     </Router>
   );
