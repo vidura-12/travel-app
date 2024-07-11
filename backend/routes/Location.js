@@ -9,7 +9,7 @@ router.post('/add', upload.single('picture'), async (req, res) => {
       name: req.body.name,
       city: req.body.city,
       description: req.body.description,
-      picture: req.file ? req.file.path : null, 
+      picture: req.file ? req.file.originalname : null 
     });
 
     await newLocation.save();
@@ -18,6 +18,7 @@ router.post('/add', upload.single('picture'), async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
 
 router.get('/', async (req, res) => {
     try {
@@ -66,4 +67,24 @@ router.get('/', async (req, res) => {
       res.status(400).json({ error: err.message });
     }
   });
+
+  router.get('/search', async (req, res) => {
+    const { name } = req.query;
+    try {
+      const locations = await Location.find({ name: { $regex: `^${name}`, $options: 'i' } });
+      
+      if (!locations || locations.length === 0) {
+        return res.status(404).json({ error: 'No locations found with that name.' });
+      }
+      
+      res.status(200).json(locations);
+    } catch (err) {
+      console.error('Error fetching locations:', err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
+
+module.exports = router;
+
 module.exports = router;

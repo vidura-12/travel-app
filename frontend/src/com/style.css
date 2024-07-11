@@ -53,6 +53,9 @@ section.home {
     border-radius: 1rem;
     padding: 1rem;
 }
+.scroll-to-middle {
+    scroll-margin-top: 100px; 
+  }
 .home .home-box .navbar {
     width: calc(100% - 4rem);
     background: rgba(0, 0, 0, 0.5);
@@ -282,7 +285,7 @@ section.home {
     gap: 1rem;
 }
 .gallery .box {
-    height: 23rem;
+    height: 28rem;
     flex-grow: 1;
     overflow: hidden;
     border-radius: .8rem;
@@ -296,7 +299,7 @@ section.home {
 }
 .gallery .box .text {
     position: absolute;
-    bottom: 0;
+    top: 0;
     padding: 1.5rem 2rem;
     left: 0;
     z-index: 1;
