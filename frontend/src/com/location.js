@@ -43,7 +43,7 @@ function Location() {
         <div className="home-box">
           <div className="content">
             
-            <h1>Ask us about your dream paradise</h1>
+            <h1>Ask us about your dream paradise..</h1>
             <div className="search">
               <i className="fa fa-search"></i>
               <input
