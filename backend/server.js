@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8081;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
-jk
+
 const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL).then(() => {
