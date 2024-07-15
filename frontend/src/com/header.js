@@ -18,7 +18,6 @@ function Header() {
                 <i className="fa fa-close"></i>
               </div>
               <ul className="menu-list">
-                <li><a href="/home">Home</a></li>
                 <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>
                 <li><a href="/tours">Travel Packages</a></li>
