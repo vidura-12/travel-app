@@ -1,12 +1,14 @@
-import React from 'react';
+import React from 'react'
+
+export default function schedulerlayout() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
 
 
 
-const AdminLayout = ({ children }) => (
-  <div>
-    
-    {children}
-  </div>
-);
 
-export default AdminLayout;
+
