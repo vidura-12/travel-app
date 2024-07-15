@@ -19,7 +19,7 @@ function Header() {
               <ul className="menu-list">
                 <li><a href="/home">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Travel Packages</a></li>
+                <li><a href="/tours">Travel Packages</a></li>
                 <li><a href="/location">Destinations</a></li>
                 <li><a href="/hotel">Hotels</a></li>
               </ul>

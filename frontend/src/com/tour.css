@@ -1,0 +1,72 @@
+
+.tourpic{
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+     url("./img/tool/tourpic.jpg") no-repeat center;
+     height:300px;
+     display:flex;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+
+}
+
+.tourpic h1{
+    color: #fff;
+}
+
+.search{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+@import '~remixicon/fonts/remixicon.css';
+
+.search_bar{
+    padding: 0.5rem 1 rem ;
+    border-radius: 50px;
+    box-shadow: rgba(17,12,46,0.15) 0px 48px 100px 0px;
+    width: max-content;
+    margin-top: 50px;
+
+    
+}
+
+.form_group span{
+    font-size: 1.8rem;
+    color:gray;
+}
+
+.form_group input{
+    border:none;
+    font-size: 0.9rem;
+    color: var(--heading-color);
+    font-weight: 500;
+}
+
+.form_group input:focus{
+    outline: none;;
+}
+
+.form_group h6{
+    margin-bottom: 0;
+}
+
+.form_group-fast{
+    border-right:2px solid #ddd;
+}
+
+.search-icon{
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    background: orangered;
+    color: #ddd;
+    border-radius: 10px 5px 10px 5px;
+    cursor:pointer;
+}
+
+
+
+
+
