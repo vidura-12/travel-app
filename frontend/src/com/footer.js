@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 function footer() {
   return (
     <div>
@@ -26,7 +27,7 @@ function footer() {
                     </div>
                     <div class="about-us">
                          <h4>help</h4>
-                         <li><a href="/feed">FAQ</a></li>
+                         <li><Link to="/feed">FAQ</Link></li>
                          <li><a href="#">booking guide</a></li>
                          <li><a href="#">cancellation policy</a></li>
                          <li><a href="#">site map</a></li>

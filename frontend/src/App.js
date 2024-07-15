@@ -10,6 +10,7 @@ import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
+import AgentHome from './travelagent/home';
 
 
 function App() {
@@ -31,10 +32,11 @@ function App() {
          {/* Role-based Routes */}
        
          <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
-        
+      
+        <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
+        <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-
-        
       </Routes>
     </Router>
   );
