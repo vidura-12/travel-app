@@ -9,7 +9,7 @@ function Location() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/Location/search?name=${searchTerm}`);
+      const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
       const data = await response.json();
 
       if (response.ok) {
@@ -20,7 +20,6 @@ function Location() {
           setError('');
           setResults(Array.isArray(data) ? data : [data]);
 
-          // Scroll to the middle of the destination section
           if (destinationRef.current) {
             destinationRef.current.classList.add('scroll-to-middle');
             destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });

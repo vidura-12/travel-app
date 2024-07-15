@@ -19,7 +19,6 @@ router.post('/add', upload.single('picture'), async (req, res) => {
   }
 });
 
-
 router.get('/', async (req, res) => {
     try {
       const locations = await Location.find();
@@ -52,6 +51,7 @@ router.get('/', async (req, res) => {
       res.status(400).json({ error: err.message });
     }
   });
+
   router.delete('/delete/:id', async (req, res) => {
     try {
       const locationId = req.params.id;
@@ -69,9 +69,9 @@ router.get('/', async (req, res) => {
   });
 
   router.get('/search', async (req, res) => {
-    const { name } = req.query;
+    const { city } = req.query;
     try {
-      const locations = await Location.find({ name: { $regex: `^${name}`, $options: 'i' } });
+      const locations = await Location.find({ city: { $regex: `^${city}`, $options: 'i' } });
       
       if (!locations || locations.length === 0) {
         return res.status(404).json({ error: 'No locations found with that name.' });
