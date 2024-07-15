@@ -21,10 +21,12 @@ function Header() {
               <ul className="menu-list">
                 <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Travel Packages</a></li>
+                <li><a href="/tours">Travel Packages</a></li>
+                <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Destinations</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
                 <li><a href="#">Travel Agents</a></li>
+
               </ul>
             </div>
             <div className="auth-container">

@@ -9,6 +9,7 @@ import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
+import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
@@ -23,17 +24,19 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
+        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+        
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
 
-        {/* Role-based Routes */}
+         {/* Role-based Routes */}
        
-        <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
+         <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/Location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
-       
+
       </Routes>
     </Router>
   );
