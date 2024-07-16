@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
+const authRoutes = require('./routes/auth');
+const locationRoutes = require('./routes/Location');
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -24,3 +26,5 @@ mongoose.connect(URL).then(() => {
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
+app.use('/auth', authRoutes);
+app.use('/location',locationRoutes);
