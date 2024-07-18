@@ -13,7 +13,7 @@ import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
-
+import Newlocation from './com/newLocation';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-        
+        <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
