@@ -48,6 +48,9 @@ const locationSchema = new mongoose.Schema({
   },
   picture: {
     type: String, 
+  },
+  status: {
+    type: String, 
   }
 });
 
