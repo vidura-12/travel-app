@@ -15,6 +15,22 @@
     --white-color: #fff;
     --text-color: #333;
 }
+.containe {
+    text-align: center;
+    background-image: url('./img/sb-bandara-1GJKxIkSR0E-unsplash (1).jpg'); 
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+  }
+  
+  .titl {
+    font-size: 2em;
+    margin-bottom: 70px;
+  }
 .button {
     background: var(--green-color);
     color: var(--white-color);

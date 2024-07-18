@@ -10,7 +10,7 @@ router.post('/add', upload.single('picture'), async (req, res) => {
       city: req.body.city,
       description: req.body.description,
       status: "not approved",
-      picture: req.file ? req.file.originalname : null 
+      picture: req.file ? req.file.originalname : null  
     });
 
     await newLocation.save();
@@ -32,17 +32,10 @@ router.get('/', async (req, res) => {
   router.put('/update/:id', upload.single('picture'), async (req, res) => {
     try {
       const locationId = req.params.id;
-      const { name, city, description,status } = req.body;
       const updatedFields = {
-        name,
-        city,
-        description,
-        status,
-        picture: req.file ? req.file.path : null, 
-        
+        status: 'approved', 
       };
   
-
       const updatedLocation = await Location.findByIdAndUpdate(locationId, updatedFields, { new: true });
   
       if (!updatedLocation) {

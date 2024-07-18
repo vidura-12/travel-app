@@ -77,10 +77,13 @@ function Location() {
       </section>
       <section >
         <div >
-          <div className="containe">
-            <h1 lassName = "titl">Are you a Traveller, Share youer experience with us</h1>
-            <a href ="/newLocation"><button  className = "button">Click Here ...</button></a>
-          </div>
+        <div className="containe">
+  <h1 className="titl">Are you a Traveller? Share your experience with us</h1>
+  <a href="/newLocation">
+    <button className="button">Click Here ...</button>
+  </a>
+</div>
+
         </div>
       </section>
     </div>

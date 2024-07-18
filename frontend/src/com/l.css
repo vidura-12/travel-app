@@ -35,22 +35,14 @@
     padding: 20px;
     border-radius: 10px;
   }
-  .containe {
-    text-align: center;
-    margin-top: 50px; 
-  }
-  
-  .titl {
-    font-size: 24px; 
-    margin-bottom: 20px; 
-  }
+ 
 
 
 .body {
     margin-top: 80px;
-    background-image: url('./img/agnieszka-stankiewicz-trGtO5_lmbo-unsplash.jpg'); /* Replace with the actual path to your image */
+    background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Replace with the actual path to your image */
     background-size: cover;
     background-position: center;
-    padding: 50px 0; /* Add padding to ensure the content is visible and not overlapped by the image */
+    padding: 50px 0; 
     position: relative;
   }
