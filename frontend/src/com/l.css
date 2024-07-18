@@ -1,0 +1,56 @@
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 2;
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  
+  .form-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(70px);
+    z-index: -1;
+  }
+  
+  .form-custom-margin {
+    margin-top: -50px;
+  }
+  
+  .form-transparent {
+    background: rgba(255, 255, 255, 0.8); 
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .containe {
+    text-align: center;
+    margin-top: 50px; 
+  }
+  
+  .titl {
+    font-size: 24px; 
+    margin-bottom: 20px; 
+  }
+
+
+.body {
+    margin-top: 80px;
+    background-image: url('./img/agnieszka-stankiewicz-trGtO5_lmbo-unsplash.jpg'); /* Replace with the actual path to your image */
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0; /* Add padding to ensure the content is visible and not overlapped by the image */
+    position: relative;
+  }

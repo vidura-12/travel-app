@@ -26,7 +26,7 @@ function Location() {
           }
         }
       } else {
-        setError('No locations found with that name');
+        setError(data.error || 'No locations found with that name.');
         setResults([]);
       }
     } catch (error) {
@@ -41,7 +41,6 @@ function Location() {
       <section className="home">
         <div className="home-box">
           <div className="content">
-            
             <h1>Ask us about your dream paradise..</h1>
             <div className="search">
               <i className="fa fa-search"></i>
@@ -74,6 +73,14 @@ function Location() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+      <section >
+        <div >
+          <div className="containe">
+            <h1 lassName = "titl">Are you a Traveller, Share youer experience with us</h1>
+            <a href ="/newLocation"><button  className = "button">Click Here ...</button></a>
+          </div>
         </div>
       </section>
     </div>
