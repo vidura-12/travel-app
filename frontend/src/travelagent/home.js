@@ -1,10 +1,11 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from 'react'
+ import './st.css';
 
-const AdminHome = () => (
-  <div>
-    <h1>Admin Dashboard</h1>
-    <p>Welcome to the admin {}dashboard.</p>
-  </div>
-);
+ export default function Home() {
+   return (
+     <h1 className='text-3xl text-red-500' >Hellooo</h1>
 
-export default AdminHome;
+   )
+ }
+ 

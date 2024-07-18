@@ -6,12 +6,17 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const authRoutes = require('./routes/auth');
 
+ 
 const app = express();
 const PORT = process.env.PORT || 8081;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
+
+ const createRouter = require ("./routes/create.js"); // this
+ app.use ("/create" , createRouter); //this
 
 const URL = process.env.MONGODB_URL;
 
