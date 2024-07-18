@@ -29,10 +29,10 @@ const Newlocation = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-
+  
     let valid = true;
     let errorMessage = '';
-
+  
     if (name === 'name' || name === 'city') {
       const regex = /^[a-zA-Z\s]*$/;
       if (!regex.test(value)) {
@@ -40,12 +40,20 @@ const Newlocation = () => {
         errorMessage = 'Only alphabetic characters are allowed';
       }
     }
-
-    if (valid) {
+  
+    if (name === 'picture') {
       setFormData({
         ...formData,
-        [name]: files ? files[0] : value,
+        picture: files[0], // Update formData with the selected file
       });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  
+    if (valid) {
       setErrors({
         ...errors,
         [name]: '',
@@ -57,6 +65,7 @@ const Newlocation = () => {
       });
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

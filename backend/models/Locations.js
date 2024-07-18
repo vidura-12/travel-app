@@ -4,23 +4,22 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, '../frontend/public/img'); // adjust the destination path as needed
+    cb(null, '../frontend/public/img'); 
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname); // use the original name of the file
+    cb(null, file.originalname); 
   }
 });
 
-// Multer upload configuration
+
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 10000000 }, // limit file size if needed
+  limits: { fileSize: 10000000 }, 
   fileFilter: function(req, file, cb) {
-    checkFileType(file, cb); // check file type
+    checkFileType(file, cb); 
   }
 });
 
-// Function to check file type
 function checkFileType(file, cb) {
   const filetypes = /jpeg|jpg|png|gif/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
