@@ -29,4 +29,4 @@ const server = app.listen(PORT, () => {
 });
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
-//app.use('/vehicle',vehicleRoutes);
+//app.use('/vehicle',vehicleRoutes); 
