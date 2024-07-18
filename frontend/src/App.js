@@ -35,7 +35,7 @@ function App() {
        
          <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
-        <Route path="/Location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+        <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
       </Routes>
     </Router>
