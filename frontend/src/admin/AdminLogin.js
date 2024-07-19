@@ -8,7 +8,6 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const navigate = useNavigate();
-
   const handleUsernameChange = (e) => {
     const value = e.target.value;
     const isValid = /^[A-Za-z]+$/.test(value);
