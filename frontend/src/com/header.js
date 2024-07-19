@@ -12,12 +12,10 @@ function Header() {
               <div className="menu-icon">
                 <i className="fa fa-bars"></i>
               </div>
-              <h3>Travel</h3>
+              <h3>TravelMate</h3>
             </div>
             <div className="menu-container">
-              <div className="menu-close">
-                <i className="fa fa-close"></i>
-              </div>
+             
               <ul className="menu-list">
                 <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './location.css'; // Custom CSS file
+import './location.css';
+import { Modal, Button } from 'react-bootstrap';
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [modalImage, setModalImage] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8081/Location/')
@@ -18,7 +21,7 @@ const LocationTable = () => {
 
   const handleApprove = (locationId) => {
     const locationToUpdate = locations.find(location => location._id === locationId);
-    
+
     axios.put(`http://localhost:8081/Location/update/${locationId}`, {
       status: 'approved',
     })
@@ -47,6 +50,13 @@ const LocationTable = () => {
       });
   };
 
+  const toggleModal = () => setModal(!modal);
+
+  const handleImageClick = (image) => {
+    setModalImage(image);
+    toggleModal();
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="my-4 text-center">Location Details</h2>
@@ -69,7 +79,13 @@ const LocationTable = () => {
               <td>{location.description}</td>
               <td>
                 {location.picture && (
-                  <img src={`/img/${location.picture}`} alt={location.name} className="img-fluid table-img" />
+                  <img
+                    src={`/img/${location.picture}`}
+                    alt={location.name}
+                    className="img-fluid table-img"
+                    onClick={() => handleImageClick(`/img/${location.picture}`)}
+                    style={{ cursor: 'pointer' }}
+                  />
                 )}
               </td>
               <td className={`status-${location.status}`}>{location.status}</td>
@@ -83,6 +99,18 @@ const LocationTable = () => {
           ))}
         </tbody>
       </table>
+
+      <Modal show={modal} onHide={toggleModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <img src={modalImage} alt="Location" className="img-fluid" />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={toggleModal}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

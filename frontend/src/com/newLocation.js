@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import './l.css'; // Import the custom CSS file
+import './l.css'; 
 
 const Newlocation = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Newlocation = () => {
       const regex = /^[a-zA-Z\s]*$/;
       if (!regex.test(value)) {
         valid = false;
-        errorMessage = 'Only alphabetic characters are allowed';
+        errorMessage = 'Please enter valid details !...';
       }
     }
   
