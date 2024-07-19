@@ -9,7 +9,8 @@ router.post('/add', upload.single('picture'), async (req, res) => {
       name: req.body.name,
       city: req.body.city,
       description: req.body.description,
-      picture: req.file ? req.file.originalname : null 
+      status: "not approved",
+      picture: req.file ? req.file.originalname : null  
     });
 
     await newLocation.save();
@@ -31,15 +32,10 @@ router.get('/', async (req, res) => {
   router.put('/update/:id', upload.single('picture'), async (req, res) => {
     try {
       const locationId = req.params.id;
-      const { name, city, description } = req.body;
       const updatedFields = {
-        name,
-        city,
-        description,
-        picture: req.file ? req.file.path : null, 
+        status: 'approved', 
       };
   
-
       const updatedLocation = await Location.findByIdAndUpdate(locationId, updatedFields, { new: true });
   
       if (!updatedLocation) {
@@ -71,7 +67,10 @@ router.get('/', async (req, res) => {
   router.get('/search', async (req, res) => {
     const { city } = req.query;
     try {
-      const locations = await Location.find({ city: { $regex: `^${city}`, $options: 'i' } });
+      const locations = await Location.find({
+        city: { $regex: `^${city}`, $options: 'i' },
+        status: 'approved' 
+      });
       
       if (!locations || locations.length === 0) {
         return res.status(404).json({ error: 'No locations found with that name.' });
@@ -87,4 +86,4 @@ router.get('/', async (req, res) => {
 
 module.exports = router;
 
-module.exports = router;
+
