@@ -13,7 +13,13 @@ import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
+<<<<<<< Updated upstream
 import Newlocation from './com/newLocation';
+=======
+import Schedulerlayout from './schedulerlayout';
+import Travelagency from './com/agency';
+
+>>>>>>> Stashed changes
 
 function App() {
   return (
@@ -25,7 +31,11 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+<<<<<<< Updated upstream
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
+=======
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+>>>>>>> Stashed changes
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -33,7 +43,7 @@ function App() {
 
          {/* Role-based Routes */}
        
-         <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
+         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
