@@ -38,7 +38,7 @@ section.home-section {
 }
 
 .home-container .navbar-custom {
-    width: calc(100% - 4rem);
+    width: calc(100% - 2rem);
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     border-radius: .7rem;
@@ -48,6 +48,7 @@ section.home-section {
     padding: 1.5rem 4rem;
     z-index: 100;
     position: fixed;
+    
 }
 .home-container .navbar-custom .logo-container {
     display: flex;
