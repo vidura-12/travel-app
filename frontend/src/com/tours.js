@@ -8,7 +8,7 @@ const Tours = () => {
             <div className="tourpic">
                 <h1>Our Tours</h1>
             </div>
-            <div className="search">
+            <div className="searc">
                 <div className="search_bar">
                     <Form className="d-flex align-items-center gap-4 justify-content-center">
                         <FormGroup className="d-flex gap-3 form_group">
