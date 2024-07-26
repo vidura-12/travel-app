@@ -176,9 +176,10 @@ const Newlocation = () => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
-                Submit
+              <button type="submit" className="custom-button">
+              Submit
               </button>
+
             </form>
           </div>
         </div>
