@@ -1,5 +1,116 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Additional CSS for like and comment buttons */
+.like-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 10px;
+  }
+  
+  .like-button img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .like-button.liked img {
+    opacity: 0.5; /* Indicate that the location has been liked */
+  }
+  
+  .like-count {
+    font-size: 16px;
+    margin-left: 5px;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    margin: 5px 0;
+  }
+  
+  .comment-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .comment-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .comment-button:hover {
+    background-color: #0056b3;
+  }
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    margin: 5px 0;
+  }
+  
+  .comment-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .comment-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .comment-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .see-more-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+  }
 
+  .see-less-button {
+    background: none;
+    right: 0;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 350px;
+    font-size: 14px;
+  }
+  
+  .see-more-button:hover ,
+  .see-less-button:hover{
+    text-decoration: underline;
+  }
+    
 * {
     margin: 0;
     padding: 0;
