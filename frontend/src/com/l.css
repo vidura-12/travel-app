@@ -46,3 +46,18 @@
     padding: 50px 0; 
     position: relative;
   }
+  .custom-button {
+    height: 40px;
+    width: 200px;
+    padding: 0 1.5rem;
+    border-radius: inherit;
+    background: var(--green-color);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.custom-button:hover {
+    background: var(--dark-green);
+}

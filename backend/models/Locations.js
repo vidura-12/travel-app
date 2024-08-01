@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
   }
 });
 
-
 const upload = multer({
   storage: storage,
   limits: { fileSize: 10000000 }, 
@@ -32,7 +31,6 @@ function checkFileType(file, cb) {
   }
 }
 
-
 const locationSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -50,7 +48,18 @@ const locationSchema = new mongoose.Schema({
   },
   status: {
     type: String, 
-  }
+  },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  comments: [{
+    text: String,
+    date: {
+      type: Date,
+      default: Date.now
+    }
+  }]
 });
 
 const Location = mongoose.model('Location', locationSchema);
