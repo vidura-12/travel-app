@@ -14,9 +14,16 @@
   }
   
   .like-button img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Adding transition */
   }
+  
+  .like-button img:hover {
+    transform: scale(1.5);
+  }
+  
   
   .like-button.liked img {
     opacity: 0.5; /* Indicate that the location has been liked */
