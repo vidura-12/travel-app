@@ -1,45 +1,26 @@
-const router = require ("express").Router();
+//const router = require ("express").Router();
 const express = require("express");
-let create = require ("../models/create");
+const create = require ("../models/create");
 
-router.route("/add").post((req , res) => {
+const router = express.Router();
 
-    const name = req.body.name;
-    const email = req.body.email;
-    const address = req.body.address;
-     
-    const number = req.body.number;
-    const experience = req.body.experience;
-    const language = req.body.language;
+//Create
+router.post('/Create/save' ,(req , res) => {
 
-    const newCreate = new create({
+    let newCreate = new create(req.body);
 
-        name ,
-        email,
-        address,
-        number,
-        experience,
-        language
+    newCreate.save((err) => {
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+        }
+        return res.status(200).json({
+            success:"Created post successfully"
+        });
 
-    })
+    });
 
-    newCreate.save().then(() =>{
-        res.json("Details Added")
-    }).catch((err) =>{
-        console.log(err);
-    })
-
-
-})
-
-router.route("/").get((req,res)=>{
-
-    create.find().then((creates)=>{
-        res.json(creates)
-    }).catch((err)=>{
-        console.log(err)
-    })
-
-})
+});
 
 module.exports = router;

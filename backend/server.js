@@ -15,8 +15,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 
- const createRouter = require ("./routes/create.js"); // this
- app.use ("/create" , createRouter); //this
+//import routes server
+const createRoute = require ("./routes/create"); // this
+app.use(createRoute);
 
 const URL = process.env.MONGODB_URL;
 

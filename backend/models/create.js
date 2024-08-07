@@ -7,7 +7,7 @@ const createSchema = new Schema ({
   name : {
     type : string ,
     required : true
-  },
+  }, 
   
   email : {
     type : string ,
@@ -37,5 +37,4 @@ const createSchema = new Schema ({
 }
 )
 
-const create = mongoose.model("Create" , createSchema);
-module.exports = create;
+module.exports = mongoose.model('Create' , createSchema );
