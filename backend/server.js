@@ -7,6 +7,8 @@ require("dotenv").config();
 const authRoutes = require('./routes/auth');
 const locationRoutes = require('./routes/Location');
 
+const eventsRoutes = require('./routes/Event.js');
+
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -28,3 +30,5 @@ const server = app.listen(PORT, () => {
 });
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
+
+app.use('/event',eventsRoutes);
