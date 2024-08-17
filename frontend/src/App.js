@@ -15,7 +15,8 @@ import AgentContact from './travelagent/num';
 import AgentAbout from './travelagent/details';
 import AgentDashboard from './travelagent/dashboard';
 import AgentCreatePost from './travelagent/createpost';
- 
+import AgentBookTourist from './travelagent/booktourist';
+import AgentRegister from './travelagent/register';
  
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
         <Route path="/travelagent/contact" element={<TravelAgentLayout><AgentContact /></TravelAgentLayout>} />
         <Route path="/travelagent/about" element={<TravelAgentLayout><AgentAbout /></TravelAgentLayout>} />
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost/></TravelAgentLayout>} />
+        <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist/></TravelAgentLayout>} />
+        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister/></TravelAgentLayout>} />
 
       </Routes>
     </Router>

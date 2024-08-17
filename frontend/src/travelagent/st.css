@@ -5,3 +5,13 @@
     top: 50px;
     left: 40px;
 }
+.button {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+  }
+  
