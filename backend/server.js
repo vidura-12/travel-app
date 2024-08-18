@@ -12,6 +12,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
+const addRoute = require ("./routes/feedback");//this
+
 const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL).then(() => {
@@ -24,3 +26,6 @@ mongoose.connect(URL).then(() => {
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
+
+app.use('/FeedBack', addRoute); // new
+

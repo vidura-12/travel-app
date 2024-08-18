@@ -6,19 +6,25 @@ const Feedback = require('../models/feedback');
 const router = express.Router();
 
 // Save feedback
-router.post('/save', (req, res) => {
-    let newPost = new Feedback(req.body);
+router.post('/save',async (req, res) => {
+    
+   const {name , email , feedbackCategory ,comment } = req.body;
 
-    newPost.save((err) => {
-        if (err) {
-            return res.status(400).json({
-                error: err
-            });
-        }
-        return res.status(200).json({
-            success: "Feedback saved successfully"
-        });
-    });
+   try{
+      const newCreate = new Feedback ({
+         name , 
+         email , 
+         feedbackCategory ,
+         comment
+      });
+
+      await newCreate.save();
+      res.json("Succesfull");
+   }
+
+    catch(error){
+      res.status(400).json({error:error.message});
+    }
 });
 
 module.exports = router;
