@@ -23,12 +23,13 @@ function App() {
   return (
     <Router>
       <Routes>
-       
+        {/* Login Route */}
         <Route path="/LoginPage" element={<LoginPage />} />
         
-       
+        {/* Signup Route */}
         <Route path="/signup" element={<SignUpPage />} />  {/* New signup route */}
 
+        {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
@@ -37,9 +38,11 @@ function App() {
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
 
+        {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
 
+        {/* Role-based Routes */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
