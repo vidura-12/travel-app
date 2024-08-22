@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const mongoose = require('mongoose');
-const Package = require('../models/packages');
+const { Package, upload } = require('../models/packages'); 
 
 
 //test
@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-const upload = multer({ storage: storage });
+
 
 router.post('/create', upload.single('image'), async (req, res) => {
   try {
@@ -30,7 +30,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
       places: req.body.places,
       maxPeople: req.body.maxPeople,
       price: req.body.price,
-      image: req.file.path,
+      image: req.file ? req.file.originalname : null  
     });
     await newPackage.save();
     res.status(201).json(newPackage);

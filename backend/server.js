@@ -33,6 +33,6 @@ app.use('/location',locationRoutes);
 //app.use('/vehicle',vehicleRoutes); 
 
 app.use('/uploads', express.static('uploads'));
-app.use('/api/packages', packageRoutes);
+app.use('/packages', packageRoutes);
 
 
