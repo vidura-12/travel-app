@@ -16,8 +16,13 @@ import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
 import Schedulerlayout from './schedulerlayout';
 import Travelagency from './com/agency';
+
+import Packages from './com/packages';
+
+
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage'; // Import the SignUpPage component
+
 
 function App() {
   return (
@@ -37,6 +42,9 @@ function App() {
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+
+        <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
+
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
