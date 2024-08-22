@@ -26,7 +26,7 @@ const Tours = () => {
                             </span>
                             <div>
                                 <h6>Max People</h6>
-                                <input type="number" placeholder="0" />
+                                <input type="number" placeholder="Travelers" />
                             </div>
                         </FormGroup>
                         <span className="search-icon">
@@ -34,11 +34,99 @@ const Tours = () => {
                         </span>
                     </Form>
                 </div>
-                <h4 className="description">
-                    Welcome to [Travel Website Name]! Discover our diverse range of tours designed for every traveler's dream. 
+                
+                <p className="description">
+                    Welcome to TravelMate! Discover our diverse range of tours designed for every traveler's dream. 
                     From adventure to relaxation, our meticulously planned tours offer unforgettable experiences in breathtaking destinations. 
-                    Join us and create lasting memories. Start your journey with [Travel Website Name] today!
-                </h4>
+                    Join us and create lasting memories. Start your journey with TravelMate today!
+                </p>
+
+                <div className="enjoy-life-section">
+                   
+                    <p className="enjoy-life-text">
+                        Enjoy life with beautiful memories!
+                    </p>
+                </div>
+
+                <p className='destinations-title'>
+                    Explore Stays in Trending Destinations
+                </p>
+              
+                <div className="destinations">
+                    <div className='destination1'>
+                        <div className="destination-item1">
+                          </div>
+                            <div className='des1'>
+                            <p> Location: matara</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item2">
+                          </div>
+                            <div className='des2'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item3">
+                          </div>
+                            <div className='des3'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item4">
+                          </div>
+                            <div className='des4'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item5">
+                          </div>
+                            <div className='des5'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item6">
+                          </div>
+                            <div className='des6'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item7">
+                          </div>
+                            <div className='des7'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+
+                    <div className='destination1'>
+                        <div className="destination-item8">
+                          </div>
+                            <div className='des8'>
+                            <p>Location: 2</p>
+                            <p>Max People: 8</p>
+                            </div>
+                    </div>
+                   
+                </div>
+              
                 <div className="welcome">
                     <h3>Welcome Travel Agencies!</h3>
                     <p>
@@ -47,9 +135,12 @@ const Tours = () => {
                         Respond to inquiries, manage bookings, and use analytics to track performance and update packages.
                     </p>
                     <h5>Join us today! </h5>
-                       <center> <button className="agency">Travel Agency</button></center>
-                    <div className="under"><p>For more info, contact us at <a href="mailto:support@yourtravelplatform.com">Support page</a>
-                    </p></div>
+                    <center> 
+                        <button className="agency">Travel Agency</button>
+                    </center>
+                    <div className="under">
+                        <p>For more info, contact us at <a href="mailto:support@yourtravelplatform.com">Support page</a></p>
+                    </div>
                 </div>
             </div>
         </div>

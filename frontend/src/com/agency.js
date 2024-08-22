@@ -9,6 +9,7 @@ const Agency = () => {
   const [places, setPlaces] = useState(['']); // Initialize with one empty place
   const [maxPeople, setMaxPeople] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
 
   const handleAgencyNameChange = (e) => {
@@ -95,6 +96,11 @@ const Agency = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
   const addPlace = () => {
     setPlaces([...places, '']);
   };
@@ -127,7 +133,20 @@ const Agency = () => {
       !errors.price &&
       Object.values(errors).every((error) => error === '')
     ) {
-      console.log("Form submitted successfully");
+      const formData = new FormData();
+      formData.append('agencyName', agencyName);
+      formData.append('phoneNumber', phoneNumber);
+      formData.append('email', email);
+      formData.append('location', location);
+      formData.append('maxPeople', maxPeople);
+      formData.append('price', price);
+      formData.append('image', image);
+      places.forEach((place, index) => {
+        formData.append(`places[${index}]`, place);
+      });
+
+      // Replace with your form submission logic
+      console.log("Form submitted successfully", formData);
     } else {
       console.log("Form has errors");
     }
@@ -225,11 +244,19 @@ const Agency = () => {
             onChange={handlePriceChange}
           />
           {errors.price && <div className="error">{errors.price}</div>}
+
+          <label>Upload Image</label>
+          <input
+            type="file"
+            className="form-control"
+            id="image"
+            onChange={handleImageChange}
+          />
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </>
   );
-}
+};
 
 export default Agency;

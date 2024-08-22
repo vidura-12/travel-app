@@ -16,6 +16,7 @@ import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
 import Schedulerlayout from './schedulerlayout';
 import Travelagency from './com/agency';
+import Packages from './com/packages';
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
 
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-
+        <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
