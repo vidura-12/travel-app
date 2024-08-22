@@ -1,0 +1,104 @@
+/* LoginPage.css */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100vh;
+    background-image: url('C:\Users\ADMIN\Desktop\travel-app\frontend\src\com\img\loginimage.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-box {
+    width: 350px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 100px;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .profile-image {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  .forgot-password a {
+    color: #777;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  
+  .login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4d4d3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-btn:hover {
+    background-color: #39392d;
+  }
+  
+  .signup-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .signup-link a {
+    color: #9a6b5b;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  
