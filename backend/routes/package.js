@@ -6,19 +6,6 @@ const mongoose = require('mongoose');
 const { Package, upload } = require('../models/packages'); 
 
 
-//test
-router.get("/test",(req,res)=>res.send("It's working"));
-
-// Multer setup for file upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
 
 router.post('/create', upload.single('image'), async (req, res) => {
   try {
