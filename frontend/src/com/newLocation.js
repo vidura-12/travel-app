@@ -124,7 +124,7 @@ const Newlocation = () => {
             )}
             <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Location Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -139,7 +139,7 @@ const Newlocation = () => {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="city">City</label>
+                <label htmlFor="city">Location City</label>
                 <input
                   type="text"
                   className="form-control"
@@ -154,7 +154,7 @@ const Newlocation = () => {
                 )}
               </div>
               <div className="form-group mb-3">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">Description about Location</label>
                 <textarea
                   className="form-control"
                   id="description"
@@ -176,9 +176,10 @@ const Newlocation = () => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
-                Submit
+              <button type="submit" className="custom-button">
+              Submit
               </button>
+
             </form>
           </div>
         </div>
