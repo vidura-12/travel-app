@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth');
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
-
+const authuser = require('./routes/authRoutes')
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -34,5 +34,5 @@ app.use('/location',locationRoutes);
 
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
-
+app.use('/userauth',authuser)
 
