@@ -73,3 +73,25 @@ form {
   button.btn-primary:hover {
     background-color: #0056b3;
   }
+
+  .packages {
+    padding: 20px;
+  }
+  
+  .package {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .package h2 {
+    margin-top: 0;
+  }
+  
+  .package img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
