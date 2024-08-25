@@ -1,3 +1,7 @@
 
-/node_modules
+# Ignore package and package-lock.json in the backend folder
+/backend/package
+/backend/package-lock.json
 
+# Node modules
+/backend/node_modules/
