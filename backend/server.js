@@ -6,7 +6,16 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 const authRoutes = require('./routes/auth');
 
- 
+const locationRoutes = require('./routes/Location');
+
+
+const eventsRoutes = require('./routes/Event.js');
+
+const vehicleRoutes = require('./routes/Vehicle');
+const packageRoutes = require('./routes/package');
+const authuser = require('./routes/authRoutes')
+
+
 const app = express();
 const PORT = process.env.PORT || 8081;
  
@@ -33,6 +42,18 @@ const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
 
+app.use('/auth', authRoutes);
+app.use('/location',locationRoutes);
+
+
+app.use('/event',eventsRoutes);
+
+//app.use('/vehicle',vehicleRoutes); 
+
+app.use('/uploads', express.static('uploads'));
+app.use('/packages', packageRoutes);
+app.use('/userauth',authuser)
+
+
 app.use('/TourGuide', addRoute); // new
  
-app.use('/auth', authRoutes);
