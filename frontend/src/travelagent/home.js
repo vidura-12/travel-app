@@ -6,7 +6,7 @@ export default function Home() {
   return (
 
     <div className="h-screen bg-cover bg-center" style={{    
-      backgroundImage: "url('/img/dash.jpg')",   
+      backgroundImage: "url('/img/back2.jpg')",   
       backgroundSize: 'cover',                  
       backgroundPosition: 'center',              
       backgroundRepeat: 'no-repeat',             
@@ -19,7 +19,7 @@ export default function Home() {
    }}>
     
     <div>
-      <h1 className='text-3xl text-red-500'>Hellooo</h1>
+      <h1 className='text-lg text-white' >Hellooo</h1>
 
       <div>
         <Link to="/travelagent/booktourist">
@@ -36,8 +36,8 @@ export default function Home() {
       </div>
   
       <div className="max-w-md mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24">
-        <h1 className="text-5xl font-bold text-black">Welcome to Tour Guide</h1>
-        <p className="text-lg text-black mt-4">Explore new destinations and discover the world with our expert guides.</p>
+        <h1 className="text-5xl font-bold text-white">Welcome to Tour Guide</h1>
+        <p className="text-lg text-white mt-4">Explore new destinations and discover the world with our expert guides.</p>
         <button className= "button">Book Now</button>
       </div>
     </div>

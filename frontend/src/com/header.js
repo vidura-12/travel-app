@@ -23,8 +23,8 @@ function Header() {
                 <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
-                <li><a href="#">Travel Agents</a></li>
-
+                <li><Link to="/travelagent/dashboard">Travel Agents</Link></li>
+                 
               </ul>
             </div>
             <div className="auth-container">
