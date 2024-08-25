@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
 const authRoutes = require('./routes/auth');
+
 const locationRoutes = require('./routes/Location');
 
 
@@ -14,12 +15,19 @@ const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
 const authuser = require('./routes/authRoutes')
 
+
 const app = express();
 const PORT = process.env.PORT || 8081;
+ 
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+
+
+//import routes server
+const addRoute = require ("./routes/create"); // this
+ 
 
 const URL = process.env.MONGODB_URL;
 
@@ -30,9 +38,11 @@ mongoose.connect(URL).then(() => {
 });
 
 
-const server = app.listen(PORT, () => {
+const server = app.
+listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
+
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
 
@@ -45,3 +55,6 @@ app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/userauth',authuser)
 
+
+app.use('/TourGuide', addRoute); // new
+ 
