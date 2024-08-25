@@ -13,12 +13,10 @@ import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
-<<<<<<< HEAD
 import AddEvent from './EventManager/addEvent';
 import EventList from './EventManager/eventCard';
 import EventLayout from './EventLayout';
 
-=======
 import Newlocation from './com/newLocation';
 import Schedulerlayout from './schedulerlayout';
 import Travelagency from './com/agency';
@@ -28,7 +26,7 @@ import Packages from './com/packages';
 
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage'; // Import the SignUpPage component
->>>>>>> main
+
 
 
 function App() {
@@ -47,17 +45,12 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-<<<<<<< HEAD
-       
 
-        
-       
-=======
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
 
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
->>>>>>> main
+
 
 
         {/* Admin Routes */}
@@ -67,16 +60,15 @@ function App() {
         {/* Role-based Routes */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
-<<<<<<< HEAD
         <Route path="/Location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
 
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent /></EventLayout>} />
         <Route path="/EventManager/eventCard" element={<EventLayout><EventList /></EventLayout>} />
 
-=======
+
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
->>>>>>> main
+
       </Routes>
     </Router>
   );
