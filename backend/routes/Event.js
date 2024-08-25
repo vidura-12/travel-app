@@ -1,65 +1,40 @@
 const express = require("express");
 const router = express.Router();
 const multer = require('multer');
-const Events = require("../models/Event"); // Correct model import
-
-// Configure multer for file upload
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 10000000 } // 10 MB limit
-});
+const { Events, upload } = require('../models/Event'); 
 
 
-
-
-// Create a new event
-// http://localhost:8081/event/add
 
 router.post('/add', upload.single('image'), async (req, res) => {
     const name = req.body.name;
     const category = req.body.category;
-    const details = req.body.details;
-    const venue = req.body.venue;
+    const description = req.body.description; // updated to match frontend
+    const location = req.body.location; // updated to match frontend
     const date = req.body.date;
     const time = req.body.time;
     const price = Number(req.body.price);
     const image = req.file ? req.file.originalname : null;
 
     try {
-        // Ensure that we are using the correct variable name consistently
         const newEvent = new Events({
             name,
             category,
-            details,
-            venue,
+            description, // updated to match frontend
+            location, // updated to match frontend
             date,
             time,
             price,
             image
         });
 
-        // Save the new event
         await newEvent.save();
 
-        res.json("Event added successfully");
+        res.status(201).json(newEvent);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
 
-
-
-//Get all Events
-//http://localhost:8081/event/
 
 router.get("/", async (req, res) => {
     try {

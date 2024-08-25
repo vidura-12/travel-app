@@ -1,48 +1,46 @@
-import React,{useState, useEffect, useRef} from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
+function AddEvent() {
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    description: '',
+    location: '',
+    date: '',
+    time: '',
+    price: '',
+  });
 
- function AddEvent(){
+  const [image, setImage] = useState(null);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        category: '',
-        Description: '',
-        location: '',
-        date: '',
-        time: '',
-        price: '',
-      });
+  // Handle text fields
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-      const [image, setImage] = useState(null);
+  // Handle image upload
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
-     //Hanle text fiels
-      const handleInputChange = (e) =>{
-        const {name, value} = e.target;
-        setFormData({...formData, [name]:value});
-      }
-
-    //handle image upload
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-      };
-
-    // Handle form submission
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const eventdata = new FormData();
+    eventdata.append('name', formData.name);
+    eventdata.append('category', formData.category);
+    eventdata.append('description', formData.description);
+    eventdata.append('location', formData.location);
+    eventdata.append('date', formData.date);
+    eventdata.append('time', formData.time);
+    eventdata.append('price', formData.price);
 
-    formData.append('name', formData.name);
-    formData.append('category', formData.category);
-    formData.append('Description', formData.Description);
-    formData.append('location', formData.location);
-    formData.append('date', formData.date);
-    formData.append('time', formData.time);
-    
     if (image) {
-      formData.append('image', image);
+      eventdata.append('image', image);
     }
 
     try {
@@ -57,121 +55,125 @@ import axios from 'axios';
     }
   };
 
+  return (
+    <div>
+      <h2>Add your Event</h2>
 
-    return(
-        <div>
-            <h2>Add your Event </h2>
-
-            <form >
-
-                <div className="form-group">
-                    <label for="name">Event Name : </label>
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    id="name" 
-                    name = "name"
-                    placeholder="Enter event name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="category">Event category : </label>
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    id="category" 
-                    name="category"
-                    placeholder="Enter event category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="details">Event Description : </label>
-                    <textarea 
-                    type="text" 
-                    className="form-control"
-                     id="Description" rows="4" 
-                     name="Description"
-                     placeholder="Enter event Description"
-                     value={formData.Description}
-                     onChange={handleInputChange}
-                     required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="venue">Location : </label>
-                    <input 
-                    type="text" 
-                    className="form-control" 
-                    id="location" 
-                    name="location"
-                    placeholder="Enter event venue"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="date">Date : </label>
-                    <input 
-                    type="text"
-                     className="form-control" 
-                     id="date" 
-                     name="date"
-                     placeholder="Enter event date"
-                     value={formData.location}
-                     onChange={handleInputChange}
-                     required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="Time">Time : </label>
-                    <input 
-                    type="text"
-                     className="form-control" 
-                     id="time"
-                     name="time"
-                     placeholder="Enter event time"
-                     value={formData.time}
-                     onChange={handleInputChange}
-                     required/>
-                </div>
-
-                <div className="form-group">
-                    <label for="category">price : </label>
-                    <input 
-                    type="text" 
-                    className="form-control"
-                    id="price" 
-                    name="price"
-                    placeholder="Enter event price"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                    required/>
-                </div>
-
-                <div class="form-group">
-                    <label class="image" for="image">Upload</label>
-                    <input 
-                    type="file" 
-                    class="form-control" 
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleImageChange}/>
-                </div>
-
-                <button type="submit" className="submit">Submit</button>
-
-
-            </form>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Event Name: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter event name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
         </div>
-    )
+
+        <div className="form-group">
+          <label htmlFor="category">Event category: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="category"
+            name="category"
+            placeholder="Enter event category"
+            value={formData.category}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="details">Event Description: </label>
+          <textarea
+            className="form-control"
+            id="Description"
+            rows="4"
+            name="description"
+            placeholder="Enter event Description"
+            value={formData.description}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="venue">Location: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="location"
+            name="location"
+            placeholder="Enter event location"
+            value={formData.location}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="date">Date: </label>
+          <input
+            type="date"
+            className="form-control"
+            id="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="time">Time: </label>
+          <input
+            type="time"
+            className="form-control"
+            id="time"
+            name="time"
+            value={formData.time}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="price">Price: </label>
+          <input
+            type="number"
+            className="form-control"
+            id="price"
+            name="price"
+            placeholder="Enter event price"
+            value={formData.price}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="image">Upload Image: </label>
+          <input
+            type="file"
+            className="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default AddEvent;
