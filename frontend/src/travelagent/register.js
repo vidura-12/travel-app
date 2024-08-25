@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './post.css';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'flowbite-react';
+ 
 
 export default function Register() {
 
@@ -45,6 +46,7 @@ export default function Register() {
       catch (error) {
         console.error('Error submitting the form', error);
       }
+       
     };
 
   return (
@@ -138,11 +140,17 @@ export default function Register() {
                 /> 
               </div>
 
-              <Button type="submit" color={"#1E201E"} className='button'>
-                Submit
-              </Button>
+              <Link to="/travelagent/booktourist">   
+             <button style={{ backgroundColor: "#1E201E" }} className='button' type='submit' >
+            Register
+          </button>
+          </Link>
+
+           
+       
             </form>
-        </div></div>  
+        </div>
+        </div>
     </div>
   );
 }
