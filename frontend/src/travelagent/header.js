@@ -1,9 +1,9 @@
 import React from 'react';
 import './stl.css';
-import { Button, TextInput } from 'flowbite-react';
+
 import {AiOutlineSearch} from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+
 
 function Header2() {
 

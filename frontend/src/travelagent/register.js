@@ -23,24 +23,16 @@ export default function Register() {
         });
     };
 
-    const gudesubmit = async (e) => {
+    const guideSubmit = async (e) => {
       e.preventDefault();
   
-      const guide = new FormData();
-      guide.append('name', formData.name);
-      guide.append('email', formData.email);
-      guide.append('address', formData.address);
-      guide.append('number', formData.number);
-      guide.append('experience', formData.experience);
-      guide.append('language', formData.language);
-  
       try {
-        const response = await axios.post('http://localhost:8081/TourGuide/add', guide, {
+        const response = await axios.post('http://localhost:8081/TourGuide/add', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
           },
         });
-
+        console.log(formData)
         setFormData({
           name: '',
           email: '',
@@ -72,7 +64,7 @@ export default function Register() {
     ><div className="form-container">
     <h2>Register Tour Guide </h2>
 
-    <form onSubmit={gudesubmit}>
+    <form onSubmit={guideSubmit}>
               <div className=" ">
                 <label htmlFor="name">Tour Guide Name</label>
                 <input
@@ -84,7 +76,6 @@ export default function Register() {
                   onChange={handleChange}
                   required
                 />
-                
               </div>
               <div className=" ">
                 <label htmlFor="email">Tour Guide Email</label>
@@ -97,7 +88,6 @@ export default function Register() {
                   onChange={handleChange}
                   required
                 />
-                
               </div>
               <div className="">
               <label htmlFor="address">Tour Guide Address</label>
@@ -148,15 +138,11 @@ export default function Register() {
                 /> 
               </div>
 
-              <a href="/travelagent/booktourist">
-          <Button color={"#1E201E" } className='button'>
-          Submit
-          </Button>
-        </a>
-  
-
+              <Button type="submit" color={"#1E201E"} className='button'>
+                Submit
+              </Button>
             </form>
-  </div></div>  
+        </div></div>  
     </div>
   );
 }
