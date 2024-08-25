@@ -14,7 +14,7 @@ import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
 import AddEvent from './EventManager/addEvent';
-import EventDisplayPage from './EventManager/eventCard';
+import EventList from './EventManager/eventCard';
 import EventLayout from './EventLayout';
 
 
@@ -47,7 +47,7 @@ function App() {
 
 
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent /></EventLayout>} />
-        <Route path="/EventManager/eventCard" element={<EventLayout><EventDisplayPage /></EventLayout>} />
+        <Route path="/EventManager/eventCard" element={<EventLayout><EventList /></EventLayout>} />
 
       </Routes>
     </Router>
