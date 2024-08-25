@@ -34,7 +34,7 @@ function Header2() {
                 <li><a href="/EventManager/home">Home</a></li>
                 <li><a href="EventManager/addEvent">Add Event</a></li>
                 <li><a href="/EventManager/dashboard">Dashboard</a></li>
-                <li><a href="/EventManager/contact">View Event</a></li>
+                <li><a href="/EventManager/eventCard">View Event</a></li>
               </ul>
             </div>
             <div className="auth-container-2">
