@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.home-section-2 {
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.home-container-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-custom-2 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container-2 {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon-2 {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.logo-container-2 h3 {
+  margin-left: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.menu-container-2 {
+  display: flex;
+  align-items: center;
+}
+
+.menu-close-2 {
+  display: none;
+}
+
+.menu-list-2 {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.menu-list-2 li {
+  display: inline;
+}
+
+.menu-list-2 a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-list-2 a:hover {
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.auth-container-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center contents horizontally */
+    background: linear-gradient(to right, #6366F1, #A855F7, #EC4899); /* Gradient background */
+    border-radius: 9000px; /* Rounded corners */
+    width: 90px; /* Adjust width as needed */
+    padding: 8px; /* Adjust padding as needed */
+  }
+  
+  .auth-container-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center contents horizontally */
+    background: linear-gradient(to right, #6366F1, #A855F7, #EC4899); /* Gradient background */
+    border-radius: 9000px; /* Rounded corners */
+    width: 90px; /* Adjust width as needed */
+    padding: 8px; /* Adjust padding as needed */
+    transition: background-color 0.3s; /* Transition for background color */
+  }
+  
+  .auth-container-2 a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 8px 12px;
+    display: inline-block;
+    width: 100%; /* Take up full width of parent */
+    height: 100%; /* Take up full height of parent */
+    border-radius: inherit; /* Inherit parent's border-radius */
+    transition: color 0.3s; /* Transition for text color */
+    text-align: center; /* Center text horizontally */
+  }
+  
+  .auth-container-2:hover {
+    background: linear-gradient(to right, #9fa0db, #815ba5, #bb598a); /* Gradient background on hover */
+  }
+  
+  .auth-container-2 a:hover {
+    color: #fff; /* Text color on hover */
+  }
+  
+ 
+@media (max-width: 768px) {
+  .menu-list-2 {
+    flex-direction: column;
+    display: none;
+  }
+  
+  .menu-list-2.active {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-icon-2 {
+    display: block;
+  }
+  
+  .menu-close-2 {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+
+.logo-container-2 h3 {
+    display: flex;
+    font-family: semibold ; 
+    align-items: center;
+    font-size: 1.5rem; /* Adjust as needed */
+    font-weight: 600;
+    border-bottom: 2px solid; /* Adds a bottom border */
+    color: #fff; /* Adjust text color as needed */
+  }
+  
+  .logo-container-2 h3 span {
+    padding: 0.25rem 0.5rem;
+    background: linear-gradient(to right, #6366F1, #A855F7, #EC4899); /* Gradient background */
+    border-radius: 0.5rem; /* Rounds the corners */
+    color: #fff; /* Text color inside the gradient */
+    margin-right: 0.5rem; /* Space between the gradient span and the text */
+  }
+  .logo-container-2 h4 {
+    position: relative;
+    right: 9px;
+    font-family: semibold ; 
+  }
+  
+/* stl.css */
+.text-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .text-input {
+    padding: 0.5rem;
+    padding-right: 2.5rem; /* Add padding to the right for the icon */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%; /* Adjust as needed */
+  }
+  
+  .input-icon {
+    position: absolute;
+    right: 0.75rem;
+    color: #ccc;
+    pointer-events: none;
+  }

@@ -13,6 +13,10 @@ import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
+import AddEvent from './EventManager/addEvent';
+import EventDisplayPage from './EventManager/eventCard';
+import EventLayout from './EventLayout';
+
 
 
 function App() {
@@ -25,7 +29,11 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+       
+
         
+       
+
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -36,6 +44,10 @@ function App() {
          <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/Location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+
+
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent /></EventLayout>} />
+        <Route path="/EventManager/eventCard" element={<EventLayout><EventDisplayPage /></EventLayout>} />
 
       </Routes>
     </Router>
