@@ -9,6 +9,15 @@
   "dependencies": {
   
     
+<<<<<<< HEAD
+  "@mui/material": "^5.16.7",
+  
+    
+  "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+  
+    
+=======
+>>>>>>> main
   "@popperjs/core": "^2.11.8",
   
     
@@ -27,9 +36,21 @@
   "bootstrap": "^5.3.3",
   
     
+<<<<<<< HEAD
+  "install": "^0.13.0",
+  
+    
   "multer": "^1.4.5-lts.1",
   
     
+  "npm": "^10.8.2",
+  
+    
+=======
+  "multer": "^1.4.5-lts.1",
+  
+    
+>>>>>>> main
   "react": "^18.3.1",
   
     
@@ -39,15 +60,24 @@
   "react-dom": "^18.3.1",
   
     
+<<<<<<< HEAD
+=======
   "react-dropzone": "^14.2.3",
   
     
+>>>>>>> main
   "react-router-dom": "^6.24.0",
   
     
   "react-scripts": "5.0.1",
   
     
+<<<<<<< HEAD
+  "styled-component": "^2.8.0",
+  
+    
+=======
+>>>>>>> main
   "web-vitals": "^2.1.4"
   
   },
