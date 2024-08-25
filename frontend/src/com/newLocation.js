@@ -104,7 +104,7 @@ const Newlocation = () => {
     } catch (error) {
       console.error('Error submitting the form', error);
       setMessage('Error submitting the form');
-      setTimeout(() => setAlertVisible(true), 0);  // Add a slight delay to ensure state update
+      setTimeout(() => setAlertVisible(true), 0);
     }
   };
 
