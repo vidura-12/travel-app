@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
+import EventLayout from './EventLayout';
 
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
@@ -24,6 +25,7 @@ import AgentBookTourist from './travelagent/booktourist';
 import AgentRegister from './travelagent/register';
 import AgentGHome from './com/guideHome';
  
+import AddEvent from './EventManager/addEvent'
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -82,6 +84,9 @@ function App() {
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+        
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+
 
       </Routes>
     </Router>

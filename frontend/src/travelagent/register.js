@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './post.css';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'flowbite-react';
+
 
 export default function Register() {
 
@@ -138,9 +138,9 @@ export default function Register() {
                 /> 
               </div>
 
-              <Button type="submit" color={"#1E201E"} className='button'>
+              <button type="submit" color={"#1E201E"} className='button'>
                 Submit
-              </Button>
+              </button>
             </form>
         </div></div>  
     </div>
