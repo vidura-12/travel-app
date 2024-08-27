@@ -26,6 +26,8 @@ import AgentRegister from './travelagent/register';
 import AgentGHome from './com/guideHome';
  
 import AddEvent from './EventManager/addEvent'
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -62,6 +64,8 @@ function App() {
 
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 
+        <Route path="/eventView" element={<EventLayout><EventView/></EventLayout>} /> 
+
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
@@ -86,6 +90,9 @@ function App() {
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+     
+        
 
 
       </Routes>

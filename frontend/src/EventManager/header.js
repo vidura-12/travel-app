@@ -21,7 +21,7 @@ function Header2() {
                
                 <li><a href="/EventManager/addEvent">Add Event</a></li>
                 <li><a href="#">Dashboard</a></li>
-                <li><Link to="">View Event</Link></li>
+                <li><a href="/EventManager/EventList">View Event</a></li>
                 <li><Link to="">Report</Link></li>
                 
                  

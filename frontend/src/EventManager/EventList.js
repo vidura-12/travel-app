@@ -5,6 +5,7 @@ import './eventList.css';
 
 function EventList() {
   const [events, setEvents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchEvents();
@@ -36,15 +37,34 @@ function EventList() {
     console.log('Edit event with id:', id);
   };
 
+   // Filter events based on the search term
+   const filteredEvents = events.filter(event =>
+    event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    event.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    event.location.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container event-list-container">
-      <h2>Event List</h2>
+      
+        {/* Search Bar */}
+        <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search events by name, category or Location..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+
       <div className="row">
-        {events.map(event => (
+        {filteredEvents.map(event => (
           <div key={event._id} className="col-md-4">
             <div className="card mb-4">
               <img
-                src={`http://localhost:8081/${event.image}`}
+                src={`http://localhost:8081/backend/frontend/public/img/${event.image}`}
                 className="card-img-top"
                 alt={event.name}
               />
