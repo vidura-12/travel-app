@@ -1,0 +1,13 @@
+.body {
+    margin-top: 80px;
+    background-image: url('./image/train.png'); 
+    /* background-size: cover;
+    background-position: center;
+    padding: 50px 0; 
+    position: relative; */
+  }
+
+  .event-container{
+    margin-top: 120px;
+    margin-bottom: 80px;
+  }

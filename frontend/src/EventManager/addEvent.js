@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import './addEvent.css';
 
 function AddEvent() {
   const [formData, setFormData] = useState({
@@ -56,10 +57,12 @@ function AddEvent() {
   };
 
   return (
-    <div>
-      <h2>Add your Event</h2>
+    <div className="event-container">
+      
 
       <form onSubmit={handleSubmit}>
+      <h2>Add your Event</h2>
+
         <div className="form-group">
           <label htmlFor="name">Event Name: </label>
           <input
