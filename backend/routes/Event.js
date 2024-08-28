@@ -68,9 +68,11 @@ router.put("/update/:id", upload.single('image'), async(req,res) =>{
     const updatedData = {
         name: req.body.name,
         category: req.body.category,
+        description:req.body.description,
         details: req.body.details,
         venue: req.body.venue,
         date: req.body.date,
+        location: req.body.location,
         time: req.body.time,
         price: Number(req.body.price),
         image: req.file ? req.file.originalname : req.body.existingImage,

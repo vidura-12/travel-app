@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './eventList.css';
+import {Link, useNavigate} from 'react-router-dom';
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -32,10 +33,14 @@ function EventList() {
   };
 
   // Handle edit event (This can redirect to an edit form or make fields editable directly)
-  const handleEdit = (id) => {
-    // Redirect to an edit page or implement inline editing here
-    console.log('Edit event with id:', id);
-  };
+  const navigate = useNavigate();
+
+  // const handleEdit = (id) => {
+  //   // Redirect to an edit page or implement inline editing here
+  //   // navigate(`/edit/${id}`);
+  //   navigate('./EventManager/updateEvent')
+  //   console.log('Edit event with id:', id);
+  // };
 
    // Filter events based on the search term
    const filteredEvents = events.filter(event =>
@@ -71,9 +76,9 @@ function EventList() {
               <div className="card-body">
                 <h5 className="card-title">{event.name}</h5>
                 <p className="card-text">{event.description}</p>
-                <p className="card-text">
+                {/* <p className="card-text">
                   <strong>Category:</strong> {event.category}
-                </p>
+                </p> */}
                 <p className="card-text">
                   <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
                 </p>
@@ -86,12 +91,19 @@ function EventList() {
                 <p className="card-text">
                   <strong>Price:</strong> ${event.price}
                 </p>
+
+
+
                 <button
                   className="btn btn-warning mr-2"
-                  onClick={() => handleEdit(event._id)}
-                >
+                  // onClick={() => handleEdit(event._id)}
+                ><Link to={`/EventManager/updateEvent/${ event._id}`}>
                   Edit
+                  </Link>
                 </button>
+
+
+
                 <button
                   className="btn btn-danger"
                   onClick={() => handleDelete(event._id)}

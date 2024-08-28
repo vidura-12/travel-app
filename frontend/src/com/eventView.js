@@ -58,14 +58,14 @@ function EventView() {
               <div className="card-body">
                 <h5 className="card-title">{event.name}</h5>
                 <p className="card-text">{event.description}</p>
-                <p className="card-text">
+                {/* <p className="card-text">
                   <strong>Category:</strong> {event.category}
-                </p>
+                </p> */}
                 <p className="card-text">
                   <strong>Location:</strong> {event.location}
                 </p>
                 <p className="card-text">
-                  <strong>Date:</strong> {event.date}
+                  <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
                 </p>
                 <p className="card-text">
                   <strong>Time:</strong> {event.time}
