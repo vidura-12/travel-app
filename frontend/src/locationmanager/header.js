@@ -1,16 +1,17 @@
 import React from 'react';
+import './Header.css'; // Import the custom CSS file
 
 const Header = () => {
     return (
-        <ul className="nav nav-underline bg-light d-flex justify-content-end"> {/* Added d-flex and justify-content-end for right alignment */}
+        <ul className="nav nav-underline bg-light d-flex header-nav">
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/LocationAdmin/home">DashBoard</a>
+                <a className="nav-link" aria-current="page" href="/LocationAdmin/home">DashBoard</a>
             </li>
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Reacts & commentts</a>
+                <a className="nav-link" aria-current="page" href="/LocationAdmin/LocationsSummary">Reacts & Comments</a>
             </li>
-            <li className="nav-item">
-                <a className="nav-link" href="/admin/login" style={{ marginLeft: 'auto' }}>Logout</a> {/* Inline style for moving to right */}
+            <li className="nav-item ml-auto">
+                <a className="nav-link logout-link" href="/admin/login">Logout</a>
             </li>
         </ul>
     );

@@ -130,4 +130,16 @@ router.post('/comment/:id', async (req, res) => {
   }
 });
 
+router.get('/locations-summary', async (req, res) => {
+  try {
+    const locations = await Location.find({}, 'name likes comments'); // Only select name, likes, and comments
+    res.json(locations);
+  } catch (error) {
+    console.error('Error fetching locations summary:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+
 module.exports = router;

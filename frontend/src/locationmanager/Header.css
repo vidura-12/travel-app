@@ -1,0 +1,37 @@
+/* Header container styling */
+.header-nav {
+    border-bottom: 1px solid #dee2e6; /* Light border for separation */
+    padding: 0.5rem 1rem; /* Padding around the header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center; /* Center items vertically */
+}
+
+/* Navigation link styling */
+.nav-link {
+    color: #007bff; /* Primary color for links */
+    font-size: 1rem; /* Font size for better readability */
+    font-weight: 500; /* Medium weight for links */
+    margin-left: 1rem; /* Spacing between items */
+    transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+}
+
+/* Active link styling */
+.nav-link.active {
+    color: #495057; /* Darker color for active link */
+    background-color: #e9ecef; /* Light background for active link */
+    border-radius: 0.25rem; /* Rounded corners for active link */
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+    color: #0056b3; /* Darker color on hover */
+    text-decoration: underline; /* Underline effect on hover */
+}
+
+/* Logout link specific styling */
+.logout-link {
+    font-weight: 600; /* Bold weight for logout link */
+    margin-left: auto; /* Push logout link to the right */
+}

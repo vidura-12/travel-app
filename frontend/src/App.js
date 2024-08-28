@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
-
+import LocationsSummary from './locationmanager/LocationsSummary'
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
@@ -82,7 +82,7 @@ function App() {
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
-
+        <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
       </Routes>
     </Router>
   );
