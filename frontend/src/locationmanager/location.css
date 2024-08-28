@@ -1,24 +1,62 @@
+.body1 {
+  position: relative;
+  padding: 80px;
+  background: url('./img/galle.jpg') no-repeat center center;
+  background-size: cover;
+  background-position: center;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
+  border-radius: 15px; /* Rounded corners for the modal */
+}
+
+.table {
+  border-radius: 19px;
+  overflow: hidden;
+  border-spacing: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust opacity as needed */
+  width: 100%;
+  border-collapse: collapse; /* Ensure proper table spacing */
+}
+
+.table thead th {
+  padding: 12px 15px;
+  background-color: var(--primary-color); /* Optional: background color */
+  color: #fff;
+  text-align: left; /* Align text to the left */
+}
+
+.table tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd; /* Border between rows */
+}
+
+.table tbody tr {
+  margin-bottom: 4px; /* Space between rows */
+}
+
 .table-img {
-    max-width: 100px;
-    border-radius: 5px;
-  }
-  
-  .status-approved {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .status-pending {
-    color: orange;
-    font-weight: bold;
-  }
-  
-  .status-rejected {
-    color: red;
-    font-weight: bold;
-  }
-  
-  .table-hover tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
+  border-radius: 15px;
+}
+
+.modal-body img {
+  border-radius: 15px;
+}
+
+.btn {
+  border-radius: 5px; /* Rounded corners for buttons */
+  padding: 8px 12px; /* Adjust padding as needed */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.btn-primary {
+  background-color: #007bff; 
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #dc3545; 
+  color: #fff;
+}

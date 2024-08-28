@@ -1,6 +1,3 @@
-
-package
-package-lock
-
 .env
-\.env
+# Ignore compiled files in the backend
+dist/

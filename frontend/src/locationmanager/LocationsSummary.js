@@ -1,39 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './LocationsSummary.css'; // Import the custom CSS file
+import { useNavigate } from 'react-router-dom'; // For navigation
 
 function LocationsSummary() {
   const [locations, setLocations] = useState([]);
+  const navigate = useNavigate(); // Use useNavigate for programmatic navigation
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login'); // Redirect to login page
+      return;
+    }
+
     const fetchLocationsSummary = async () => {
       try {
-        const response = await fetch('http://localhost:8081/Location/locations-summary', {
+        const response = await fetch('http://localhost:8081/locationAdmin/locations-summary', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            authorization: token
           },
         });
-        const data = await response.json();
         if (response.ok) {
+          const data = await response.json();
           setLocations(data);
         } else {
           console.error('Error fetching locations summary:', response.statusText);
+          if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            localStorage.removeItem('token'); // Clear token
+            navigate('/admin/login'); // Redirect to login page
+          }
         }
       } catch (error) {
         console.error('Error fetching locations summary:', error);
+        alert('An error occurred while fetching locations summary.');
       }
     };
 
     fetchLocationsSummary();
-  }, []);
+  }, [navigate]);
 
   const handleDeleteComment = async (locationId, commentId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login'); // Redirect to login page
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:8081/Location/locations/${locationId}/comments/${commentId}`, {
+      const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          authorization: token
         },
       });
 
@@ -47,17 +69,24 @@ function LocationsSummary() {
         );
       } else {
         console.error('Error deleting comment:', response.statusText);
+        if (response.status === 401) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('token'); // Clear token
+          navigate('/admin/login'); // Redirect to login page
+        }
       }
     } catch (error) {
       console.error('Error deleting comment:', error);
+      alert('An error occurred while deleting the comment.');
     }
   };
 
   return (
-    <div className="container">
+    <div className='body1'>
+      <div className="container mt-5">
       <h2 className="my-4">Locations Summary</h2>
-      <table className="table table-striped">
-        <thead>
+      <table className="table table-striped table-bordered table-hover">
+        <thead className="thead-dark">
           <tr>
             <th>Name</th>
             <th>Likes</th>
@@ -88,6 +117,7 @@ function LocationsSummary() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

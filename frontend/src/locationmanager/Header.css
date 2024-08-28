@@ -8,25 +8,25 @@
     align-items: center; /* Center items vertically */
 }
 
-/* Navigation link styling */
+
 .nav-link {
-    color: #007bff; /* Primary color for links */
-    font-size: 1rem; /* Font size for better readability */
-    font-weight: 500; /* Medium weight for links */
-    margin-left: 1rem; /* Spacing between items */
-    transition: color 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+    color: #4c5f46; 
+    font-size: 1rem; 
+    font-weight: 500; 
+    margin-left: 1rem; 
+    transition: color 0.3s, background-color 0.3s; 
 }
 
 /* Active link styling */
 .nav-link.active {
-    color: #495057; /* Darker color for active link */
-    background-color: #e9ecef; /* Light background for active link */
-    border-radius: 0.25rem; /* Rounded corners for active link */
+    color: #495057; 
+    background-color: #e9ecef; 
+    border-radius: 0.25rem; 
 }
 
 /* Hover effect for links */
 .nav-link:hover {
-    color: #0056b3; /* Darker color on hover */
+    color: #4c5f46; /* Darker color on hover */
     text-decoration: underline; /* Underline effect on hover */
 }
 
