@@ -2,3 +2,5 @@
 package
 package-lock
 
+.env
+\.env
