@@ -4,7 +4,10 @@ const Header = () => {
     return (
         <ul className="nav nav-underline bg-light d-flex justify-content-end"> {/* Added d-flex and justify-content-end for right alignment */}
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/Location/home">Home</a>
+                <a className="nav-link active" aria-current="page" href="/LocationAdmin/home">DashBoard</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link active" aria-current="page" href="#">Reacts & commentts</a>
             </li>
             <li className="nav-item">
                 <a className="nav-link" href="/admin/login" style={{ marginLeft: 'auto' }}>Logout</a> {/* Inline style for moving to right */}
