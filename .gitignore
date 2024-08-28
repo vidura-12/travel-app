@@ -10,4 +10,9 @@ frontend/public/img/Sri Lanka.mp4
 frontend/src/com/img/Sri Lanka.mp4
 
 /node_modules
-
+.env
+/backend/.env
+backend/.env
+backend/.env
+/frontend
+/node_modules
