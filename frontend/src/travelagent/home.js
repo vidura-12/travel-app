@@ -33,6 +33,12 @@ export default function Home() {
             Register
           </button>
         </Link>
+
+        <Link to="/travelagent/profile">
+          <button style={{ backgroundColor: "#1E201E" }} className='button'>
+            Profile
+          </button>
+        </Link>
       </div>
   
       <div className="max-w-md mx-auto p-4 pt-6 md:p-6 lg:p-12 xl:p-24">
