@@ -12,7 +12,7 @@
   padding: 40px;
   border: 1px solid #ccc;
   border-radius: 10px; /* Rounded corners for the form container */
-  background-color: #f9f9f9;
+  background-color: rgba(249, 249, 249, 0.8); /* Slightly transparent background */
   text-align: left; /* Align text left for better readability */
 }
 
@@ -22,18 +22,27 @@
   text-align: center; /* Center the heading text */
 }
 
+ 
 .form-container form {
   display: flex;
   flex-direction: column;
-  align-items: center;  
+  align-items: center; /* Center all form items */
+  width: 500px; /* Set form width */
+  padding: 20px; /* Padding inside the form */
+  border-radius: 10px; /* Rounded corners */
+  background-color: transparent; /* Fully transparent background */
 }
+
+
 
 .form-container label {
   display: inline-block;
-  width: 150px;  
+  width: 350px;  
   margin-bottom: 8px;
+  position: relative;
+  left: 140px;
 }
-
+ 
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="tel"],
@@ -46,6 +55,8 @@
   font-size: 14px;
   box-sizing: border-box; /* Ensure padding is included in width calculation */
   background-color: #f2f2f2; /* Light gray background color */
+  position: relative;
+  left: 80px;
 }
  
 .Languages-Spoken{

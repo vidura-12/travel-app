@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import LocationsSummary from './locationmanager/LocationsSummary'
+
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
@@ -14,14 +15,18 @@ import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
-import AgentHome from './travelagent/home';
 
+
+import AgentHome from './travelagent/home';
 import AgentContact from './travelagent/num';
 import AgentAbout from './travelagent/details';
 import AgentDashboard from './travelagent/dashboard';
 import AgentCreatePost from './travelagent/createpost';
 import AgentBookTourist from './travelagent/booktourist';
 import AgentRegister from './travelagent/register';
+import AgentProfile from './travelagent/profile';
+import AgentUpProfile from './travelagent/upProfile';
+import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
  
 
@@ -77,6 +82,10 @@ function App() {
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost/></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist/></TravelAgentLayout>} />
         <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister/></TravelAgentLayout>} />
+        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile/></TravelAgentLayout>} />
+        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile/></TravelAgentLayout>} />
+        <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc/></TravelAgentLayout>} />
+
 
 
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
@@ -88,4 +97,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

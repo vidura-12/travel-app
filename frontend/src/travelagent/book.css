@@ -1,52 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* dashboard.css */
 
-* {
-  font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.form-container {
-    padding: 20px;
-    width: 80%;  
-    max-width: 1200px;  
-    background: rgba(255, 255, 255, 0.8);  
-    border-radius: 8px;  
-  }
-  
-  
-  .form-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .form-table th, .form-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .form-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .button-container {
-    display: flex;
-    gap: 10px; /* Adjust gap if needed */
-    justify-content: center; /* Center buttons if desired */
-  }
-  
-  .approve-button, .deny-button {
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px; /* Adjust font size if needed */
-  }
-  
-  .approve-button {
-    background-color: #4CAF50; /* Green */
-    color: white;
-  }
-  
-  .deny-button {
-    background-color: #f44336; /* Red */
-    color: white;
-  }
-  
+
+.dashboard-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  color: #555;
+}
