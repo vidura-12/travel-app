@@ -5,6 +5,15 @@ const adminSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  department: { type: String, required: true },
+  address: { 
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zip: { type: String, required: true }
+  },
+  joinedDate: { type: Date, default: Date.now }
 });
 
 adminSchema.pre('save', async function(next) {
