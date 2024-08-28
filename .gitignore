@@ -5,4 +5,7 @@
 
 # Node modules
 /backend/node_modules/
-*.mp4
+
+frontend/public/img/Sri Lanka.mp4
+frontend/src/com/img/Sri Lanka.mp4
+
