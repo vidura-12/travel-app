@@ -17,8 +17,8 @@ const Header = () => {
     };
 
     return (
-        <ul className="nav nav-underline bg-light d-flex header-nav">
-            <li className="nav-item">
+        <ul className="navbar-custom">
+            <li className="menu-item">
                 <a className="nav-link" aria-current="page" href="/LocationAdmin/home">DashBoard</a>
             </li>
             <li className="nav-item">
@@ -28,7 +28,7 @@ const Header = () => {
                 <a className="nav-link" aria-current="page" href="/LocationAdmin/profile">Profile</a>
             </li>
             <li className="nav-item ml-auto">
-                <a className="nav-link logout-link" href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }}>Logout</a>
+                <a className="nav-link logout-link" href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }}><button>Logout</button></a>
             </li>
         </ul>
     );

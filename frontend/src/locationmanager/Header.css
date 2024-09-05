@@ -1,37 +1,39 @@
-/* Header container styling */
-.header-nav {
-    border-bottom: 1px solid #dee2e6; /* Light border for separation */
-    padding: 0.5rem 1rem; /* Padding around the header */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+.navbar-custom {
+    width: calc(100% - 4rem);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: .7rem;
     display: flex;
-    justify-content: flex-start; /* Align items to the start */
-    align-items: center; /* Center items vertically */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    z-index: 100;
+    position: fixed;
 }
 
-
-.nav-link {
-    color: #4c5f46; 
-    font-size: 1rem; 
-    font-weight: 500; 
-    margin-left: 1rem; 
-    transition: color 0.3s, background-color 0.3s; 
+.navbar .menu-list ul {
+    display: flex;
+    list-style: none;
 }
-
-/* Active link styling */
-.nav-link.active {
-    color: #495057; 
-    background-color: #e9ecef; 
-    border-radius: 0.25rem; 
+.navbar .menu-list ul li {
+    position: relative;
+    margin: 0 1.5rem;
+    cursor: pointer;
 }
-
-/* Hover effect for links */
-.nav-link:hover {
-    color: #4c5f46; /* Darker color on hover */
-    text-decoration: underline; /* Underline effect on hover */
+.navbar .menu-list ul li::before {
+    position: absolute;
+    bottom: -3px;
+    content: "";
+    width: 0;
+    height: 3px;
+    border-radius: 5px;
+    background: var(--white-color);
+    transition: .5s;
 }
-
-/* Logout link specific styling */
-.logout-link {
-    font-weight: 600; /* Bold weight for logout link */
-    margin-left: auto; /* Push logout link to the right */
+.navbar .menu-list ul li:hover::before {
+    width: 100%;
+}
+.navbar .menu ul li a {
+    color: var(--white-color);
+    font-weight: 500;
 }

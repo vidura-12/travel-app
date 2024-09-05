@@ -151,15 +151,9 @@ const LocationTable = () => {
       </table>
   
       <Modal show={modal} onHide={toggleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Image</Modal.Title>
-        </Modal.Header>
         <Modal.Body>
           <img src={modalImage} alt="Location" className="img-fluid" />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={toggleModal}>Close</Button>
-        </Modal.Footer>
       </Modal>
     </div>
   </div>

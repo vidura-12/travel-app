@@ -9,6 +9,8 @@
 .modal-content {
   background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
   border-radius: 15px; /* Rounded corners for the modal */
+  height: 450px;
+  width: 800px;
 }
 
 .table {
@@ -23,7 +25,7 @@
 .table thead th {
   padding: 12px 15px;
   background-color: var(--primary-color); /* Optional: background color */
-  color: #fff;
+  color: #333232;
   text-align: left; /* Align text to the left */
 }
 
