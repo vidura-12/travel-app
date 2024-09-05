@@ -9,11 +9,11 @@ const vehicleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
+    ownername: {
         type: String,
         required: true
     },
-    price: {
+    seats: {
         type: Number,
         required: true
     },
