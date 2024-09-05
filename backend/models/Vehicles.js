@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
-    vname: {
+    vtype: {
         type: String,
         required: true
     },
-    location: {
+    vnumber: {
         type: String,
         required: true
     },
