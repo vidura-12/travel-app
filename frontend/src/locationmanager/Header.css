@@ -9,18 +9,33 @@
     padding: 1.5rem 4rem;
     z-index: 100;
     position: fixed;
+    margin-left: 30px;
+    
 }
 
-.navbar .menu-list ul {
+.navbar-custom ul {
+    text-decoration: none;
     display: flex;
-    list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    letter-spacing: 0.05cm;
 }
-.navbar .menu-list ul li {
+
+.navbar-custom ul .menu-item {
     position: relative;
     margin: 0 1.5rem;
     cursor: pointer;
 }
-.navbar .menu-list ul li::before {
+
+.navbar-custom ul .menu-item .nav-link {
+    margin-left: 20px;
+    color: var(--white-color);
+    font-weight: 500;
+    text-decoration: none; /* Remove text decoration */
+}
+
+.navbar-custom ul .menu-item::before {
     position: absolute;
     bottom: -3px;
     content: "";
@@ -30,10 +45,33 @@
     background: var(--white-color);
     transition: .5s;
 }
-.navbar .menu-list ul li:hover::before {
+
+.navbar-custom ul .menu-item:hover::before {
     width: 100%;
 }
-.navbar .menu ul li a {
+
+/* Align profile buttons to the right */
+.profile {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.nav-link-profile, .nav-link-profile-logout {
+    background: transparent;
+    border: none;
     color: var(--white-color);
     font-weight: 500;
+    cursor: pointer;
+    text-decoration: none; /* Remove text decoration */
+}
+
+/* Optional hover effects */
+.nav-link-profile:hover, .nav-link-profile-logout:hover {
+    text-decoration: underline; /* Optional hover effect */
+}
+
+/* Adjust for better alignment */
+.nav-link-profile-logout {
+    margin-left: 1rem;
 }
