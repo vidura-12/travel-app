@@ -40,7 +40,7 @@ import AgentGHome from './com/guideHome';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
-import LocationmanagerHome from './locationmanager/Profile';
+import LocationmanagerHome from './locationmanager/Adminlprofile';
 
 // Scheduler Layout Component
 import Schedulerlayout from './schedulerlayout';

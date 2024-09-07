@@ -1,9 +1,4 @@
-body {
-  position: relative;
-  
-  background: url('./img/galle.jpg') no-repeat center center;
-  background-size: cover;
-}
+
 
 .modal-content {
   background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
