@@ -17,12 +17,12 @@ const vehicleSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    rating: {
+    price: {
         type: Number,
         required: true
     },
-    amenities: {
-        type: [String],
+    aircondition: {
+        type: String,
         required: true
     },
     // Add more fields as per your requirements
