@@ -43,7 +43,7 @@ app.use('/TourGuide', addRoute); // new
 app.use('/auth', authRoutes);
 
 app.use('/location',locationRoutes);
-//app.use('/vehicle',vehicleRoutes); 
+app.use('/vehicle',vehicleRoutes); 
 
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);

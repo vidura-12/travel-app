@@ -18,6 +18,8 @@ import Travelagency from './com/agency';
 import Packages from './com/packages';
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage';
+import Vehicle from './com/vehicle';
+
 
 // Admin Components
 import AdminHome from './admin/home';
@@ -63,6 +65,8 @@ function App() {
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
         <Route path="/packages" element={<UserLayout><Packages /></UserLayout>} />
+        <Route path="/vehicle" element={<UserLayout><Vehicle /></UserLayout>} />
+       
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
