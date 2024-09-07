@@ -7,7 +7,7 @@ function Home() {
       <section className="home">
         <div className="home-container">      
           <video autoPlay muted loop className="background-video">
-            <source src={`${process.env.PUBLIC_URL}/img/Sri Lanka.mp4`} type="video/mp4" />
+            <source src={`${process.env.PUBLIC_URL}/img/SriLanka.webm`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 

@@ -6,8 +6,8 @@
 # Node modules
 /backend/node_modules/
 
-frontend/public/img/Sri Lanka.mp4
-frontend/src/com/img/Sri Lanka.mp4
+frontend/public/img/SriLanka.webm
+frontend/src/com/img/SriLanka.webm
 
 /node_modules
 .env
@@ -16,3 +16,5 @@ backend/.env
 backend/.env
 
 /node_modules
+/frontend/public/img
+/frontend/src/com/img
