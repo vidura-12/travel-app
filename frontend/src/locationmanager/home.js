@@ -151,6 +151,7 @@ const LocationTable = () => {
       </table>
   
       <Modal show={modal} onHide={toggleModal}>
+
         <Modal.Body>
           <img src={modalImage} alt="Location" className="img-fluid" />
         </Modal.Body>

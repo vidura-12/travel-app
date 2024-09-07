@@ -1,3 +1,0 @@
-.env
-# Ignore compiled files in the backend
-dist/
