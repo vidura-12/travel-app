@@ -14,7 +14,7 @@ function LocationsSummary() {
       navigate('/admin/login'); // Redirect to login page
       return;
     }
-
+//dfghjkl
     const fetchLocationsSummary = async () => {
       try {
         const response = await fetch('http://localhost:8081/locationAdmin/locations-summary', {
