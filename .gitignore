@@ -20,3 +20,11 @@ backend/.env
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules/.bin
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules/.cache
