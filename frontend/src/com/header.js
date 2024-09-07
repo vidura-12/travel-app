@@ -19,12 +19,12 @@ function Header() {
               <ul className="menu-list">
                 <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>
-                <li><a href="/tours">Travel Packages</a></li>
-                <li><Link to="/vehicle">Vehicle Rentle</Link></li>
+                <li><Link to ="/tours">Travel Packages</Link></li>
+                <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
-                <li><a href="#">Travel Agents</a></li>
-
+                <li><Link to="/travelagent/dashboard">Travel Agents</Link></li>
+                <li><Link to="#">Events</Link></li>
               </ul>
             </div>
             <div className="auth-container">

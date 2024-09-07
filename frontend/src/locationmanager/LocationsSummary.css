@@ -1,0 +1,25 @@
+/* Ensures all list items have consistent spacing */
+.comment-item {
+    margin-bottom: 10px; /* Space between comments */
+    padding: 8px; /* Padding inside each comment item */
+    border-bottom: 1px solid #ddd; /* Light border for separation */
+  }
+  
+  .comment-text {
+    flex: 1; /* Allow text to take available space */
+    font-size: 16px; /* Adjust font size as needed */
+  }
+  
+  .btn {
+    white-space: nowrap; /* Prevent button text from wrapping */
+  }
+  
+  /* Additional styling for the table */
+  .table {
+    margin-bottom: 0; /* Remove extra margin */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Alternating row colors */
+  }
+  
