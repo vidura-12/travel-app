@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 function Header2() {
   return (
     <div>
-      <section className="home-section">
-        <div className="home-container">
-          <nav className="navbar-custom">
-            <div className="logo-container">
-              <div className="menu-icon">
+      <section className="home-section1">
+        <div className="home-container1">
+          <nav className="navbar-custom1">
+            <div className="logo-container1">
+              <div className="menu-icon1">
                 <i className="fa fa-bars"></i>
               </div>
               <h3>TravelMate</h3>
             </div>
-            <div className="menu-container">
+            <div className="menu-container1">
              
-              <ul className="menu-list">
+              <ul className="menu-list1">
                 <li><Link to="">Home</Link></li>
                
                 <li><a href="/EventManager/addEvent">Add Event</a></li>
@@ -27,9 +27,9 @@ function Header2() {
                  
               </ul>
             </div>
-            <div className="auth-container">
-              <a href="#">LogIn</a>
-              <a href="#">SignUp</a>
+            <div className="auth-container1">
+              
+              <a href="#">Log out</a>
             </div>
           </nav>
         </div>
