@@ -17,14 +17,16 @@ router.post('/add', async (req, res) => {
       vcolor: req.body.vcolor,
       vseats: req.body.vseats,
       vprice: req.body.vprice,
-      vstatus: req.body.vstatus
+      vstatus: req.body.vstatus,
+      status: "not approved",
+      picture: req.file ? req.file.originalname : null
     });
     
     await newVehicle.save();
-    res.status(200).json(newVehicle);
-  
+    res.status(201).json(newVehicle);
+
   } catch (error) {
-    res.status(500).json({error: error.message});
+    res.status(400).json({ error: error.message });
   }  
 });
  
@@ -64,6 +66,7 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Route to search vehicle by vehicle type
 router.get('/search/:vtype', async (req, res) => {
     const { vtype } = req.query;
     try {
@@ -73,10 +76,12 @@ router.get('/search/:vtype', async (req, res) => {
         });
 
         if (!vtype || vtype === "") {
-            return res.status(404).json({ message: 'Vehicle not found' });
+            return res.status(404).json({ message: 'Vehicle not found with that name..!' });
         }
         res.status(200).json(vehicle);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
+module.exports = router;

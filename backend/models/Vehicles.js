@@ -63,7 +63,45 @@ const vehicleSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    make: {
+        type: String,
+        required: true, // Manufacturer of the vehicle (e.g., Toyota, Ford)
+    },
+    model: {
+        type: String,
+        required: true, // Model of the vehicle (e.g., Camry, Mustang)
+    },
+    year: {
+        type: Number,
+        required: true, // Manufacturing year
+    },
+    licensePlate: {
+        type: String,
+        required: true, // License plate number of the vehicle
+        unique: true,   // Ensures the license plate is unique
+    },
+    type: {
+        type: String,
+        enum: ['Sedan', 'SUV', 'Truck', 'Van', 'Motorbike'], // Types of vehicles
+        required: true,
+    },
+    rentalPricePerDay: {
+        type: Number,
+        required: true, // Price to rent the vehicle per day
+    },
+    isAvailable: {
+        type: Boolean,
+        default: true, // Whether the vehicle is available for rent
+    },
+    mileage: {
+        type: Number,
+        required: true, // Mileage of the vehicle
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now, // Date when the vehicle was added to the system
+    },
 });
 
 const Vehicle = mongoose.model("Vehicle", vehicleSchema);
