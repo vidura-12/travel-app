@@ -22,7 +22,11 @@ const withAuth = (WrappedComponent) => {
 
           if (response.data.role === 'location_manager') {
             setIsAuthenticated(true);
-          } else {
+          } 
+          else if(response.data.role === 'vehicle_manager'){
+            setIsAuthenticated(true);
+          } 
+          else {
             navigate('/admin/login');
           }
         } catch (error) {

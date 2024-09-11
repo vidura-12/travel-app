@@ -92,6 +92,9 @@ function App() {
 
         {/* Scheduler Layout Route */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
+
+        {/* Vehicle Manager Rout */}
+        
       </Routes>
     </Router>
   );

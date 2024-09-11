@@ -1,6 +1,6 @@
-const express = requires('express');
+const express = require('express');
 const router = express.Router();
-const Vehicle = require('../models/Vehicle');
+const Vehicle = require('../models/Vehicles');
 
 router.post('/add', async (req, res) => {
   try {
