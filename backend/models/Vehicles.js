@@ -29,33 +29,44 @@ function checkFileType(file, cb) {
     }
 }
 const vehicleSchema = new mongoose.Schema({
+    
+    // Types of vehicles
     vtype: {
         type: String,
-        required: true
+        enum: ['Sedan', 'SUV', 'Truck', 'Van', 'Motorbike'], 
+        required: true,
     },
-    vnumber: {
+
+    // License plate number of the vehicle
+    licensePlate: {
         type: String,
-        required: true
-    },
+        required: true, 
+        unique: true,   // Ensures the license plate is unique
+    },   
+    
+    // Owner of the vehicle
     ownername: {
         type: String,
         required: true
     },
+
+    // Number of seats in the vehicle
     seats: {
         type: Number,
         required: true
     },
-    price: {
+
+    // Price per day to rent the vehicle
+    rentalPricePerDay: {
         type: Number,
-        required: true
+        required: true, 
     },
+
+    // Status of the vehicle aircondition
     aircondition: {
         type: String,
         required: true
     },
-    // Add more fields as per your requirements
-
-    // Timestamps for created and updated dates
     createdAt: {
         type: Date,
         default: Date.now
@@ -64,43 +75,34 @@ const vehicleSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    make: {
-        type: String,
-        required: true, // Manufacturer of the vehicle (e.g., Toyota, Ford)
-    },
+
+    // Model of the vehicle (e.g., Camry, Mustang)
     model: {
         type: String,
-        required: true, // Model of the vehicle (e.g., Camry, Mustang)
+        required: true, 
     },
+
+    // Manufacturing year
     year: {
         type: Number,
-        required: true, // Manufacturing year
+        required: true, 
     },
-    licensePlate: {
+
+    // Color of the vehicle
+    color: {
         type: String,
-        required: true, // License plate number of the vehicle
-        unique: true,   // Ensures the license plate is unique
+        required: true, 
     },
-    type: {
-        type: String,
-        enum: ['Sedan', 'SUV', 'Truck', 'Van', 'Motorbike'], // Types of vehicles
-        required: true,
-    },
-    rentalPricePerDay: {
-        type: Number,
-        required: true, // Price to rent the vehicle per day
-    },
-    isAvailable: {
-        type: Boolean,
-        default: true, // Whether the vehicle is available for rent
-    },
-    mileage: {
-        type: Number,
-        required: true, // Mileage of the vehicle
-    },
+
+    // Date when the vehicle was added to the system
     createdAt: {
         type: Date,
-        default: Date.now, // Date when the vehicle was added to the system
+        default: Date.now, 
+    },
+
+    // Array of URLs to the vehicle's pictures
+    vpictures: {
+        type: [String], 
     },
 });
 
