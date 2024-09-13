@@ -76,7 +76,7 @@ router.get('/search/:vtype', async (req, res) => {
         });
 
         if (!vtype || vtype === "") {
-            return res.status(404).json({ message: 'Vehicle not found with that name..!' });
+            return res.status(404).json({ message: 'Vehicle not found with that name...!' });
         }
         res.status(200).json(vehicle);
     } catch (error) {
