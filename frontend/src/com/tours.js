@@ -1,13 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './tour.css';
 import { Col, Form, FormGroup } from "reactstrap"; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Tours = () => {
+    const navigate = useNavigate();  // Hook to navigate between routes
+
+    const handleCreatePackageClick = () => {
+        navigate('/agency');  // Navigate to the Agency component
+    };
+
     return (
         <div>
             <div className="tourpic">
                 <h1>Our Tours</h1>
-            </div>
+            
             <div className="searc">
                 <div className="search_bar">
                     <Form className="d-flex align-items-center gap-4 justify-content-center">
@@ -34,6 +42,8 @@ const Tours = () => {
                         </span>
                     </Form>
                 </div>
+                </div>
+                </div>
                 
                 <p className="description">
                     Welcome to TravelMate! Discover our diverse range of tours designed for every traveler's dream. 
@@ -52,81 +62,8 @@ const Tours = () => {
                     Explore Stays in Trending Destinations
                 </p>
               
-                <div className="destinations">
-                    <div className='destination1'>
-                        <div className="destination-item1">
-                          </div>
-                            <div className='des1'>
-                            <p> Location: matara</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
+                {/* Destination items here */}
 
-                    <div className='destination1'>
-                        <div className="destination-item2">
-                          </div>
-                            <div className='des2'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item3">
-                          </div>
-                            <div className='des3'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item4">
-                          </div>
-                            <div className='des4'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item5">
-                          </div>
-                            <div className='des5'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item6">
-                          </div>
-                            <div className='des6'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item7">
-                          </div>
-                            <div className='des7'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-
-                    <div className='destination1'>
-                        <div className="destination-item8">
-                          </div>
-                            <div className='des8'>
-                            <p>Location: 2</p>
-                            <p>Max People: 8</p>
-                            </div>
-                    </div>
-                   
-                </div>
-              
                 <div className="welcome">
                     <h3>Welcome Travel Agencies!</h3>
                     <p>
@@ -136,13 +73,13 @@ const Tours = () => {
                     </p>
                     <h5>Join us today! </h5>
                     <center> 
-                        <button className="agency">Travel Agency</button>
+                        <button className="agency" onClick={handleCreatePackageClick}>Create Package</button>
                     </center>
                     <div className="under">
                         <p>For more info, contact us at <a href="mailto:support@yourtravelplatform.com">Support page</a></p>
                     </div>
                 </div>
-            </div>
+            
         </div>
     );
 }

@@ -1,34 +1,24 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 
-// Ensure the directory exists before uploading
-const uploadDir = path.join(__dirname, '../frontend/public/img');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Configure storage for multer
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, uploadDir); // Ensure consistent directory usage
+    cb(null, '../frontend/public/img'); 
   },
   filename: function(req, file, cb) {
     cb(null, file.originalname); 
   }
 });
 
-// Initialize multer with storage, file size limits, and file filter
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 10000000 }, // 10MB file size limit
+  limits: { fileSize: 10000000 }, 
   fileFilter: function(req, file, cb) {
     checkFileType(file, cb); 
   }
 });
 
-// Function to check the file type
 function checkFileType(file, cb) {
   const filetypes = /jpeg|jpg|png|gif/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -37,7 +27,7 @@ function checkFileType(file, cb) {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb(new Error('Error: Images Only!')); // Return an Error object
+    cb('Error: Images Only!');
   }
 }
 

@@ -14,10 +14,12 @@ import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
+
 import Schedulerlayout from './schedulerlayout';
 import Travelagency from './com/agency';
+import PackageDetails from './com/packagedetails';
 
-import Packages from './com/packages';
+
 
 
 import LoginPage from './com/LoginPage';
@@ -41,9 +43,12 @@ function App() {
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
 
-        <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>} />
+        
+        
+        
 
 
         {/* Admin Routes */}
