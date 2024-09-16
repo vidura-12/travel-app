@@ -15,12 +15,26 @@ function AddEvent() {
   });
 
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState({name: '', location: ''});
 
-  // Handle text fields
+  //expression to prevent special characters
+  const specialRegex = /^[a-zA-Z0-9\s]*$/;
+
+  // Handle text fields with validation
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if(name === 'name' || name ==='location'){
+      if(specialRegex.test(value)){
+        setErrors({...errors,[name]:''});
+      }else{
+        setErrors({...errors, [name]: 'No special characters allowed'});
+      }
+    }
+
     setFormData({ ...formData, [name]: value });
   };
+
 
   // Handle image upload
   const handleImageChange = (e) => {
@@ -75,6 +89,7 @@ function AddEvent() {
             onChange={handleInputChange}
             required
           />
+          {errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
         </div>
 
         <div className="form-group">
@@ -123,6 +138,7 @@ function AddEvent() {
             onChange={handleInputChange}
             required
           />
+          {errors.location && <p style={{color: 'red'}}>{errors.location}</p>}
         </div>
 
         <div className="form-group">
@@ -152,19 +168,21 @@ function AddEvent() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="price">Price: </label>
+          <label htmlFor="price">Price (in LKR): </label>
           <input
             type="number"
             className="form-control"
             id="price"
             name="price"
-            placeholder="Enter event price"
+            placeholder="Enter event price in LKR"
             value={formData.price}
             onChange={handleInputChange}
             required
           />
+          {errors.price && <p style={{ color: 'red' }}>{errors.price}</p>}
         </div>
 
+        
         <div className="form-group">
           <label htmlFor="image">Upload Image: </label>
           <input

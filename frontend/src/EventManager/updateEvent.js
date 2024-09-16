@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './update.css';
 
 function EditEvent() {
   const { id } = useParams(); // Get the event ID from the URL
@@ -18,6 +19,9 @@ function EditEvent() {
     image: "" // Store image filename or path
   });
   const [imageFile, setImageFile] = useState(null); // Store the new image file
+  const [errors, setErrors] = useState({ name: "", location: "" }); // Error state
+
+  const specialCharRegex = /^[a-zA-Z0-9\s]*$/; // Only allow letters, numbers, and spaces
 
   useEffect(() => {
     fetchEvent();
@@ -36,6 +40,12 @@ function EditEvent() {
   // Handle form submission and update event
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    if (errors.name || errors.location) {
+      alert("Please fix validation errors before submitting.");
+      return;
+    }
+
     const formData = new FormData();
 
     // Append event details to form data
@@ -64,9 +74,22 @@ function EditEvent() {
     }
   };
 
-  // Handle form input changes
+  // Handle form input changes with validation
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validation for name and location fields to prevent special characters
+    if (name === "name" || name === "location") {
+      if (!specialCharRegex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "No special characters allowed!",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+      }
+    }
+
     setEvent(prevState => ({
       ...prevState,
       [name]: value
@@ -79,7 +102,7 @@ function EditEvent() {
   };
 
   return (
-    <div className="container">
+    <div className="update-container">
       <h2>Edit Event</h2>
       <form onSubmit={handleUpdate}>
         <div className="form-group">
@@ -91,10 +114,11 @@ function EditEvent() {
             value={event.name}
             onChange={handleChange}
           />
+          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
         </div>
 
         <div className="form-group">
-          <label>Event category</label>
+          <label>Event Category</label>
           <input
             type="text"
             className="form-control"
@@ -115,7 +139,6 @@ function EditEvent() {
           />
         </div>
 
-
         <div className="form-group">
           <label>Date</label>
           <input
@@ -126,6 +149,7 @@ function EditEvent() {
             onChange={handleChange}
           />
         </div>
+
         <div className="form-group">
           <label>Time</label>
           <input
@@ -140,15 +164,15 @@ function EditEvent() {
         <div className="form-group">
           <label>Location</label>
           <input
-            type="location"
+            type="text"
             className="form-control"
             name="location"
             value={event.location}
             onChange={handleChange}
           />
+          {errors.location && <p style={{ color: "red" }}>{errors.location}</p>}
         </div>
 
-        
         <div className="form-group">
           <label>Price</label>
           <input
@@ -159,6 +183,7 @@ function EditEvent() {
             onChange={handleChange}
           />
         </div>
+
         <div className="form-group">
           <label>Current Image</label>
           <img
@@ -168,6 +193,7 @@ function EditEvent() {
             style={{ width: "150px", height: "150px" }}
           />
         </div>
+
         <div className="form-group">
           <label>Upload New Image</label>
           <input
@@ -178,13 +204,8 @@ function EditEvent() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}>
-          Update Event
-          </Link>
-        </button>
-
-    
-
+        <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}>Update Event</Link></button>
+        {/* <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}></Link></button> */}
       </form>
     </div>
   );

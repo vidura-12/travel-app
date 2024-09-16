@@ -89,7 +89,7 @@ function EventList() {
                   <strong>Location:</strong> {event.location}
                 </p>
                 <p className="card-text">
-                  <strong>Price:</strong> ${event.price}
+                  <strong>Price:</strong> RS.{event.price}
                 </p>
 
 
