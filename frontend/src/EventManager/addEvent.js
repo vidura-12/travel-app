@@ -78,17 +78,23 @@ function AddEvent() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">Event category: </label>
-          <input
-            type="text"
+          <label htmlFor="category">Event Category: </label>
+          <select
             className="form-control"
             id="category"
             name="category"
-            placeholder="Enter event category"
             value={formData.category}
             onChange={handleInputChange}
             required
-          />
+          >
+            <option value="">Select Category</option>
+            <option value="Beach party">Beach party</option>
+            <option value="Pool party">Pool party</option>
+            <option value="Musical show">Musical show</option>
+            <option value="Camping">Camping</option>
+            <option value="Club party">Club party</option>
+            <option value="Other outdoor">Other outdoor</option>
+          </select>
         </div>
 
         <div className="form-group">
