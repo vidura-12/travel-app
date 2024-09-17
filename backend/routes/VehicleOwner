@@ -1,0 +1,66 @@
+import { route } from './Event';
+
+const express = require('express');
+const router = express.Router();
+const VehicleOwner = require('../models/VehicleOwner');
+const Vehicle = require('../models/Vehicle');
+
+// Get all vehicle owners
+router.get('/', async (req, res) => {
+    try {
+        const vehicleOwners = await VehicleOwner.find();
+        res.json(vehicleOwners);
+    } catch (err) {
+        res.json({ message: err });
+    }
+
+    //check
+    if(!vehicleOwners) {
+        return res.status(400).json({ msg: 'There are no vehicle owners' });
+    }
+});
+
+// Get a specific vehicle owner
+router.get('/:vehicleOwnerId', async (req, res) => {
+    try {
+        const vehicleOwner = await VehicleOwner.findById(req.params.vehicleOwnerId);
+        res.json(vehicleOwner);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
+// Create a new vehicle owner
+router.post('/add')
+
+// Update a vehicle owner
+router.patch('/:vehicleOwnerId', async (req, res) => {
+    try {
+        const updatedVehicleOwner = await VehicleOwner.updateOne(
+            { _id: req.params.vehicleOwnerId },
+            { $set: {
+                name: req.body.name,
+                age: req.body.age,
+                email: req.body.email,
+                username: req.body.username,
+                phone: req.body.phone,
+                address: req.body.address,
+            }}
+        );
+        res.json(updatedVehicleOwner);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
+// Delete a vehicle owner
+router.delete('/:vehicleOwnerId', async (req, res) => {
+    try {
+        const removedVehicleOwner = await VehicleOwner.remove({ _id: req.params.vehicleOwnerId });
+        res.json(removedVehicleOwner);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+
+module.exports = router;
