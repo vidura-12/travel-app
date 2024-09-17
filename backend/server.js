@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth')
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
-const vehicleOwnerRoutes = require('./routes/VehicleOwner');
+
 const packageRoutes = require('./routes/package');
 const authuser = require('./routes/authRoutes')
 const locationAdmin = require('./routes/Locationadmin');
@@ -43,7 +43,7 @@ app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
 app.use('/vehicle',vehicleRoutes); 
-app.use('/vehicleOwner', vehicleOwnerRoutes);
+app.use('/vehicleOwner',vehicleOwnerRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
