@@ -31,83 +31,60 @@ function checkFileType(file, cb) {
     }
 }
 const vehicleSchema = new mongoose.Schema({
-    
-    // Types of vehicles
-    vtype: {
+    username: {
         type: String,
-        enum: ['Sedan', 'SUV', 'Truck', 'Van', 'Motorbike'], 
         required: true,
     },
-
-    // License plate number of the vehicle
-    licensePlate: {
+    make: {
         type: String,
-        required: true, 
-        unique: true,   // Ensures the license plate is unique
-    },   
-    
-    // Owner of the vehicle
-    ownername: {
-        type: String,
-        required: true
+        required: true,
     },
-
-    // Number of seats in the vehicle
-    seats: {
-        type: Number,
-        required: true
-    },
-
-    // Price per day to rent the vehicle
-    rentalPricePerDay: {
-        type: Number,
-        required: true, 
-    },
-
-    // Status of the vehicle aircondition
-    aircondition: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    },
-
-    // Model of the vehicle (e.g., Camry, Mustang)
     model: {
         type: String,
-        required: true, 
+        required: true,
     },
-
-    // Manufacturing year
-    year: {
+    numberOfSeats: {
         type: Number,
-        required: true, 
+        required: true,
     },
-
-    // Color of the vehicle
+    pricePerDay: {
+        type: Number,
+        required: true,
+    },
     color: {
         type: String,
-        required: true, 
+        required: true,
     },
-
-    // Date when the vehicle was added to the system
-    createdAt: {
-        type: Date,
-        default: Date.now, 
+    category: {
+        type: String,
+        required: true,
     },
-
-    // Array of URLs to the vehicle's pictures
-    vpictures: {
-        type: [String], 
+    image: {
+        type: String, // Store the filename or URL of the image
     },
-});
+    status: {
+        type: String,
+        default: 'pending',
+    },
+    contact: {
+        type: String,
+        required: true,
+    },
+    ac: {
+        type: String,
+        required: true,
+    },
+    vnumber: {
+        type: String,
+        required: true,
+    },
+    location: {
+        type: String,
+        required: true,
+    }
 
-const Vehicle = mongoose.model("Vehicle", vehicleSchema);
+}, { timestamps: true });
+
+const Vehicle = mongoose.model('Vehicle', vehicleSchema);
 
 module.exports = Vehicle;
