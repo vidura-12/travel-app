@@ -22,7 +22,7 @@ export default function Profile() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
+      await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
       alert('Tour guide updated successfully!');
       setIsEditing(false); // Close the edit form after successful update
     } catch (error) {
@@ -31,20 +31,18 @@ export default function Profile() {
   };
 
   // Handle delete request
-  const handleDelete = async () => {
-    console.log('Deleting TourGuide with ID:', formData.id); // Verify the ID
-  
-    try {
-      const response = await axios.delete(`http://localhost:8081/TourGuide/delete/${formData.id}`);
-      console.log('Response:', response.data); // Log the response for debugging
-      alert('Tour guide deleted successfully!');
-      navigate('/travelagent/dashboard'); // Redirect to the desired page after delete
-    } catch (error) {
-      console.error('Error deleting the tour guide:', error);
-      alert('Error deleting the tour guide.'); // Alert user in case of an error
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this tour guide?')) {
+      try {
+        await axios.delete(`http://localhost:8081/TourGuide/delete/${id}`);
+        alert('Tour guide deleted successfully!');
+        navigate('/register'); // Redirect to the register page after delete
+      } catch (error) {
+        console.error('Error deleting tour guide:', error);
+        alert('Failed to delete the tour guide.'); // Inform user of failure
+      }
     }
   };
-  
 
   return (
     <div className="profile-container">
@@ -120,7 +118,6 @@ export default function Profile() {
             />
           </div>
           <button className="btn btn-primary" type="submit" onClick={() => setIsEditing(false)}>Save</button>
-           
         </form>
       ) : (
         // If not editing, show the profile details
@@ -136,7 +133,12 @@ export default function Profile() {
 
       <div className="profile-actions">
         {!isEditing && <button className="btn btn-primary" onClick={() => setIsEditing(true)}>Update</button>}
-        <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+        <button
+          className="btn btn-danger"
+          onClick={() => handleDelete(formData.id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
