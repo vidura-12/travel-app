@@ -28,7 +28,8 @@ import AgentGHome from './com/guideHome';
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';
-import EditEvent from './EventManager/updateEvent'
+import EditEvent from './EventManager/updateEvent';
+import TicketForm from './com/ticket';
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -66,6 +67,7 @@ function App() {
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><TicketForm/></UserLayout>} />
 
 
         {/* Admin Routes */}

@@ -16,8 +16,18 @@ function EditEvent() {
     time: "",
     location: "",
     price: "",
-    image: "" // Store image filename or path
+    image: "", // Store image filename or path
+    ticketCriteria:{
+      t1: "",
+      t2: "",
+      t3: "",
+      t4: "",
+      t5: "",
+      t6: "",
+      t7: ""
+    }
   });
+
   const [imageFile, setImageFile] = useState(null); // Store the new image file
   const [errors, setErrors] = useState({ name: "", location: "" }); // Error state
 
@@ -49,13 +59,22 @@ function EditEvent() {
     const formData = new FormData();
 
     // Append event details to form data
-    formData.append("name", event.name); 
+    formData.append("name", event.name);
     formData.append("category", event.category);
     formData.append("description", event.description);
     formData.append("date", event.date);
     formData.append("time", event.time);
     formData.append("location", event.location);
     formData.append("price", event.price);
+
+    // Append the ticket criteria to form data
+    formData.append("t1", event.t1);
+    formData.append("t2", event.t2);
+    formData.append("t3", event.t3);
+    formData.append("t4", event.t4);
+    formData.append("t5", event.t5);
+    formData.append("t6", event.t6);
+    formData.append("t7", event.t7);
 
     // Append the new image file if a new one was selected
     if (imageFile) {
@@ -94,6 +113,8 @@ function EditEvent() {
       ...prevState,
       [name]: value
     }));
+
+   
   };
 
   // Handle image file change
@@ -184,6 +205,84 @@ function EditEvent() {
           />
         </div>
 
+        {/* Ticket Criteria Fields */}
+        <div className="form-group">
+          <label>Ticket Criteria 1</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t1"
+            value={event.ticketCriteria.t1}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 2</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t2"
+            value={event.ticketCriteria.t2}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 3</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t3"
+            value={event.ticketCriteria.t3}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 4</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t4"
+            value={event.ticketCriteria.t4}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 5</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t5"
+            value={event.ticketCriteria.t5}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 6</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t6"
+            value={event.ticketCriteria.t6}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Ticket Criteria 7</label>
+          <input
+            type="text"
+            className="form-control"
+            name="t7"
+            value={event.ticketCriteria.t7}
+            onChange={handleChange}
+          />
+        </div>
+
         <div className="form-group">
           <label>Current Image</label>
           <img
@@ -205,7 +304,6 @@ function EditEvent() {
         </div>
 
         <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}>Update Event</Link></button>
-        {/* <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}></Link></button> */}
       </form>
     </div>
   );

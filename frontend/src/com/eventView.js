@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './eventView.css';
 
@@ -33,8 +34,7 @@ function EventView() {
 
   return (
     <div className="event-list-container">
-
-     <h2>Find your favorite Event...</h2>
+      <h2>Find your favorite Event...</h2>
 
       <div className="search-bar">
         <input
@@ -58,9 +58,6 @@ function EventView() {
               <div className="card-body">
                 <h5 className="card-title">{event.name}</h5>
                 <p className="card-text">{event.description}</p>
-                {/* <p className="card-text">
-                  <strong>Category:</strong> {event.category}
-                </p> */}
                 <p className="card-text">
                   <strong>Location:</strong> {event.location}
                 </p>
@@ -73,7 +70,11 @@ function EventView() {
                 <p className="card-text">
                   <strong>Price:</strong> ${event.price}
                 </p>
-                <button className="btn btn-primary">Join Now</button>
+                
+                {/* Link to the Ticket Form with event ID */}
+                <Link to={`/ticket/${event._id}`} className="btn btn-primary">
+                  Join Now
+                </Link>
               </div>
             </div>
           </div>

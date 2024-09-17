@@ -12,29 +12,34 @@ function AddEvent() {
     date: '',
     time: '',
     price: '',
+    t1: '',
+    t2: '',
+    t3: '',
+    t4: '',
+    t5: '',
+    t6: '',
+    t7: '',
   });
 
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({name: '', location: ''});
 
-  //expression to prevent special characters
   const specialRegex = /^[a-zA-Z0-9\s]*$/;
 
   // Handle text fields with validation
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if(name === 'name' || name ==='location'){
-      if(specialRegex.test(value)){
-        setErrors({...errors,[name]:''});
-      }else{
-        setErrors({...errors, [name]: 'No special characters allowed'});
+    if (name === 'name' || name === 'location') {
+      if (specialRegex.test(value)) {
+        setErrors({ ...errors, [name]: '' });
+      } else {
+        setErrors({ ...errors, [name]: 'No special characters allowed' });
       }
     }
 
     setFormData({ ...formData, [name]: value });
   };
-
 
   // Handle image upload
   const handleImageChange = (e) => {
@@ -53,6 +58,13 @@ function AddEvent() {
     eventdata.append('date', formData.date);
     eventdata.append('time', formData.time);
     eventdata.append('price', formData.price);
+    eventdata.append('t1', formData.t1);
+    eventdata.append('t2', formData.t2);
+    eventdata.append('t3', formData.t3);
+    eventdata.append('t4', formData.t4);
+    eventdata.append('t5', formData.t5);
+    eventdata.append('t6', formData.t6);
+    eventdata.append('t7', formData.t7);
 
     if (image) {
       eventdata.append('image', image);
@@ -72,10 +84,8 @@ function AddEvent() {
 
   return (
     <div className="event-container">
-      
-
       <form onSubmit={handleSubmit}>
-      <h2>Add your Event</h2>
+        <h2>Add your Event</h2>
 
         <div className="form-group">
           <label htmlFor="name">Event Name: </label>
@@ -89,7 +99,7 @@ function AddEvent() {
             onChange={handleInputChange}
             required
           />
-          {errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
+          {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
         </div>
 
         <div className="form-group">
@@ -119,7 +129,7 @@ function AddEvent() {
             id="Description"
             rows="4"
             name="description"
-            placeholder="Enter event Description"
+            placeholder="Enter event description"
             value={formData.description}
             onChange={handleInputChange}
             required
@@ -127,7 +137,7 @@ function AddEvent() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="venue">Location: </label>
+          <label htmlFor="location">Location: </label>
           <input
             type="text"
             className="form-control"
@@ -138,7 +148,7 @@ function AddEvent() {
             onChange={handleInputChange}
             required
           />
-          {errors.location && <p style={{color: 'red'}}>{errors.location}</p>}
+          {errors.location && <p style={{ color: 'red' }}>{errors.location}</p>}
         </div>
 
         <div className="form-group">
@@ -179,10 +189,8 @@ function AddEvent() {
             onChange={handleInputChange}
             required
           />
-          {errors.price && <p style={{ color: 'red' }}>{errors.price}</p>}
         </div>
 
-        
         <div className="form-group">
           <label htmlFor="image">Upload Image: </label>
           <input
@@ -192,6 +200,96 @@ function AddEvent() {
             name="image"
             accept="image/*"
             onChange={handleImageChange}
+          />
+        </div>
+
+        <hr></hr>
+
+        {/* Ticket Criteria Inputs */}
+        <h4 style={{textAlign: 'center'}}>Ticket Criterias</h4>
+        
+        <div className="form-group">
+          <label htmlFor="t1">Ticket Criteria 1: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t1"
+            name="t1"
+            placeholder="Enter first ticket criteria"
+            value={formData.t1}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t2">Ticket Criteria 2: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t2"
+            name="t2"
+            placeholder="Enter second ticket criteria"
+            value={formData.t2}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t3">Ticket Criteria 3: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t3"
+            name="t3"
+            placeholder="Enter third ticket criteria"
+            value={formData.t3}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t4">Ticket Criteria 4: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t4"
+            name="t4"
+            placeholder="Enter fourth ticket criteria"
+            value={formData.t4}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t5">Ticket Criteria 5: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t5"
+            name="t5"
+            placeholder="Enter fifth ticket criteria"
+            value={formData.t5}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t6">Ticket Criteria 6: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t6"
+            name="t6"
+            placeholder="Enter sixth ticket criteria"
+            value={formData.t6}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="t7">Ticket Criteria 7: </label>
+          <input
+            type="text"
+            className="form-control"
+            id="t7"
+            name="t7"
+            placeholder="Enter seventh ticket criteria"
+            value={formData.t7}
+            onChange={handleInputChange}
           />
         </div>
 

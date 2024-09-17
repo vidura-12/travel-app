@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
-const { type } = require('os');
 const path = require('path');
 
 // Multer configuration
@@ -11,7 +10,7 @@ const storage = multer.diskStorage({
     filename: function(req, file, cb) {
       cb(null, file.originalname); 
     }
-  });
+});
 
 const upload = multer({
     storage: storage,
@@ -19,7 +18,7 @@ const upload = multer({
     fileFilter: function(req, file, cb) {
       checkFileType(file, cb); 
     }
-  });
+});
 
 function checkFileType(file, cb) {
     const filetypes = /jpeg|jpg|png|gif/;
@@ -66,48 +65,23 @@ const eventSchema = new mongoose.Schema({
     image: {
         type: String,
     },
-
-    //for ticket
     ticketCriteria: {
-      t1: {
-        type: String,
-      },
-      t2: {
-        type: String,
-      },
-      t3: {
-        type: String,
-      },
-      t4: {
-        type: String,
-      },
-      t5: {
-        type: String,
-      },
-      t6: {
-        type: String,
-      },
-      t7: {
-        type: String,
-      }
-  },
-
-  userTickets: [
-  {
-    tname: {
-      type: String,
+        t1: String,
+        t2: String,
+        t3: String,
+        t4: String,
+        t5: String,
+        t6: String,
+        t7: String
     },
-    phone: {
-      type: String,
-    },
-    email: {
-      type: String,
-    },
-    otherField: {
-      type: Map,
-    }
-  }
-]
+    userTickets: [
+        {
+            tname: String,
+            phone: String,
+            email: String,
+            otherFields: Map // Map for dynamic fields
+        }
+    ]
 });
 
 const Events = mongoose.model("events", eventSchema);
