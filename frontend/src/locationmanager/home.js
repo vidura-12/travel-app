@@ -1,53 +1,102 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './location.css';
 import { Modal, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // For navigation
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalImage, setModalImage] = useState('');
+  const navigate = useNavigate(); // Use useNavigate for programmatic navigation
 
   useEffect(() => {
-    axios.get('http://localhost:8081/Location/')
-      .then(response => {
-        setLocations(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching locations:', error);
-      });
-  }, []);
+    const fetchLocations = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You need to log in first.');
+        navigate('/admin/login'); // Redirect to login page
+        return;
+      }
 
-  const handleApprove = (locationId) => {
-    const locationToUpdate = locations.find(location => location._id === locationId);
-
-    axios.put(`http://localhost:8081/Location/update/${locationId}`, {
-      status: 'approved',
-    })
-      .then(response => {
-        const updatedLocations = locations.map(location => {
-          if (location._id === locationId) {
-            return { ...location, status: 'approved' };
+      try {
+        const response = await axios.get('http://localhost:8081/locationAdmin/', {
+          headers: {
+            authorization: token
           }
-          return location;
         });
-        setLocations(updatedLocations);
-      })
-      .catch(error => {
-        console.error('Error approving location:', error);
+        setLocations(response.data);
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+        if (error.response && error.response.status === 401) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('token'); // Clear token
+          navigate('/admin/login'); // Redirect to login page
+        }
+      }
+    };
+
+    fetchLocations();
+  }, [navigate]);
+
+  const handleApprove = async (locationId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login'); // Redirect to login page
+      return;
+    }
+
+    try {
+      await axios.put(`http://localhost:8081/locationAdmin/update/${locationId}`, {
+        status: 'approved',
+      }, {
+        headers: {
+          authorization: token
+        }
       });
+      const updatedLocations = locations.map(location => {
+        if (location._id === locationId) {
+          return { ...location, status: 'approved' };
+        }
+        return location;
+      });
+      setLocations(updatedLocations);
+    } catch (error) {
+      console.error('Error approving location:', error);
+      if (error.response && error.response.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token'); // Clear token
+        navigate('/admin/login'); // Redirect to login page
+      }
+    }
   };
 
-  const handleDelete = (locationId) => {
-    axios.delete(`http://localhost:8081/Location/delete/${locationId}`)
-      .then(response => {
-        const updatedLocations = locations.filter(location => location._id !== locationId);
-        setLocations(updatedLocations);
-      })
-      .catch(error => {
-        console.error('Error deleting location:', error);
+  const handleDelete = async (locationId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login'); // Redirect to login page
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
+        headers: {
+          authorization: token // Include the token in the request header
+        }
       });
+      const updatedLocations = locations.filter(location => location._id !== locationId);
+      setLocations(updatedLocations);
+    } catch (error) {
+      console.error('Error deleting location:', error);
+      if (error.response && error.response.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token'); // Clear token
+        navigate('/admin/login'); // Redirect to login page
+      }
+    }
   };
 
   const toggleModal = () => setModal(!modal);
@@ -58,10 +107,11 @@ const LocationTable = () => {
   };
 
   return (
+    <div className='body1'>
     <div className="container mt-5">
       <h2 className="my-4 text-center">Location Details</h2>
       <table className="table table-striped table-bordered table-hover">
-        <thead className="thead-dark">
+        <thead>
           <tr>
             <th>Name</th>
             <th>City</th>
@@ -99,19 +149,16 @@ const LocationTable = () => {
           ))}
         </tbody>
       </table>
-
+  
       <Modal show={modal} onHide={toggleModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Image</Modal.Title>
-        </Modal.Header>
+
         <Modal.Body>
           <img src={modalImage} alt="Location" className="img-fluid" />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={toggleModal}>Close</Button>
-        </Modal.Footer>
       </Modal>
     </div>
+  </div>
+  
   );
 };
 

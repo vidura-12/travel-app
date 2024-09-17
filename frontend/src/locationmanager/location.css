@@ -1,24 +1,13 @@
-.table-img {
-    max-width: 100px;
-    border-radius: 5px;
-  }
-  
-  .status-approved {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .status-pending {
-    color: orange;
-    font-weight: bold;
-  }
-  
-  .status-rejected {
-    color: red;
-    font-weight: bold;
-  }
-  
-  .table-hover tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
+
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
+  border-radius: 15px; /* Rounded corners for the modal */
+  height: 450px;
+  width: 800px;
+}
+
+table{
+  margin-top: 60px;
+ 
+}

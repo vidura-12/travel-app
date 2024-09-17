@@ -1,6 +1,6 @@
 
 .tourpic{
-    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    background:
      url("./img/tool/tourpic.jpg") no-repeat center;
      height:300px;
      display:flex;
@@ -15,10 +15,12 @@
     color: #fff;
 }
 
-.search{
-    justify-content: center;
-    align-items: center;
+.searc {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
 }
 
 @import '~remixicon/fonts/remixicon.css';
@@ -29,6 +31,7 @@
     box-shadow: rgba(17,12,46,0.15) 0px 48px 100px 0px;
     width: max-content;
     margin-top: 50px;
+    
 
     
 }
@@ -64,6 +67,204 @@
     color: #ddd;
     border-radius: 10px 5px 10px 5px;
     cursor:pointer;
+}
+
+.description {
+    text-align: center;
+    margin: 0 auto;
+    font-style:italic;
+    margin-top: 20px;
+    font-size: 15px;
+    background-color: #1F316F;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    
+}
+
+.destinations{
+   margin:auto;
+   margin-top: 20px;
+   font-size: 25px;
+   font-weight: bold;
+   margin-left: 20px;
+}
+
+
+
+.welcome {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.welcome h3{
+    color: #00008B;
+}
+
+.agency {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #008000; 
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    border: none;
+    margin-right: 10px;
+}
+
+.agency:hover{
+    background-color: #45a049;
+}
+
+
+.enjoy-life-section{
+    background: 
+     url("./img/tool/sigiriya.jpeg") no-repeat center;
+     height:300px;
+     width:1050px;
+     display:flex;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+
+}
+
+.enjoy-life-text{
+    background-color: white;
+    border-radius: 10px;
+    margin-right: 700px;
+    font-weight: bold;
+    padding: 20px;
+    
+}
+
+.destinations-title {
+    margin: auto;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
+ }
+ 
+ .destinations {
+     display: flex;
+     overflow-x: auto;
+     margin: auto;
+     max-width: 100%;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     gap: 1px;
+ }
+ 
+
+ 
+
+ 
+ .destination-item p {
+     margin-top: 10px;
+     font-weight: bold;
+     color: #333;
+ }
+
+ .destination-item1{
+    background: 
+     url("./img/tool/place1.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item2{
+    background: 
+     url("./img/tool/place2.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item3{
+    background: 
+     url("./img/tool/place3.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item4{
+    background: 
+     url("./img/tool/place5.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item5{
+    background: 
+     url("./img/tool/place7.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item6{
+    background: 
+     url("./img/tool/place8.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item7{
+    background: 
+     url("./img/tool/place9.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item8{
+    background: 
+     url("./img/tool/place10.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
 }
 
 
