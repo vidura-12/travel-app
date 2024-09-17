@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import LocationLayout from './LocationLayout';
@@ -14,31 +14,11 @@ import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
-<<<<<<< Updated upstream
-=======
-import Schedulerlayout from './schedulerlayout';
-import Travelagency from './com/agency';
-import LoginPage from './com/LoginPage'; // Import LoginPage
-import SignUpPage from './com/SignUpPage'; // Import SignUpPage (correct name)
-import ProfileDetails from './com/ProfileDetails';
->>>>>>> Stashed changes
 
 function App() {
   return (
     <Router>
       <Routes>
-<<<<<<< Updated upstream
-=======
-        {/* Default Route: Redirect to LoginPage */}
-        <Route path="/" element={<Navigate to="/LoginPage" />} />
-
-        {/* Login Route */}
-        <Route path="/LoginPage" element={<LoginPage />} />
-        
-        {/* Signup Route */}
-        <Route path="/SignUpPage" element={<SignUpPage />} />  {/* Correct path for SignUpPage */}
-
->>>>>>> Stashed changes
         {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
