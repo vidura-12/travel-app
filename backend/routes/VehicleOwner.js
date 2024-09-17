@@ -2,84 +2,68 @@ const express = require('express');
 const router = express.Router();
 const VehicleOwner = require('../models/VehicleOwner');
 
-// Create a new vehicle owner
+// Route to add a new vehicle owner
 router.post('/add', async (req, res) => {
-    try {
-        const { name, age, email, username, password, phoneNumber, address } = req.body;
+  try {
+    const existingOwner = await VehicleOwner.findOne({ email: req.body.email });
+    if (existingOwner) {
+      return res.status(400).json({ error: 'Vehicle owner already exists' });
+    }
 
-        // Check if the vehicle owner with the same email already exists
-        const existingVehicleOwner = await VehicleOwner.findOne({ email });
-        if (existingVehicleOwner) {
-            return res.status(400).json({ message: 'This Vehicle Owner already exists' });
-        }
+    const newOwner = new VehicleOwner({
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      address: req.body.address,
+      city: req.body.city,
+      status: "not approved"
+    });
 
-        // Create a new vehicle owner instance
-        const newVehicleOwner = new VehicleOwner({
-            name,
-            age,
-            email,
-            username,
-            password,
-            phoneNumber, // Fixed field name to match the model
-            address,
-        });
+    await newOwner.save();
 
-        // Save the new vehicle owner to the database
-        await newVehicleOwner.save();
-
-        res.status(201).json({ message: 'Vehicle Owner added successfully', data: newVehicleOwner });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+    res.status(201).json(newOwner);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
 });
 
-// Get all vehicle owners
-router.get('/', async (req, res) => {
-    try {
-        const vehicleOwners = await VehicleOwner.find();
-        res.status(200).json(vehicleOwners);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+// Route to get all vehicle owners
+router.get('/all', async (req, res) => {
+  try {
+    const owners = await VehicleOwner.find();
+    res.status(200).json(owners);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// Get a single vehicle owner
+// Route to get a single vehicle owner
 router.get('/:id', async (req, res) => {
-    try {
-        const vehicleOwner = await VehicleOwner.findById(req.params.id);
-        res.status(200).json(vehicleOwner);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+  try {
+    const owner = await VehicleOwner.findById(req.params.id);
+    res.status(200).json(owner);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// Update a vehicle owner
+// Route to update a vehicle owner
 router.put('/:id', async (req, res) => {
-    try {
-        const updatedVehicleOwner = await VehicleOwner.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true } // Return the updated document, validate the update
-        );
-
-        if (!updatedVehicleOwner) {
-            return res.status(404).json({ message: 'Vehicle Owner not found' });
+  try {
+    const updatedOwner = await VehicleOwner.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updatedOwner);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
         }
-
-        res.status(200).json({ message: 'Vehicle Owner updated successfully', data: updatedVehicleOwner });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
 });
 
-// Delete a vehicle owner
+// Route to delete a vehicle owner
 router.delete('/:id', async (req, res) => {
-    try {
-        await VehicleOwner.findByIdAndRemove(req.params.id);
-        res.status(200).json({ message: 'Vehicle Owner deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+  try {
+    const owner = await VehicleOwner.findByIdAndDelete(req.params.id);
+    res.status(200).json(owner);
+    res.json({ message: 'Vehicle owner deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-
-module.exports = router;
