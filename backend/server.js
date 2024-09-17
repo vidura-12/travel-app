@@ -18,6 +18,7 @@ const PORT = process.env.PORT || 8081;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 
@@ -48,4 +49,5 @@ app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
 app.use('/locationAdmin',locationAdmin);
+
 
