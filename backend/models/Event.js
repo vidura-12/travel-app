@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
+const { type } = require('os');
 const path = require('path');
 
 // Multer configuration
@@ -42,11 +43,11 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: { // updated field name
+    description: { 
         type: String,
         required: true
     },
-    location: { // updated field name
+    location: { 
         type: String,
         required: true
     },
@@ -64,7 +65,49 @@ const eventSchema = new mongoose.Schema({
     },
     image: {
         type: String,
+    },
+
+    //for ticket
+    ticketCriteria: {
+      t1: {
+        type: String,
+      },
+      t2: {
+        type: String,
+      },
+      t3: {
+        type: String,
+      },
+      t4: {
+        type: String,
+      },
+      t5: {
+        type: String,
+      },
+      t6: {
+        type: String,
+      },
+      t7: {
+        type: String,
+      }
+  },
+
+  userTickets: [
+  {
+    tname: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    otherField: {
+      type: Map,
     }
+  }
+]
 });
 
 const Events = mongoose.model("events", eventSchema);
