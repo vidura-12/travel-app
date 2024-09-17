@@ -76,9 +76,10 @@ const eventSchema = new mongoose.Schema({
     },
     userTickets: [
         {
-            tname: String,
-            phone: String,
-            email: String,
+            // tname: String,
+            
+            // phone: String,
+            // email: String,
             otherFields: Map // Map for dynamic fields
         }
     ]

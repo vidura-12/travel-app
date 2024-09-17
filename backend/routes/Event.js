@@ -32,7 +32,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
 
 // Add user ticket details
 router.post('/:id/tickets', async (req, res) => {
-    const { tname, phone, email, otherFields } = req.body;
+    const {otherFields } = req.body;
 
     try {
         const event = await Events.findById(req.params.id);
@@ -40,7 +40,7 @@ router.post('/:id/tickets', async (req, res) => {
             return res.status(404).json({ error: 'Event not found' });
         }
 
-        event.userTickets.push({ tname, phone, email, otherFields });
+        event.userTickets.push({otherFields });
         await event.save();
 
         res.status(200).json(event);

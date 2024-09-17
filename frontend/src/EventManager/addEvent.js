@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2'
 import axios from 'axios';
 import './addEvent.css';
+import {useNavigate} from 'react-router-dom';
 
 function AddEvent() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -76,7 +79,12 @@ function AddEvent() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Event added successfully:', response.data);
+        Swal.fire({
+          title: "Event added successfully",
+          icon: "success"
+        }).then(()=>{
+          navigate('/EventManager/EventList');
+        });
     } catch (error) {
       console.error('Error adding event:', error);
     }

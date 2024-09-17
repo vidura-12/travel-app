@@ -68,13 +68,13 @@ function EditEvent() {
     formData.append("price", event.price);
 
     // Append the ticket criteria to form data
-    formData.append("t1", event.t1);
-    formData.append("t2", event.t2);
-    formData.append("t3", event.t3);
-    formData.append("t4", event.t4);
-    formData.append("t5", event.t5);
-    formData.append("t6", event.t6);
-    formData.append("t7", event.t7);
+    formData.append("t1", event.ticketCriteria.t1);
+    formData.append("t2", event.ticketCriteria.t2);
+    formData.append("t3", event.ticketCriteria.t3);
+    formData.append("t4", event.ticketCriteria.t4);
+    formData.append("t5", event.ticketCriteria.t5);
+    formData.append("t6", event.ticketCriteria.t6);
+    formData.append("t7", event.ticketCriteria.t7);
 
     // Append the new image file if a new one was selected
     if (imageFile) {
@@ -87,7 +87,7 @@ function EditEvent() {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate('/'); // Redirect to EventList page after update
+      navigate('/EventManager/EventList'); // Redirect to EventList page after update
     } catch (error) {
       console.error('Error updating event:', error);
     }
@@ -114,7 +114,17 @@ function EditEvent() {
       [name]: value
     }));
 
-   
+    setEvent((prevEvent) => ({
+      ...prevEvent,
+      ...(name.startsWith('t') ? {
+        ticketCriteria: {
+          ...prevEvent.ticketCriteria,
+          [name]: value
+        }
+      } : {
+        [name]: value
+      })
+    }));
   };
 
   // Handle image file change
@@ -303,7 +313,7 @@ function EditEvent() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary"><Link to={`/EventManager/EventList`}>Update Event</Link></button>
+        <button type="submit" className="btn btn-primary">Update Event</button>
       </form>
     </div>
   );
