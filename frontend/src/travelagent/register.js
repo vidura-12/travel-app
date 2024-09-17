@@ -12,7 +12,9 @@ export default function Register() {
       address: '',
       number: '',
       experience: '',
-      language: '' ,
+      language: '',
+      username: '',  
+      password: ''   
     });
 
     const navigate = useNavigate();
@@ -45,7 +47,9 @@ export default function Register() {
           address: '',
           number: '',
           experience: '',
-          language: '' ,
+          language: '',
+          username: '',  
+          password: ''   
         });
       } 
       catch (error) {
@@ -135,6 +139,28 @@ export default function Register() {
                   id="language"
                   name="language"
                   value={formData.language}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />

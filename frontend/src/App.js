@@ -25,8 +25,8 @@ import AgentRegister from './travelagent/register';
 import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
-import AgentGHome from './com/guideHome';
- 
+import AgentGHome from './com/guideHome';   
+import AgentLog from './travelagent/login'
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -83,6 +83,7 @@ function App() {
         <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile/></TravelAgentLayout>} />
         <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile/></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc/></TravelAgentLayout>} />
+        <Route path="/travelagent/login" element={<TravelAgentLayout><AgentLog/></TravelAgentLayout>} />
 
 
 

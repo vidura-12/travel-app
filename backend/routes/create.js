@@ -1,11 +1,12 @@
 const express = require("express");
 const Create = require("../models/create"); // Ensure this model exists
+ 
 
 const router = express.Router();
 
 // Create Route
 router.post('/add', async (req, res) => {
-    const { name, email, address, number, experience, language } = req.body;
+    const { name, email, address, number, experience, language , username , password } = req.body;
 
     try {
         const newCreate = new Create({
@@ -14,7 +15,9 @@ router.post('/add', async (req, res) => {
             address,
             number,
             experience,
-            language
+            language ,
+            username ,
+            password
         });
 
         await newCreate.save();
@@ -49,32 +52,40 @@ router.get("/:id", async(req,res) =>{
 });
 
 // Update  
-router.put("/update/:id", async (req, res) => {
-    const { name, email, address, number, experience, language } = req.body;
+router.put("/update/:id",  async (req, res) =>{
+    const guideId = req.params.id;
+
+    const updatedData = {
+        name: req.body.name,
+        email: req.body.email,
+        address: req.body.address,
+        number: req.body.number,
+        experience: req.body.experience,
+        language: req.body.language,
+        username : req.body.username ,
+        password : req.body.password
+         
+    };
 
     try {
-        const updatedTourGuide = await Create.findByIdAndUpdate(
-            req.params.id,
-            { name, email, address, number, experience, language },
-            { new: true } // Return the updated document
-        );
+        const updatedTourGuide = await Create.findByIdAndUpdate(guideId, updatedData, { new: true });
 
-        if (!updatedTourGuide) {
-            return res.status(404).json({ error: "Tour guide not found" });
+        if(!updatedTourGuide){
+            return res.status(404).json({ error: "Guide not found" });
         }
 
-        res.json("Tour Guide Updated Successfully");
-
+        res.json({message: "Guide details updated successfully", updatedTourGuide})
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
+
+})
 
 
 
 // Delete a Tour Guide by ID
 router.delete("/delete/:id", async (req, res) => {
-    const TourGuideID = req.params.id;
+const TourGuideID = req.params.id; console.log('Deleting TourGuide with ID:', TourGuideID); 
 
     try {
         const deleteTourGuide = await Create.findByIdAndDelete(TourGuideID);
@@ -88,6 +99,6 @@ router.delete("/delete/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
+});  
 
 module.exports = router;
