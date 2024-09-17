@@ -1,59 +1,76 @@
 const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcrypt');
-const Admin = require('../models/admin'); 
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const middle = require('../middleware/auth.js');
+const User = require('../models/userModel'); // Adjust path if necessary
 
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  
+const router = express.Router();
+
+// Signup route
+router.post('/signup', async (req, res) => {
+  const { name, email, password } = req.body;
+
   try {
-    const admin = await Admin.findOne({ username });
-
-    if (!admin) {
-      return res.status(401).json({ message: 'Invalid username' });
+    // Check if user already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: 'User already exists' });
     }
 
-    const isMatch = await bcrypt.compare(password, admin.password);
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+    // Create a new user
+    user = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    await user.save();
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    console.error('Error during signup:', err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// Login route
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Generate a token after successful password match
+    // Compare the password with the hashed password stored in the database
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Create a JWT token
     const token = jwt.sign(
-      { id: admin._id, role: admin.role }, 
-      process.env.TOKEN, // Ensure this is the correct environment variable
-      { expiresIn: '1h' } // Optionally set an expiration
+      { userId: user._id, name: user.name },
+      process.env.JWT_SECRET, // Ensure JWT_SECRET is in .env file
+      { expiresIn: '1h' }
     );
 
-    console.log(admin.role);
-    res.json({ token, role: admin.role , username: admin.username });
-  } catch (error) {
-    console.error(error); 
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-router.get('/profile/:username', middle, async (req, res) => {
-  try {
-    const { username } = req.params; // Extract username from request parameters
-
-    // Use findOne to search by username instead of findById
-    const admin = await Admin.findOne({ username });
-
-    if (!admin) {
-      return res.status(404).json({ error: 'Admin not found' });
-    }
-
-    res.json(admin);
+    // Return the token and user information
+    res.json({
+      message: 'Login successful',
+      token,
+      user: {
+        name: user.name,
+        email: user.email
+      }
+    });
   } catch (err) {
-    console.error('Error fetching admin:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error during login:', err.message);
+    res.status(500).send('Server error');
   }
 });
-
 
 module.exports = router;
