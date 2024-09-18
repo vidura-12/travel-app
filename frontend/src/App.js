@@ -11,7 +11,7 @@ import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
-import Tour from './com/tours';
+import Tour from './com/tours'; 
 import SchedulerHome from './scheduler/home';
 
 
@@ -24,9 +24,12 @@ import AgentBookTourist from './travelagent/booktourist';
 import AgentRegister from './travelagent/register';
 import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
-import AgentSucc from './travelagent/succ';
-import AgentGHome from './com/guideHome';   
+import AgentSucc from './travelagent/succ'; 
 import AgentLog from './travelagent/login'
+import AgentView from './travelagent/viewBooking';
+import  AgentGuide from './com/guide'; 
+import  AgentAll from './com/allGuides'; 
+import  AgentBookGuide from './com/bookGuide';
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -58,8 +61,11 @@ function App() {
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} /> 
+        
+        <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
+        <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />  
+        <Route path="/bookGuide" element={<UserLayout><AgentBookGuide /></UserLayout>} />
 
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 
@@ -84,6 +90,7 @@ function App() {
         <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile/></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc/></TravelAgentLayout>} />
         <Route path="/travelagent/login" element={<TravelAgentLayout><AgentLog/></TravelAgentLayout>} />
+        <Route path="/travelagent/viewBooking" element={<TravelAgentLayout><AgentView/></TravelAgentLayout>} />
 
 
 

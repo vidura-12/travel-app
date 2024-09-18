@@ -28,6 +28,25 @@ router.post('/add', async (req, res) => {
     }
 });
 
+//Tourist 
+router.post('/addTourist', async (req, res) => {
+    const { name,  address, number } = req.body;
+
+    try {
+        const newCreate = new Create({
+            name,
+            address,
+            number,
+        });
+
+        await newCreate.save();
+        res.json("Tour Guide Added Successfully");
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 
 // Retrieve All Tour Guides
