@@ -6,6 +6,7 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
+import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
 
 // Import Components
 import Home from './com/home';
@@ -18,7 +19,11 @@ import Travelagency from './com/agency';
 import Packages from './com/packages';
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage';
-import Vehicle from './com/vehicle';
+
+// Vehicle Rental Components
+import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
+import VehicleOwnerPage from './vehiclerental/VehicleOwner'
+import VehicleOwnerLogin from './vehiclerental/VehicleOwnerLogin';
 
 
 // Admin Components
@@ -47,6 +52,7 @@ import LocationmanagerHome from './locationmanager/Adminlprofile';
 // Scheduler Layout Component
 import Schedulerlayout from './schedulerlayout';
 
+
 function App() {
   return (
     <Router>
@@ -65,7 +71,7 @@ function App() {
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
         <Route path="/packages" element={<UserLayout><Packages /></UserLayout>} />
-        <Route path="/vehicle" element={<UserLayout><Vehicle /></UserLayout>} />
+        
        
 
         {/* Admin Routes */}
@@ -93,7 +99,11 @@ function App() {
         {/* Scheduler Layout Route */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
 
-        {/* Vehicle Manager Rout */}
+        {/* Vehicle Rental Rout */}
+        <Route path="/vehicle" element={<VehicleRentalLayout><VehicleRentalHome /></VehicleRentalLayout>} />
+        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerPage />} />
+        <Route path="/vehicle-owner/login" element={<VehicleOwnerLogin />} />
+
         
       </Routes>
     </Router>
