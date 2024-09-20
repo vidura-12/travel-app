@@ -10,10 +10,7 @@ frontend/public/img/videoplayback.webm
 
 
 /node_modules
-.env
-/backend/.env
-backend/.env
-backend/.env
+
 
 /node_modules
 /frontend/node_modules/.cache/babel-loader
