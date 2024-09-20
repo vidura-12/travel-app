@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import jsPDF from 'jspdf';
 
 export default function BookGuide() {
   const navigate = useNavigate();
@@ -10,6 +11,21 @@ export default function BookGuide() {
   const handleSubmit = async () => {
     // Handle the submit logic here (like saving booking details)
     navigate('/guide', { state: { name, address, number, selectedGuideId } });
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    // Add the content to the PDF
+    doc.setFontSize(18);
+    doc.text('Tour Guide Booking Confirmation', 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Name: ${name}`, 20, 40);
+    doc.text(`Address: ${address}`, 20, 50);
+    doc.text(`Number: ${number}`, 20, 60);
+
+    // Save the PDF
+    doc.save('booking-details.pdf');
   };
 
   return (
@@ -41,6 +57,8 @@ export default function BookGuide() {
           <li><strong>Address:</strong> {address}</li>
           <li><strong>Number:</strong> {number}</li>
         </ul>
+
+        {/* Confirm Booking Button */}
         <button
           style={{
             backgroundColor: '#28a745', // Bootstrap success color
@@ -58,6 +76,27 @@ export default function BookGuide() {
           onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'} // Original color
         >
           Confirm Booking
+        </button>
+
+        {/* Download PDF Button */}
+        <button
+          style={{
+            backgroundColor: '#007bff', // Bootstrap primary color
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '5px',
+            marginTop: '20px',
+            marginLeft: '10px', // Add some spacing between buttons
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            transition: 'background-color 0.3s ease',
+          }}
+          onClick={handleDownloadPDF}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'} // Darker blue on hover
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'} // Original color
+        >
+          Download PDF
         </button>
       </div>
     </div>
