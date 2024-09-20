@@ -35,7 +35,7 @@ export default function Register() {
         },
       });
 
-      navigate('/travelagent/profile', { state: formData });
+      navigate('/profile', { state: formData });
 
       setFormData({
         name: '',

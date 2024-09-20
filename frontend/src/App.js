@@ -86,9 +86,7 @@ function App() {
         <Route path="/travelagent/about" element={<TravelAgentLayout><AgentAbout /></TravelAgentLayout>} />
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost/></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist/></TravelAgentLayout>} />
-        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister/></TravelAgentLayout>} />
-        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile/></TravelAgentLayout>} />
-        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile/></TravelAgentLayout>} />
+         <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile/></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc/></TravelAgentLayout>} />
         <Route path="/travelagent/login" element={<TravelAgentLayout><AgentLog/></TravelAgentLayout>} />
         <Route path="/travelagent/viewBooking" element={<TravelAgentLayout><AgentView/></TravelAgentLayout>} />
