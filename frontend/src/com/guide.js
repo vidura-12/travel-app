@@ -57,18 +57,18 @@ export default function Guide() {
         href="/register"
         className="position-absolute bottom-0 end-0 m-4"
       >
-        <button className="btn btn-primary btn-lg shadow" style={{ 
+        <button  className="btn btn-primary btn-lg shadow" style={{ 
             borderRadius: '25px',
-            padding: '10px 20px',
+            position:'relative' ,
+            right:'250%',
             transition: 'background-color 0.3s, transform 0.3s',
-            fontSize: '1rem'
+            fontSize: '1rem' 
+             
           }}>
           Register
         </button>
       </a>
-
-      
-      
+ 
     </div>
   );
 }

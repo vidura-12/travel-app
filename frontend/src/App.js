@@ -68,12 +68,9 @@ function App() {
         <Route path="/bookGuide" element={<UserLayout><AgentBookGuide /></UserLayout>} />
 
         
-        <Route path="/register" element={<TravelAgentLayout><AgentRegister/></TravelAgentLayout>} />
-        <Route path="/profile" element={<TravelAgentLayout><AgentProfile/></TravelAgentLayout>} />
-
-        <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
-
-
+        <Route path="/register" element={<UserLayout><AgentRegister /></UserLayout>} />
+        <Route path="/profile" element={<UserLayout><AgentProfile /></UserLayout>} />
+        
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
