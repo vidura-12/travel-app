@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Events, upload } = require('../models/Event');
+// const { Ticket } = require('../models/ticket');
 
 // Add event
 router.post('/add', upload.single('image'), async (req, res) => {
@@ -32,7 +33,7 @@ router.post('/add', upload.single('image'), async (req, res) => {
 
 // Add user ticket details
 router.post('/:id/tickets', async (req, res) => {
-    const {otherFields } = req.body;
+    const { otherFields } = req.body;
 
     try {
         const event = await Events.findById(req.params.id);
@@ -40,7 +41,8 @@ router.post('/:id/tickets', async (req, res) => {
             return res.status(404).json({ error: 'Event not found' });
         }
 
-        event.userTickets.push({otherFields });
+        // Add user ticket details based on dynamic fields
+        event.userTickets.push({ otherFields });
         await event.save();
 
         res.status(200).json(event);
@@ -48,6 +50,8 @@ router.post('/:id/tickets', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+  
 
 // Get all events
 router.get("/", async (req, res) => {
@@ -71,6 +75,27 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+//book ticket
+
+router.get('/:id/tickets', async (req, res) => {
+    try {
+      // Find the event by its ID and include the user tickets
+      const event = await Events.findById(req.params.id);
+  
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      // Respond with the event data, including userTickets
+      res.status(200).json(event.userTickets);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  
+
 
 // Update event
 router.put("/update/:id", upload.single('image'), async (req, res) => {

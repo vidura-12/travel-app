@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './eventList.css';
 import {Link, useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -27,6 +28,10 @@ function EventList() {
     try {
       await axios.delete(`http://localhost:8081/event/delete/${id}`);
       setEvents(events.filter(event => event._id !== id));
+      Swal.fire({
+        title: "Event Delete successfully",
+        icon: "error"
+      });
     } catch (error) {
       console.error('Error deleting event:', error);
     }
@@ -50,19 +55,25 @@ function EventList() {
   );
 
   return (
-    <div className="container event-list-container">
-      
+    <div >
+       <section className="hero-section3">
+        <div>
+        <h4 style={{color: 'white'}}>Find your Event ....</h4>
         {/* Search Bar */}
-        <div className="form-group">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search events by name, category or Location..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+        <div className="search-bar1">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search events by name, category, or location..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        </div>
+      </section>
+        
 
+    <div className="container event-list-container">
 
       <div className="row">
         {filteredEvents.map(event => (
@@ -94,15 +105,12 @@ function EventList() {
 
 
 
-                <button
-                  className="btn btn-warning mr-2"
-                  // onClick={() => handleEdit(event._id)}
-                ><Link to={`/EventManager/updateEvent/${ event._id}`}>
-                  Edit
+                <Link to={`/EventManager/updateEvent/${ event._id}`}><button
+                className="btn btn-warning mr-2"
+              >
+                  Edit</button>
                   </Link>
-                </button>
-
-
+                
 
                 <button
                   className="btn btn-danger"
@@ -110,11 +118,17 @@ function EventList() {
                 >
                   Delete
                 </button>
+
+                
+
+
+
               </div>
             </div>
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

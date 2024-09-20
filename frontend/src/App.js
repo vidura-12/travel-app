@@ -29,7 +29,8 @@ import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';
 import EditEvent from './EventManager/updateEvent';
-import TicketForm from './com/ticket';
+import UserTicketForm from './com/ticket';
+import TicketSummary from './EventManager/report';
 
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
@@ -67,7 +68,7 @@ function App() {
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
-        <Route path="/ticket/:id" element={<UserLayout><TicketForm/></UserLayout>} />
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
 
 
         {/* Admin Routes */}
@@ -95,6 +96,9 @@ function App() {
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
         <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
         <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketSummary/></EventLayout>} />
+
+     
 
      
         

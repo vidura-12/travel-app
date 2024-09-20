@@ -10,6 +10,7 @@ const locationRoutes = require('./routes/Location');
 
 
 const eventsRoutes = require('./routes/Event.js');
+// const ticketRoutes = require('./routes/tickets');
 
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
@@ -48,6 +49,7 @@ app.use('/location',locationRoutes);
 
 
 app.use('/event',eventsRoutes);
+// app.use('/Ticket',ticketRoutes)
 
 //app.use('/vehicle',vehicleRoutes); 
 

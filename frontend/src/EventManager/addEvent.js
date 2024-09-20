@@ -92,7 +92,7 @@ function AddEvent() {
 
   return (
     <div className="event-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <h2>Add your Event</h2>
 
         <div className="form-group">

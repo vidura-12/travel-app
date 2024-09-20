@@ -1,13 +1,17 @@
-.body {
-    margin-top: 80px;
-    background-image: url('./image/train.png'); 
-    /* background-size: cover;
+body {
+    
+    /* background-image: url('./image/cocanat.png');  */
+    background-size: cover;
     background-position: center;
-    padding: 50px 0; 
-    position: relative; */
+    
+    position: relative;
   }
 
 .update-container{
     margin-top: 120px;
     margin-bottom: 80px;
+    backdrop-filter: 50%;
+}
+h2{
+  color: aliceblue;
 }

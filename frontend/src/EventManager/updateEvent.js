@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './update.css';
+import Swal from "sweetalert2";
 
 function EditEvent() {
   const { id } = useParams(); // Get the event ID from the URL
@@ -87,7 +88,12 @@ function EditEvent() {
           "Content-Type": "multipart/form-data",
         },
       });
-      navigate('/EventManager/EventList'); // Redirect to EventList page after update
+      Swal.fire({
+        title: "Event Updated Successfully",
+        icon: "success"
+      }).then(()=>{
+      navigate('/EventManager/EventList'); 
+      });
     } catch (error) {
       console.error('Error updating event:', error);
     }
@@ -134,7 +140,7 @@ function EditEvent() {
 
   return (
     <div className="update-container">
-      <h2>Edit Event</h2>
+      <h2 style={{color: "black"}}>Edit Event</h2>
       <form onSubmit={handleUpdate}>
         <div className="form-group">
           <label>Event Name</label>
