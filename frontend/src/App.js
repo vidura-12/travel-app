@@ -40,7 +40,7 @@ import AgentGHome from './com/guideHome';
 
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
-import LocationmanagerHome from './locationmanager/Adminlprofile';
+import AdminProfile from './admin/Adminlprofile';
 
 
 
@@ -95,7 +95,7 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
-        <Route path="/LocationAdmin/profile" element={<LocationLayout><LocationmanagerHome /></LocationLayout>} />
+        <Route path="/Admin/profile" element={<AdminProfile />} />
 
         {/* Scheduler Route */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
