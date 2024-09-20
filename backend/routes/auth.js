@@ -1,12 +1,18 @@
 const express = require('express');
+<<<<<<< HEAD
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/admin'); // Ensure this is the correct path to the Admin model
 const User = require('../models/user');
 const router = express.Router();
+=======
+const router = express.Router();
+const Admin = require('../models/admin'); 
+>>>>>>> main
 
 // Login Route
 router.post('/login', async (req, res) => {
+<<<<<<< HEAD
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -38,6 +44,20 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Login error:', error.message);
     res.status(500).json({ message: 'Internal server error.' });
+=======
+  const password = req.body.password;
+  const username = req.body.username;
+  try {
+    const admin = await Admin.findOne({ username, password });
+
+    if (admin) {
+      res.json({ message: 'Login complete', role: admin.role });
+    } else {
+      res.status(401).json({ message: 'Invalid username or password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+>>>>>>> main
   }
 });
 

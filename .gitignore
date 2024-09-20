@@ -17,6 +17,10 @@ frontend/public/img/videoplayback.webm
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
+<<<<<<< HEAD
 node_modules
 node_modules
 node_modules
+=======
+/frontend/package.json
+>>>>>>> main
