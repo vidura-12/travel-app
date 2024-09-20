@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 export default function UpdateTourGuide() {
   const { id } = useParams(); // Get the id from the URL params

@@ -21,8 +21,8 @@ import AgentAbout from './travelagent/details';
 import AgentDashboard from './travelagent/dashboard';
 import AgentCreatePost from './travelagent/createpost';
 import AgentBookTourist from './travelagent/booktourist';
-import AgentRegister from './travelagent/register';
-import AgentProfile from './travelagent/profile';
+import AgentRegister from './com/register';
+import AgentProfile from './com/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ'; 
 import AgentLog from './travelagent/login'
@@ -66,6 +66,10 @@ function App() {
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
         <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />  
         <Route path="/bookGuide" element={<UserLayout><AgentBookGuide /></UserLayout>} />
+
+        
+        <Route path="/register" element={<TravelAgentLayout><AgentRegister/></TravelAgentLayout>} />
+        <Route path="/profile" element={<TravelAgentLayout><AgentProfile/></TravelAgentLayout>} />
 
         <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
 

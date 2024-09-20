@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Profile() {
   const location = useLocation();
-  const initialTourGuide = location.state || {}; // Retrieve the passed data
+  const initialTourGuide = location.state || {};
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(initialTourGuide);
   const navigate = useNavigate();
 
-  // Handle input changes for the update form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,40 +18,46 @@ export default function Profile() {
     });
   };
 
-  // Handle the update request
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
       alert('Tour guide updated successfully!');
-      setIsEditing(false); // Close the edit form after successful update
+      setIsEditing(false);
     } catch (error) {
       console.error('Error updating the tour guide:', error);
     }
   };
 
-  // Handle delete request
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this tour guide?')) {
       try {
         await axios.delete(`http://localhost:8081/TourGuide/delete/${id}`);
         alert('Tour guide deleted successfully!');
-        navigate('/register'); // Redirect to the register page after delete
+        navigate('/register');
       } catch (error) {
         console.error('Error deleting tour guide:', error);
-        alert('Failed to delete the tour guide.'); // Inform user of failure
+        alert('Failed to delete the tour guide.');
       }
     }
   };
 
   return (
-    <div className="profile-container">
-      <h2>Tour Guide Profile</h2>
+    <div className="d-flex flex-column align-items-center justify-content-center"  
+    style={{
+      backgroundImage: "url('/img/all4.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      minHeight: '100vh',  // Ensure full height for the background
+      backdropFilter: 'blur(5px)',
+    }}
+  >
+      <h2 className="mb-4">Tour Guide Profile</h2>
 
       {isEditing ? (
-        // If editing, show the form
-        <form onSubmit={handleUpdate} className="update-form">
-          <div>
+        <form onSubmit={handleUpdate} className="bg-light rounded p-4 shadow" style={{ width: '400px' }}>
+          <div className="mb-3">
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -60,9 +66,10 @@ export default function Profile() {
               value={formData.name}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -71,9 +78,10 @@ export default function Profile() {
               value={formData.email}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="address">Address:</label>
             <input
               type="text"
@@ -82,9 +90,10 @@ export default function Profile() {
               value={formData.address}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="number">Number:</label>
             <input
               type="text"
@@ -93,9 +102,10 @@ export default function Profile() {
               value={formData.number}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="experience">Experience:</label>
             <input
               type="text"
@@ -104,9 +114,10 @@ export default function Profile() {
               value={formData.experience}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <div>
+          <div className="mb-3">
             <label htmlFor="language">Language:</label>
             <input
               type="text"
@@ -115,13 +126,13 @@ export default function Profile() {
               value={formData.language}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
-          <button className="btn btn-primary" type="submit" onClick={() => setIsEditing(false)}>Save</button>
+          <button className="btn btn-primary w-100" type="submit" onClick={() => setIsEditing(false)}>Save</button>
         </form>
       ) : (
-        // If not editing, show the profile details
-        <div className="profile-details">
+        <div className="bg-light rounded p-4 shadow" style={{ width: '400px' }}>
           <p><strong>Name:</strong> {formData.name}</p>
           <p><strong>Email:</strong> {formData.email}</p>
           <p><strong>Address:</strong> {formData.address}</p>
@@ -131,14 +142,13 @@ export default function Profile() {
         </div>
       )}
 
-      <div className="profile-actions">
-        {!isEditing && <button className="btn btn-primary" onClick={() => setIsEditing(true)}>Update</button>}
-        <button
-          className="btn btn-danger"
-          onClick={() => handleDelete(formData.id)}
-        >
-          Delete
-        </button>
+      <div className="mt-3 d-flex gap-2">
+        {!isEditing && (
+          <button className="btn btn-primary" onClick={() => setIsEditing(true)}>Update</button>
+        )}
+        {!isEditing && (
+          <button className="btn btn-danger" onClick={() => handleDelete(formData.id)}>Delete</button>
+        )}
       </div>
     </div>
   );

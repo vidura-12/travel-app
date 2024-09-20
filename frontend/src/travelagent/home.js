@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 import './st.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   return (
