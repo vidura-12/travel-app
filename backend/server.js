@@ -12,7 +12,7 @@ const packageRoutes = require('./routes/package');
 const authuser = require('./routes/authRoutes')
 const locationAdmin = require('./routes/Locationadmin');
 const app = express();
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8082;
  
 
 app.use(cors());

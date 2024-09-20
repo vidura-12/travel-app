@@ -15,7 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8081/auth/login', { email, password });
+      const response = await axios.post('http://localhost:8081/user/login_user', { email, password });
       localStorage.setItem('token', response.data.token);
       setSuccess('Login successful!');
       setError('');
@@ -38,7 +38,7 @@ const LoginPage = () => {
           <div className="input-group">
             <label>Email</label>
             <input
-              type="email"
+              type="text"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
