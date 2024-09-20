@@ -1,13 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-// Import Layouts
+
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
-// Import Components
+
 import Home from './com/home';
 import Location from './com/location';
 import Hotel from './com/hotel';
@@ -19,12 +19,12 @@ import Packages from './com/packages';
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage';
 
-// Admin Components
+
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import SchedulerHome from './scheduler/home';
 
-// Travel Agent Components
+
 import AgentHome from './travelagent/home';
 import AgentContact from './travelagent/num';
 import AgentAbout from './travelagent/details';
@@ -37,21 +37,28 @@ import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
 
-// Location Manager Components
+
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
 import LocationmanagerHome from './locationmanager/Adminlprofile';
 
-// Scheduler Layout Component
+
+
 import Schedulerlayout from './schedulerlayout';
+
+import BucketList from './com/bucketlist';
+import BucketListDisplay from './com/bucketlistDisplay';
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Redirect root path to LoginPage */}
+        <Route path="/" element={<Navigate to="/LoginPage" />} />
+
         {/* Public Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/LoginPage" element={<LoginPage />} />
+        <Route path="/SignUpPage" element={<SignUpPage />} />
 
         {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
@@ -64,10 +71,14 @@ function App() {
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
         <Route path="/packages" element={<UserLayout><Packages /></UserLayout>} />
 
+        {/* Bucket List Routes */}
+        <Route path="/bucketlist" element={<UserLayout><BucketList /></UserLayout>} />
+        <Route path="/bucketlistDisplay" element={<UserLayout><BucketListDisplay /></UserLayout>} />
+
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
-        <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
+
 
         {/* Travel Agent Routes */}
         <Route path="/travelagent/home" element={<TravelAgentLayout><AgentHome /></TravelAgentLayout>} />
@@ -86,8 +97,11 @@ function App() {
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
         <Route path="/LocationAdmin/profile" element={<LocationLayout><LocationmanagerHome /></LocationLayout>} />
 
-        {/* Scheduler Layout Route */}
+        {/* Scheduler Route */}
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
+
+        {/* Catch-all route for 404 or undefined paths */}
+        <Route path="*" element={<Navigate to="/LoginPage" />} />
       </Routes>
     </Router>
   );

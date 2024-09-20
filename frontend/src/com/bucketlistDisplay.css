@@ -1,0 +1,39 @@
+.bucket-list-display {
+    background-image: url('C:\Users\ADMIN\Documents\2year - 2nd sem IT\projects\ITP documents\UI\tea.jpg');
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}

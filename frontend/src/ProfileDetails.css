@@ -1,0 +1,70 @@
+
+.profile-container {
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('C:\Users\ADMIN\Documents\2year - 2nd sem IT\projects\ITP documents\UI\profile.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+  }
+  
+ 
+  .personal-details {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px; 
+  }
+  
+  .profile-card {
+    background-color: #2b2b2b;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+  }
+  
+  .label {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .value {
+    font-size: 1rem;
+  }
+  
+  .edit-button, .save-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover, .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .profile-input {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  

@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('C:\Users\ADMIN\Documents\2year - 2nd sem IT\projects\ITP documents\UI\tea.jpg');
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.bucket-list-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns the content at the top */
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block;
+    margin-top: 10px; /* Adds margin at the top */
+}
+
+.add-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.add-item-container input {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    flex: 1;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.add-item-container button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-item-container button:hover {
+    background-color: #3e8e41;
+}
+
+.bucket-list-items {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.bucket-list-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.bucket-list-item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bucket-list-item-content button {
+    margin-left: 10px;
+}
+
+.bucket-list-note {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}

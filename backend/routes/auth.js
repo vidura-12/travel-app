@@ -1,59 +1,44 @@
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
-const Admin = require('../models/admin'); 
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const middle = require('../middleware/auth.js');
+const Admin = require('../models/admin'); // Ensure this is the correct path to the Admin model
+const User = require('../models/user');
+const router = express.Router();
 
+// Login Route
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required.' });
+  }
   
   try {
-    const admin = await Admin.findOne({ username });
-
+    // Find the admin by email
+    const admin = await User.findOne({ email });
     if (!admin) {
-      return res.status(401).json({ message: 'Invalid username' });
+      return res.status(401).json({ message: 'Invalid email.' });
     }
-
+    
+    // Compare the provided password with the hashed password in the database
     const isMatch = await bcrypt.compare(password, admin.password);
-
+    console.log(admin.password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid  password.' });
     }
 
-    // Generate a token after successful password match
-    const token = jwt.sign(
-      { id: admin._id, role: admin.role }, 
-      process.env.TOKEN, // Ensure this is the correct environment variable
-      { expiresIn: '1h' } // Optionally set an expiration
-    );
+    // Generate a JWT token
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    console.log(admin.role);
-    res.json({ token, role: admin.role , username: admin.username });
+    res.status(200).json({
+      message: 'Login successful.',
+      token,
+      role: admin.role
+    });
   } catch (error) {
-    console.error(error); 
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Login error:', error.message);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 });
-
-router.get('/profile/:username', middle, async (req, res) => {
-  try {
-    const { username } = req.params; // Extract username from request parameters
-
-    // Use findOne to search by username instead of findById
-    const admin = await Admin.findOne({ username });
-
-    if (!admin) {
-      return res.status(404).json({ error: 'Admin not found' });
-    }
-
-    res.json(admin);
-  } catch (err) {
-    console.error('Error fetching admin:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 
 module.exports = router;
