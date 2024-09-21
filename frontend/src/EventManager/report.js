@@ -6,7 +6,7 @@ const EventTable = () => {
   // Sample event data
   const events = [
     { name: "Music Festival", category: "Entertainment", bookings: 120 },
-    { name: "Art Exhibition", category: "Culture", bookings: 75 },
+    { name: " beach blis", category: "Culture", bookings: 75 },
     { name: "Tech Conference", category: "Technology", bookings: 300 }
   ];
 
@@ -46,6 +46,21 @@ const EventTable = () => {
   };
 
   return (
+    <div 
+      style={{
+        backgroundImage: "url('/img/dash.jpg')",   
+        backgroundSize: 'cover',                  
+        backgroundPosition: 'center',              
+        backgroundRepeat: 'no-repeat',             
+        height: '80vh',                          
+        width: '100%',                            
+        display: 'flex',                           
+        // alignItems: 'center',                      
+        justifyContent: 'center'                  
+      }}
+    >
+
+
     <div style={tableContainerStyle}>
       <h2>Event Bookings</h2>
       <table style={{ width: "100%", borderCollapse: "collapse" }} className="table">
@@ -71,7 +86,7 @@ const EventTable = () => {
           Download CSV
         </button>
       </div>
-    </div>
+    </div></div>
   );
 };
 
