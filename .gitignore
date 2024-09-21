@@ -58,3 +58,7 @@ backend/.env
 /frontend/node_modules
 /frontend/node_modules
 /frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules
+frontend/node_modules/.cache/default-development/3.pack
+frontend/node_modules/.cache/default-development/1.pack
