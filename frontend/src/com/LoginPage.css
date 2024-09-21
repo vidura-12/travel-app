@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: flex-end;
     height: 100vh;
-    background-image: url('C:\Users\ADMIN\Desktop\travel-app\frontend\src\com\img\loginimage.jpg');
+    background-image: url('com\img\loginimage.jpg');
     background-size: cover;
     background-position: center;
   }
