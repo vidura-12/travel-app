@@ -42,7 +42,7 @@ function VehicleOwnerCreatePost() {
   const fetchVehicles = async (username) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/vehicles', {
+      const response = await axios.get('http://localhost:8081/api/vehicles', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -92,7 +92,7 @@ function VehicleOwnerCreatePost() {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await axios.post('http://localhost:5000/api/vehicles/add', formData, {
+      const response = await axios.post('http://localhost:8081/api/vehicles/add', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
@@ -141,7 +141,7 @@ function VehicleOwnerCreatePost() {
 
   const openEditModal = (vehicle) => {
     setEditingVehicle(vehicle);
-    setImagePreview(vehicle.image ? `http://localhost:5000/uploads/${vehicle.image}` : null);
+    setImagePreview(vehicle.image ? `http://localhost:8081/uploads/${vehicle.image}` : null);
     setEditModalIsOpen(true);
   };
 
@@ -161,7 +161,7 @@ function VehicleOwnerCreatePost() {
     try {
       const token = localStorage.getItem('token');
 
-      await axios.put(`http://localhost:5000/api/vehicles/${_id}`, {
+      await axios.put(`http://localhost:8081/api/vehicles/${_id}`, {
         make,
         model,
         numberOfSeats,
@@ -192,7 +192,7 @@ function VehicleOwnerCreatePost() {
     try {
       const token = localStorage.getItem('token');
 
-      await axios.delete(`http://localhost:5000/api/vehicles/${vehicleId}`, {
+      await axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -240,7 +240,7 @@ function VehicleOwnerCreatePost() {
         <tr key={vehicle._id}>
           <td>
             <img 
-              src={vehicle.image ? `http://localhost:5000/uploads/${vehicle.image}` : '/placeholder.png'} 
+              src={vehicle.image ? `http://localhost:8081/uploads/${vehicle.image}` : '/placeholder.png'} 
               alt={vehicle.make} 
               style={vehicleImageStyle} 
             />

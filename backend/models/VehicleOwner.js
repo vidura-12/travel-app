@@ -26,5 +26,6 @@ const vehicleOwnerSchema = new mongoose.Schema({
     }  // Default role for vehicle owners
   });
   
-  module.exports = mongoose.model('VehicleOwner', vehicleOwnerSchema);
+const VehicleOwner = mongoose.model('VehicleOwner', vehicleOwnerSchema);
 
+module.exports = VehicleOwner;

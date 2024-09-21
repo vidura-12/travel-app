@@ -146,7 +146,7 @@ const VehicleRentalHome = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/vehicles')
+    axios.get('http://localhost:8081/api/vehicles')
       .then(response => {
         const approvedVehicles = response.data.data.filter(vehicle => vehicle.status === 'approved');
         setVehicles(approvedVehicles);
@@ -259,7 +259,7 @@ const VehicleRentalHome = () => {
             <div key={vehicle._id} style={styles.card}>
               <div style={styles.cardImage}>
                 <img
-                  src={vehicle.image ? `http://localhost:3000/uploads/${vehicle.image}` : '/placeholder.png'}
+                  src={vehicle.image ? `http://localhost:8081/uploads/${vehicle.image}` : '/placeholder.png'}
                   alt={`${vehicle.make} ${vehicle.model}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

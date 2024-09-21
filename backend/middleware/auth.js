@@ -1,26 +1,19 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const secret = process.env.JWT_SECRET || 'dfgdfgdfgdfgdgfgsdfgdfgsg'; 
 
-module.exports = function(req, res, next) {
-    // Access Authorization header correctly
-    const authHeader = req.headers.authorization;
+module.exports = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', ''); 
+  if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
 
-    if (authHeader) {
-        // Use the token directly if not using Bearer scheme
-        const token = authHeader;
-
-        // Verify token
-        jwt.verify(token, process.env.TOKEN, (err, user) => {
-            if (err) {
-                console.error('Token verification failed:', err);
-                return res.sendStatus(403); // Forbidden
-            }
-
-            // Attach user to request object if needed
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
+  try {
+    const decoded = jwt.verify(token, secret);
+    req.user = decoded; 
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ msg: 'Access denied' }); 
     }
+    next();
+  } catch (err) {
+    console.error('Token verification error:', err); 
+    res.status(400).json({ msg: 'Token is not valid' });
+  }
 };

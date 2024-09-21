@@ -24,7 +24,9 @@ import SignUpPage from './com/SignUpPage';
 import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
 import VehicleOwnerPage from './vehiclerental/VehicleOwner'
 import VehicleOwnerLogin from './vehiclerental/VehicleOwnerLogin';
-
+import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
+import Mybookings from './vehiclerental/MyBookings';
+import VehicleBook from './vehiclerental/VehicelBook';
 
 // Admin Components
 import AdminHome from './admin/home';
@@ -100,9 +102,14 @@ function App() {
         <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
 
         {/* Vehicle Rental Rout */}
-        <Route path="/vehicle" element={<VehicleRentalLayout><VehicleRentalHome /></VehicleRentalLayout>} />
+        <Route path="/VehicleRentalHome" element={<VehicleRentalLayout><VehicleRentalHome /></VehicleRentalLayout>} />
         <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerPage />} />
         <Route path="/vehicle-owner/login" element={<VehicleOwnerLogin />} />
+        <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
+        <Route path="/mybookings" element={<Mybookings />} />
+        <Route path="/vehiclebook/:vehicleId" element={<VehicleBook />} />
+        <Route path="/vehicleRenatalHome" element={<VehicleRentalHome />} />
+        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerPage />} />
 
         
       </Routes>

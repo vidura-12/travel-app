@@ -1,5 +1,5 @@
 const VehicleOwner = require('../models/VehicleOwner');
-const VehiclePost = require('../models/Vehicle');
+const Vehicle = require('../models/Vehicle');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
