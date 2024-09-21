@@ -6,20 +6,21 @@
 # Node modules
 /backend/node_modules/
 
-frontend/public/img/Sri Lanka.mp4
-frontend/src/com/img/Sri Lanka.mp4
+frontend/public/img/videoplayback.webm
+
 
 /node_modules
-.env
-/backend/.env
-backend/.env
-backend/.env
+
 
 /node_modules
 /frontend/node_modules/.cache/babel-loader
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
+<<<<<<< HEAD
 node_modules
 node_modules
 node_modules
+=======
+/frontend/package.json
+>>>>>>> main

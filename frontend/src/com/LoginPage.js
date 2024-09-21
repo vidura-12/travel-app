@@ -13,19 +13,20 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post('http://localhost:8081/auth/login', { email, password });
+      const response = await axios.post('http://localhost:8081/user/login_user', { email, password });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('name', response.data.name); // Store user name
       setSuccess('Login successful!');
       setError('');
-      // Redirect to home page after successful login
-      navigate('/home'); // Update with the route you want to redirect to
+      navigate('/home');
     } catch (err) {
       setError('Login failed. Please check your credentials.');
       console.error(err);
     }
   };
+  
 
   return (
     <div className="login-container">
@@ -38,7 +39,7 @@ const LoginPage = () => {
           <div className="input-group">
             <label>Email</label>
             <input
-              type="email"
+              type="text"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

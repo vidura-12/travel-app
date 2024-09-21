@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './SignUpPage.css';
 
 const SignUpPage = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
-    terms: false,
+    terms: false, // Add terms to state
   });
 
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,16 +39,17 @@ const SignUpPage = () => {
       return;
     }
 
+    setLoading(true); // Set loading before the request
     try {
-      const response = await axios.post('http://localhost:8081/userauth/signup', {
+      const response = await axios.post('http://localhost:8081/user/signup_user', {
         name,
         email,
         password,
-        confirmPassword,
       });
-      
       setSuccess('Signup successful! You can now log in.');
       setError('');
+      setFormData({ name: '', email: '', password: '', confirmPassword: '', terms: false }); // Reset form
+      navigate('/login'); // Redirect after successful signup
     } catch (err) {
       setError('Signup failed. Please try again.');
       console.error(err);
@@ -102,8 +106,8 @@ const SignUpPage = () => {
               type="checkbox"
               name="terms"
               id="terms"
-              checked={formData.terms}
-              onChange={handleChange}
+              checked={formData.terms} // Set checked state from formData
+              onChange={handleChange} // Handle change
               required
             />
             <label htmlFor="terms">
@@ -112,7 +116,9 @@ const SignUpPage = () => {
           </div>
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
-          <button type="submit" className="signup-button">SIGN UP</button>
+          <button type="submit" className="signup-button" disabled={loading}>
+            {loading ? 'Signing Up...' : 'SIGN UP'}
+          </button>
         </form>
       </div>
     </div>

@@ -1,25 +1,96 @@
-/* Ensures all list items have consistent spacing */
+/* General body styling for the dashboard */
+.location-summary-body {
+  background-color: #f4f7fc;
+  padding: 8rem;
+}
+
+/* Container styling */
+.location-summary-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.location-summary-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Table styling */
+.location-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+
+  overflow: hidden;
+}
+
+.location-summary-table thead {
+  background-color: #687786;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+.location-summary-table th, .location-summary-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.location-summary-table tbody tr:hover {
+  background-color: #f2f4f8;
+}
+
+/* Comments list styling */
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
 .comment-item {
-    margin-bottom: 10px; /* Space between comments */
-    padding: 8px; /* Padding inside each comment item */
-    border-bottom: 1px solid #ddd; /* Light border for separation */
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-text {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Button styling */
+.location-btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.location-btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .location-summary-container {
+      padding: 1rem;
   }
-  
-  .comment-text {
-    flex: 1; /* Allow text to take available space */
-    font-size: 16px; /* Adjust font size as needed */
+
+  .location-summary-table th, .location-summary-table td {
+      padding: 0.5rem;
   }
-  
-  .btn {
-    white-space: nowrap; /* Prevent button text from wrapping */
-  }
-  
-  /* Additional styling for the table */
-  .table {
-    margin-bottom: 0; /* Remove extra margin */
-  }
-  
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9; /* Alternating row colors */
-  }
-  
+}
