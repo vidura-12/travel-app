@@ -131,7 +131,7 @@ const VehicleBook = () => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/api/vehicles/${vehicleId}`)
+    axios.get(`http://localhost:5000/api/vehicles/${vehicleId}`)
       .then(response => setVehicle(response.data.data))
       .catch(error => console.error('Error fetching vehicle details:', error));
   }, [vehicleId]);
@@ -168,7 +168,7 @@ const VehicleBook = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:8081/api/bookings', {
+    axios.post('http://localhost:5000/api/bookings', {
       vehicleId,
       ...formData,
       startDate: formData.startDate,
@@ -327,7 +327,7 @@ const VehicleBook = () => {
         <div style={styles.cardContainer}>
           <div style={styles.card}>
           <img
-            src={vehicle.image ? `http://localhost:8081/uploads/${vehicle.image}` : '/placeholder.png'}
+            src={vehicle.image ? `http://localhost:5000/uploads/${vehicle.image}` : '/placeholder.png'}
             alt={`${vehicle.make} ${vehicle.model}`}
             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
           />
