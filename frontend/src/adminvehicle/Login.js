@@ -12,7 +12,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8081/login', { username, password });
+      const response = await axios.post('http://localhost:8081/login-vehicle', { username, password });
       localStorage.setItem('vehicleOwner', JSON.stringify({ username, token: response.data.token }));
       const role = getRoleFromToken(response.data.token);
 

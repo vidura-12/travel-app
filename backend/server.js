@@ -16,6 +16,7 @@ const authController = require('./controllers/authController');
 const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const app = express();
 const PORT = process.env.PORT || 8081;
+const path = require('path');
  
 
 app.use(cors());
@@ -51,9 +52,12 @@ app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
 app.use('/locationAdmin',locationAdmin);
 
-app.post('/login', authController.login);
+app.post('/login-vehicle', authController.login);
 app.post('/register', authController.register);
 
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/vehicle-owner/login', vehicleOwnerController.login);
+app.use('/api/vehicles', vehicleRoutes);
 
+app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', bookingRoutes);
