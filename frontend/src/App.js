@@ -87,7 +87,7 @@ function App() {
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
         {/* Scheduler Layout Route */}
-        <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
+       
       </Routes>
     </Router>
   );
