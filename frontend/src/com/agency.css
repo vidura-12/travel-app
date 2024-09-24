@@ -1,18 +1,15 @@
 .travelagency{
-    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-     url("./img/tool/travel.jpg") no-repeat center;
-     height:300px;
-     display:flex;
-     align-items: center;
-     justify-content: center;
-     background-attachment: fixed;
+   
+     margin-top: 80px;
+     background-image: url('./img/tool/im1.jpg'); /* Replace with the actual path to your image */
      background-size: cover;
+     background-position: center;
+     padding: 50px 0; 
+     position: relative;
 
 }
 
-.travelagency h1{
-    color: #fff;
-}
+
 
 .traveltitle{
     text-align: center;
@@ -28,12 +25,13 @@
 form {
     width: 50%;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color:  rgba(255, 255, 255, 0.8); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+
+ 
   .m1 {
     display: flex;
     flex-direction: column;
@@ -94,4 +92,5 @@ form {
     height: auto;
     display: block;
   }
+  
   
