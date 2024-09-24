@@ -27,8 +27,6 @@ import Tour from './com/tours';
 
 import SchedulerHome from './scheduler/home';
 
-import Tour from './com/tours';
-
 import SchedulerHome from './scheduler/home';
 
 
