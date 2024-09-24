@@ -9,12 +9,12 @@ const middle = require('./middleware/auth')
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/vehicleRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
-const packageRoutes = require('./routes/package');
-const authuser = require('./routes/authRoutes')
-const locationAdmin = require('./routes/Locationadmin');
 const authController = require('./controllers/authController');
 const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const app = express();
+const packageRoutes = require('./routes/package');
+const authuser = require('./routes/authRoutes')
+const locationAdmin = require('./routes/Locationadmin');
 const PORT = process.env.PORT || 8081;
 const path = require('path');
  
@@ -58,6 +58,5 @@ app.post('/register', authController.register);
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/vehicle-owner/login', vehicleOwnerController.login);
 app.use('/api/vehicles', vehicleRoutes);
-
 app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', bookingRoutes);
