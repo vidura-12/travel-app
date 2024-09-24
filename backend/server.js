@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 
-const addRoute = require ("./routes/feedback");//this
+const addRoute1 = require ("./routes/feedback");//this
 
 
 //import routes server
@@ -44,7 +44,7 @@ const server = app.listen(PORT, () => {
 });
 
 
-app.use('/FeedBack', addRoute); // new
+app.use('/FeedBack', addRoute1); // new
 
 
 app.use('/TourGuide', addRoute); // new
