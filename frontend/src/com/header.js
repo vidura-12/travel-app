@@ -12,21 +12,19 @@ function Header() {
               <div className="menu-icon">
                 <i className="fa fa-bars"></i>
               </div>
-              <h3>Travel</h3>
+              <h3>TravelMate</h3>
             </div>
             <div className="menu-container">
-              <div className="menu-close">
-                <i className="fa fa-close"></i>
-              </div>
+             
               <ul className="menu-list">
                 <li><Link to="/home">Home</Link></li>
                 <li><a href="#">About</a></li>
-                <li><a href="/tours">Travel Packages</a></li>
+                <li><Link to ="/tours">Travel Packages</Link></li>
                 <li><a href="#">Vehicle Rentle</a></li>
-                <li><Link to="/location">Destinations</Link></li>
+                <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
-                <li><a href="#">Travel Agents</a></li>
-
+                <li><Link to="/travelagent/dashboard">Travel Agents</Link></li>
+                <li><Link to="#">Events</Link></li>
               </ul>
             </div>
             <div className="auth-container">

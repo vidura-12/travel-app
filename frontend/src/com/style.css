@@ -1,5 +1,123 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Additional CSS for like and comment buttons */
+.like-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 10px;
+  }
+  
+  .like-button img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Adding transition */
+  }
+  
+  .like-button img:hover {
+    transform: scale(1.5);
+  }
+  
+  
+  .like-button.liked img {
+    opacity: 0.5; /* Indicate that the location has been liked */
+  }
+  
+  .like-count {
+    font-size: 16px;
+    margin-left: 5px;
+  }
+  
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    margin: 5px 0;
+  }
+  
+  .comment-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .comment-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .comment-button:hover {
+    background-color: #0056b3;
+  }
+  .comments-section {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    margin: 5px 0;
+  }
+  
+  .comment-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .comment-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .comment-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .see-more-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+  }
 
+  .see-less-button {
+    background: none;
+    right: 0;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 350px;
+    font-size: 14px;
+  }
+  
+  .see-more-button:hover ,
+  .see-less-button:hover{
+    text-decoration: underline;
+  }
+    
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +132,47 @@
     --green-color: #00404f;
     --white-color: #fff;
     --text-color: #333;
+}
+.containe {
+    text-align: center;
+    background-image: url('./img/sb-bandara-1GJKxIkSR0E-unsplash (1).jpg'); 
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+  }
+  
+  .titl {
+    font-size: 2em;
+    margin-bottom: 70px;
+  }
+.buttonadd {
+    background: var(--green-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 32px;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.buttonadd:hover {
+    background: var(--dark-green);
+   
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.buttonadd:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 ::selection {
     background: var(--green-color);
@@ -46,7 +205,7 @@ section.home {
 .home .home-box {
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/background-1.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/fredrik-ohlander-ZtfImda5l6o-unsplash.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -143,25 +302,9 @@ section.home {
     color: var(--white-color);
     text-align: center;
 }
-.home .home-box .content h4 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-}
-.home .home-box .content h1 {
-    font-size: 3.5rem;
-    max-width: 100rem;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-}
-.home .home-box .content p {
-    max-width: 40rem;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 2rem;
-}
+
+
+
 .home .home-box .content .search {
     width: 100%;
     max-width: 38rem;

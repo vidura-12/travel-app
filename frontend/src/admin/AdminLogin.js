@@ -8,7 +8,6 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const navigate = useNavigate();
-
   const handleUsernameChange = (e) => {
     const value = e.target.value;
     const isValid = /^[A-Za-z]+$/.test(value);
@@ -27,7 +26,7 @@ const AdminLogin = () => {
     if (usernameError) {
       return;
     }
-
+  
     const admin = { 
       username, 
       password
@@ -36,30 +35,19 @@ const AdminLogin = () => {
     try {
       const response = await axios.post('http://localhost:8081/auth/login', admin);
       console.log('Response Data:', response.data);
+      
+      // Store the token in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('username', response.data.username.trim());
       const role = response.data.role.trim();
-      console.log('Role:', role);
+     
   
       switch (role) {
-        case 'locationmanager':
-          navigate('/locationmanager/home');
+        case 'location_manager':
+          navigate('/LocationAdmin/home');
           break;
-        case 'hotelmanager':
-          navigate('/hotelmanager/home');
-          break;
-        case 'admin':
-          navigate('/admin/home');
-          break;
-        case 'usersupporter':
-          navigate('/usersupporter/home');
-          break;
-        case 'scheduler':
-          navigate('/scheduler/home');
-          break;
-        case 'travelagent':
-          navigate('/travelagent/home');
-          break;
-        case 'vehiclerentle':
-          navigate('/vehiclerentle/home');
+        case 'Schedule_Manager':
+         navigate('/LocationAdmin/home');
           break;
         default:
           setError('Unknown role');
@@ -75,30 +63,46 @@ const AdminLogin = () => {
   
 
   return (
-    <div>
-      <h2>Admin Login</h2>
+    <div className="container mt-5">
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
-          <label>Username</label>
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">User Name</label>
           <input
             type="text"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter User Name"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
-          {usernameError && <p style={{ color: 'red' }}>{usernameError}</p>}
+          
         </div>
-        <div>
-          <label>Password</label>
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Password</label>
           <input
             type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
+        <div className="form-group form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+          />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+            Check me out
+          </label>
+        </div>
+        {error && <p className="text-danger">{error}</p>}
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

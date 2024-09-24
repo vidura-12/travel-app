@@ -10,13 +10,12 @@ function Footer() {
             <div className="detail">
               <h3>Travel</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-                in, non praesentium soluta quis enim aperiam aliquam, rem totam
-                porro, vel obcaecati modi architecto error maiores iusto quaerat
-                aut eum.
+              simplifies your journey with intuitive booking tools, personalized itineraries, and real-time updates. Trust us for a reliable and stress-free travel experience, tailored to your needs.
+
+
               </p>
               <h5>get in touch</h5>
-              <a href="mailto:example@mail.com">example@mail.com</a>
+              <a href="mailto:example@mail.com">.@gmail.com</a>
               <div className="social">
                 <a href="#"><i className="fab fa-linkedin"></i></a>
                 <a href="#"><i className="fab fa-facebook"></i></a>
