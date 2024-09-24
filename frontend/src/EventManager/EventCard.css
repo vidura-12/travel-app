@@ -1,0 +1,42 @@
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .event-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 16px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .event-details {
+    margin-top: 16px;
+  }
+  
+  .event-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  
+  .event-details p {
+    margin: 4px 0;
+  }
+
+  .event-description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  

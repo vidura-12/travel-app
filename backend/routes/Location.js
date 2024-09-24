@@ -5,6 +5,13 @@ const { Location, upload } = require('../models/Locations');
 // Route to add a new location
 router.post('/add', upload.single('picture'), async (req, res) => {
   try {
+    
+    const existingLocation = await Location.findOne({ name: req.body.name });
+    if (existingLocation) {
+      return res.status(400).json({ error: 'Location name already exists' });
+    }
+
+    
     const newLocation = new Location({
       name: req.body.name,
       city: req.body.city,
@@ -20,52 +27,6 @@ router.post('/add', upload.single('picture'), async (req, res) => {
   }
 });
 
-// Route to get all locations
-router.get('/', async (req, res) => {
-  try {
-    const locations = await Location.find();
-    res.status(200).json(locations);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Route to update a location
-router.put('/update/:id', upload.single('picture'), async (req, res) => {
-  try {
-    const locationId = req.params.id;
-    const updatedFields = {
-      status: 'approved', 
-    };
-
-    const updatedLocation = await Location.findByIdAndUpdate(locationId, updatedFields, { new: true });
-
-    if (!updatedLocation) {
-      return res.status(404).json({ error: 'Location not found' });
-    }
-
-    res.status(200).json(updatedLocation);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
-
-// Route to delete a location
-router.delete('/delete/:id', async (req, res) => {
-  try {
-    const locationId = req.params.id;
-
-    const deletedLocation = await Location.findByIdAndDelete(locationId);
-
-    if (!deletedLocation) {
-      return res.status(404).json({ error: 'Location not found' });
-    }
-
-    res.status(200).json({ message: 'Location deleted successfully' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
 
 // Route to search locations by city
 router.get('/search', async (req, res) => {
@@ -129,5 +90,9 @@ router.post('/comment/:id', async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
+
+
+
 
 module.exports = router;

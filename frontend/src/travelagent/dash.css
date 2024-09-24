@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font to all elements */
+}
+
+.button{
+    background-color: #1A4870;
+    border-radius: 40px;
+    color: white;
+}
