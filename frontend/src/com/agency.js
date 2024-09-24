@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './agency.css';
 
 const Agency = () => {
@@ -15,14 +16,41 @@ const Agency = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Handle form field changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value,
-    });
+    let newErrors = { ...errors };
+
+    if (id === 'phoneNumber') {
+      if (/^\d*$/.test(value) && value.length <= 10) {
+        setFormData({
+          ...formData,
+          [id]: value,
+        });
+        newErrors.phoneNumber = ''; // Clear error if valid
+      } else {
+        newErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
+      }
+      setErrors(newErrors);
+    } else if (id === 'agencyName') {
+      if (/^[a-zA-Z\s]*$/.test(value)) {
+        setFormData({
+          ...formData,
+          [id]: value,
+        });
+        newErrors.agencyName = ''; // Clear error if valid
+      } else {
+        newErrors.agencyName = 'Agency Name must contain only letters and spaces'; // Set error message
+      }
+      setErrors(newErrors);
+    } else {
+      setFormData({
+        ...formData,
+        [id]: value,
+      });
+    }
   };
 
   const handlePlaceChange = (index, value) => {
@@ -52,6 +80,9 @@ const Agency = () => {
     if (!formData.agencyName) {
       newErrors.agencyName = 'Agency Name is required';
       valid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.agencyName)) {
+      newErrors.agencyName = 'Agency Name must contain only letters and spaces';
+      valid = false;
     }
 
     if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
@@ -59,20 +90,30 @@ const Agency = () => {
       valid = false;
     }
 
-    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
+
+    if (!formData.email) {
+      newErrors.agencyName = 'Email is required';
+      valid = false;
+    } else if (!/^[a-z]+@[a-z]+\.[a-z]+$/.test(formData.email)) {
+      newErrors.agencyName = 'Invalid email address: must contain only lowercase letters and "@"';
       valid = false;
     }
 
+
     if (!formData.location) {
-      newErrors.location = 'Location is required';
+      newErrors.location = 'Location Name is required';
+      valid = false;
+    } else if (!/^[a-zA-Z\s]*$/.test(formData.location)) {
+      newErrors.location = 'Locat Name must contain only letters and spaces';
       valid = false;
     }
+    
 
     if (formData.places.some(place => place === '')) {
       newErrors.places = 'All places must be filled out';
       valid = false;
     }
+    
 
     if (!formData.maxPeople) {
       newErrors.maxPeople = 'Max People is required';
@@ -89,59 +130,64 @@ const Agency = () => {
   };
 
   const handleSubmit = async (e) => {
+   
     e.preventDefault();
 
     if (validateForm()) {
-        const data = new FormData();
-        Object.keys(formData).forEach(key => {
-            if (key === 'places') {
-                formData.places.forEach((place, index) => {
-                    data.append(`places[${index}]`, place);
-                });
-            } else {
-                data.append(key, formData[key]);
-            }
+      const data = new FormData();
+      Object.keys(formData).forEach(key => {
+        if (key === 'places') {
+          formData.places.forEach((place, index) => {
+            data.append(`places[${index}]`, place);
+          });
+        } else {
+          data.append(key, formData[key]);
+        }
+      });
+
+      try {
+        const response = await axios.post('http://localhost:8081/packageS/create', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
 
-        try {
-            const response = await axios.post('http://localhost:8081/packageS/create', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+        console.log('Form submitted successfully:', response.data);
 
-            console.log('Form submitted successfully:', response.data);
+        window.alert('Your details have been submitted successfully!');
+       
+        
 
-            // Reset form after successful submission
-            setFormData({
-                agencyName: '',
-                phoneNumber: '',
-                email: '',
-                location: '',
-                places: [''],
-                maxPeople: '',
-                price: '',
-                image: null,
-            });
+        setFormData({
+          agencyName: '',
+          phoneNumber: '',
+          email: '',
+          location: '',
+          places: [''],
+          maxPeople: '',
+          price: '',
+          image: null,
+        });
 
-        } catch (error) {
-            console.error('Error submitting the form', error);
-        }
+        setTimeout(() => setSuccessMessage(''), 3000);
+
+      } catch (error) {
+        console.error('Error submitting the form', error);
+      }
     } else {
-        console.log('Form validation failed', errors); // Log the errors object
+      console.log('Form validation failed', errors);
     }
-};
-
+  };
 
   return (
-    <>
-      <div className="travelagency">
-        <h1>Travel Packages</h1>
-      </div>
+    <div className="travelagency">
       <div className='traveltitle'>
         <h1>Welcome Travel Agencies!</h1>
         <p>Customize the travel packages</p>
       </div>
+
+      {successMessage && <div className="success-message">{successMessage}</div>}
+
       <form onSubmit={handleSubmit}>
         <div className="m1">
           <label>Name of the Travel Agency</label>
@@ -152,7 +198,7 @@ const Agency = () => {
             value={formData.agencyName}
             onChange={handleInputChange}
           />
-          {errors.agencyName && <div className="error">{errors.agencyName}</div>}
+          {errors.agencyName && <div className="error text-danger">{errors.agencyName}</div>}
 
           <label>Phone Number</label>
           <input
@@ -162,7 +208,7 @@ const Agency = () => {
             value={formData.phoneNumber}
             onChange={handleInputChange}
           />
-          {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>}
+          {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
 
           <label>Email Address</label>
           <input
@@ -172,7 +218,7 @@ const Agency = () => {
             value={formData.email}
             onChange={handleInputChange}
           />
-          {errors.email && <div className="error">{errors.email}</div>}
+          {errors.email && <div className="error text-danger">{errors.email}</div>}
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
 
           <label>Location</label>
@@ -183,7 +229,7 @@ const Agency = () => {
             value={formData.location}
             onChange={handleInputChange}
           />
-          {errors.location && <div className="error">{errors.location}</div>}
+          {errors.location && <div className="error text-danger">{errors.location}</div>}
 
           <label>Places of Specific Location</label>
           {formData.places.map((place, index) => (
@@ -194,7 +240,7 @@ const Agency = () => {
                 value={place}
                 onChange={(e) => handlePlaceChange(index, e.target.value)}
               />
-              {errors.places && <div className="error">{errors.places}</div>}
+              {errors.places && <div className="error text-danger">{errors.places}</div>}
               {formData.places.length > 1 && (
                 <button type="button" onClick={() => removePlace(index)} className="btn btn-danger">
                   Remove
@@ -214,7 +260,7 @@ const Agency = () => {
             value={formData.maxPeople}
             onChange={handleInputChange}
           />
-          {errors.maxPeople && <div className="error">{errors.maxPeople}</div>}
+          {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
 
           <label>Price</label>
           <input
@@ -224,7 +270,7 @@ const Agency = () => {
             value={formData.price}
             onChange={handleInputChange}
           />
-          {errors.price && <div className="error">{errors.price}</div>}
+          {errors.price && <div className="error text-danger">{errors.price}</div>}
 
           <label>Upload Image</label>
           <input
@@ -236,7 +282,7 @@ const Agency = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-    </>
+    </div>
   );
 };
 

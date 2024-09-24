@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './locationmanager/header'
+import Header from './admin/header'
 const LocationLayout = ({ children }) => (
   <div>
  <Header/>
