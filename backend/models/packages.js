@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-//
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, '../frontend/public/img'); 
@@ -31,40 +31,46 @@ function checkFileType(file, cb) {
   }
 }
 
-const locationSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-  },
-  picture: {
+// Define the package schema
+const packageSchema = new mongoose.Schema({
+  agencyName: { 
     type: String, 
+    required: true 
   },
-  status: {
+  phoneNumber: { 
     type: String, 
+    required: true 
   },
-  likes: {
-    type: Number,
-    default: 0,
+  email: { 
+    type: String, 
+    required: true 
   },
-  comments: [{
-    text: String,
-    date: {
-      type: Date,
-      default: Date.now
-    }
-  }]
+  location: { 
+    type: String, 
+    required: true 
+  },
+  places: { 
+    type: [String], 
+    required: true 
+  },
+  maxPeople: { 
+    type: Number, 
+    required: true 
+  },
+  price: { 
+    type: Number, 
+    required: true 
+  },
+  image: { 
+    type: String, 
+    required: true 
+  },
 });
 
-const Location = mongoose.model('Location', locationSchema);
+// Create the model
+const Package = mongoose.model('Package', packageSchema);
 
 module.exports = {
-  Location,
+  Package,
   upload
 };
