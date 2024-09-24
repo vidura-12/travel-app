@@ -30,7 +30,7 @@ router.post('/save',async (req, res) => {
 //read
 
 // Read all feedbacks
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
    try {
        const feedbacks = await Feedback.find();
        res.json(feedbacks);
@@ -81,7 +81,7 @@ router.put('/update/:id', async (req, res) => {
 
 
 // Delete a specific feedback by ID
-router.delete('/:id', async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
    try {
        const deletedFeedback = await Feedback.findByIdAndDelete(req.params.id);
 
