@@ -46,7 +46,9 @@ const AdminLogin = () => {
         case 'location_manager':
           navigate('/LocationAdmin/home');
           break;
-        // handle other roles
+        case 'Schedule_Manager':
+         navigate('/LocationAdmin/home');
+          break;
         default:
           setError('Unknown role');
       }

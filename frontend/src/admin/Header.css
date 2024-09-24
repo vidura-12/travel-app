@@ -1,4 +1,4 @@
-.navbar-custom {
+.navbar-custom-header {
     width: calc(100% - 4rem);
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
@@ -10,10 +10,10 @@
     z-index: 100;
     position: fixed;
     margin-left: 30px;
-    
+    margin-top: 2rem;
 }
 
-.navbar-custom ul {
+.navbar-custom-header ul {
     text-decoration: none;
     display: flex;
     margin: 0;
@@ -22,20 +22,20 @@
     letter-spacing: 0.05cm;
 }
 
-.navbar-custom ul .menu-item {
+.navbar-custom-header ul .menu-item-header {
     position: relative;
     margin: 0 1.5rem;
     cursor: pointer;
 }
 
-.navbar-custom ul .menu-item .nav-link {
+.navbar-custom-header ul .menu-item-header .nav-link-header {
     margin-left: 20px;
     color: var(--white-color);
     font-weight: 500;
-    text-decoration: none; /* Remove text decoration */
+    text-decoration: none;
 }
 
-.navbar-custom ul .menu-item::before {
+.navbar-custom-header ul .menu-item-header::before {
     position: absolute;
     bottom: -3px;
     content: "";
@@ -46,32 +46,29 @@
     transition: .5s;
 }
 
-.navbar-custom ul .menu-item:hover::before {
+.navbar-custom-header ul .menu-item-header:hover::before {
     width: 100%;
 }
 
-/* Align profile buttons to the right */
-.profile {
+.profile-header {
     display: flex;
     gap: 1rem;
     margin-left: auto;
 }
 
-.nav-link-profile, .nav-link-profile-logout {
+.nav-link-profile-header, .nav-link-profile-logout-header {
     background: transparent;
     border: none;
     color: var(--white-color);
     font-weight: 500;
     cursor: pointer;
-    text-decoration: none; /* Remove text decoration */
+    text-decoration: none;
 }
 
-/* Optional hover effects */
-.nav-link-profile:hover, .nav-link-profile-logout:hover {
-    text-decoration: underline; /* Optional hover effect */
+.nav-link-profile-header:hover, .nav-link-profile-logout-header:hover {
+    text-decoration: underline;
 }
 
-/* Adjust for better alignment */
-.nav-link-profile-logout {
+.nav-link-profile-logout-header {
     margin-left: 1rem;
 }
