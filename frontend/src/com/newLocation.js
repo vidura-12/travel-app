@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './l.css'; 
 
@@ -93,7 +92,7 @@ const Newlocation = () => {
         },
       });
       setMessage('Thanks for your support, we will notify you after we approve.');
-      setTimeout(() => setAlertVisible(true), 0);  // Add a slight delay to ensure state update
+      setAlertVisible(true);
 
       setFormData({
         name: '',
@@ -103,8 +102,12 @@ const Newlocation = () => {
       });
     } catch (error) {
       console.error('Error submitting the form', error);
-      setMessage('Error submitting the form');
-      setTimeout(() => setAlertVisible(true), 0);
+      if (error.response && error.response.data && error.response.data.error) {
+        setMessage(error.response.data.error);
+      } else {
+        setMessage('Error submitting the form');
+      }
+      setAlertVisible(true);
     }
   };
 
@@ -177,9 +180,8 @@ const Newlocation = () => {
                 />
               </div>
               <button type="submit" className="custom-button">
-              Submit
+                Submit
               </button>
-
             </form>
           </div>
         </div>

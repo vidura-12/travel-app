@@ -28,7 +28,7 @@ router.post('/add', async (req, res) => {
 
 
 // Retrieve All Tour Guides
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
     try {
         const tourGuides = await Create.find(); // Retrieve all tour guides
         res.json(tourGuides);
@@ -36,6 +36,7 @@ router.get("/", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 // Retrieve a Single Tour Guide by ID
 router.get("/:id", async(req,res) =>{

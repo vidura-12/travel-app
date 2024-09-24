@@ -5,18 +5,19 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
 const authRoutes = require('./routes/auth');
-
+const middle = require('./middleware/auth')
 const locationRoutes = require('./routes/Location');
+
 
 
 const eventsRoutes = require('./routes/Event.js');
 // const ticketRoutes = require('./routes/tickets');
 
+
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
 const authuser = require('./routes/authRoutes')
-
-
+const locationAdmin = require('./routes/Locationadmin');
 const app = express();
 const PORT = process.env.PORT || 8081;
  
@@ -39,10 +40,10 @@ mongoose.connect(URL).then(() => {
 });
 
 
-const server = app.
-listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
+
 
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
@@ -60,3 +61,12 @@ app.use('/userauth',authuser)
 
 app.use('/TourGuide', addRoute); // new
  
+app.use('/auth', authRoutes);
+
+app.use('/location',locationRoutes);
+//app.use('/vehicle',vehicleRoutes); 
+
+app.use('/uploads', express.static('uploads'));
+app.use('/packages', packageRoutes);
+app.use('/userauth',authuser);
+app.use('/locationAdmin',locationAdmin);

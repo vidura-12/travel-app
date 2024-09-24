@@ -8,6 +8,7 @@ function Location() {
   const [newComment, setNewComment] = useState('');
   const [likedLocations, setLikedLocations] = useState([]);
   const [visibleComments, setVisibleComments] = useState({});
+  const [visibleDescriptions, setVisibleDescriptions] = useState({});
   const destinationRef = useRef(null);
 
   useEffect(() => {
@@ -33,35 +34,39 @@ function Location() {
     fetchLikedLocations();
   }, []);
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
-      const data = await response.json();
+const handleSearch = async () => {
+  try {
+    const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
+    const data = await response.json();
 
-      if (response.ok) {
-        if (Array.isArray(data) && data.length === 0) {
-          setError('No locations found with that name.');
-          setResults([]);
-        } else {
-          setError('');
-          setResults(Array.isArray(data) ? data : [data]);
-          setVisibleComments({});
+    console.log(data); // Log the response data
 
-          if (destinationRef.current) {
-            destinationRef.current.classList.add('scroll-to-middle');
-            destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      } else {
-        setError(data.error || 'No locations found with that name.');
+    if (response.ok) {
+      if (Array.isArray(data) && data.length === 0) {
+        setError('No locations found with that name.');
         setResults([]);
+      } else {
+        setError('');
+        setResults(Array.isArray(data) ? data : [data]);
+        setVisibleComments({});
+        setVisibleDescriptions({});
+
+        if (destinationRef.current) {
+          destinationRef.current.classList.add('scroll-to-middle');
+          destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
-    } catch (error) {
-      setError('Error fetching search results.');
-      console.error('Error fetching search results:', error);
+    } else {
+      setError(data.error || 'No locations found with that name.');
       setResults([]);
     }
-  };
+  } catch (error) {
+    setError('Error fetching search results.');
+    console.error('Error fetching search results:', error);
+    setResults([]);
+  }
+};
+
 
   const handleLike = async (locationId) => {
     try {
@@ -116,17 +121,31 @@ function Location() {
     }
   };
 
-  const handleSeeMore = (locationId) => {
+  const handleSeeMoreComments = (locationId) => {
     setVisibleComments((prevVisibleComments) => ({
       ...prevVisibleComments,
       [locationId]: (prevVisibleComments[locationId] || 5) + 5,
     }));
   };
 
-  const handleSeeLess = (locationId) => {
+  const handleSeeLessComments = (locationId) => {
     setVisibleComments((prevVisibleComments) => ({
       ...prevVisibleComments,
       [locationId]: Math.max((prevVisibleComments[locationId] || 5) - 5, 5),
+    }));
+  };
+
+  const handleSeeMoreDescription = (locationId) => {
+    setVisibleDescriptions((prevVisibleDescriptions) => ({
+      ...prevVisibleDescriptions,
+      [locationId]: true,
+    }));
+  };
+
+  const handleSeeLessDescription = (locationId) => {
+    setVisibleDescriptions((prevVisibleDescriptions) => ({
+      ...prevVisibleDescriptions,
+      [locationId]: false,
     }));
   };
 
@@ -161,7 +180,22 @@ function Location() {
               <div className="container-box">
                 <h2 className="heading">{location.name} - {location.city}</h2>
                 <div className="content">
-                  <p>{location.description}</p>
+                  <p>
+                    {visibleDescriptions[location._id] 
+                      ? location.description 
+                      : `${location.description.substring(0, 100)}...`}
+                  </p>
+                  {location.description.length > 100 && (
+                    visibleDescriptions[location._id] ? (
+                      <button className="see-less-button" onClick={() => handleSeeLessDescription(location._id)}>
+                        See less
+                      </button>
+                    ) : (
+                      <button className="see-more-button" onClick={() => handleSeeMoreDescription(location._id)}>
+                        See more
+                      </button>
+                    )
+                  )}
                   <div className="like-section">
                     <button
                       className={`like-button ${likedLocations.includes(location._id) ? 'liked' : ''}`}
@@ -178,12 +212,12 @@ function Location() {
                       <p key={index} className="comment">{comment.text}</p>
                     ))}
                     {location.comments.length > (visibleComments[location._id] || 5) && (
-                      <button className="see-more-button" onClick={() => handleSeeMore(location._id)}>
+                      <button className="see-more-button" onClick={() => handleSeeMoreComments(location._id)}>
                         See more
                       </button>
                     )}
                     {visibleComments[location._id] > 5 && (
-                      <button className="see-less-button" onClick={() => handleSeeLess(location._id)}>
+                      <button className="see-less-button" onClick={() => handleSeeLessComments(location._id)}>
                         See less
                       </button>
                     )}
@@ -210,7 +244,7 @@ function Location() {
         <div className="containe">
           <h1 className="title">Are you a Traveller? Share your experience with us</h1>
           <a href="/newLocation">
-            <button className="button">Click Here ...</button>
+            <button className="buttonadd">Click Here ...</button>
           </a>
         </div>
       </section>

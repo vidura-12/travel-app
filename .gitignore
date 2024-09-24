@@ -2,6 +2,21 @@
 # Ignore package and package-lock.json in the backend folder
 /backend/package
 /backend/package-lock.json
-
+/backend/.env
 # Node modules
 /backend/node_modules/
+
+frontend/public/img/Sri Lanka.mp4
+frontend/src/com/img/Sri Lanka.mp4
+
+/node_modules
+.env
+/backend/.env
+backend/.env
+backend/.env
+
+/node_modules
+/frontend/node_modules/.cache/babel-loader
+/frontend/node_modules
+/frontend/node_modules/.cache
+*.webm
