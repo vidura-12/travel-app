@@ -213,6 +213,33 @@
 
 
 
+.package-card {
+    width: 18rem; /* Adjust the card width as needed */
+    margin: 20px auto; /* Center the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visuals */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevent content from overflowing */
+  }
+  
+  .package-card img {
+    width: 100%; /* Make the image take full card width */
+    height: auto;
+  }
+  
+  .package-card .card-body {
+    padding: 15px;
+  }
+  
+  .package-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .package-card .card-text {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
 
 
 

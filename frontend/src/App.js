@@ -9,17 +9,31 @@ import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
+<<<<<<< Updated upstream
 import SchedulerHome from './scheduler/home';
+=======
+import Tour from './com/tours';
+
+>>>>>>> Stashed changes
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
 
 import Schedulerlayout from './schedulerlayout';
+<<<<<<< Updated upstream
 import Travelagency from './scheduler/agency';
 import PackageDetails from './scheduler/packagedetails';
 import Tour from './scheduler/tours';
 import Sellersignup from './scheduler/Sellersignup';
 
+=======
+import Travelagency from './com/agency';
+import PackageDetails from './com/packagedetails';
+import SellerSignup from './com/sellersignup';
+import SchedulerDashboard from './com/Schedulerdashboard';
+import SellersProfile from './com/Sellersprofile';
+import EditPackage from './com/Editpackage';
+>>>>>>> Stashed changes
 
 
 
@@ -45,6 +59,7 @@ function App() {
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
 
+<<<<<<< Updated upstream
         {/* Scheduler Routes */}
         <Route path="/tours" element={<Schedulerlayout><Tour /></Schedulerlayout>} />
         <Route path="/agency" element={<Schedulerlayout><Travelagency /></Schedulerlayout>} />
@@ -53,6 +68,16 @@ function App() {
         
         
         
+=======
+        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>}/>
+        <Route path="/sellersignup" element={<UserLayout><sellersignup /></UserLayout>}/>
+        <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>}/>
+        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>}/>
+        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>}/>
+        <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>}/>
+>>>>>>> Stashed changes
         
 
 
@@ -61,7 +86,7 @@ function App() {
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
 
         {/* Role-based Routes */}
-        <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
+       
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
       </Routes>
