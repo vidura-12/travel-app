@@ -90,30 +90,26 @@ const Agency = () => {
       valid = false;
     }
 
-
     if (!formData.email) {
-      newErrors.agencyName = 'Email is required';
+      newErrors.email = 'Email is required';
       valid = false;
     } else if (!/^[a-z]+@[a-z]+\.[a-z]+$/.test(formData.email)) {
-      newErrors.agencyName = 'Invalid email address: must contain only lowercase letters and "@"';
+      newErrors.email = 'Invalid email address: must contain only lowercase letters and "@"';
       valid = false;
     }
-
 
     if (!formData.location) {
       newErrors.location = 'Location Name is required';
       valid = false;
     } else if (!/^[a-zA-Z\s]*$/.test(formData.location)) {
-      newErrors.location = 'Locat Name must contain only letters and spaces';
+      newErrors.location = 'Location Name must contain only letters and spaces';
       valid = false;
     }
-    
 
     if (formData.places.some(place => place === '')) {
       newErrors.places = 'All places must be filled out';
       valid = false;
     }
-    
 
     if (!formData.maxPeople) {
       newErrors.maxPeople = 'Max People is required';
@@ -130,7 +126,6 @@ const Agency = () => {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
 
     if (validateForm()) {
@@ -154,10 +149,9 @@ const Agency = () => {
 
         console.log('Form submitted successfully:', response.data);
 
-        window.alert('Your details have been submitted successfully!');
-       
-        
+        setSuccessMessage('Your details have been submitted successfully!');
 
+        // Reset form after submission
         setFormData({
           agencyName: '',
           phoneNumber: '',
@@ -169,6 +163,7 @@ const Agency = () => {
           image: null,
         });
 
+        // Clear success message after 3 seconds
         setTimeout(() => setSuccessMessage(''), 3000);
 
       } catch (error) {
@@ -186,7 +181,7 @@ const Agency = () => {
         <p>Customize the travel packages</p>
       </div>
 
-      {successMessage && <div className="success-message">{successMessage}</div>}
+      {successMessage && <div className="alert alert-success">{successMessage}</div>}
 
       <form onSubmit={handleSubmit}>
         <div className="m1">

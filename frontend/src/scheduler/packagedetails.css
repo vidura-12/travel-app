@@ -1,3 +1,20 @@
+.dash{
+  background:
+  url("./shedulerimage/detail.jpg") no-repeat center;
+  height:500px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 50px 0; /* Padding for extra space */
+  position: relative;
+  margin-top: 78px;
+}
+
+
+
 .dashboard1 {
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -70,3 +87,10 @@
     color: white;
   }
   
+  .save-button {  background-color: #4CAF50; /* Green */
+    color: white;}
+
+    .cancel-button {
+      background-color: #f44336; /* Red */
+      color: white;
+    }

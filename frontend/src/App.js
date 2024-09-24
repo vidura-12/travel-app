@@ -9,15 +9,17 @@ import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
-import Tour from './com/tours';
 import SchedulerHome from './scheduler/home';
 import AgentHome from './travelagent/home';
 import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
 
 import Schedulerlayout from './schedulerlayout';
-import Travelagency from './com/agency';
-import PackageDetails from './com/packagedetails';
+import Travelagency from './scheduler/agency';
+import PackageDetails from './scheduler/packagedetails';
+import Tour from './scheduler/tours';
+import Sellersignup from './scheduler/Sellersignup';
+
 
 
 
@@ -41,11 +43,14 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
 
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>} />
+        {/* Scheduler Routes */}
+        <Route path="/tours" element={<Schedulerlayout><Tour /></Schedulerlayout>} />
+        <Route path="/agency" element={<Schedulerlayout><Travelagency /></Schedulerlayout>} />
+        <Route path="/packagedetails" element={<Schedulerlayout><PackageDetails/></Schedulerlayout>} />
+        <Route path="/Sellersignup" element={<Schedulerlayout><Sellersignup/></Schedulerlayout>} />
+        
         
         
         
