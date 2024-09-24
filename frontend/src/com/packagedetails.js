@@ -48,10 +48,16 @@ const Dashboard = () => {
     }
   };
 
+<<<<<<< HEAD
   const handleEdit = (pkg) => {
     // Navigate to the Tours component and pass package data
     navigate('/tours', { state: { package: pkg } });
     navigate('/editpackage', { state: { package: pkg } });
+=======
+  const handleEdit = (id) => {
+    // Perform any additional logic before navigation, if needed
+    navigate(`/editpackage/${id}`);  // Navigate to the Tours component with the package id
+>>>>>>> parent of 70365022 (add)
   };
 
   if (loading) {
@@ -72,7 +78,10 @@ const Dashboard = () => {
           <table className="table1">
             <thead>
               <tr>
+<<<<<<< HEAD
                 <th>No</th> {/* Row number column */}
+=======
+>>>>>>> parent of 70365022 (add)
                 <th>Agency Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
@@ -85,9 +94,14 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
               {packages.map((pkg, index) => (
                 <tr key={pkg._id}>
                   <td>{index + 1}</td> {/* Row number */}
+=======
+              {packages.map((pkg) => (
+                <tr key={pkg._id}>
+>>>>>>> parent of 70365022 (add)
                   <td>{pkg.agencyName}</td>
                   <td>{pkg.phoneNumber}</td>
                   <td>{pkg.email}</td>
@@ -105,7 +119,11 @@ const Dashboard = () => {
                     />
                   </td>
                   <td>
+<<<<<<< HEAD
                     <button className="edit-button" onClick={() => handleEdit(pkg)}>Approve</button>
+=======
+                    <button className="edit-button" onClick={() => handleEdit(pkg._id)}>Approve</button>
+>>>>>>> parent of 70365022 (add)
                     <button className="delete-button" onClick={() => handleDelete(pkg._id)}>Deny</button>
                   </td>
                 </tr>

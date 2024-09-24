@@ -9,7 +9,11 @@ import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+import Tour from './com/tours';
+>>>>>>> parent of 70365022 (add)
 import SchedulerHome from './scheduler/home';
 =======
 import Tour from './com/tours';
@@ -20,6 +24,7 @@ import Location_Home from './locationmanager/home';
 import Newlocation from './com/newLocation';
 
 import Schedulerlayout from './schedulerlayout';
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import Travelagency from './scheduler/agency';
 import PackageDetails from './scheduler/packagedetails';
@@ -34,6 +39,10 @@ import SchedulerDashboard from './com/Schedulerdashboard';
 import SellersProfile from './com/Sellersprofile';
 import EditPackage from './com/Editpackage';
 >>>>>>> Stashed changes
+=======
+import Travelagency from './com/agency';
+import PackageDetails from './com/packagedetails';
+>>>>>>> parent of 70365022 (add)
 
 
 
@@ -57,8 +66,10 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
+        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         {/* Scheduler Routes */}
         <Route path="/tours" element={<Schedulerlayout><Tour /></Schedulerlayout>} />
@@ -66,6 +77,10 @@ function App() {
         <Route path="/packagedetails" element={<Schedulerlayout><PackageDetails/></Schedulerlayout>} />
         <Route path="/Sellersignup" element={<Schedulerlayout><Sellersignup/></Schedulerlayout>} />
         
+=======
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>} />
+>>>>>>> parent of 70365022 (add)
         
         
 =======

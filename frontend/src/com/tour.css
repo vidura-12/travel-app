@@ -1,7 +1,7 @@
 
 .tourpic{
     background:
-     url("./shedulerimage/tourpic.jpg") no-repeat center;
+     url("./img/tool/tourpic.jpg") no-repeat center;
      height:500px;
      display:flex;
      flex-direction: column;
@@ -136,7 +136,7 @@
 
 .enjoy-life-section{
     background: 
-     url("./shedulerimage/sigiriya.jpeg") no-repeat center;
+     url("./img/tool/sigiriya.jpeg") no-repeat center;
      height:300px;
      width:1200px;
      display:flex;
@@ -194,24 +194,101 @@
      color: #333;
  }
 
+ .destination-item1{
+    background: 
+     url("./img/tool/place1.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item2{
+    background: 
+     url("./img/tool/place2.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item3{
+    background: 
+     url("./img/tool/place3.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item4{
+    background: 
+     url("./img/tool/place5.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item5{
+    background: 
+     url("./img/tool/place7.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item6{
+    background: 
+     url("./img/tool/place8.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item7{
+    background: 
+     url("./img/tool/place9.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
+}
 
+.destination-item8{
+    background: 
+     url("./img/tool/place10.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
 
-
-
-
+}
 
 .package-card {
     width: 18rem; /* Adjust the card width as needed */
