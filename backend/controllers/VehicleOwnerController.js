@@ -18,9 +18,14 @@ exports.register = async (req, res) => {
 
     // Create a new vehicle owner
     vehicleOwner = new VehicleOwner({
+      firstName,
+      lastName,
       username,
       email,
       password,
+      age,
+      location,
+      phone,
     });
 
     // Hash the password
@@ -71,8 +76,45 @@ exports.login = async (req, res) => {
   }
 };
 
+// Fetch vehicle owner profile and their vehicles
+// exports.profile = async (req, res) => {
+//   try {
+//     const token = req.headers.authorization.split(' ')[1];
+//     const decoded = jwt.verify(token, secret);
+//     const vehicleOwner = await VehicleOwner.findById(decoded.id);
+//     const vehicles = await Vehicle.find({ owner: decoded.id });
 
+//     if (!vehicleOwner) {
+//       return res.status(404).json({ msg: 'Owner not found' });
+//     }
 
+//     res.json({ owner: vehicleOwner, vehicles });
+//   } catch (err) {
+//     res.status(500).json({ msg: 'Server error' });
+//   }
+// };
+
+exports.profile = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, secret);
+    const vehicleOwner = await VehicleOwner.findById(decoded.id);
+
+    if (!vehicleOwner) {
+      return res.status(404).json({ msg: 'Owner not found' });
+    }
+
+    const totalVehicles = await Vehicle.countDocuments({ owner: decoded.id });
+    const pendingVehicles = await Vehicle.countDocuments({ owner: decoded.id, status: 'pending' });
+
+    res.json({ 
+      owner: vehicleOwner, 
+      vehicleCounts: { total: totalVehicles, pending: pendingVehicles } 
+    });
+  } catch (err) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
 
 // Helper function to get user ID from token
 const getUserIdFromToken = (token) => {
