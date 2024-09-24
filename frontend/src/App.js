@@ -7,31 +7,29 @@ import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
+
 // Import Components
 import Home from './com/home';
 import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
-import Tour from './com/tours';
 import Newlocation from './com/newLocation';
-import Travelagency from './com/agency';
-import Packages from './com/packages';
+import Packagedetails from './com/packagedetails';
+
+
+
+import SchedulerDashboard from './com/Schedulerdashboard';
+import SellersProfile from './com/Sellersprofile';
+import EditPackage from './com/Editpackage';
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage';
 
 // Admin Components
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
+import AdminProfile from './admin/Adminlprofile';
 
-import Tour from './com/tours';
-
-import SchedulerHome from './scheduler/home';
-
-import Tour from './com/tours';
-
-import SchedulerHome from './scheduler/home';
-
-
+// Travel Agent Components
 import AgentHome from './travelagent/home';
 import AgentContact from './travelagent/num';
 import AgentAbout from './travelagent/details';
@@ -46,38 +44,13 @@ import AgentGHome from './com/guideHome';
 
 // Location Manager Components
 import Location_Home from './locationmanager/home';
-
-import Newlocation from './com/newLocation';
-
-import Schedulerlayout from './schedulerlayout';
-
-import Travelagency from './scheduler/agency';
-import PackageDetails from './scheduler/packagedetails';
-import Tour from './scheduler/tours';
-import Sellersignup from './scheduler/Sellersignup';
-
-import Travelagency from './com/agency';
-import PackageDetails from './com/packagedetails';
-import SellerSignup from './com/sellersignup';
-import SchedulerDashboard from './com/Schedulerdashboard';
-import SellersProfile from './com/Sellersprofile';
-import EditPackage from './com/Editpackage';
-
-import Travelagency from './com/agency';
-import PackageDetails from './com/packagedetails';
-
-
-
-
-
-import LoginPage from './com/LoginPage';
-import SignUpPage from './com/SignUpPage'; // Import the SignUpPage component
-
 import LocationsSummary from './locationmanager/LocationsSummary';
-import AdminProfile from './admin/Adminlprofile';
 
-// Scheduler Layout Component
-import Schedulerlayout from './schedulerlayout';
+// Scheduler Components
+import Tour from './scheduler/tours';
+import SchedulerLayout from './schedulerlayout';
+import Travelagency from './scheduler/agency';
+import SellerSignup from './scheduler/sellersignup';
 
 
 function App() {
@@ -93,44 +66,21 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-
-
-
-        {/* Scheduler Routes */}
-        <Route path="/tours" element={<Schedulerlayout><Tour /></Schedulerlayout>} />
-        <Route path="/agency" element={<Schedulerlayout><Travelagency /></Schedulerlayout>} />
-        <Route path="/packagedetails" element={<Schedulerlayout><PackageDetails/></Schedulerlayout>} />
-        <Route path="/Sellersignup" element={<Schedulerlayout><Sellersignup/></Schedulerlayout>} />
+        <Route path="/packagedetails" element={<UserLayout><Packagedetails /></UserLayout>} />
         
-
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>} />
-
-
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/packagedetails" element={<UserLayout><PackageDetails/></UserLayout>}/>
-        <Route path="/sellersignup" element={<UserLayout><sellersignup /></UserLayout>}/>
-        <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>}/>
-        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>}/>
-        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>}/>
-        <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>}/>
-
-
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        
+       
+        <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
+        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
+        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
-        <Route path="/packages" element={<UserLayout><Packages /></UserLayout>} />
+       
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
-        <Route path="/scheduler/home" element={<AdminLayout><SchedulerHome /></AdminLayout>} />
-
-        {/* Role-based Routes */}
-       
-        <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
+        <Route path="/Admin/profile" element={<AdminLayout><AdminProfile /></AdminLayout>} />
 
         {/* Travel Agent Routes */}
         <Route path="/travelagent/home" element={<TravelAgentLayout><AgentHome /></TravelAgentLayout>} />
@@ -145,13 +95,14 @@ function App() {
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
 
         {/* Location Manager Routes */}
-
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
-        <Route path="/Admin/profile" element={<AdminProfile />} />
 
-        {/* Scheduler Layout Route */}
-        <Route path="/scheduler/home" element={<Schedulerlayout><SchedulerHome /></Schedulerlayout>} />
+        {/* Scheduler Layout Routes */}
+        <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
+        <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
+        <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
+       
       </Routes>
     </Router>
   );

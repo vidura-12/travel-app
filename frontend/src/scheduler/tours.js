@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './tour.css';
-import { Col, Form, FormGroup } from "reactstrap"; 
+import { Form, FormGroup } from "reactstrap"; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Tours = () => {
@@ -10,7 +10,7 @@ const Tours = () => {
   const packageData = location.state?.package;  // Access the passed package data
 
   const handleCreatePackageClick = () => {
-    navigate('/agency');  // Navigate to the Agency component
+    navigate('/sellersignup');  // Navigate to the Sellersignup component
   };
 
   return (
@@ -54,12 +54,17 @@ const Tours = () => {
       </p>
 
       <div className="enjoy-life-section">
-        <p className="enjoy-life-text">
+        <div className="enjoy-life-text">
           Enjoy life with beautiful memories!
-        </p>
+           <div className='enjoybtn'>
+           <button className="agency" onClick={handleCreatePackageClick}>Customize Package</button>
+           </div>
+        </div>
+        <p className='app'>Discover a Seamless Travel Experience with Our App:
+        Our travel app allows you to explore, customize, and book travel packages tailored to your preferences. Whether you're seeking an adventurous getaway, a cultural journey, or a relaxing retreat, we empower you to customize your own travel package!</p>
       </div>
 
-      <p className='destinations-title'>
+      <p className="destinations-title">
         Explore Stays in Trending Destinations
       </p>
 
@@ -67,7 +72,6 @@ const Tours = () => {
       {packageData ? (
         <div className="card package-card">
           <img src={`/img/${packageData.image}`} alt={packageData.agencyName} className="card-img-top" />
-
           <div className="card-body">
             <h5 className="card-title" style={{ fontWeight: 'bold', color: '#FF6347' }}>
               {packageData.location}
@@ -93,7 +97,7 @@ const Tours = () => {
         </p>
         <h5>Join us today!</h5>
         <center>
-          <button className="agency" onClick={handleCreatePackageClick}>Create Package</button>
+          <button className="agency" onClick={handleCreatePackageClick}>Travel Agency</button>
         </center>
         <div className="under">
           <p>For more info, contact us at <a href="mailto:support@yourtravelplatform.com">Support page</a></p>
@@ -101,6 +105,6 @@ const Tours = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Tours;

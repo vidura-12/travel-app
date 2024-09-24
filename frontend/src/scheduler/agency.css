@@ -1,7 +1,7 @@
 .travelagency{
    
      margin-top: 80px;
-     background-image: url('./img/tool/im1.jpg'); /* Replace with the actual path to your image */
+     background-image: url('./sheduler image/im1.jpg'); /* Replace with the actual path to your image */
      background-size: cover;
      background-position: center;
      padding: 50px 0; 
@@ -18,8 +18,8 @@
     font-style:italic;
 }
 
-.traveltitle h2{
-    color:#483D8B;
+.traveltitle h1{
+    color:#001F3F;
 }
 
 form {
