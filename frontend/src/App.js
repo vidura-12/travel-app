@@ -28,6 +28,8 @@ import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
 import Mybookings from './vehiclerental/MyBookings';
 import VehicleBook from './vehiclerental/VehicelBook';
 
+// Vehicle Rental Manager Components
+
 // Admin Components
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';

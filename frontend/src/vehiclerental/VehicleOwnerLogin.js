@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // Correct the import statement for jwtDecode
 
 function VehicleOwnerLogin() {
   const [username, setUsername] = useState('');
@@ -24,10 +24,18 @@ function VehicleOwnerLogin() {
       const decodedToken = jwtDecode(token);
       console.log('Decoded Token:', decodedToken);
 
-      window.location.href = '/vehicle-owner-dashboard';
+      setSuccess('Login successful! Redirecting...');
+      setError(''); // Clear the error
+      setTimeout(() => {
+        window.location.href = '/vehicle-owner-dashboard';
+      }, 1000); // Delay for 1 second before redirecting
     } catch (err) {
-      console.error('Login Error:', err.response);
-      setError('Login failed');
+      console.error('Login Error:', err);
+      if (err.response && err.response.data && err.response.data.msg) {
+        setError(err.response.data.msg); // Display the backend error message
+      } else {
+        setError('Login failed. Please check your credentials.');
+      }
       setSuccess('');
     }
   };
@@ -37,7 +45,7 @@ function VehicleOwnerLogin() {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)', 
+    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };
@@ -91,7 +99,6 @@ function VehicleOwnerLogin() {
     cursor: 'pointer',
     fontSize: '16px',
     marginTop: '10px'
-
   };
 
   const buttonHoverStyle = {
@@ -148,9 +155,10 @@ function VehicleOwnerLogin() {
             Login
           </button>
           <button
-            type="submit"
+            type="button" // Prevent form submission with this button
             style={buttonStyleRegister}
-            onClick={() => window.location.href = '/vehicle-owner/register'}>
+            onClick={() => window.location.href = '/vehicle-owner/register'}
+          >
             Register
           </button>
         </form>

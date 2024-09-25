@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function VehicleOwnerRegister() {
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -35,7 +36,7 @@ function VehicleOwnerRegister() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8081/vehicle-owner/register', { username, email, password });
+      const response = await axios.post('http://localhost:8081/vehicle-owner/register', { name, username, email, password });
       localStorage.setItem('token', response.data.token);
       navigate('/vehicle-owner/login');
     } catch (error) {
@@ -116,6 +117,17 @@ function VehicleOwnerRegister() {
         <h2>Vehicle Owner Register</h2>
         {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>} {/* Display error message */}
         <form onSubmit={handleSubmit}>
+          <div style={inputGroupStyle}>
+            <label htmlFor="name" style={labelStyle}> Name:</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            </div>
           <div style={inputGroupStyle}>
             <label htmlFor="username" style={labelStyle}>Username:</label>
             <input

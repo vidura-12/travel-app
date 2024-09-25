@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="navbar-custom">
+    <header className="navbar-custom-vehicle">
       <div className="logo-container">
         <div className="menu-icon">
           <i className="fa fa-bars"></i>
@@ -19,7 +19,7 @@ function Header() {
 
           <li><Link to="/tours">Travel Packages</Link></li>
 
-          <li><a href="/vehicleRenatalHome">Vehicle Rental</a></li>
+          <li><a href="/vehicleRentalHome">Vehicle Rental</a></li>
 
           <li><Link to="/location">Gallery</Link></li>
 

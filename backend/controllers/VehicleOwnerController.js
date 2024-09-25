@@ -56,11 +56,10 @@ exports.login = async (req, res) => {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
-
     const token = jwt.sign(
       {
         id: vehicleOwner._id,
-        username: vehicleOwner.username,  
+        username: vehicleOwner.username,
         role: vehicleOwner.role
       },
       secret,
@@ -72,6 +71,7 @@ exports.login = async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 };
+
 
 // Fetch vehicle owner profile and their vehicles
 // exports.profile = async (req, res) => {
