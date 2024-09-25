@@ -1,0 +1,42 @@
+.dashside{
+    width: 250px;
+    height: 600px;
+    margin-top: 90px;
+    background-color: #3A6D8C;
+    margin-left: 15px;
+    border-radius: 10px;
+}
+
+.dashside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .dashinput {
+    display: flex;
+    flex-direction: column; /* Stacks buttons vertically */
+    gap: 10px; /* Adds space between buttons */
+    width: 200px;
+    gap: 50px; /* Adjust width if needed */
+  }
+  
+  .dash-btn1, .dash-btn2, .dash-btn3, .dash-btn4, .dash-btn5 {
+    padding: 20px;
+    background-color: #001F3F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    
+  }
+  
+  .dash-btn1:hover, .dash-btn2:hover, .dash-btn3:hover, .dash-btn4:hover, .dash-btn5:hover {
+    background-color: #0056b3;
+  }
+  
+
+
+    
