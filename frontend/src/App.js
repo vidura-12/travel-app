@@ -26,10 +26,10 @@ import FeedbackForm from './com/feedbackForm';
 import Review from './com/review';
 import allFeedBack from './com/allFeedBack';
 
-import Tour from './com/tours';
+
 import Newlocation from './com/newLocation';
-import Travelagency from './com/agency';
-import Packages from './com/packages';
+
+
 
 
 
@@ -97,7 +97,7 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+        
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
@@ -108,17 +108,17 @@ function App() {
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
 
 
 
-        <Route path="/packages" element={<UserLayout><Packages/></UserLayout>} />
+        
 
         
 
 
-        <Route path="/packages" element={<UserLayout><Packages /></UserLayout>} />
+        
 
         
         {/* User Support Home Route */}
@@ -154,7 +154,7 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
-        
+        {/* Event manager */}
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
         <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
         <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />

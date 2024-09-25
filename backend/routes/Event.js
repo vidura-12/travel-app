@@ -114,20 +114,7 @@ router.put('/approve/:id', async (req, res) => {
     }
   });
   
-  // Reject event (optional: You could also delete or mark it as rejected)
-  router.put('/reject/:id', async (req, res) => {
-    try {
-      const event = await Events.findById(req.params.id);
-      if (!event) {
-        return res.status(404).json({ error: 'Event not found' });
-      }
-  
-      await event.remove(); // or mark as rejected
-      res.status(200).json({ message: 'Event rejected and removed' });
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
+ 
 
   // Get approved events
 router.get('/', async (req, res) => {
@@ -138,9 +125,6 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
-  
-  
-  
   
 
 

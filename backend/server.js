@@ -69,7 +69,7 @@ app.use('/event',eventsRoutes);
 
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
-app.use('/userauth',authuser)
+
 
 
 app.use('/TourGuide', addRoute); // new
@@ -81,6 +81,6 @@ app.use('/location',locationRoutes);
 
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
-app.use('/userauth',authuser);
+
 app.use('/locationAdmin',locationAdmin);
 

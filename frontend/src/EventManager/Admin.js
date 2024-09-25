@@ -31,7 +31,7 @@ function AdminEventApproval() {
 
   const handleRejection = async (eventId) => {
     try {
-      await axios.put(`http://localhost:8081/event/reject/${eventId}`);
+      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
       setEvents(events.filter(event => event._id !== eventId));
       // Optionally, show a success message
       alert('Event rejected successfully!');

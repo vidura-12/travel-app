@@ -11,7 +11,7 @@ body {
 h4 {
   text-align: center;
   margin-bottom: 20px;
-  color: aliceblue;
+  /* color: rgb(0, 1, 1); */
   padding-top: 30px;
   font-weight: 1000;
 }
