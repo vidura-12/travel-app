@@ -32,7 +32,7 @@ function checkFileType(file, cb) {
 }
 
 const locationSchema = new mongoose.Schema({
-  name: {
+ name: {
     type: String,
     required: true,
   },
@@ -62,7 +62,6 @@ const locationSchema = new mongoose.Schema({
   }],
   addedBy: {
     type: String, // To store the username of the person who added the location
-    required: true,
   }
 });
 

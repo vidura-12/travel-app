@@ -16,6 +16,9 @@ function Location() {
       try {
         const response = await fetch('http://localhost:8081/Location/liked', {
           method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
         });
         const data = await response.json();
         if (response.ok) {
@@ -31,43 +34,47 @@ function Location() {
     fetchLikedLocations();
   }, []);
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
-      const data = await response.json();
+const handleSearch = async () => {
+  try {
+    const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
+    const data = await response.json();
 
-      console.log(data); // Log the response data
+    console.log(data); // Log the response data
 
-      if (response.ok) {
-        if (Array.isArray(data) && data.length === 0) {
-          setError('No locations found with that name.');
-          setResults([]);
-        } else {
-          setError('');
-          setResults(Array.isArray(data) ? data : [data]);
-          setVisibleComments({});
-          setVisibleDescriptions({});
-
-          if (destinationRef.current) {
-            destinationRef.current.classList.add('scroll-to-middle');
-            destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      } else {
-        setError(data.error || 'No locations found with that name.');
+    if (response.ok) {
+      if (Array.isArray(data) && data.length === 0) {
+        setError('No locations found with that name.');
         setResults([]);
+      } else {
+        setError('');
+        setResults(Array.isArray(data) ? data : [data]);
+        setVisibleComments({});
+        setVisibleDescriptions({});
+
+        if (destinationRef.current) {
+          destinationRef.current.classList.add('scroll-to-middle');
+          destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
-    } catch (error) {
-      setError('Error fetching search results.');
-      console.error('Error fetching search results:', error);
+    } else {
+      setError(data.error || 'No locations found with that name.');
       setResults([]);
     }
-  };
+  } catch (error) {
+    setError('Error fetching search results.');
+    console.error('Error fetching search results:', error);
+    setResults([]);
+  }
+};
+
 
   const handleLike = async (locationId) => {
     try {
       const response = await fetch(`http://localhost:8081/Location/like/${locationId}`, {
         method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
       });
 
       if (response.ok) {
@@ -92,6 +99,7 @@ function Location() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
           body: JSON.stringify({ text: newComment }),
         });
@@ -224,6 +232,7 @@ function Location() {
                       Comment
                     </button>
                   </div>
+                 
                 </div>
               </div>
             </div>
@@ -234,15 +243,9 @@ function Location() {
       <section>
         <div className="containe">
           <h1 className="title">Are you a Traveller? Share your experience with us</h1>
-          <button
-            className="buttonadd"
-            onClick={() => {
-              // No token check, just navigate to the newLocation page
-              window.location.href = '/newLocation'; 
-            }}
-          >
-            Click Here ...
-          </button>
+          <a href="/newLocation">
+            <button className="buttonadd">Click Here ...</button>
+          </a>
         </div>
       </section>
     </div>

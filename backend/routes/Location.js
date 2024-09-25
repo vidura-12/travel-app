@@ -59,7 +59,6 @@ router.get('/search', async (req, res) => {
   }
 });
 
-
 // Route to increment likes for a location
 router.post('/like/:id', async (req, res) => {
   try {
@@ -101,9 +100,5 @@ router.post('/comment/:id', async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
-
-
-
 
 module.exports = router;
