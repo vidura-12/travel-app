@@ -18,7 +18,7 @@ import Home from './com/home';
 import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
-import Newlocation from './com/newLocation';
+
 
 
 import SchedulerDashboard from './com/Schedulerdashboard';
@@ -28,10 +28,8 @@ import FeedbackForm from './com/feedbackForm';
 import Review from './com/review';
 import allFeedBack from './com/allFeedBack';
 
-import Tour from './com/tours';
+
 import Newlocation from './com/newLocation';
-import Travelagency from './com/agency';
-import Packages from './com/packages';
 
 
 import AdminHome from './admin/home';
@@ -107,7 +105,6 @@ function App() {
         <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
 
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
