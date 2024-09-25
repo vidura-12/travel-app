@@ -7,10 +7,7 @@ require("dotenv").config();
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth')
 const locationRoutes = require('./routes/Location');
-const vehicleRoutes = require('./routes/vehicleRoutes');
-const bookingRoutes = require('./routes/bookingRoutes');
-const authController = require('./controllers/authController');
-const vehicleOwnerController = require('./controllers/VehicleOwnerController');
+
 const app = express();
 const packageRoutes = require('./routes/package');
 const authuser = require('./routes/authRoutes')
@@ -52,9 +49,40 @@ app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
 app.use('/locationAdmin',locationAdmin);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const vehicleRoutes = require('./routes/vehicleRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const authController = require('./controllers/authController');
+const vehicleOwnerController = require('./controllers/VehicleOwnerController');
+
+
 app.post('/login-vehicle', authController.login);
 app.post('/register', authController.register);
-
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/vehicle-owner/login', vehicleOwnerController.login);
 app.use('/api/vehicles', vehicleRoutes);
