@@ -159,6 +159,7 @@ function App() {
         <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
         <Route path="/Sellersprofile" element={<SchedulerLayout><SellersProfile /></SchedulerLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
+        <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
