@@ -3,21 +3,26 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button, Spinner } from 'react-bootstrap';
 
 const FeedRite = () => {
     const location = useLocation();
-    const initialFormData = location.state?.feedbackData || {};  // Get the feedback data passed via navigation
+    const initialFormData = location.state?.feedbackData || {};
     const [formData, setFormData] = useState(initialFormData);
     const [isEditing, setIsEditing] = useState(false);
-    const [feedbacks, setFeedbacks] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const fetchFeedbacks = async () => {
+            setLoading(true);
             try {
-                const response = await axios.get('http://localhost:8081/FeedBack/all'); // Ensure this endpoint is correct
-                setFeedbacks(response.data);
+                const response = await axios.get('http://localhost:8081/FeedBack/all');
+                // You might want to set the feedbacks to state here if needed
             } catch (error) {
                 console.error('Error fetching feedbacks:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -29,25 +34,22 @@ const FeedRite = () => {
     };
 
     const handleSave = async () => {
+        setLoading(true);
         try {
-             
             setIsEditing(false);
-
-            const response = await axios.put(`http://localhost:8081/FeedBack/update/${formData._id}`, {
+            await axios.put(`http://localhost:8081/FeedBack/update/${formData._id}`, {
                 name: formData.name,
                 email: formData.email,
-                contact: formData.contact,  // Include contact field
+                contact: formData.contact,
                 feedbackCategory: formData.feedbackCategory,
                 comment: formData.comment
             });
 
-            console.log('Update response:', response.data);
-            const updatedFeedbacks = await axios.get('http://localhost:8081/FeedBack/all');
-            setFeedbacks(updatedFeedbacks.data);
-
             console.log('Feedback updated successfully');
         } catch (error) {
             console.error('Error updating feedback:', error.response ? error.response.data : error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,14 +59,15 @@ const FeedRite = () => {
             return;
         }
 
+        setLoading(true);
         try {
             await axios.delete(`http://localhost:8081/FeedBack/delete/${formData._id}`);
             console.log('Feedback deleted successfully');
-
-            const updatedFeedbacks = await axios.get('http://localhost:8081/FeedBack/all');
-            setFeedbacks(updatedFeedbacks.data);
+            setShowDeleteModal(false);
         } catch (error) {
             console.error('Error deleting feedback:', error.response ? error.response.data : error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -75,16 +78,14 @@ const FeedRite = () => {
 
     const handleDownloadPDF = () => {
         const doc = new jsPDF();
-
         doc.setFontSize(16);
         doc.text('Feedback Summary', 20, 20);
         doc.setFontSize(12);
         doc.text(`Name: ${formData.name || "N/A"}`, 20, 40);
         doc.text(`Email: ${formData.email || "N/A"}`, 20, 50);
-        doc.text(`Contact: ${formData.contact || "N/A"}`, 20, 60);  // Include contact in PDF
+        doc.text(`Contact: ${formData.contact || "N/A"}`, 20, 60);
         doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 70);
         doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 80);
-
         doc.save('feedback-summary.pdf');
     };
 
@@ -99,16 +100,20 @@ const FeedRite = () => {
             alignItems: 'center',
             padding: '50px'
         }}>
-            <div className="card shadow-lg" style={{
-                maxWidth: '600px',
-                width: '100%',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '10px',
-                padding: '20px',
-            }}>
-                <h1 className="text-center mb-4">Feedback Summary</h1>
-                <form>
-                    <div className="mb-3">
+            
+                <h1 className="text-center mb-4" style={{
+           
+            backgroundPosition: 'center',
+            display: 'flex',
+            color : 'white' ,
+            position : 'relative',
+            left:'40%',
+            bottom:'20%', 
+        }}>Feedback Summary</h1>
+                {loading && <Spinner animation="border" variant="primary" />}
+
+                <form >
+                    <div className="mb-3" >
                         <label className="form-label"><strong>Name:</strong></label>
                         {isEditing ? (
                             <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
@@ -141,7 +146,7 @@ const FeedRite = () => {
                             <select name="feedbackCategory" className="form-control" value={formData.feedbackCategory} onChange={handleChange} required>
                                 <option value="hotel service">Hotel Service</option>
                                 <option value="transport service">Transport Service</option>
-                                <option value="tour guide service">Tour guide Service</option>
+                                <option value="tour guide service">Tour Guide Service</option>
                                 <option value="other">Other</option>
                             </select>
                         ) : (
@@ -167,7 +172,7 @@ const FeedRite = () => {
                         <button
                             type="button"
                             className="btn btn-danger"
-                            onClick={handleDelete}
+                            onClick={() => setShowDeleteModal(true)}
                         >
                             Delete
                         </button>
@@ -181,8 +186,26 @@ const FeedRite = () => {
                         Download PDF
                     </button>
                 </form>
+
+                {/* Delete Confirmation Modal */}
+                <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Deletion</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure you want to delete this feedback?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="danger" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-        </div>
+       
     );
 };
 
