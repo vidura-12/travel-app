@@ -8,6 +8,11 @@ import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
 
+
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
+
 // Import Components
 import Home from './com/home';
 import Location from './com/location';
@@ -16,13 +21,8 @@ import Feed from './com/feedback';
 import Newlocation from './com/newLocation';
 
 
-
-
 import SchedulerDashboard from './com/Schedulerdashboard';
-import LoginPage from './com/LoginPage';
-import SignUpPage from './com/SignUpPage';
 
-// Admin Components
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import AdminProfile from './admin/Adminlprofile';
@@ -39,7 +39,11 @@ import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
-
+import Navbar from './components/Layout/Navbar';
+import ChecklistOverview from './components/checklist/ChecklistOverview';
+import CreateChecklist from './components/checklist/CreateChecklist';
+import ChecklistItems from './components/checklist/ChecklistItems';
+import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
@@ -60,9 +64,9 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
         {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
@@ -99,14 +103,22 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
-e
+
+
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
         <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
         <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
         <Route path="/Sellersprofile" element={<SchedulerLayout><SellersProfile /></SchedulerLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
-        <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
+
+        <Route path="/Admin/profile" element={<AdminProfile />} />
+
+        <Route path="/checklists" element={<ChecklistOverview />} />
+        <Route path="/checklists/create" element={<CreateChecklist />} />
+        <Route path="/checklists/:id/items" element={<ChecklistItems />} /> 
+        <Route path="/checklists/delete/:id" element={<DeleteChecklistModal />} />
+
        
       </Routes>
     </Router>
