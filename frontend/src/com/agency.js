@@ -142,9 +142,9 @@ const Agency = () => {
         <h1>Welcome Travel Agencies!</h1>
         <p>Customize the travel packages</p>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form id="agencyForm" onSubmit={handleSubmit}>
         <div className="m1">
-          <label>Name of the Travel Agency</label>
+          <label id="agencyLabel">Name of the Travel Agency</label>
           <input
             type="text"
             className="form-control"
@@ -154,7 +154,7 @@ const Agency = () => {
           />
           {errors.agencyName && <div className="error">{errors.agencyName}</div>}
 
-          <label>Phone Number</label>
+          <label id="agencyLabel">Phone Number</label>
           <input
             type="tel"
             className="form-control"
@@ -164,7 +164,7 @@ const Agency = () => {
           />
           {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>}
 
-          <label>Email Address</label>
+          <label id="agencyLabel">Email Address</label>
           <input
             type="email"
             className="form-control"
@@ -175,7 +175,7 @@ const Agency = () => {
           {errors.email && <div className="error">{errors.email}</div>}
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
 
-          <label>Location</label>
+          <label id="agencyLabel">Location</label>
           <input
             type="text"
             className="form-control"
@@ -185,7 +185,7 @@ const Agency = () => {
           />
           {errors.location && <div className="error">{errors.location}</div>}
 
-          <label>Places of Specific Location</label>
+          <label id="agencyLabel">Places of Specific Location</label>
           {formData.places.map((place, index) => (
             <div key={index} className="place-input">
               <input
@@ -206,7 +206,7 @@ const Agency = () => {
             Add Place
           </button>
 
-          <label>Max People</label>
+          <label id="agencyLabel">Max People</label>
           <input
             type="number"
             className="form-control"
@@ -216,7 +216,7 @@ const Agency = () => {
           />
           {errors.maxPeople && <div className="error">{errors.maxPeople}</div>}
 
-          <label>Price</label>
+          <label id="agencyLabel">Price</label>
           <input
             type="number"
             className="form-control"
@@ -226,7 +226,7 @@ const Agency = () => {
           />
           {errors.price && <div className="error">{errors.price}</div>}
 
-          <label>Upload Image</label>
+          <label id="agencyLabel">Upload Image</label>
           <input
             type="file"
             className="form-control"
