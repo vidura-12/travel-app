@@ -82,7 +82,9 @@ const eventSchema = new mongoose.Schema({
             // email: String,
             otherFields: Map // Map for dynamic fields
         }
-    ]
+    ],
+
+    isApproved: { type: Boolean, default: false }  // Event approval
 });
 
 const Events = mongoose.model("events", eventSchema);

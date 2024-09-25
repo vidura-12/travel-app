@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './eventView.css';
-import { Link } from 'react-router-dom';
 
 function EventView() {
   const [events, setEvents] = useState([]);
@@ -12,13 +13,27 @@ function EventView() {
     fetchEvents();
   }, []);
 
-  // Fetch all events
+  // Fetch all approved events
   const fetchEvents = async () => {
     try {
       const response = await axios.get('http://localhost:8081/event/');
-      setEvents(response.data);
+      setEvents(response.data.filter(event => event.isApproved)); // Only approved events
     } catch (error) {
       console.error('Error fetching events:', error);
+    }
+  };
+
+  // Handle delete event
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8081/event/delete/${id}`);
+      setEvents(events.filter(event => event._id !== id));
+      Swal.fire({
+        title: "Event Deleted successfully",
+        icon: "success"
+      });
+    } catch (error) {
+      console.error('Error deleting event:', error);
     }
   };
 
@@ -30,26 +45,24 @@ function EventView() {
   );
 
   return (
-    <div> 
-      <section className="hero-section">
+    <div>
+      <section className="hero-section3">
         <div>
-        <h4 style={{color: 'white'}}>Find your favorite Event ....</h4>
-        {/* Search Bar */}
-        <div className="search-bar">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search events by name, category, or location..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+          <h4 style={{ color: 'white' }}>Find your Event ....</h4>
+          {/* Search Bar */}
+          <div className="search-bar1">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search events by name, category, or location..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
       </section>
 
-      <div className="event-list-container container">
-       
-
+      <div className="container event-list-container">
         <div className="row">
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
@@ -74,13 +87,11 @@ function EventView() {
                   <p className="card-text">
                     <strong>Price:</strong> RS.{event.price}
                   </p>
-
                   <Link to={`/ticket/${event._id}`}>
                     <button className="btn btn-primary">
                       Join Now
                     </button>
                   </Link>
-
                 </div>
               </div>
             </div>

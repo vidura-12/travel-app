@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import './addEvent.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function AddEvent() {
   const navigate = useNavigate();
@@ -25,33 +25,59 @@ function AddEvent() {
   });
 
   const [image, setImage] = useState(null);
-  const [errors, setErrors] = useState({name: '', location: ''});
+  const [errors, setErrors] = useState({});
 
   const specialRegex = /^[a-zA-Z0-9\s]*$/;
 
-  // Handle text fields with validation
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {};
 
-    if (name === 'name' || name === 'location') {
-      if (specialRegex.test(value)) {
-        setErrors({ ...errors, [name]: '' });
-      } else {
-        setErrors({ ...errors, [name]: 'No special characters allowed' });
-      }
+    // Validate name and location for special characters
+    if (!specialRegex.test(formData.name)) {
+      newErrors.name = "No special characters allowed";
+      valid = false;
+    }
+    if (!specialRegex.test(formData.location)) {
+      newErrors.location = "No special characters allowed";
+      valid = false;
     }
 
+    // Ensure price is a positive number
+    if (formData.price <= 0) {
+      newErrors.price = "Price should be a positive number";
+      valid = false;
+    }
+
+    // Ensure date and time are not empty
+    if (!formData.date) {
+      newErrors.date = "Date is required";
+      valid = false;
+    }
+    if (!formData.time) {
+      newErrors.time = "Time is required";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle image upload
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     const eventdata = new FormData();
     eventdata.append('name', formData.name);
@@ -74,17 +100,35 @@ function AddEvent() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8081/event/add', eventdata, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      await axios.post('http://localhost:8081/event/add', eventdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-        Swal.fire({
-          title: "Event added successfully",
-          icon: "success"
-        }).then(()=>{
-          navigate('/EventManager/EventList');
+      Swal.fire({
+        title: "Event added successfully, pending approval",
+        icon: "success"
+      }).then(() => {
+        // Reset form data
+        setFormData({
+          name: '',
+          category: '',
+          description: '',
+          location: '',
+          date: '',
+          time: '',
+          price: '',
+          t1: '',
+          t2: '',
+          t3: '',
+          t4: '',
+          t5: '',
+          t6: '',
+          t7: '',
         });
+        setImage(null);
+
+        // Redirect to the same page
+        navigate(0); // This reloads the current page
+      });
     } catch (error) {
       console.error('Error adding event:', error);
     }
@@ -131,10 +175,10 @@ function AddEvent() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="details">Event Description: </label>
+          <label htmlFor="description">Event Description: </label>
           <textarea
             className="form-control"
-            id="Description"
+            id="description"
             rows="4"
             name="description"
             placeholder="Enter event description"
@@ -211,99 +255,27 @@ function AddEvent() {
           />
         </div>
 
-        <hr></hr>
+        <hr />
 
         {/* Ticket Criteria Inputs */}
-        <h4 style={{textAlign: 'center'}}>Ticket Criterias</h4>
-        
-        <div className="form-group">
-          <label htmlFor="t1">Ticket Criteria 1: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t1"
-            name="t1"
-            placeholder="Enter first ticket criteria"
-            value={formData.t1}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t2">Ticket Criteria 2: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t2"
-            name="t2"
-            placeholder="Enter second ticket criteria"
-            value={formData.t2}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t3">Ticket Criteria 3: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t3"
-            name="t3"
-            placeholder="Enter third ticket criteria"
-            value={formData.t3}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t4">Ticket Criteria 4: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t4"
-            name="t4"
-            placeholder="Enter fourth ticket criteria"
-            value={formData.t4}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t5">Ticket Criteria 5: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t5"
-            name="t5"
-            placeholder="Enter fifth ticket criteria"
-            value={formData.t5}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t6">Ticket Criteria 6: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t6"
-            name="t6"
-            placeholder="Enter sixth ticket criteria"
-            value={formData.t6}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="t7">Ticket Criteria 7: </label>
-          <input
-            type="text"
-            className="form-control"
-            id="t7"
-            name="t7"
-            placeholder="Enter seventh ticket criteria"
-            value={formData.t7}
-            onChange={handleInputChange}
-          />
-        </div>
+        <h4 style={{ textAlign: 'center' }}>Ticket Criteria</h4>
 
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        {Array.from({ length: 7 }, (_, index) => (
+          <div className="form-group" key={`t${index + 1}`}>
+            <label htmlFor={`t${index + 1}`}>Ticket Criteria {index + 1}: </label>
+            <input
+              type="text"
+              className="form-control"
+              id={`t${index + 1}`}
+              name={`t${index + 1}`}
+              placeholder={`Enter ticket criteria ${index + 1}`}
+              value={formData[`t${index + 1}`]}
+              onChange={handleInputChange}
+            />
+          </div>
+        ))}
+
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

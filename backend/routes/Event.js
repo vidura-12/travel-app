@@ -93,6 +93,53 @@ router.get('/:id/tickets', async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   });
+
+
+ //--------------------------------------------------
+
+ // Approve event
+router.put('/approve/:id', async (req, res) => {
+    try {
+      const event = await Events.findById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      event.isApproved = true;
+      await event.save();
+  
+      res.status(200).json({ message: 'Event approved', event });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  // Reject event (optional: You could also delete or mark it as rejected)
+  router.put('/reject/:id', async (req, res) => {
+    try {
+      const event = await Events.findById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      await event.remove(); // or mark as rejected
+      res.status(200).json({ message: 'Event rejected and removed' });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  // Get approved events
+router.get('/', async (req, res) => {
+    try {
+      const events = await Events.find({ isApproved: true });
+      res.json(events);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+  
   
   
 
