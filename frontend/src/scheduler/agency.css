@@ -22,7 +22,7 @@
     color:#001F3F;
 }
 
-form {
+.travelform {
     width: 50%;
     margin: 0 auto;
     background-color:  rgba(255, 255, 255, 0.8); 
@@ -38,7 +38,7 @@ form {
     gap: 15px;
   }
   
-  label {
+  .l1 {
     font-weight: bold;
     margin-bottom: 5px;
   }
@@ -56,7 +56,7 @@ form {
     color: #6c757d;
   }
   
-  button.btn-primary {
+  .m2 {
     display: block;
     width: 100%;
     padding: 10px;
@@ -68,7 +68,7 @@ form {
     cursor: pointer;
   }
   
-  button.btn-primary:hover {
+  .m2:hover {
     background-color: #0056b3;
   }
 

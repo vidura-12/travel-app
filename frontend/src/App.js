@@ -14,13 +14,11 @@ import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import Newlocation from './com/newLocation';
-import Packagedetails from './com/packagedetails';
+
 
 
 
 import SchedulerDashboard from './com/Schedulerdashboard';
-import SellersProfile from './com/Sellersprofile';
-import EditPackage from './com/Editpackage';
 import LoginPage from './com/LoginPage';
 import SignUpPage from './com/SignUpPage';
 
@@ -51,6 +49,10 @@ import Tour from './scheduler/tours';
 import SchedulerLayout from './schedulerlayout';
 import Travelagency from './scheduler/agency';
 import SellerSignup from './scheduler/sellersignup';
+import SellersProfile from './scheduler/Sellersprofile';
+import EditPackage from './scheduler/Editpackage';
+import Packagedetails from './scheduler/packagedetails';
+import Scheduladmin from './scheduler/scheduladmin';
 
 
 function App() {
@@ -67,7 +69,7 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/packagedetails" element={<UserLayout><Packagedetails /></UserLayout>} />
+      
         
         
        
@@ -97,11 +99,14 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
-
+e
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
         <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
         <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
+        <Route path="/Sellersprofile" element={<SchedulerLayout><SellersProfile /></SchedulerLayout>} />
+        <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
+        <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
        
       </Routes>
     </Router>

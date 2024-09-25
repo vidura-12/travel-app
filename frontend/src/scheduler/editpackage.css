@@ -1,3 +1,16 @@
+.edit-package{
+  background:
+  url("./sheduler image/elephant.avif") no-repeat center;
+  margin-top: 75px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 50px 0; 
+  position: relative;
+}
 /* Container for the edit package form */
 .edit-package-container {
     margin: 0 auto;

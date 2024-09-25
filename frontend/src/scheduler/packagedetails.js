@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import axios from 'axios';
 import './packagedetails.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -56,10 +55,11 @@ const Dashboard = () => {
       const response = await axios.put(`http://localhost:8081/packageS/${id}`, { approved: true });
       const approvedPackage = response.data;
 
+      // Update the package list with the approved status
       setPackages(packages.map(pkg => (pkg._id === id ? { ...pkg, approved: true } : pkg)));
-      
-      // Navigate to Tours and pass the approved package details
-      navigate('/tours', { state: { package: approvedPackage } });
+
+      // Navigate to EditPackage and pass the approved package details
+      navigate('/editpackage', { state: { package: approvedPackage } });
     } catch (err) {
       setError(err.message);
     }
@@ -185,8 +185,8 @@ const Dashboard = () => {
                       </td>
                       <td>
                         <button className="edit-button" onClick={() => handleApprove(pkg._id)}>Approve</button>
-                        <button className="delete-button" onClick={() => handleDelete(pkg._id)}>Deny</button>
                         <button className="edit-button" onClick={() => handleEditClick(pkg)}>Edit</button>
+                        <button className="delete-button" onClick={() => handleDelete(pkg._id)}>Deny</button>
                       </td>
                     </>
                   )}

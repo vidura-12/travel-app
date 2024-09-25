@@ -1,19 +1,24 @@
 .profile-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 500px; /* Ensure it is at least the same height as the image */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+   
     
 
   }
 
   .profile1{
-    background: url(./img/tool/profile.jpeg) no-repeat;
-    height:500px;
+    background: url('./sheduler image/profile.jpeg') no-repeat;
+    height:600px;
      display:flex;
      flex-direction: column;
      align-items: center;
@@ -55,6 +60,7 @@
   
   .profile-avatar {
     margin: 0 auto;
+    
   }
   
   .avatar-image {
@@ -63,6 +69,8 @@
     border-radius: 50%;
     border: 4px solid white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 150px;
+    background: url('./sheduler image/profileimg.jpeg') no-repeat center;
   }
   
   .profile-info {
