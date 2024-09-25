@@ -27,6 +27,7 @@ import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ'; 
 import AgentLog from './travelagent/login'
 import AgentView from './travelagent/viewBooking';
+import AgentApprove from './travelagent/approveDeny';
 import  AgentGuide from './com/guide'; 
 import  AgentAll from './com/allGuides'; 
 import  AgentBookGuide from './com/bookGuide';
@@ -90,6 +91,7 @@ function App() {
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc/></TravelAgentLayout>} />
         <Route path="/travelagent/login" element={<TravelAgentLayout><AgentLog/></TravelAgentLayout>} />
         <Route path="/travelagent/viewBooking" element={<TravelAgentLayout><AgentView/></TravelAgentLayout>} />
+        <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApprove/></TravelAgentLayout>} />
 
 
 

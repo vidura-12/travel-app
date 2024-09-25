@@ -3,31 +3,48 @@ import axios from 'axios';
 import './book.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function BookTourists() {
+export default function Register() {
   const [tourGuides, setTourGuides] = useState([]);
+  const [approvedGuides, setApprovedGuides] = useState(
+    JSON.parse(localStorage.getItem('approvedGuides')) || []
+  );
 
   useEffect(() => {
-    const fetchApprovedTourGuides = async () => {
+    const fetchTourGuides = async () => {
       try {
-        const approvedGuides = JSON.parse(localStorage.getItem('approvedGuides')) || [];
-        setTourGuides(approvedGuides);
+        const response = await axios.get('http://localhost:8081/TourGuide/all');
+        setTourGuides(response.data);
       } catch (error) {
-        console.error('Error fetching approved tour guides:', error);
+        console.error('Error fetching tour guides:', error);
       }
     };
 
-    fetchApprovedTourGuides();
+    fetchTourGuides();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this tour guide?')) {
+  const handleApprove = async (id) => {
+    if (window.confirm('Are you sure you want to approve this tour guide?')) {
+      try {
+        const approvedGuide = tourGuides.find(guide => guide._id === id);
+        setApprovedGuides(prev => [...prev, approvedGuide]);
+        localStorage.setItem('approvedGuides', JSON.stringify([...approvedGuides, approvedGuide]));
+        alert('Tour guide approved successfully!');
+      } catch (error) {
+        console.error('Error approving tour guide:', error);
+        alert('Failed to approve the tour guide.');
+      }
+    }
+  };
+
+  const handleDeny = async (id) => {
+    if (window.confirm('Are you sure you want to deny this tour guide?')) {
       try {
         await axios.delete(`http://localhost:8081/TourGuide/delete/${id}`);
         setTourGuides(tourGuides.filter(guide => guide._id !== id));
-        alert('Tour guide deleted successfully!');
+        alert('Tour guide denied successfully!');
       } catch (error) {
-        console.error('Error deleting tour guide:', error);
-        alert('Failed to delete the tour guide.');
+        console.error('Error denying tour guide:', error);
+        alert('Failed to deny the tour guide.');
       }
     }
   };
@@ -52,7 +69,7 @@ export default function BookTourists() {
         height: '90vh',
         overflowY: 'auto'
       }}>
-        <h2 className="text-center mb-4">Approved Tour Guides</h2>
+        <h2 className="text-center mb-4">Tour Guides</h2>
         <div style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
             <thead className="thead-dark">
@@ -77,10 +94,16 @@ export default function BookTourists() {
                   <td>{guide.language}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
-                      onClick={() => handleDelete(guide._id)}
+                      className="btn btn-success me-2"
+                      onClick={() => handleApprove(guide._id)}
                     >
-                      Delete
+                      Approve
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeny(guide._id)}
+                    >
+                      Deny
                     </button>
                   </td>
                 </tr>
@@ -88,6 +111,9 @@ export default function BookTourists() {
             </tbody>
           </table>
         </div>
+
+       
+        
       </div>
     </div>
   );

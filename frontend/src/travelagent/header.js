@@ -17,7 +17,8 @@ function Header2() {
             <div className="menu-container">
              
               <ul className="menu-list">
-                <li><Link to="/travelagent/dashboard">Dashboard</Link></li> 
+                <li><Link to="/travelagent/dashboard">Dashboard</Link></li>
+                <li><Link to="/travelagent/approveDeny">Requests</Link></li> 
                  
               </ul>
             </div>

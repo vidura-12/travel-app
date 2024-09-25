@@ -28,6 +28,39 @@ export default function Register() {
   const guideSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation logic
+    const { name, email, number, password, address } = formData;
+
+    // Check if name starts with a capital letter
+    if (!/^[A-Z].*/.test(name)) {
+      alert('Name must start with a capital letter.');
+      return;
+    }
+
+    // Check if email starts with a lowercase letter
+    if (!/^[a-z].*/.test(email)) {
+      alert('Email must start with a lowercase letter.');
+      return;
+    }
+
+    // Check if number has exactly 10 digits
+    if (!/^\d{10}$/.test(number)) {
+      alert('Contact number must be exactly 10 digits long.');
+      return;
+    }
+
+    // Check if password has at least 4 digits
+    if (!/\d{4,}/.test(password)) {
+      alert('Password must contain at least 4 digits.');
+      return;
+    }
+
+    // Check if address starts with a capital letter
+    if (!/^[A-Z].*/.test(address)) {
+      alert('Address must start with a capital letter.');
+      return;
+    }
+
     try {
       await axios.post('http://localhost:8081/TourGuide/add', formData, {
         headers: {
@@ -96,15 +129,34 @@ export default function Register() {
             >
               {`Tour Guide ${key.charAt(0).toUpperCase() + key.slice(1)}`}
             </label>
-            <input
-              className="form-control" 
-              style={{ borderRadius: '30px', flex: 1 }} // Rounded input
-              type={key === 'password' ? 'password' : 'text'}
-              name={key}
-              value={formData[key]}
-              onChange={handleChange}
-              required
-            />
+            {key === 'language' ? (
+              <select
+                className="form-control" 
+                style={{ borderRadius: '30px', flex: 1, padding: '10px', height: '50px' }} // Distinct dropdown style
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Select Language</option>
+                <option value="Sinhala">Sinhala</option>
+                <option value="English">English</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Chinese">Chinese</option>
+              </select>
+            ) : (
+              <input
+                className="form-control" 
+                style={{ borderRadius: '30px', flex: 1 }} // Rounded input
+                type={key === 'password' ? 'password' : 'text'}
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                required
+              />
+            )}
           </div>
         ))}
         <button
