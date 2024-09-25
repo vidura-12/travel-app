@@ -18,4 +18,27 @@ router.post('/login', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+router.get('/profile/:username', middle, async (req, res) => {
+  try {
+    const { username } = req.params; // Extract username from request parameters
+
+    // Use findOne to search by username instead of findById
+    const admin = await Admin.findOne({ username });
+
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
+    }
+
+    res.json(admin);
+  } catch (err) {
+    console.error('Error fetching admin:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+module.exports = router;
+>>>>>>> origin/Final

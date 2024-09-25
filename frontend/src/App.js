@@ -6,10 +6,12 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
+
 import UserSupportLayOut from './UserSupportLayOut';
 
-
-
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
 
 import Home from './com/home';
 import Location from './com/location';
@@ -25,8 +27,7 @@ import Tour from './com/tours';
 import Newlocation from './com/newLocation';
 import Travelagency from './com/agency';
 import Packages from './com/packages';
-import LoginPage from './com/LoginPage';
-import SignUpPage from './com/SignUpPage';
+
 
 
 import AdminHome from './admin/home';
@@ -45,7 +46,11 @@ import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
-
+import Navbar from './components/Layout/Navbar';
+import ChecklistOverview from './components/checklist/ChecklistOverview';
+import CreateChecklist from './components/checklist/CreateChecklist';
+import ChecklistItems from './components/checklist/ChecklistItems';
+import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 import UserSupportHome from './com/UserSupportHome'; // New component
@@ -67,9 +72,9 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
         {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
@@ -123,12 +128,15 @@ function App() {
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
-        {/* Scheduler Layout Route */}
-       
 
-        {/*  User Support Routes */}
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+
+        <Route path="/checklists" element={<ChecklistOverview />} />
+        <Route path="/checklists/create" element={<CreateChecklist />} />
+        <Route path="/checklists/:id/items" element={<ChecklistItems />} /> 
+        <Route path="/checklists/delete/:id" element={<DeleteChecklistModal />} />
+
        
       </Routes>
     </Router>
