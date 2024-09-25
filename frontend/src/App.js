@@ -6,14 +6,11 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
-<<<<<<< HEAD
+
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
-=======
 
-
->>>>>>> uthara
 // Import Components
 import Home from './com/home';
 import Location from './com/location';
@@ -108,17 +105,17 @@ function App() {
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
-<<<<<<< HEAD
+
         <Route path="/checklists" element={<ChecklistOverview />} />
         <Route path="/checklists/create" element={<CreateChecklist />} />
         <Route path="/checklists/:id/items" element={<ChecklistItems />} /> 
         <Route path="/checklists/delete/:id" element={<DeleteChecklistModal />} />
-=======
+
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
         <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
         <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
->>>>>>> uthara
+
        
       </Routes>
     </Router>
