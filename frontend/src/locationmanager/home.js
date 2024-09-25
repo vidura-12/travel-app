@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import './location.css';
-import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // For navigation
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
@@ -81,6 +81,10 @@ const LocationTable = () => {
       return;
     }
 
+    // Add confirmation prompt before deleting
+    const confirmDelete = window.confirm('Are you sure you want to delete this location?');
+    if (!confirmDelete) return; // If the user cancels, stop the function
+
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
         headers: {
@@ -106,10 +110,58 @@ const LocationTable = () => {
     toggleModal();
   };
 
+  // Function to download the report
+  const downloadReport = async () => {
+    const doc = new jsPDF();
+    const logo = await import('./img/ll.png'); // Adjust the path if necessary
+
+    const img = new Image();
+    img.src = logo.default; // Use default export from the image
+    img.onload = () => {
+      doc.addImage(img, 'PNG', 10, 10, 50, 20); // Adjust dimensions as needed
+      doc.setFontSize(20);
+      doc.text('Location Report', 10, 40);
+      doc.setFontSize(12);
+
+      // Add table headers and data
+      const headers = ['Name', 'City', 'Description', 'Picture', 'Added By', 'Status'];
+      const data = locations.map(location => [
+        location.name,
+        location.city,
+        location.description,
+        location.picture ? `/img/${location.picture}` : 'No Image',
+        location.addedBy || 'Unknown',
+        location.status
+      ]);
+
+      // Make sure the autoTable is called after adding the image and text
+      doc.autoTable({
+        head: [headers],
+        body: data,
+        startY: 50, // Adjust starting Y position if needed
+        theme: 'grid',
+        headStyles: { fillColor: [22, 160, 133] },
+        styles: { cellPadding: 2, fontSize: 10 },
+      });
+
+      doc.save('Location_Report.pdf');
+    };
+
+    // Handle image loading errors
+    img.onerror = () => {
+      console.error('Failed to load the logo image.');
+      doc.text('Location Report', 10, 40);
+      doc.save('Location_Report.pdf');
+    };
+  };
+
   return (
     <div className="location-dashboard-body">
       <div className="location-dashboard-container">
         <h2 className="location-dashboard-title">Location Details</h2>
+        <button className="location-btn-report" onClick={downloadReport}>
+          Download Report
+        </button>
         <table className="location-dashboard-table">
           <thead>
             <tr>
@@ -117,6 +169,7 @@ const LocationTable = () => {
               <th>City</th>
               <th>Description</th>
               <th>Picture</th>
+              <th>Added By</th> {/* New column for Username */}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -137,6 +190,7 @@ const LocationTable = () => {
                     />
                   )}
                 </td>
+                <td>{location.addedBy || 'Unknown'}</td> {/* Displaying username */}
                 <td className={`location-status-${location.status}`}>{location.status}</td>
                 <td className="location-action-buttons">
                   {location.status !== 'approved' && (
