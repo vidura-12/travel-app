@@ -9,6 +9,7 @@ import LocationLayout from './LocationLayout';
 
 import UserSupportLayOut from './UserSupportLayOut';
 
+
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
@@ -18,20 +19,22 @@ import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
 
+
+
+import SchedulerDashboard from './com/Schedulerdashboard';
+
 import FeedbackList from './com/feedRite';
 import FeedbackForm from './com/feedbackForm';
 import Review from './com/review';
 import allFeedBack from './com/allFeedBack';
 
-import Tour from './com/tours';
-import Newlocation from './com/newLocation';
-import Travelagency from './com/agency';
-import Packages from './com/packages';
 
+import Newlocation from './com/newLocation';
 
 
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
+import AdminProfile from './admin/Adminlprofile';
 
 
 // Travel Agent Components
@@ -53,18 +56,29 @@ import ChecklistItems from './components/checklist/ChecklistItems';
 import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
+
 import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
 import FAQ from './com/FAQ';
 import ContactUs from './com/ContactUs';
 
 import LocationsSummary from './locationmanager/LocationsSummary';
-import AdminProfile from './admin/Adminlprofile';
+
+// Scheduler Components
+import Tour from './scheduler/tours';
+import SchedulerLayout from './schedulerlayout';
+import Travelagency from './scheduler/agency';
+import SellerSignup from './scheduler/sellersignup';
+import SellersProfile from './scheduler/Sellersprofile';
+import EditPackage from './scheduler/Editpackage';
+import Packagedetails from './scheduler/packagedetails';
+import Scheduladmin from './scheduler/scheduladmin';
 
 
 
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
+
 
 
 function App() {
@@ -80,7 +94,17 @@ function App() {
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
-        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+
+        <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
+      
+        
+        
+       
+        <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
+        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
+        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
+        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
+
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
@@ -99,17 +123,18 @@ function App() {
         {/* <Route path="/com/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} /> */}
         <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
 
+
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
 
+        <Route path="/Admin/profile" element={<AdminLayout><AdminProfile /></AdminLayout>} />
 
         {/* Role-based Routes */}
 
         <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
         <Route path="/location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
-       
 
         {/* Travel Agent Routes */}
         <Route path="/travelagent/home" element={<TravelAgentLayout><AgentHome /></TravelAgentLayout>} />
@@ -126,6 +151,15 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
+
+
+        {/* Scheduler Layout Routes */}
+        <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
+        <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
+        <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
+        <Route path="/Sellersprofile" element={<SchedulerLayout><SellersProfile /></SchedulerLayout>} />
+        <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
+
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
 
