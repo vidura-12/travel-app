@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET || 'your_jwt_secret'; // Use environment variable for security
 
 // Register vehicle owner
+// Register vehicle owner
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, firstName, lastName, age, location, phone } = req.body;
 
     // Check if vehicle owner already exists
     let vehicleOwner = await VehicleOwner.findOne({ email });
@@ -18,15 +19,10 @@ exports.register = async (req, res) => {
 
     // Create a new vehicle owner
     vehicleOwner = new VehicleOwner({
-      firstName,
-      lastName,
       username,
       email,
       password,
-      age,
-      location,
-      phone,
-    });
+      });
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
@@ -39,7 +35,8 @@ exports.register = async (req, res) => {
 
     res.json({ token });
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    console.error('Error during registration:', err);
+    res.status(500).json({ msg: 'Server error..! Please try again' });
   }
 };
 

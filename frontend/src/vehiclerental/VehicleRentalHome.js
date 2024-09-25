@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags, FaDollarSign } from 'react-icons/fa';
 
 const styles = {
@@ -183,7 +182,7 @@ const VehicleRentalHome = () => {
 
   return (
     <div>
-      <Header />
+      
       <div className="content" style={{ textAlign: 'center' }}>
         <h1>Vehicle Rental Home Page</h1>
         
