@@ -14,13 +14,14 @@ const checklistRoutes = require('./routes/checklist');
 const locationAdmin = require('./routes/Locationadmin');
 const auth1 = require('./routes/auth1');
 const addRoute = require("./routes/create");
+const addRoute1 = require("./routes/feedback");
 
 const app = express();
 const PORT = process.env.PORT || 8081;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // This replaces bodyParser.json()
+app.use(express.json()); // Use express.json() to parse JSON bodies
 
 // Connect to MongoDB
 const URL = process.env.MONGODB_URL;
@@ -38,10 +39,12 @@ app.use('/api/checklists', checklistRoutes);
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
-// app.use('/vehicle', vehicleRoutes); // Uncomment if needed
+// Uncomment the line below if needed
+// app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/locationAdmin', locationAdmin);
+app.use('/FeedBack', addRoute1); // Feedback route
 
 // Start the server
 const server = app.listen(PORT, () => {
