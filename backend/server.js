@@ -57,8 +57,6 @@ app.use('/FeedBack', addRoute1); // Feedback route
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
-<<<<<<< HEAD
-
 
 app.use('/auth', authRoutes);
 app.use('/location',locationRoutes);
@@ -85,5 +83,4 @@ app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
 app.use('/locationAdmin',locationAdmin);
-=======
->>>>>>> origin/Final
+
