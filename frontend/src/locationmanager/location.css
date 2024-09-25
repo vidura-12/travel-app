@@ -130,3 +130,16 @@
   height: 100%;
   border-radius: 10px;
 }
+.download-report-btn {
+  background-color: #16a085;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.download-report-btn:hover {
+  background-color: #1abc9c;
+}
