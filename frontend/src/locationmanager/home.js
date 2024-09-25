@@ -107,58 +107,57 @@ const LocationTable = () => {
   };
 
   return (
-    <div className='body1'>
-    <div className="container mt-5">
-      <h2 className="my-4 text-center">Location Details</h2>
-      <table className="table table-striped table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Description</th>
-            <th>Picture</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {locations.map(location => (
-            <tr key={location._id}>
-              <td>{location.name}</td>
-              <td>{location.city}</td>
-              <td>{location.description}</td>
-              <td>
-                {location.picture && (
-                  <img
-                    src={`/img/${location.picture}`}
-                    alt={location.name}
-                    className="img-fluid table-img"
-                    onClick={() => handleImageClick(`/img/${location.picture}`)}
-                    style={{ cursor: 'pointer' }}
-                  />
-                )}
-              </td>
-              <td className={`status-${location.status}`}>{location.status}</td>
-              <td>
-                {location.status !== 'approved' && (
-                  <button className="btn btn-primary btn-sm mr-2" onClick={() => handleApprove(location._id)}>Approve</button>
-                )}
-                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(location._id)}>Delete</button>
-              </td>
+    <div className="location-dashboard-body">
+      <div className="location-dashboard-container">
+        <h2 className="location-dashboard-title">Location Details</h2>
+        <table className="location-dashboard-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>City</th>
+              <th>Description</th>
+              <th>Picture</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-  
-      <Modal show={modal} onHide={toggleModal}>
+          </thead>
+          <tbody>
+            {locations.map(location => (
+              <tr key={location._id}>
+                <td>{location.name}</td>
+                <td>{location.city}</td>
+                <td>{location.description}</td>
+                <td>
+                  {location.picture && (
+                    <img
+                      src={`/img/${location.picture}`}
+                      alt={location.name}
+                      className="location-table-img"
+                      onClick={() => handleImageClick(`/img/${location.picture}`)}
+                    />
+                  )}
+                </td>
+                <td className={`location-status-${location.status}`}>{location.status}</td>
+                <td className="location-action-buttons">
+                  {location.status !== 'approved' && (
+                    <button className="location-btn-approve" onClick={() => handleApprove(location._id)}>Approve</button>
+                  )}
+                  <button className="location-btn-delete" onClick={() => handleDelete(location._id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-        <Modal.Body>
-          <img src={modalImage} alt="Location" className="img-fluid" />
-        </Modal.Body>
-      </Modal>
+        {modal && (
+          <div className="location-modal-overlay" onClick={toggleModal}>
+            <div className="location-modal-content">
+              <img src={modalImage} alt="Location" className="location-modal-img" />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-  
   );
 };
 
