@@ -3,17 +3,24 @@
 .tourpic{
     background:
      url("./img/tool/tourpic.jpg") no-repeat center;
-     height:300px;
+     height:500px;
      display:flex;
+     flex-direction: column;
      align-items: center;
      justify-content: center;
      background-attachment: fixed;
      background-size: cover;
+     padding: 50px 0; /* Padding for extra space */
+     position: relative;
+     margin-top: 78px;
+     
 
 }
 
 .tourpic h1{
     color: #fff;
+    
+    font-weight: bold;
 }
 
 .searc {
@@ -21,6 +28,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     
 }
 
@@ -29,9 +37,13 @@
 .search_bar{
     padding: 0.5rem 1 rem ;
     border-radius: 50px;
-    box-shadow: rgba(17,12,46,0.15) 0px 48px 100px 0px;
+    box-shadow: rgba(17,12,46,0.15) 1400px;
     width: max-content;
     margin-top: 50px;
+    width:600px;
+    background-color: white;
+    
+
     
 
     
@@ -40,6 +52,7 @@
 .form_group span{
     font-size: 1.8rem;
     color:gray;
+
 }
 
 .form_group input{
@@ -47,6 +60,7 @@
     font-size: 0.9rem;
     color: var(--heading-color);
     font-weight: 500;
+    border-radius: 5px;
 }
 
 .form_group input:focus{
@@ -74,10 +88,11 @@
     text-align: center;
     margin: 0 auto;
     font-style:italic;
-    margin-top: 20px;
+    margin-top: px;
     font-size: 15px;
-    background-color: #1F316F;
-    color: white;
+    font-weight: bold;
+    background-color: #D1E9F6;
+    color: black;
     border-radius: 10px;
     padding: 20px;
     
@@ -124,7 +139,7 @@
     background: 
      url("./img/tool/sigiriya.jpeg") no-repeat center;
      height:300px;
-     width:1050px;
+     width:1200px;
      display:flex;
      align-items: center;
      justify-content: center;
@@ -132,15 +147,23 @@
      background-size: cover;
      border-radius: 10px;
      margin-top: 20px;
+     margin-left: 180px;
+     overflow: hidden;
+     position: relative;
+    
+    
 
 }
 
 .enjoy-life-text{
-    background-color: white;
+  
     border-radius: 10px;
-    margin-right: 700px;
+    font-size: 30px;
     font-weight: bold;
     padding: 20px;
+    color: white;
+    margin-left: 100px;
+
     
 }
 
@@ -268,6 +291,33 @@
 
 }
 
+.package-card {
+    width: 18rem; /* Adjust the card width as needed */
+    margin: 20px auto; /* Center the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visuals */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevent content from overflowing */
+  }
+  
+  .package-card img {
+    width: 100%; /* Make the image take full card width */
+    height: auto;
+  }
+  
+  .package-card .card-body {
+    padding: 15px;
+  }
+  
+  .package-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .package-card .card-text {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
 
 
 
