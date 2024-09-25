@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Import Layouts
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
+
+import EventLayout from './EventLayout';
+
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 
@@ -49,11 +52,25 @@ import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
+
+
+ //Event Manager Components
+import AddEvent from './EventManager/addEvent'
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
+import EditEvent from './EventManager/updateEvent';
+import UserTicketForm from './com/ticket';
+import TicketSummary from './EventManager/report';
+import AdminEventApproval from './EventManager/Admin';
+
+
+
 import Navbar from './components/Layout/Navbar';
 import ChecklistOverview from './components/checklist/ChecklistOverview';
 import CreateChecklist from './components/checklist/CreateChecklist';
 import ChecklistItems from './components/checklist/ChecklistItems';
 import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
+
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 
@@ -95,6 +112,7 @@ function App() {
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
 
+
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
       
         
@@ -106,6 +124,7 @@ function App() {
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
 
 
+
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
         <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
@@ -115,8 +134,9 @@ function App() {
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        
         <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
+
 
         
         {/* User Support Home Route */}
@@ -150,6 +170,23 @@ function App() {
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+
+        {/* Event manager */}
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketSummary/></EventLayout>} />
+        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/EventManager/Admin" element={<EventLayout><AdminEventApproval/></EventLayout>} />
+
+
+     
+
+     
+        
+
+
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
 
@@ -163,6 +200,9 @@ function App() {
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
+
+
+        {/* Scheduler Layout Route */}
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />

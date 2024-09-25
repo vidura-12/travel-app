@@ -1,66 +1,59 @@
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
-const Events = require("../models/Event"); // Correct model import
+const { Events, upload } = require('../models/Event');
+// const { Ticket } = require('../models/ticket');
 
-// Configure multer for file upload
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 10000000 } // 10 MB limit
-});
-
-
-
-
-// Create a new event
-// http://localhost:8081/event/add
-
+// Add event
 router.post('/add', upload.single('image'), async (req, res) => {
-    const name = req.body.name;
-    const category = req.body.category;
-    const details = req.body.details;
-    const venue = req.body.venue;
-    const date = req.body.date;
-    const time = req.body.time;
-    const price = Number(req.body.price);
+    const {
+        name, category, description, location, date, time, price,
+        t1, t2, t3, t4, t5, t6, t7
+    } = req.body;
     const image = req.file ? req.file.originalname : null;
 
     try {
-        // Ensure that we are using the correct variable name consistently
         const newEvent = new Events({
             name,
             category,
-            details,
-            venue,
+            description,
+            location,
             date,
             time,
             price,
-            image
+            image,
+            ticketCriteria: { t1, t2, t3, t4, t5, t6, t7 }
         });
 
-        // Save the new event
         await newEvent.save();
-
-        res.json("Event added successfully");
+        res.status(201).json(newEvent);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
 
+// Add user ticket details
+router.post('/:id/tickets', async (req, res) => {
+    const { otherFields } = req.body;
 
+    try {
+        const event = await Events.findById(req.params.id);
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
 
-//Get all Events
-//http://localhost:8081/event/
+        // Add user ticket details based on dynamic fields
+        event.userTickets.push({ otherFields });
+        await event.save();
 
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+  
+
+// Get all events
 router.get("/", async (req, res) => {
     try {
         const events = await Events.find(); 
@@ -70,68 +63,115 @@ router.get("/", async (req, res) => {
     }
 });
 
-
-
-
-//get one event
-router.get("/:id",async(req, res)=>{
+// Get one event
+router.get("/:id", async (req, res) => {
     try {
-        const events = await Events.findById(req.params.id); 
-        res.json(events);
+        const event = await Events.findById(req.params.id); 
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.json(event);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-})
+});
+
+//book ticket
+
+router.get('/:id/tickets', async (req, res) => {
+    try {
+      // Find the event by its ID and include the user tickets
+      const event = await Events.findById(req.params.id);
+  
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      // Respond with the event data, including userTickets
+      res.status(200).json(event.userTickets);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
 
 
-//update events
-//http://localhost:8081/event/update
+ //--------------------------------------------------
 
-router.put("/update/:id", upload.single('image'), async(req,res) =>{
+ // Approve event
+router.put('/approve/:id', async (req, res) => {
+    try {
+      const event = await Events.findById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      event.isApproved = true;
+      await event.save();
+  
+      res.status(200).json({ message: 'Event approved', event });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+ 
+
+  // Get approved events
+router.get('/', async (req, res) => {
+    try {
+      const events = await Events.find({ isApproved: true });
+      res.json(events);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
+
+
+// Update event
+router.put("/update/:id", upload.single('image'), async (req, res) => {
     const eventId = req.params.id;
-
-    const updatedData = {
-        name: req.body.name,
-        category: req.body.category,
-        details: req.body.details,
-        venue: req.body.venue,
-        date: req.body.date,
-        time: req.body.time,
-        price: Number(req.body.price),
-        image: req.file ? req.file.originalname : req.body.existingImage,
-    };
+    const {
+        name, category, description, location, date, time, price,
+        t1, t2, t3, t4, t5, t6, t7
+    } = req.body;
+    const image = req.file ? req.file.originalname : req.body.existingImage;
 
     try {
-        const updatedEvent = await Events.findByIdAndUpdate(eventId, updatedData,);
+        const updatedEvent = await Events.findByIdAndUpdate(eventId, {
+            name,
+            category,
+            description,
+            location,
+            date,
+            time,
+            price,
+            image,
+            ticketCriteria: { t1, t2, t3, t4, t5, t6, t7 }
+        }, { new: true });
 
-        if(!updatedEvent){
+        if (!updatedEvent) {
             return res.status(404).json({ error: "Event not found" });
         }
 
-        res.json({message: "Event updated successfully", updatedEvent})
+        res.json({ message: "Event updated successfully", updatedEvent });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+});
 
-})
-
-
-
-//Delete event
-//http://localhost:8081/event/delete
-
-router.delete ("/delete/:id", async(req,res)=>{
+// Delete event
+router.delete("/delete/:id", async (req, res) => {
     const eventId = req.params.id;
 
     try {
         const deleteEvent = await Events.findByIdAndDelete(eventId);
 
-        if(!deleteEvent){
+        if (!deleteEvent) {
             return res.status(404).json({ error: "Event not found" });
         }
 
-    res.json({message:"Event deleted successfully"});
-
+        res.json({ message: "Event deleted successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
