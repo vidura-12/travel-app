@@ -47,8 +47,11 @@ const AdminLogin = () => {
           navigate('/LocationAdmin/home');
           break;
         case 'Schedule_Manager':
-          navigate('/LocationAdmin/home');
+          navigate('/scheduladmin');
           break;
+        case 'event_manager':
+            navigate('/EventManager/addEvent');
+            break;
         default:
           setError('Unknown role');
       }
