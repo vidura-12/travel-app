@@ -6,7 +6,9 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
-
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
 // Import Components
 import Home from './com/home';
 import Location from './com/location';
@@ -36,7 +38,11 @@ import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
-
+import Navbar from './components/Layout/Navbar';
+import ChecklistOverview from './components/checklist/ChecklistOverview';
+import CreateChecklist from './components/checklist/CreateChecklist';
+import ChecklistItems from './components/checklist/ChecklistItems';
+import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
@@ -50,9 +56,9 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
         {/* User Routes */}
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
@@ -86,7 +92,10 @@ function App() {
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
-        {/* Scheduler Layout Route */}
+        <Route path="/checklists" element={<ChecklistOverview />} />
+        <Route path="/checklists/create" element={<CreateChecklist />} />
+        <Route path="/checklists/:id/items" element={<ChecklistItems />} /> 
+        <Route path="/checklists/delete/:id" element={<DeleteChecklistModal />} />
        
       </Routes>
     </Router>

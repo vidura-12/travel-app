@@ -47,9 +47,7 @@ const AdminLogin = () => {
         case 'location_manager':
           navigate('/LocationAdmin/home');
           break;
-        case 'Schedule_Manager':
-         navigate('/LocationAdmin/home');
-          break;
+        
         default:
           setError('Unknown role');
       }
@@ -109,4 +107,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminLogin;
