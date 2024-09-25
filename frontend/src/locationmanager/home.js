@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import './location.css';
-import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // For navigation
 
 const LocationTable = () => {
@@ -81,6 +79,10 @@ const LocationTable = () => {
       return;
     }
 
+    // Add confirmation prompt before deleting
+    const confirmDelete = window.confirm('Are you sure you want to delete this location?');
+    if (!confirmDelete) return; // If the user cancels, stop the function
+
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
         headers: {
@@ -117,6 +119,7 @@ const LocationTable = () => {
               <th>City</th>
               <th>Description</th>
               <th>Picture</th>
+              <th>Added By</th> {/* New column for Username */}
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -137,6 +140,7 @@ const LocationTable = () => {
                     />
                   )}
                 </td>
+                <td>{location.addedBy || 'Unknown'}</td> {/* Displaying username */}
                 <td className={`location-status-${location.status}`}>{location.status}</td>
                 <td className="location-action-buttons">
                   {location.status !== 'approved' && (

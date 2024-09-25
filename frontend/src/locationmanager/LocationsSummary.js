@@ -50,6 +50,10 @@ function LocationsSummary() {
       return;
     }
 
+    // Display confirmation message
+    const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
+    if (!confirmDelete) return; // If user cancels, stop the function
+
     try {
       const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
         method: 'DELETE',

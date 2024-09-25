@@ -44,10 +44,10 @@ const locationSchema = new mongoose.Schema({
     type: String,
   },
   picture: {
-    type: String, 
+    type: String,
   },
   status: {
-    type: String, 
+    type: String,
   },
   likes: {
     type: Number,
@@ -57,9 +57,13 @@ const locationSchema = new mongoose.Schema({
     text: String,
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     }
-  }]
+  }],
+  addedBy: {
+    type: String, // To store the username of the person who added the location
+    required: true,
+  }
 });
 
 const Location = mongoose.model('Location', locationSchema);
