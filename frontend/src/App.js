@@ -6,7 +6,7 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
-
+import UserSupportLayOut from './UserSupportLayOut';
 
 
 
@@ -56,6 +56,10 @@ import ContactUs from './com/ContactUs';
 import LocationsSummary from './locationmanager/LocationsSummary';
 import AdminProfile from './admin/Adminlprofile';
 
+
+
+import FeedRitrive from './usersupporter/feedbackRetrive';
+import FeedDash from './usersupporter/dashboard';
 
 
 function App() {
@@ -122,6 +126,10 @@ function App() {
         {/* Scheduler Layout Route */}
        
 
+        {/*  User Support Routes */}
+        <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
+        <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+       
       </Routes>
     </Router>
   );
