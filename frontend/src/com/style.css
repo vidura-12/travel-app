@@ -1,5 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* Additional CSS for like and comment buttons */
+/* Suggestions list styling */
+.suggestions-list {
+    position: absolute; /* Ensures the list appears directly below the search bar */
+    top: 100%; /* Positions right below the search input */
+    width: auto; /* Makes the dropdown the same width as the input */
+    background-color: white; /* White background for the dropdown */
+    border: 1px solid #ccc; /* Adds a border to define the dropdown */
+   border: none;
+    max-height: 200px; /* Max height to limit the size */
+    overflow-y: auto; /* Enables scrolling if the list is too long */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    z-index: 1000; /* Ensures it appears above other content */
+    padding: 0;
+    margin: 0;
+    margin-left: 50px;
+    list-style-type: none; /* Removes default bullet points */
+  }
+  
+  /* Individual suggestion item styling */
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    border-bottom: 1px solid #eee; /* Adds a subtle separator between items */
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
+    color: #000;
+  }
+  
+  /* Hover effect for suggestion item */
+  .suggestion-item:hover {
+    background-color: #f0f0f0; /* Changes background color on hover */
+  }
+  
+  /* Last item in the list should not have a bottom border */
+  .suggestion-item:last-child {
+    border-bottom: none;
+  }
+  
+
 .like-section {
     display: flex;
     align-items: center;
@@ -101,7 +139,10 @@
     margin-top: 10px;
     font-size: 14px;
   }
-
+  .search {
+    position: relative;
+  }
+  
   .see-less-button {
     background: none;
     right: 0;

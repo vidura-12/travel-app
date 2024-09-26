@@ -4,7 +4,7 @@ import './home.css';
 
 function Home() {
   const [locations, setLocations] = useState([]);
-  const [visibleDescription, setVisibleDescription] = useState(null); // Store the currently visible location's id
+  const [visibleDescription, setVisibleDescription] = useState({});
 
   useEffect(() => {
     // Fetch locations from the API
@@ -20,17 +20,13 @@ function Home() {
     fetchLocations();
   }, []);
 
-  // Function to toggle the description visibility for a single location
-  const toggleDescription = (locationId) => {
-    setVisibleDescription((prevState) => 
-      prevState === locationId ? null : locationId // Show or hide the clicked location's description
-    );
-  };
+  // Function to toggle the description visibility
+
 
   return (
     <div>
       <section className="home">
-        <div className="home-container1">
+        <div className="home-container">
           <video autoPlay muted loop className="background-video">
             <source
               src={`${process.env.PUBLIC_URL}/img/videoplayback.webm`}
@@ -39,7 +35,7 @@ function Home() {
             Your browser does not support the video tag.
           </video>
 
-          <div className="content1">
+          <div className="content">
             <h4>Discover Your Next Adventure</h4>
             <h1>
               Explore the world with <b>TravelMate</b>, where every journey
@@ -102,7 +98,7 @@ function Home() {
               <div
                 className="location-card"
                 key={location._id}
-                onClick={() => toggleDescription(location._id)}
+              
               >
                 <img
                   src={`/img/${location.picture}`}
@@ -111,7 +107,7 @@ function Home() {
                 />
                 <h3>{location.name}</h3>
                 {/* Conditionally render the description based on visibility */}
-                {visibleDescription === location._id && (
+                {visibleDescription[location._id] && (
                   <p className="location-description">{location.description}</p>
                 )}
               </div>

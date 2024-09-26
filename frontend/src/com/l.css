@@ -49,17 +49,32 @@
 
 /* General container styling */
 .location-form-container {
-  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg');
+  position: relative;
   margin: 100px auto;
   max-width: 850px;
-
-  background: rgba(245, 245, 245, 0.95);
+  background: rgba(245, 245, 245, 0.95); /* Keep this for content visibility */
   border-radius: 18px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
   padding: 35px;
-  position: relative;
+  overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
   animation: slideIn 1s ease-out;
 }
+
+/* Blurred Background */
+.location-form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px); /* Adjust the blur value as needed */
+  z-index: -1; /* Position it behind the content */
+}
+
 
 .location-form-card-header h3 {
   font-family: 'Montserrat', sans-serif;
