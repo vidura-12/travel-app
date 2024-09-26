@@ -52,6 +52,9 @@ const AdminLogin = () => {
         case 'event_manager':
             navigate('/EventManager/addEvent');
             break;
+       case 'vehicle_manager':
+            navigate('/dvbxbjkds');
+              break;
         default:
           setError('Unknown role');
       }
