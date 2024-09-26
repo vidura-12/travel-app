@@ -21,12 +21,7 @@ function Home() {
   }, []);
 
   // Function to toggle the description visibility
-  const toggleDescription = (locationId) => {
-    setVisibleDescription((prevState) => ({
-      ...prevState,
-      [locationId]: !prevState[locationId], // Toggle the description visibility
-    }));
-  };
+
 
   return (
     <div>
@@ -103,7 +98,7 @@ function Home() {
               <div
                 className="location-card"
                 key={location._id}
-                onClick={() => toggleDescription(location._id)}
+              
               >
                 <img
                   src={`/img/${location.picture}`}
