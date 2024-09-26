@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +9,21 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(initialTourGuide);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch the updated data from the database after component mounts
+    fetchTourGuideDetails(formData.id);
+  }, []);
+
+  // Function to fetch tour guide details by ID
+  const fetchTourGuideDetails = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:8081/TourGuide/${id}`);
+      setFormData(response.data); // Update formData with the latest details from the database
+    } catch (error) {
+      console.error('Error fetching tour guide details:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +39,8 @@ export default function Profile() {
       await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
       alert('Tour guide updated successfully!');
       setIsEditing(false);
+      // Fetch the updated data from the database to display
+      fetchTourGuideDetails(formData.id);
     } catch (error) {
       console.error('Error updating the tour guide:', error);
     }

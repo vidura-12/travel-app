@@ -9,6 +9,7 @@ import EventLayout from './EventLayout';
 
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
+import TourGideLayout from './tourGuideLayOut';
 
 import UserSupportLayOut from './UserSupportLayOut';
 
@@ -64,7 +65,8 @@ import  AgentAll from './com/allGuides';
 import  AgentBookGuide from './com/bookGuide';
 
 import AgentSucc from './travelagent/succ';
-
+import AgentDash from './travelagent/dashGuide' ;
+import AgentTBooked from './travelagent/touristBooked' ;
 
 
 
@@ -161,9 +163,7 @@ function App() {
 
 
         
-        <Route path="/register" element={<UserLayout><AgentRegister /></UserLayout>} />
-        <Route path="/profileGuide" element={<UserLayout><AgentProfile /></UserLayout>} />
-        
+         
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
@@ -192,11 +192,16 @@ function App() {
 
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost /></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist /></TravelAgentLayout>} />
-        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister /></TravelAgentLayout>} />
-        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile /></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
+        <Route path="/travelagent/dashGuide" element={<TourGideLayout><AgentDash /></TourGideLayout>} />
 
+
+        <Route path="/register" element={<TourGideLayout><AgentRegister /></TourGideLayout>} />
+        <Route path="/profileGuide" element={<TourGideLayout><AgentProfile /></TourGideLayout>} />
+        <Route path="/travelagent/touristBooked" element={<TourGideLayout><AgentTBooked /></TourGideLayout>} />
+       
+
+ 
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />

@@ -1,7 +1,8 @@
-import React from 'react'; 
+import React from 'react';
+import './dash.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function Guide() {
+export default function Dash() {
   return (
     <div
       className="position-relative vh-100 text-light"
@@ -41,7 +42,7 @@ export default function Guide() {
 
       {/* Bottom-Right Corner Button */}
       <a
-        href="/allGuides"
+        href="/travelagent/touristBooked"
         className="position-absolute bottom-0 end-0 m-4"
       >
         <button className="btn btn-primary btn-lg shadow" style={{ 
@@ -50,27 +51,9 @@ export default function Guide() {
             transition: 'background-color 0.3s, transform 0.3s',
             fontSize: '1rem'
           }}>
-          View Booking Tourist
+        Booked Tourist
         </button>
       </a>
-      <div>
-      <a
-        href="/register"
-        className="position-absolute bottom-0 end-0 m-4"
-      >
-        <button  className="btn btn-primary btn-lg shadow" style={{ 
-            borderRadius: '25px',
-            position:'relative' ,
-            right:'250%',
-            transition: 'background-color 0.3s, transform 0.3s',
-            fontSize: '1rem' 
-             
-          }}>
-          Register
-        </button>
-      </a>
-      </div>
- 
     </div>
   );
 }
