@@ -6,7 +6,7 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
-
+import EventLayout from './EventLayout'
 import UserSupportLayOut from './UserSupportLayOut';
 
 

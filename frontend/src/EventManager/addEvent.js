@@ -1,59 +1,84 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import './addEvent.css';
+import { useNavigate } from 'react-router-dom';
 
- function AddEvent(){
+function AddEvent() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    category: '',
+    description: '',
+    location: '',
+    date: '',
+    time: '',
+    price: '',
+    t1: '',
+    t2: '',
+    t3: '',
+    t4: '',
+    t5: '',
+    t6: '',
+    t7: '',
+  });
 
-    return(
-        <div>
-            <form>
+  const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState({});
 
-                <div className="form-group">
-                    <label for="name">Event Name : </label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter event name"></input>
-                </div>
+  const specialRegex = /^[a-zA-Z0-9\s]*$/;
 
-                <div className="form-group">
-                    <label for="category">Event category : </label>
-                    <input type="text" className="form-control" id="category" placeholder="Enter event category"></input>
-                </div>
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = {};
 
-                <div className="form-group">
-                    <label for="details">Event Description : </label>
-                    <textarea type="text" className="form-control" id="Description" rows="4" placeholder="Enter event Description"></textarea>
-                </div>
+    // Validate name and location for special characters
+    if (!specialRegex.test(formData.name)) {
+      newErrors.name = "No special characters allowed";
+      valid = false;
+    }
+    if (!specialRegex.test(formData.location)) {
+      newErrors.location = "No special characters allowed";
+      valid = false;
+    }
 
-                <div className="form-group">
-                    <label for="venue">Location : </label>
-                    <input type="text" className="form-control" id="venue" placeholder="Enter event venue"></input>
-                </div>
+    // Ensure price is a positive number
+    if (formData.price <= 0) {
+      newErrors.price = "Price should be a positive number";
+      valid = false;
+    }
 
-                <div className="form-group">
-                    <label for="date">Date : </label>
-                    <input type="text" className="form-control" id="date" placeholder="Enter event date"></input>
-                </div>
+    // Ensure date and time are not empty
+    if (!formData.date) {
+      newErrors.date = "Date is required";
+      valid = false;
+    }
+    if (!formData.time) {
+      newErrors.time = "Time is required";
+      valid = false;
+    }
 
-                <div className="form-group">
-                    <label for="category">Time : </label>
-                    <input type="text" className="form-control" id="time" placeholder="Enter event time"></input>
-                </div>
+    setErrors(newErrors);
+    return valid;
+  };
 
-                <div className="form-group">
-                    <label for="category">price : </label>
-                    <input type="text" className="form-control" id="price" placeholder="Enter event price"></input>
-                </div>
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-                <div class="form-group">
-                    <label class="image" for="image">Upload</label>
-                    <input type="file" class="form-control" id="image"></input>
-                </div>
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
-                <button type="submit" className="submit">Submit</button>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if (!validateForm()) {
+      return;
+    }
 
-<<<<<<< HEAD
-            </form>
-        </div>
-    )
-=======
     const eventdata = new FormData();
     eventdata.append('name', formData.name);
     eventdata.append('category', formData.category);
@@ -254,7 +279,6 @@ import React,{useState} from "react";
       </form>
     </div>
   );
->>>>>>> Final
 }
 
 export default AddEvent;
