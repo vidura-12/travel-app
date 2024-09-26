@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './eventList.css';
 
@@ -17,7 +17,7 @@ function EventList() {
   const fetchEvents = async () => {
     try {
       const response = await axios.get('http://localhost:8081/event/');
-      console.log(response)
+      console.log(response);
       setEvents(response.data.filter(event => event.isApproved)); // Only approved events
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -68,7 +68,10 @@ function EventList() {
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
               <div className="card img">
-              <img src={`img/${event.image}`} alt={event.name} />
+                <img 
+                  src={`/img/${event.image}`} // Corrected image source
+                  alt={event.name} 
+                />
                 <div className="card-body-event">
                   <h5 className="card-title">{event.name}</h5>
                   <p className="card-text1">{event.description}</p>

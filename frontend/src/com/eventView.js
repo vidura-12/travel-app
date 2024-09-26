@@ -67,10 +67,9 @@ function EventView() {
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
               <div className="card mb-4">
-                <img
-                  src={`http://localhost:8081/backend/frontend/public/img/${event.image}`}
-                  className="card-img-top"
-                  alt={event.name}
+              <img 
+                  src={`/img/${event.image}`} // Corrected image source
+                  alt={event.name} 
                 />
                 <div className="card-body">
                   <h5 className="card-title">{event.name}</h5>
