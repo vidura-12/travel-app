@@ -19,16 +19,15 @@ export default function BookTourists() {
     fetchApprovedTourGuides();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this tour guide?')) {
-      try {
-        await axios.delete(`http://localhost:8081/TourGuide/delete/${id}`);
-        setTourGuides(tourGuides.filter(guide => guide._id !== id));
-        alert('Tour guide deleted successfully!');
-      } catch (error) {
-        console.error('Error deleting tour guide:', error);
-        alert('Failed to delete the tour guide.');
-      }
+      // Filter out the guide with the given id
+      const updatedGuides = tourGuides.filter(guide => guide._id !== id);
+      setTourGuides(updatedGuides);
+      
+      // Update localStorage
+      localStorage.setItem('approvedGuides', JSON.stringify(updatedGuides));
+      alert('Tour guide deleted successfully!');
     }
   };
 

@@ -51,7 +51,7 @@ export default function Dash() {
             transition: 'background-color 0.3s, transform 0.3s',
             fontSize: '1rem'
           }}>
-          View Booking Tourist
+          Approve Tour Guides
         </button>
       </a>
     </div>

@@ -26,8 +26,18 @@ export default function Register() {
     if (window.confirm('Are you sure you want to approve this tour guide?')) {
       try {
         const approvedGuide = tourGuides.find(guide => guide._id === id);
-        setApprovedGuides(prev => [...prev, approvedGuide]);
-        localStorage.setItem('approvedGuides', JSON.stringify([...approvedGuides, approvedGuide]));
+
+        // Check if the guide is already approved
+        if (approvedGuides.find(guide => guide._id === approvedGuide._id)) {
+          alert('This tour guide has already been approved.');
+          return;
+        }
+
+        // Update state and localStorage
+        const updatedApprovedGuides = [...approvedGuides, approvedGuide];
+        setApprovedGuides(updatedApprovedGuides);
+        localStorage.setItem('approvedGuides', JSON.stringify(updatedApprovedGuides));
+
         alert('Tour guide approved successfully!');
       } catch (error) {
         console.error('Error approving tour guide:', error);
@@ -111,9 +121,6 @@ export default function Register() {
             </tbody>
           </table>
         </div>
-
-       
-        
       </div>
     </div>
   );
