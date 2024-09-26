@@ -1,14 +1,10 @@
 
-body {
-  font-family: Arial, sans-serif;
-}
-
 .event-list-container {
   /* padding: 10px;
   padding-top: 5px; */
 }
 
-h4 {
+.head {
   text-align: center;
   margin-bottom: 20px;
   /* color: rgb(0, 1, 1); */
@@ -64,6 +60,6 @@ h4 {
   object-fit: cover;
 }
 
-.card-body {
+.card-body-event {
   text-align: center;
 }

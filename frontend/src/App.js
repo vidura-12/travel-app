@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Import Layouts
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
-
+import Adminevent from './eventAdmin'
 import EventLayout from './EventLayout';
 
 import TravelAgentLayout from './TravelAgentLayout';
@@ -208,7 +208,7 @@ function App() {
         <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
         <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
-        <Route path="/EventManager/Admin" element={<EventLayout><AdminEventApproval/></EventLayout>} />
+        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
 
 
      

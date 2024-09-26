@@ -33,40 +33,39 @@ router.post('/add', upload.single('image'), async (req, res) => {
 });
 
 
+//add ticket details
+router.post('/event/:id/tickets', async (req, res) => {
+  const { id } = req.params;
+  const { tname, tcategory, phone, email, noOfTicket, totalPrice, otherFields } = req.body;
 
-//Add ticket details
-router.post('/:id/tickets', async (req, res) => {
-    const { tname,tcategory, phone, email, noOfTicket, otherFields } = req.body;
-
-    try {
-        // Find the event by ID
-        const event = await Events.findById(req.params.id);
-        if (!event) {
-            return res.status(404).json({ error: 'Event not found' });
-        }
-
-        // Create a new user ticket object
-        const newTicket = {
-            tname: tname,
-            tcategory:tcategory,
-            phone: phone,
-            email: email,
-            noOfTicket: noOfTicket,
-            otherFields: otherFields // Dynamic fields passed as a Map or object
-        };
-
-        // Add the new ticket to the event's userTickets array
-        event.userTickets.push(newTicket);
-
-        // Save the updated event document
-        await event.save();
-
-        // Respond with the updated event
-        res.status(200).json(event);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+  try {
+    // Find the event by its ID
+    const event = await Events.findById(id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
     }
+
+    // Add the new ticket details to the userTickets array
+    event.userTickets.push({
+      tname,
+      phone,
+      email,
+      noOfTicket,
+      totalPrice,
+      tcategory,
+      ...otherFields // Spread additional fields here
+    });
+
+    // Save the updated event
+    await event.save();
+
+    res.status(201).json({ message: 'Ticket added successfully' });
+  } catch (error) {
+    console.error('Error adding ticket:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
+
 
 
   
@@ -95,27 +94,30 @@ router.get("/:id", async (req, res) => {
 });
 
 
-//book ticket
+
+//get ticket booking etails
 router.get('/tickets', async (req, res) => {
   try {
-    const events = await Events.find({}, 'name category userTickets price'); // Fetch events with relevant fields
+      const events = await Events.find({ "userTickets.0": { $exists: true } });
+      const tickets = events.flatMap(event => event.userTickets.map(ticket => ({
+          tname: ticket.tname,
+          tcategory: ticket.tcategory,
+          phone: ticket.phone,
+          email: ticket.email,
+          noOfTicket: ticket.noOfTicket,
+          totalPrice: ticket.totalPrice
+      })));
 
-    const formattedTickets = events.flatMap(event => 
-      event.userTickets.map(ticket => ({
-        tname: ticket.tname,
-        phone: ticket.phone,
-        email: ticket.email,
-        noOfTicket: ticket.noOfTicket,
-        category: event.category, // Getting category from the event
-        totalPrice: ticket.noOfTicket * event.price // Assuming each ticket has a price
-      }))
-    );
-
-    res.json(formattedTickets);
+      console.log("Fetched tickets:", tickets);  // Add this line for debugging
+      res.status(200).json(tickets);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+      console.error('Error retrieving tickets:', error);  // Add error logging
+      res.status(500).json({ error: 'Error retrieving tickets' });
   }
 });
+
+
+
 
 
 

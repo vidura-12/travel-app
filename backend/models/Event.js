@@ -32,6 +32,15 @@ function checkFileType(file, cb) {
     }
 }
 
+const ticketSchema = new mongoose.Schema({
+    tname: { type: String, required: true },
+    phone: { type: String, required: true },
+    email: { type: String, required: true },
+    noOfTicket: { type: Number, required: true },
+    totalPrice: { type: Number, required: true },
+    tcategory: { type: String, required: true }
+  });
+
 // Mongoose schema and model
 const eventSchema = new mongoose.Schema({
     name: {
@@ -71,19 +80,8 @@ const eventSchema = new mongoose.Schema({
         t3: String,
         t4: String,
         t5: String,
-        t6: String,
-        t7: String
     },
-    userTickets: [
-        {
-            tname: String,
-            tcategory: String,
-            phone: Number,
-            email: String,
-            noOfTicket: Number,
-            otherFields: Map // Map for dynamic fields
-        }
-    ],
+    userTickets: [ticketSchema],
 
     isApproved: { type: Boolean, default: false }  // Event approval
 });

@@ -8,8 +8,14 @@ function TicketReport() {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/tickets'); // Update with your endpoint
-        setTickets(response.data);
+        const response = await axios.get('http://localhost:8081/tickets'); // Adjust the endpoint as necessary
+        const events = response.data; // Fetch all events with tickets
+
+        // Flatten the userTickets from all events
+        const allTickets = events.flatMap(event => event.userTickets);
+        
+        console.log('Fetched tickets:', allTickets);  // Debugging
+        setTickets(allTickets);
       } catch (error) {
         console.error('Error fetching ticket details:', error);
       }
@@ -40,8 +46,8 @@ function TicketReport() {
                 <td>{ticket.phone}</td>
                 <td>{ticket.email}</td>
                 <td>{ticket.noOfTicket}</td>
-                <td>{ticket.category}</td>
-                <td>${ticket.totalPrice.toFixed(2)}</td> {/* Formatting the total price */}
+                <td>{ticket.tcategory}</td>
+                <td>${ticket.totalPrice?.toFixed(2)}</td> {/* Add safety check for totalPrice */}
               </tr>
             ))
           ) : (
