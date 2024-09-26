@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import './l.css'; 
 
@@ -14,18 +14,25 @@ const Newlocation = () => {
   const [errors, setErrors] = useState({
     name: '',
     city: '',
+    locationExists: '',
   });
 
   const [message, setMessage] = useState('');
   const [alertVisible, setAlertVisible] = useState(false);
 
   const formRef = useRef(null);
+  const navigate = useNavigate(); // Use useNavigate hook
 
   useEffect(() => {
+    const name = localStorage.getItem('name');
+    if (!name) {
+      alert('You need to log in first.');
+      navigate("/home"); // Redirect to home page if not logged in
+    }
     if (formRef.current) {
       formRef.current.classList.add('fade-in');
     }
-  }, []);
+  }, [navigate]); // Add navigate to the dependency array
 
   const validateField = (name, value) => {
     let valid = true;
@@ -40,6 +47,21 @@ const Newlocation = () => {
     }
 
     return { valid, errorMessage };
+  };
+
+  const checkLocationExists = async (name) => {
+    if (name) {
+      try {
+        const response = await axios.get(`http://localhost:8081/Location/check?name=${name}`);
+        if (response.data.exists) {
+          setErrors((prev) => ({ ...prev, locationExists: 'Location name already exists' }));
+        } else {
+          setErrors((prev) => ({ ...prev, locationExists: '' }));
+        }
+      } catch (error) {
+        console.error('Error checking location existence', error);
+      }
+    }
   };
 
   const handleChange = (e) => {
@@ -61,31 +83,38 @@ const Newlocation = () => {
         ...errors,
         [name]: valid ? '' : errorMessage,
       });
+
+      if (name === 'name') {
+        checkLocationExists(value);
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const nameValidation = validateField('name', formData.name);
     const cityValidation = validateField('city', formData.city);
-
-    if (!nameValidation.valid || !cityValidation.valid) {
+  
+    if (!nameValidation.valid || !cityValidation.valid || errors.locationExists) {
       setErrors({
         name: nameValidation.errorMessage,
         city: cityValidation.errorMessage,
+        locationExists: errors.locationExists,
       });
       setMessage('Please correct the errors before submitting.');
       setAlertVisible(true);
       return;
     }
-
+  
+    const userName = localStorage.getItem('name');
     const data = new FormData();
     data.append('name', formData.name);
     data.append('city', formData.city);
     data.append('description', formData.description);
     data.append('picture', formData.picture);
-
+    data.append('addedBy', userName);
+  
     try {
       const response = await axios.post('http://localhost:8081/Location/add', data, {
         headers: {
@@ -93,8 +122,8 @@ const Newlocation = () => {
         },
       });
       setMessage('Thanks for your support, we will notify you after we approve.');
-      setTimeout(() => setAlertVisible(true), 0);  // Add a slight delay to ensure state update
-
+      setAlertVisible(true);
+  
       setFormData({
         name: '',
         city: '',
@@ -103,8 +132,12 @@ const Newlocation = () => {
       });
     } catch (error) {
       console.error('Error submitting the form', error);
-      setMessage('Error submitting the form');
-      setTimeout(() => setAlertVisible(true), 0);
+      if (error.response && error.response.data && error.response.data.error) {
+        setMessage(error.response.data.error);
+      } else {
+        setMessage('Error submitting the form');
+      }
+      setAlertVisible(true);
     }
   };
 
@@ -136,6 +169,9 @@ const Newlocation = () => {
                 />
                 {errors.name && (
                   <div className="text-danger">{errors.name}</div>
+                )}
+                {errors.locationExists && (
+                  <div className="text-danger">{errors.locationExists}</div>
                 )}
               </div>
               <div className="form-group mb-3">
@@ -177,9 +213,8 @@ const Newlocation = () => {
                 />
               </div>
               <button type="submit" className="custom-button">
-              Submit
+                Submit
               </button>
-
             </form>
           </div>
         </div>

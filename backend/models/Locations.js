@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
-
+//
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, '../frontend/public/img'); 
@@ -32,7 +32,7 @@ function checkFileType(file, cb) {
 }
 
 const locationSchema = new mongoose.Schema({
-  name: {
+ name: {
     type: String,
     required: true,
   },
@@ -44,10 +44,10 @@ const locationSchema = new mongoose.Schema({
     type: String,
   },
   picture: {
-    type: String, 
+    type: String,
   },
   status: {
-    type: String, 
+    type: String,
   },
   likes: {
     type: Number,
@@ -57,9 +57,12 @@ const locationSchema = new mongoose.Schema({
     text: String,
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     }
-  }]
+  }],
+  addedBy: {
+    type: String, // To store the username of the person who added the location
+  }
 });
 
 const Location = mongoose.model('Location', locationSchema);

@@ -8,7 +8,6 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const navigate = useNavigate();
-
   const handleUsernameChange = (e) => {
     const value = e.target.value;
     const isValid = /^[A-Za-z]+$/.test(value);
@@ -27,40 +26,32 @@ const AdminLogin = () => {
     if (usernameError) {
       return;
     }
-
+  
     const admin = { 
       username, 
       password
     };
-
+  
     try {
       const response = await axios.post('http://localhost:8081/auth/login', admin);
       console.log('Response Data:', response.data);
+      
+      // Store the token in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('username', response.data.username.trim());
       const role = response.data.role.trim();
-      console.log('Role:', role);
-
+     
+  
       switch (role) {
         case 'location_manager':
           navigate('/LocationAdmin/home');
           break;
-        case 'hotelmanager':
-          navigate('/hotelmanager/home');
+        case 'Schedule_Manager':
+          navigate('/scheduladmin');
           break;
-        case 'admin':
-          navigate('/admin/home');
-          break;
-        case 'usersupporter':
-          navigate('/usersupporter/home');
-          break;
-        case 'scheduler':
-          navigate('/scheduler/home');
-          break;
-        case 'travelagent':
-          navigate('/travelagent/home');
-          break;
-        case 'vehiclerentle':
-          navigate('/vehiclerentle/home');
-          break;
+        case 'event_manager':
+            navigate('/EventManager/addEvent');
+            break;
         default:
           setError('Unknown role');
       }
@@ -72,6 +63,7 @@ const AdminLogin = () => {
       }
     }
   };
+  
 
   return (
     <div className="container mt-5">
@@ -119,4 +111,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminLogin;
