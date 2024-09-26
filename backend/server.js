@@ -46,31 +46,23 @@ const server = app.listen(PORT, () => {
 });
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.use('/api/vehicles', vehicleRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', bookingRoutes);
-
-
-app.post('/login', authController.login);
-app.post('/register', authController.register);
-
-
-app.post('/vehicle-owner/register', vehicleOwnerController.register);
-app.post('/vehicle-owner/login', vehicleOwnerController.login);
-
 // Route Definitions
 app.use('/api/auth', auth1);
 app.use('/api/checklists', checklistRoutes);
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
-// Uncomment the line below if needed
-// app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/vehicles', vehicleRoutes);
+app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', bookingRoutes);
+
+app.post('/login', authController.login);
+app.post('/register', authController.register);
+app.post('/vehicle-owner/register', vehicleOwnerController.register);
+app.post('/vehicle-owner/login', vehicleOwnerController.login);

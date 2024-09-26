@@ -6,7 +6,7 @@ exports.createVehicle = async (req, res) => {
     const image = req.file ? req.file.filename : ''; // Use filename here
   
     try {
-      if (!username || !make || !model || !numberOfSeats || !pricePerDay || !color || !category) {
+      if (!username || !make || !model || !numberOfSeats || !pricePerDay || !color || !category || !contact || !ac || !vnumber || !location) {
         return res.status(400).json({ message: 'All fields are required' });
       }
   

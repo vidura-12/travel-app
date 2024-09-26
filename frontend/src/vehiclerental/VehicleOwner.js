@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
-import Header from './Header';
 
 Modal.setAppElement('#root');
 
@@ -210,7 +209,7 @@ function VehicleOwnerCreatePost() {
 
   return (
     <div  style={body1Style}>
-      <Header />
+      
       <div className="content" style={contentStyle}>
         <h2>My Vehicles</h2>
         <button onClick={openModal} style={addButtonStyle}>Add Vehicle</button>

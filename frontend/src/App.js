@@ -91,7 +91,7 @@ import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 
 // Vehicle Rental Components
 import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
-import VehicleOwnerPage from './vehiclerental/VehicleOwner';
+import VehicleOwnerPage from './vehiclerental/VehicleOwner'
 import VehicleOwnerLogin from './vehiclerental/VehicleOwnerLogin';
 import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
 import Mybookings from './vehiclerental/MyBookings';
@@ -168,13 +168,6 @@ function App() {
         <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
         <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
 
-
-     
-
-     
-        
-
-
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
         {/* Event Manager Routes */}
@@ -201,11 +194,13 @@ function App() {
         <Route path="/checklist/delete" element={<UserLayout><DeleteChecklistModal /></UserLayout>} />
 
         {/* Vehicle Rental Routes */}
-        <Route path="/vehicleRental/home" element={<VehicleRentalLayout><VehicleRentalHome /></VehicleRentalLayout>} />
-        <Route path="/vehicleRental/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
-        <Route path="/vehicleRental/register" element={<VehicleRentalLayout><VehicleOwnerRegister /></VehicleRentalLayout>} />
-        <Route path="/vehicleRental/myBookings" element={<VehicleRentalLayout><Mybookings /></VehicleRentalLayout>} />
-        <Route path="/vehicleRental/book" element={<VehicleRentalLayout><VehicleBook /></VehicleRentalLayout>} />
+        <Route path="/VehicleRentalHome" element={<UserLayout><VehicleRentalHome /></UserLayout>} />
+        <Route path="/vehicle-owner-dashboard" element={<UserLayout><VehicleOwnerPage /></UserLayout>} />
+        <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
+        <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
+        <Route path="/mybookings" element={<Mybookings />} />
+        <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
+        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerPage />} />
         
       </Routes>
     </Router>

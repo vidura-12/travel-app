@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
 import Modal from 'react-modal';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -320,7 +319,7 @@ const VehicleBook = () => {
 
   return (
     <div>
-      <Header />
+      
       <div className="content" style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
         
         
