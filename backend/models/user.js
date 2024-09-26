@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
+<<<<<<< HEAD
 // Define the User schema
 const userSchema = new mongoose.Schema({
   name: {
@@ -31,29 +31,18 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+=======
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  dob: { type: Date, required: true },
+  age: { type: Number, required: true },
+  gender: { type: String, required: true },
+  contact: { type: String, required: true },
+  NIC: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, default: 'user' },
+>>>>>>> Final
 });
 
-// Hash password before saving the user document
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password') || this.isNew) {
-    try {
-      const salt = await bcrypt.genSalt(10);
-      this.password = await bcrypt.hash(this.password, salt);
-      next();
-    } catch (err) {
-      next(err);
-    }
-  } else {
-    next();
-  }
-});
-
-// Compare passwords for login
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
-
-// Create the User model
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);

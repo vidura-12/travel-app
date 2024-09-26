@@ -1,0 +1,107 @@
+/* AdminProfile.css */
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('./img/backadmin.jpg'); /* Add your background image here */
+    background-size: cover; /* Make sure the background covers the whole container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    padding: 20px;
+  }
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f6f8;
+    padding: 20px;
+  }
+  
+  .profile-card {
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    width: 250%;
+    max-width: 950px;
+    height: 600px;
+    padding: 40px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+  
+  .profile-header {
+    margin-bottom: 20px;
+  }
+  
+  .profile-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 25px;
+  }
+  
+  .profile-body {
+    font-size: 18px;
+    color: #555;
+    line-height: 2.3;
+  }
+  
+  .profile-details p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+  }
+  
+  .profile-details strong {
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .logout-btn {
+    background-color: #ff4b5c;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 30px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background-color: #ff303f;
+    transform: scale(1.05);
+  }
+  
+  .logout-btn:active {
+    transform: scale(1);
+  }
+  
+  @media (max-width: 768px) {
+    .profile-card {
+      padding: 25px;
+    }
+  
+    .profile-header h2 {
+      font-size: 22px;
+    }
+  
+    .profile-body {
+      font-size: 16px;
+    }
+  
+    .logout-btn {
+      padding: 10px 20px;
+    }
+  }
+  

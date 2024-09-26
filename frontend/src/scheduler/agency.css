@@ -1,0 +1,104 @@
+.travelagency{
+   
+     margin-top: 80px;
+     background-image: url('./sheduler image/im1.jpg'); /* Replace with the actual path to your image */
+     background-size: cover;
+     background-position: center;
+     padding: 50px 0; 
+     position: relative;
+
+}
+
+
+
+.traveltitle{
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    font-style:italic;
+}
+
+.traveltitle h1{
+    color:#001F3F;
+}
+
+<<<<<<< HEAD:frontend/src/com/agency.css
+.agencyForm {
+=======
+.travelform {
+>>>>>>> Final:frontend/src/scheduler/agency.css
+    width: 50%;
+    margin: 0 auto;
+    background-color:  rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+ 
+  .m1 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+<<<<<<< HEAD:frontend/src/com/agency.css
+  .agencyLabel {
+=======
+  .l1 {
+>>>>>>> Final:frontend/src/scheduler/agency.css
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #emailHelp {
+    font-size: 12px;
+    color: #6c757d;
+  }
+  
+  .m2 {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .m2:hover {
+    background-color: #0056b3;
+  }
+
+  .packages {
+    padding: 20px;
+  }
+  
+  .package {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .package h2 {
+    margin-top: 0;
+  }
+  
+  .package img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  

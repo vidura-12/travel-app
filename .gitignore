@@ -7,7 +7,11 @@
 /backend/node_modules/
 
 frontend/public/img/videoplayback.webm
+<<<<<<< HEAD
 frontend/src/com/img/Sri Lanka.mp4
+=======
+
+>>>>>>> Final
 
 /node_modules
 .env
@@ -20,6 +24,7 @@ backend/.env
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
+<<<<<<< HEAD
 /frontend/node_modules
 /frontend/node_modules
 /frontend/node_modules
@@ -69,3 +74,6 @@ frontend/node_modules/.cache/default-development/4.pack
 /frontend/node_modules
 /frontend/node_modules
 /frontend/node_modules
+=======
+/frontend/package.json
+>>>>>>> Final

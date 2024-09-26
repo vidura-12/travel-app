@@ -1,13 +1,145 @@
+/* Adding specific class prefix for the location details page to avoid conflicts */
+.location-dashboard-body {
+  background-color: #f4f7fc;
+  padding: 8rem;
 
-
-.modal-content {
-  background-color: rgba(255, 255, 255, 0.9); /* Adjust opacity as needed */
-  border-radius: 15px; /* Rounded corners for the modal */
-  height: 450px;
-  width: 800px;
 }
 
-table{
-  margin-top: 60px;
- 
+.location-dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.location-dashboard-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.location-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.location-dashboard-table th, .location-dashboard-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.location-dashboard-table th {
+  background-color: #687786;
+  color: white;
+  font-weight: bold;
+}
+
+.location-dashboard-table tbody tr:hover {
+  background-color: #f2f4f8;
+}
+
+.location-table-img {
+  max-width: 80px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.location-table-img:hover {
+  transform: scale(1.1);
+}
+
+.location-status-approved {
+  color: green;
+  font-weight: bold;
+}
+
+.location-status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.location-status-rejected {
+  color: red;
+  font-weight: bold;
+}
+
+.location-action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.location-btn-approve {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.location-btn-approve:hover {
+  background-color: #218838;
+}
+
+.location-btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.location-btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Modal styles */
+.location-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.location-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 80%;
+  max-height: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.location-modal-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.download-report-btn {
+  background-color: #16a085;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.download-report-btn:hover {
+  background-color: #1abc9c;
 }

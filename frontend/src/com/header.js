@@ -23,7 +23,7 @@ function Header() {
                 <li><Link to ="/vehicleRentalHome">Vehicle Rentle</Link></li>
                 <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
-                <li><Link to="/travelagent/dashboard">Travel Agents</Link></li>
+                <li><Link to="/guide">Travel Agents</Link></li>
                 <li><Link to="#">Events</Link></li>
               </ul>
             </div>

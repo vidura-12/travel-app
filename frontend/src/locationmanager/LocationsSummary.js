@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-
 import './LocationsSummary.css'; // Import the custom CSS file
 import { useNavigate } from 'react-router-dom'; // For navigation
 
 function LocationsSummary() {
   const [locations, setLocations] = useState([]);
-  const navigate = useNavigate(); // Use useNavigate for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('You need to log in first.');
-      navigate('/admin/login'); // Redirect to login page
+      navigate('/admin/login');
       return;
     }
-//dfghjkl
+
     const fetchLocationsSummary = async () => {
       try {
         const response = await fetch('http://localhost:8081/locationAdmin/locations-summary', {
@@ -30,8 +29,8 @@ function LocationsSummary() {
           console.error('Error fetching locations summary:', response.statusText);
           if (response.status === 401) {
             alert('Session expired. Please log in again.');
-            localStorage.removeItem('token'); // Clear token
-            navigate('/admin/login'); // Redirect to login page
+            localStorage.removeItem('token');
+            navigate('/admin/login');
           }
         }
       } catch (error) {
@@ -47,9 +46,13 @@ function LocationsSummary() {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('You need to log in first.');
-      navigate('/admin/login'); // Redirect to login page
+      navigate('/admin/login');
       return;
     }
+
+    // Display confirmation message
+    const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
+    if (!confirmDelete) return; // If user cancels, stop the function
 
     try {
       const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
@@ -71,8 +74,8 @@ function LocationsSummary() {
         console.error('Error deleting comment:', response.statusText);
         if (response.status === 401) {
           alert('Session expired. Please log in again.');
-          localStorage.removeItem('token'); // Clear token
-          navigate('/admin/login'); // Redirect to login page
+          localStorage.removeItem('token');
+          navigate('/admin/login');
         }
       }
     } catch (error) {
@@ -82,42 +85,42 @@ function LocationsSummary() {
   };
 
   return (
-    <div className='body1'>
-      <div className="container mt-5">
-      <h2 className="my-4">Locations Summary</h2>
-      <table className="table table-striped table-bordered table-hover">
-        <thead className="thead-dark">
-          <tr>
-            <th>Name</th>
-            <th>Likes</th>
-            <th>Comments</th>
-          </tr>
-        </thead>
-        <tbody>
-          {locations.map((location) => (
-            <tr key={location._id}>
-              <td>{location.name}</td>
-              <td>{location.likes}</td>
-              <td>
-                <ul className="list-unstyled">
-                  {location.comments.map((comment) => (
-                    <li key={comment._id} className="comment-item d-flex align-items-center">
-                      <span className="comment-text">{comment.text}</span>
-                      <button
-                        className="btn btn-danger btn-sm ms-3"
-                        onClick={() => handleDeleteComment(location._id, comment._id)}
-                      >
-                        Delete
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </td>
+    <div className="location-summary-body">
+      <div className="location-summary-container">
+        <h2 className="location-summary-title">Locations Summary</h2>
+        <table className="location-summary-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Likes</th>
+              <th>Comments</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {locations.map((location) => (
+              <tr key={location._id}>
+                <td>{location.name}</td>
+                <td>{location.likes}</td>
+                <td>
+                  <ul className="comment-list">
+                    {location.comments.map((comment) => (
+                      <li key={comment._id} className="comment-item">
+                        <span className="comment-text">{comment.text}</span>
+                        <button
+                          className="location-btn-delete"
+                          onClick={() => handleDeleteComment(location._id, comment._id)}
+                        >
+                          Delete
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

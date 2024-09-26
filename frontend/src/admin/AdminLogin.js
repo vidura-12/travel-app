@@ -8,7 +8,6 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const navigate = useNavigate();
-
   const handleUsernameChange = (e) => {
     const value = e.target.value;
     const isValid = /^[A-Za-z]+$/.test(value);
@@ -47,10 +46,19 @@ const AdminLogin = () => {
         case 'location_manager':
           navigate('/LocationAdmin/home');
           break;
+<<<<<<< HEAD
         case 'vehicle_manager':
           navigate('/VehicleAdmin/home');
           break;
         // handle other roles
+=======
+        case 'Schedule_Manager':
+          navigate('/scheduladmin');
+          break;
+        case 'event_manager':
+            navigate('/EventManager/addEvent');
+            break;
+>>>>>>> Final
         default:
           setError('Unknown role');
       }
@@ -110,4 +118,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default AdminLogin;
