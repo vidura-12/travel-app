@@ -1,5 +1,5 @@
 /* Home Section */
-.home .home-container {
+.home .home-container1 {
     position: relative;
     width: 100%;
     height: 100vh; /* Full viewport height */
@@ -18,7 +18,7 @@
     z-index: -1;
 }
 
-.home .content {
+.home .content1 {
     position: relative;
     z-index: 1;
     color: white;
@@ -30,7 +30,7 @@
     text-align: center;
 }
 
-.home .content h4 {
+.home .content1 h4 {
     font-size: 1.5rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -38,16 +38,16 @@
     color: rgba(255, 255, 255, 0.9);
 }
 
-.home .content h1 {
+.home .content1 h1 {
     font-size: 3.5rem;
-    max-width: 50rem;
+    max-width: 500rem;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     color: #ffffff;
 }
 
-.home .content p {
+.home .content1 p {
     max-width: 35rem;
     font-size: 1.2rem;
     font-weight: 500;
@@ -149,13 +149,13 @@
 
 /* Media Queries */
 @media (max-width: 885px) {
-    .home .home-container .navbar .menu {
+    .home .home-container1 .navbar .menu {
         display: none;
     }
-    .home .home-container .navbar .logo .bar {
+    .home .home-container1 .navbar .logo .bar {
         display: block;
     }
-    .home .home-container .navbar .menu.active {
+    .home .home-container1 .navbar .menu.active {
         display: block;
         position: absolute;
         left: -1.5rem;
@@ -167,7 +167,7 @@
         align-items: center;
         padding: 0 3rem;
     }
-    .home .home-container .navbar .menu .close {
+    .home .home-container1 .navbar .menu .close {
         display: block;
         position: absolute;
         color: var(--white-color);
@@ -176,17 +176,17 @@
         font-size: 2rem;
         cursor: pointer;
     }
-    .home .home-container .navbar .menu .close:hover {
+    .home .home-container1 .navbar .menu .close:hover {
         color: #bbbbbb;
     }
-    .home .home-container .navbar .menu ul {
+    .home .home-container1 .navbar .menu ul {
         flex-direction: column;
         font-size: 1.3rem;
     }
-    .home .home-container .navbar .menu ul li {
+    .home .home-container1 .navbar .menu ul li {
         margin: 1.5rem 0;
     }
-    .home .home-container .content {
+    .home .home-container1 .content {
         padding: 2rem;
     }
     .travel .container {
