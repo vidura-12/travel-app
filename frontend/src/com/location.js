@@ -154,6 +154,84 @@ function Location() {
           ))}
         </div>
       </section>
+      <section className="destination" ref={destinationRef}>
+        <div className="container">
+          {results.map((location) => (
+            <div key={location._id} className="gallery">
+              <div className="box">
+                <img src={`img/${location.picture}`} alt={location.name} />
+              </div>
+              <div className="container-box">
+                <h2 className="heading">{location.name} - {location.city}</h2>
+                <div className="content">
+                  <p>
+                    {visibleDescriptions[location._id] 
+                      ? location.description 
+                      : `${location.description.substring(0, 100)}...`}
+                  </p>
+                  {location.description.length > 100 && (
+                    visibleDescriptions[location._id] ? (
+                      <button className="see-less-button" onClick={() => handleSeeLessDescription(location._id)}>
+                        See less
+                      </button>
+                    ) : (
+                      <button className="see-more-button" onClick={() => handleSeeMoreDescription(location._id)}>
+                        See more
+                      </button>
+                    )
+                  )}
+                  <div className="like-section">
+                    <button
+                      className={`like-button ${likedLocations.includes(location._id) ? 'liked' : ''}`}
+                      onClick={() => handleLike(location._id)}
+                      disabled={likedLocations.includes(location._id)}
+                    >
+                      <img src="./img/like.png" alt="Like" />
+                    </button>
+                    <span className="like-count">{location.likes || 0} Likes</span>
+                  </div>
+                  <div className="comments-section">
+                    <h3>Comments</h3>
+                    {location.comments.slice(0, visibleComments[location._id] || 5).map((comment, index) => (
+                      <p key={index} className="comment">{comment.text}</p>
+                    ))}
+                    {location.comments.length > (visibleComments[location._id] || 5) && (
+                      <button className="see-more-button" onClick={() => handleSeeMoreComments(location._id)}>
+                        See more
+                      </button>
+                    )}
+                    {visibleComments[location._id] > 5 && (
+                      <button className="see-less-button" onClick={() => handleSeeLessComments(location._id)}>
+                        See less
+                      </button>
+                    )}
+                    <input
+                      type="text"
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Add a comment"
+                      className="comment-input"
+                    />
+                    <button onClick={() => handleAddComment(location._id)} className="comment-button">
+                      Comment
+                    </button>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <div className="containe">
+          <h1 className="title">Are you a Traveller? Share your experience with us</h1>
+          <a href="/newLocation">
+            <button className="buttonadd">Click Here ...</button>
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
