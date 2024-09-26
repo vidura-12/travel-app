@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Import Layouts
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
+import Adminevent from './eventAdmin'
 import EventLayout from './EventLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
@@ -157,6 +158,23 @@ function App() {
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+
+        {/* Event manager */}
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
+        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
+
+
+     
+
+     
+        
+
+
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
         {/* Event Manager Routes */}

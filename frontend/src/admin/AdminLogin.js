@@ -54,7 +54,7 @@ const AdminLogin = () => {
           navigate('/scheduladmin');
           break;
         case 'event_manager':
-            navigate('/EventManager/addEvent');
+            navigate('/EventManager/Admin');
             break;
         default:
           setError('Unknown role');

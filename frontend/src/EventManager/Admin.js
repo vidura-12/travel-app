@@ -22,7 +22,7 @@ function AdminEventApproval() {
         navigate('/admin/login'); // Redirect to login page
         return;
       }
-
+     
       try {
         const response = await axios.get('http://localhost:8081/event');
         const pending = response.data.filter(event => !event.isApproved);
