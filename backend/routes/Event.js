@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Events, upload } = require('../models/Event');
-// const { Ticket } = require('../models/ticket');
+const nodemailer = require('nodemailer');
+
 
 // Add event
 router.post('/add', upload.single('image'), async (req, res) => {
@@ -210,5 +211,57 @@ router.delete("/delete/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+// send a email--------------------------------------------------------
+
+router.post('/:eventId/tickets', async (req, res) => {
+    const { tname, tcategory, phone, email, noOfTicket, totalPrice, otherFields } = req.body;
+  
+    try {
+      // Set up nodemailer transporter (using Gmail in this example)
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'youremail@gmail.com', // Your email
+          pass: 'yourpassword' // Your email password (use environment variables for security)
+        }
+      });
+  
+      // Compose the email content
+      const mailOptions = {
+        from: 'youremail@gmail.com',
+        to: email,
+        subject: `Your Ticket for ${tname}`,
+        text: `Dear customer,
+  
+        Thank you for booking tickets for the event "${tname}" (${tcategory}).
+        Here are your ticket details:
+        
+        - Name: ${tname}
+        - Category: ${tcategory}
+        - Phone: ${phone}
+        - Email: ${email}
+        - Number of Tickets: ${noOfTicket}
+        - Total Price: $${totalPrice}
+  
+        Additional Information: ${Object.entries(otherFields).map(([key, value]) => `\n- ${key}: ${value}`)}
+  
+        We look forward to seeing you at the event.
+  
+        Regards,
+        Event Management Team`
+      };
+  
+      // Send the email
+      let info = await transporter.sendMail(mailOptions);
+      console.log('Email sent: ' + info.response);
+  
+      res.status(200).json({ message: 'Ticket submitted successfully and email sent.' });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ message: 'Error submitting ticket and sending email.' });
+    }
+  });
 
 module.exports = router;

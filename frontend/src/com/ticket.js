@@ -15,13 +15,14 @@ function UserTicketForm() {
     tcategory: '',
     phone: '',
     email: '',
-    noOfTicket: ''
+    noOfTicket: '',
+    totalPrice: 0
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the event details including ticket criteria
+    // Fetch the event details including ticket criteria and price
     axios.get(`http://localhost:8081/event/${id}`)
       .then((response) => {
         setEvent(response.data);
@@ -40,10 +41,17 @@ function UserTicketForm() {
       });
   }, [id]);
 
-  // Handle ticket details changes
+  // Handle ticket details changes and calculate total price
   const handleTicketDetailChange = (e) => {
     const { name, value } = e.target;
-    setTicketDetails({ ...ticketDetails, [name]: value });
+    const updatedDetails = { ...ticketDetails, [name]: value };
+
+    // Calculate total price based on ticket price and number of tickets
+    if (name === 'noOfTicket' && event && event.price) {
+      updatedDetails.totalPrice = value * event.price;
+    }
+
+    setTicketDetails(updatedDetails);
 
     // Validate inputs in real time
     validateInput(name, value);
@@ -119,17 +127,20 @@ function UserTicketForm() {
     }
 
     try {
+      // Send ticket details to backend including total price
       await axios.post(`http://localhost:8081/event/${id}/tickets`, {
         tname: ticketDetails.tname,
         tcategory: ticketDetails.tcategory,
         phone: ticketDetails.phone,
         email: ticketDetails.email,
         noOfTicket: ticketDetails.noOfTicket,
+        totalPrice: ticketDetails.totalPrice,
         otherFields: userInputs, // Send dynamic fields in `otherFields` map
       });
+
       Swal.fire({
         title: 'Success',
-        text: 'Your ticket has been submitted.',
+        text: 'Your ticket has been submitted, and details have been sent to your email.',
         icon: 'success'
       }).then(() => {
         navigate(`/eventView`);
@@ -234,6 +245,18 @@ function UserTicketForm() {
             {errors.noOfTicket && <small className="text-danger">{errors.noOfTicket}</small>}
           </div>
 
+          <div className="form-group">
+            <label htmlFor="totalPrice">Total Price:</label>
+            <input
+              type="text"
+              className="form-control"
+              id="totalPrice"
+              name="totalPrice"
+              value={ticketDetails.totalPrice} // Display total price
+              disabled
+            />
+          </div>
+
           {/* Dynamically generated fields from event.ticketCriteria */}
           {Object.keys(event.ticketCriteria).map((key, index) => {
             const criterion = event.ticketCriteria[key];
@@ -247,7 +270,6 @@ function UserTicketForm() {
                   className="form-control"
                   id={key}
                   name={key}
-                  placeholder={`Enter ${criterion}`}
                   value={userInputs[key] || ''}
                   onChange={handleInputChange}
                   required
@@ -256,7 +278,9 @@ function UserTicketForm() {
             );
           })}
 
-          <button type="submit" className="btn btn-primary">Submit Ticket</button>
+          <button type="submit" className="btn btn-primary">
+            Submit Ticket
+          </button>
         </form>
       </div>
     </div>
