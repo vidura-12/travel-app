@@ -22,29 +22,36 @@ export default function FeedbackForm() {
 
     const validate = () => {
         const newErrors = {};
-        // Validate name
+        
+        // Validate name: should contain only letters and spaces
         if (!/^[A-Za-z\s]+$/.test(formData.name)) {
-            newErrors.name = 'Name must contain only letters';
+            newErrors.name = 'Name must contain only letters and spaces';
         }
-        // Validate email
+
+        // Validate email: basic email validation
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = 'Email is not valid';
         }
-        // Validate contact
+
+        // Validate contact: must be exactly 10 digits
         if (!formData.contact) {
             newErrors.contact = 'Contact number is required';
+        } else if (!/^\d{10}$/.test(formData.contact)) {
+            newErrors.contact = 'Contact number must be exactly 10 digits and contain only numbers';
         }
-        // Validate comment
+
+        // Validate comment: required
         if (!formData.comment) {
             newErrors.comment = 'Feedback comment is required';
         }
-        // Validate feedback category
+
+        // Validate feedback category: must be selected
         if (!formData.feedbackCategory) {
             newErrors.feedbackCategory = 'Please select a feedback category';
         }
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        return Object.keys(newErrors).length === 0; // Returns true if no errors
     };
 
     const handleSubmit = async (e) => {
@@ -164,6 +171,7 @@ export default function FeedbackForm() {
                         <option value="tour guide service">Tour guide Service</option>
                         <option value="other">Other</option>
                     </select>
+                    {errors.feedbackCategory && <div className="text-danger">{errors.feedbackCategory}</div>}
                 </div>
                 <div className="mb-4" style={{ width: '100%' }}>
                     <label className="form-label">Feedback</label>

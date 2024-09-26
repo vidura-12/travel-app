@@ -4,7 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
 
-// Import routes
+// Import existing routes
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
@@ -15,6 +15,9 @@ const locationAdmin = require('./routes/Locationadmin');
 const auth1 = require('./routes/auth1');
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
+
+// Import the new chat routes
+const chatRoutes = require('./routes/chat');  // <-- New chat routes
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -45,6 +48,9 @@ app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
+
+// Add the chat route for handling messages and responses
+app.use('/api/chat', chatRoutes);  // <-- New chat route
 
 // Start the server
 const server = app.listen(PORT, () => {

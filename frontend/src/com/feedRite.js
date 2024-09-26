@@ -18,7 +18,7 @@ const FeedRite = () => {
             setLoading(true);
             try {
                 const response = await axios.get('http://localhost:8081/FeedBack/all');
-                // You might want to set the feedbacks to state here if needed
+                // Handle response if needed
             } catch (error) {
                 console.error('Error fetching feedbacks:', error);
             } finally {
@@ -44,7 +44,6 @@ const FeedRite = () => {
                 feedbackCategory: formData.feedbackCategory,
                 comment: formData.comment
             });
-
             console.log('Feedback updated successfully');
         } catch (error) {
             console.error('Error updating feedback:', error.response ? error.response.data : error.message);
@@ -76,17 +75,64 @@ const FeedRite = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleDownloadPDF = () => {
+    // Function to convert image to base64
+    const loadImageAsBase64 = (url) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous'; // Handle cross-origin issues
+            img.src = url;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                resolve(canvas.toDataURL('image/jpeg'));
+            };
+            img.onerror = (error) => {
+                console.error(`Error loading image from ${url}:`, error);
+                reject(error);
+            };
+        });
+    };
+
+    const handleDownloadPDF = async () => {
         const doc = new jsPDF();
-        doc.setFontSize(16);
-        doc.text('Feedback Summary', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Name: ${formData.name || "N/A"}`, 20, 40);
-        doc.text(`Email: ${formData.email || "N/A"}`, 20, 50);
-        doc.text(`Contact: ${formData.contact || "N/A"}`, 20, 60);
-        doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 70);
-        doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 80);
-        doc.save('feedback-summary.pdf');
+
+        // Paths to the logo and signature images
+        const logoUrl = '/img/logo.jpeg';  // Ensure this path is correct
+        const signatureUrl = '/img/sig.jpeg';  // Ensure this path is correct
+
+        try {
+            // Load both logo and signature images
+            const [logoBase64, signatureBase64] = await Promise.all([
+                loadImageAsBase64(logoUrl),
+                loadImageAsBase64(signatureUrl)
+            ]);
+
+            // Add logo to the PDF
+            doc.addImage(logoBase64, 'JPEG', 150, 10, 40, 15); // Adjust position (x, y), width, and height
+
+            // Add the title and feedback content after the logo
+            doc.setFontSize(16);
+            doc.text('Feedback Summary', 20, 40);  // Adjust positioning for title
+
+            doc.setFontSize(12);
+            doc.text(`Name: ${formData.name || "N/A"}`, 20, 60);
+            doc.text(`Email: ${formData.email || "N/A"}`, 20, 70);
+            doc.text(`Contact: ${formData.contact || "N/A"}`, 20, 80);
+            doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 90);
+            doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 100);
+
+            // Add the signature image
+            doc.addImage(signatureBase64, 'JPEG', 20, 180, 50, 15); // Adjust position (x, y), width, and height
+            doc.text('Admin Signature', 20, 200);  // Add text label under the signature if desired
+
+            // Save the PDF
+            doc.save('feedback-summary.pdf');
+        } catch (error) {
+            console.error('Error loading images:', error);
+        }
     };
 
     return (
@@ -100,20 +146,25 @@ const FeedRite = () => {
             alignItems: 'center',
             padding: '50px'
         }}>
-            
+            <div style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: to give some contrast
+                padding: '20px',
+                borderRadius: '8px',
+                width: '100%',
+                maxWidth: '600px',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+            }}>
                 <h1 className="text-center mb-4" style={{
-           
-            backgroundPosition: 'center',
-            display: 'flex',
-            color : 'white' ,
-            position : 'relative',
-            left:'40%',
-            bottom:'20%', 
-        }}>Feedback Summary</h1>
+                    color: 'black', // Change color if needed
+                    position: 'relative',
+                    top: '-20px', // Adjust this value to move it higher
+                }}>
+                    Feedback Summary
+                </h1>
                 {loading && <Spinner animation="border" variant="primary" />}
 
-                <form >
-                    <div className="mb-3" >
+                <form>
+                    <div className="mb-3">
                         <label className="form-label"><strong>Name:</strong></label>
                         {isEditing ? (
                             <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
@@ -178,9 +229,9 @@ const FeedRite = () => {
                         </button>
                     </div>
 
-                    <button 
-                        type="button" 
-                        className="btn btn-secondary w-100" 
+                    <button
+                        type="button"
+                        className="btn btn-secondary w-100"
                         onClick={handleDownloadPDF}
                     >
                         Download PDF
@@ -205,7 +256,7 @@ const FeedRite = () => {
                     </Modal.Footer>
                 </Modal>
             </div>
-       
+        </div>
     );
 };
 
