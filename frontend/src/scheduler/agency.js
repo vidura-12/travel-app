@@ -18,17 +18,13 @@ const Agency = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Handle form field changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     let newErrors = { ...errors };
 
     if (id === 'phoneNumber') {
       if (/^\d*$/.test(value) && value.length <= 10) {
-        setFormData({
-          ...formData,
-          [id]: value,
-        });
+        setFormData({ ...formData, [id]: value });
         newErrors.phoneNumber = ''; // Clear error if valid
       } else {
         newErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
@@ -36,20 +32,14 @@ const Agency = () => {
       setErrors(newErrors);
     } else if (id === 'agencyName') {
       if (/^[a-zA-Z\s]*$/.test(value)) {
-        setFormData({
-          ...formData,
-          [id]: value,
-        });
+        setFormData({ ...formData, [id]: value });
         newErrors.agencyName = ''; // Clear error if valid
       } else {
-        newErrors.agencyName = 'Agency Name must contain only letters and spaces'; // Set error message
+        newErrors.agencyName = 'Agency Name must contain only letters and spaces';
       }
       setErrors(newErrors);
     } else {
-      setFormData({
-        ...formData,
-        [id]: value,
-      });
+      setFormData({ ...formData, [id]: value });
     }
   };
 
@@ -90,30 +80,26 @@ const Agency = () => {
       valid = false;
     }
 
-
     if (!formData.email) {
-      newErrors.agencyName = 'Email is required';
+      newErrors.email = 'Email is required';
       valid = false;
     } else if (!/^[a-z]+@[a-z]+\.[a-z]+$/.test(formData.email)) {
-      newErrors.agencyName = 'Invalid email address: must contain only lowercase letters and "@"';
+      newErrors.email = 'Invalid email address: must contain only lowercase letters and "@"';
       valid = false;
     }
-
 
     if (!formData.location) {
       newErrors.location = 'Location Name is required';
       valid = false;
     } else if (!/^[a-zA-Z\s]*$/.test(formData.location)) {
-      newErrors.location = 'Locat Name must contain only letters and spaces';
+      newErrors.location = 'Location Name must contain only letters and spaces';
       valid = false;
     }
-    
 
     if (formData.places.some(place => place === '')) {
       newErrors.places = 'All places must be filled out';
       valid = false;
     }
-    
 
     if (!formData.maxPeople) {
       newErrors.maxPeople = 'Max People is required';
@@ -130,7 +116,6 @@ const Agency = () => {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
 
     if (validateForm()) {
@@ -153,10 +138,7 @@ const Agency = () => {
         });
 
         console.log('Form submitted successfully:', response.data);
-
         window.alert('Your details have been submitted successfully!');
-       
-        
 
         setFormData({
           agencyName: '',
@@ -185,157 +167,106 @@ const Agency = () => {
         <h1>Welcome Travel Agencies!</h1>
         <p>Customize the travel packages</p>
       </div>
-<<<<<<< HEAD:frontend/src/com/agency.js
       <form id="agencyForm" onSubmit={handleSubmit}>
         <div className="m1">
-          <label id="agencyLabel">Name of the Travel Agency</label>
-=======
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          <div className='travelform'>
+            <label>Name of the Travel Agency</label>
+            <input
+              type="text"
+              className="form-control"
+              id="agencyName"
+              value={formData.agencyName}
+              onChange={handleInputChange}
+            />
+            {errors.agencyName && <div className="error text-danger">{errors.agencyName}</div>}
 
-      {successMessage && <div className="success-message">{successMessage}</div>}
-     <div className='travelform'>
-      <form onSubmit={handleSubmit}>
-        <div className="m1">
-          <div className='l1'>
-          <label>Name of the Travel Agency</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="text"
-            className="form-control"
-            id="agencyName"
-            value={formData.agencyName}
-            onChange={handleInputChange}
-          />
-<<<<<<< HEAD:frontend/src/com/agency.js
-          {errors.agencyName && <div className="error">{errors.agencyName}</div>}
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              className="form-control"
+              id="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
+            />
+            {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
 
-          <label id="agencyLabel">Phone Number</label>
-=======
-          {errors.agencyName && <div className="error text-danger">{errors.agencyName}</div>}
-          <div className='l1'>
-          <label>Phone Number</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="tel"
-            className="form-control"
-            id="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleInputChange}
-          />
-          {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
+            <label>Email Address</label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+            {errors.email && <div className="error text-danger">{errors.email}</div>}
+            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
 
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Email Address</label>
-=======
-          <div className='l1'>
-          <label>Email Address</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          {errors.email && <div className="error text-danger">{errors.email}</div>}
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            <label>Location</label>
+            <input
+              type="text"
+              className="form-control"
+              id="location"
+              value={formData.location}
+              onChange={handleInputChange}
+            />
+            {errors.location && <div className="error text-danger">{errors.location}</div>}
 
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Location</label>
-=======
-          <div className='l1'>
-          <label>Location</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="text"
-            className="form-control"
-            id="location"
-            value={formData.location}
-            onChange={handleInputChange}
-          />
-          {errors.location && <div className="error text-danger">{errors.location}</div>}
+            <label>Places of Specific Location</label>
+            {formData.places.map((place, index) => (
+              <div key={index} className="place-input">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={place}
+                  onChange={(e) => handlePlaceChange(index, e.target.value)}
+                />
+                {errors.places && <div className="error text-danger">{errors.places}</div>}
+                {formData.places.length > 1 && (
+                  <button type="button" onClick={() => removePlace(index)} className="btn btn-danger">
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
+            <button type="button" onClick={addPlace} className="btn btn-secondary">
+              Add Place
+            </button>
 
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Places of Specific Location</label>
-=======
-          <div className='l1'>
-          <label>Places of Specific Location</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          {formData.places.map((place, index) => (
-            <div key={index} className="place-input">
-              <input
-                type="text"
-                className="form-control"
-                value={place}
-                onChange={(e) => handlePlaceChange(index, e.target.value)}
-              />
-              {errors.places && <div className="error text-danger">{errors.places}</div>}
-              {formData.places.length > 1 && (
-                <button type="button" onClick={() => removePlace(index)} className="btn btn-danger">
-                  Remove
-                </button>
-              )}
+            <label>Max People</label>
+            <input
+              type="number"
+              className="form-control"
+              id="maxPeople"
+              value={formData.maxPeople}
+              onChange={handleInputChange}
+            />
+            {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
+
+            <label>Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              value={formData.price}
+              onChange={handleInputChange}
+            />
+            {errors.price && <div className="error text-danger">{errors.price}</div>}
+
+            <label>Upload Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="image"
+              onChange={handleImageChange}
+            />
+
+            <div className="m2">
+              <button type="submit" className="btn btn-primary">Submit</button>
             </div>
-          ))}
-          <button type="button" onClick={addPlace} className="btn btn-secondary">
-            Add Place
-          </button>
-
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Max People</label>
-=======
-          <div className='l1'>
-          <label>Max People</label>
           </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="number"
-            className="form-control"
-            id="maxPeople"
-            value={formData.maxPeople}
-            onChange={handleInputChange}
-          />
-          {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
-
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Price</label>
-=======
-          <div className='l1'>
-          <label>Price</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="number"
-            className="form-control"
-            id="price"
-            value={formData.price}
-            onChange={handleInputChange}
-          />
-          {errors.price && <div className="error text-danger">{errors.price}</div>}
-
-<<<<<<< HEAD:frontend/src/com/agency.js
-          <label id="agencyLabel">Upload Image</label>
-=======
-          <div className='l1'>
-          <label>Upload Image</label>
-          </div>
->>>>>>> Final:frontend/src/scheduler/agency.js
-          <input
-            type="file"
-            className="form-control"
-            id="image"
-            onChange={handleImageChange}
-          />
-        </div>
-        <div className="m2">
-        <button type="submit" className="btn btn-primary">Submit</button>
         </div>
       </form>
-      </div>
     </div>
   );
 };

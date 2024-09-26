@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET; 
 
@@ -8,28 +7,10 @@ const authMiddleware = (req, res, next) => {
   
   if (!token) {
     console.log('No token found in request headers');
-=======
-
-const jwt = require('jsonwebtoken');
-
-module.exports = (req, res, next) => {
-  const authHeader = req.header('Authorization');
-  console.log('Authorization Header:', authHeader);  
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-
-  const token = authHeader.split(' ')[1];  
-  console.log('Extracted Token:', token); 
-
-  if (!token) {
->>>>>>> Final
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 
   try {
-<<<<<<< HEAD
     const decoded = jwt.verify(token, secret);
     console.log('Decoded JWT:', decoded); 
 
@@ -47,13 +28,3 @@ module.exports = (req, res, next) => {
 };
 
 module.exports = authMiddleware;
-=======
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('Decoded Token:', decoded);  
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
-  }
-};
->>>>>>> Final

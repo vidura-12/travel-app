@@ -22,11 +22,7 @@
     color:#001F3F;
 }
 
-<<<<<<< HEAD:frontend/src/com/agency.css
-.agencyForm {
-=======
 .travelform {
->>>>>>> Final:frontend/src/scheduler/agency.css
     width: 50%;
     margin: 0 auto;
     background-color:  rgba(255, 255, 255, 0.8); 
@@ -42,11 +38,7 @@
     gap: 15px;
   }
   
-<<<<<<< HEAD:frontend/src/com/agency.css
-  .agencyLabel {
-=======
   .l1 {
->>>>>>> Final:frontend/src/scheduler/agency.css
     font-weight: bold;
     margin-bottom: 5px;
   }
