@@ -32,26 +32,9 @@ router.post('/add', upload.single('image'), async (req, res) => {
     }
 });
 
-// Add user ticket details
-// router.post('/:id/tickets', async (req, res) => {
-//     const { tname, phone, email, noOfTicket, otherFields } = req.body;
 
-//     try {
-//         const event = await Events.findById(req.params.id);
-//         if (!event) {
-//             return res.status(404).json({ error: 'Event not found' });
-//         }
 
-//         // Add user ticket details based on dynamic fields
-//         event.userTickets.push({ otherFields });
-//         await event.save();
-
-//         res.status(200).json(event);
-//     } catch (error) {
-//         res.status(400).json({ error: error.message });
-//     }
-// });
-
+//Add ticket details
 router.post('/:id/tickets', async (req, res) => {
     const { tname,tcategory, phone, email, noOfTicket, otherFields } = req.body;
 
@@ -111,23 +94,29 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//book ticket
 
-router.get('/:id/tickets', async (req, res) => {
-    try {
-      // Find the event by its ID and include the user tickets
-      const event = await Events.findById(req.params.id);
-  
-      if (!event) {
-        return res.status(404).json({ error: 'Event not found' });
-      }
-  
-      // Respond with the event data, including userTickets
-      res.status(200).json(event.userTickets);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  });
+//book ticket
+router.get('/tickets', async (req, res) => {
+  try {
+    const events = await Events.find({}, 'name category userTickets price'); // Fetch events with relevant fields
+
+    const formattedTickets = events.flatMap(event => 
+      event.userTickets.map(ticket => ({
+        tname: ticket.tname,
+        phone: ticket.phone,
+        email: ticket.email,
+        noOfTicket: ticket.noOfTicket,
+        category: event.category, // Getting category from the event
+        totalPrice: ticket.noOfTicket * event.price // Assuming each ticket has a price
+      }))
+    );
+
+    res.json(formattedTickets);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 
  //--------------------------------------------------
@@ -263,5 +252,7 @@ router.post('/:eventId/tickets', async (req, res) => {
       res.status(500).json({ message: 'Error submitting ticket and sending email.' });
     }
   });
+
+
 
 module.exports = router;
