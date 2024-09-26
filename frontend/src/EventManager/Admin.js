@@ -16,12 +16,12 @@ function AdminEventApproval() {
   useEffect(() => {
 
     const fetchEvents = async () => {
-      // const token = localStorage.getItem('token');
-      // if (!token) {
-      //   alert('You need to log in first.');
-      //   navigate('/admin/login'); // Redirect to login page
-      //   return;
-      // }
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('You need to log in first.');
+        navigate('/admin/login'); // Redirect to login page
+        return;
+      }
 
       try {
         const response = await axios.get('http://localhost:8081/event');
