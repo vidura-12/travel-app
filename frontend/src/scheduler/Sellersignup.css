@@ -44,7 +44,7 @@
     border: 1px solid #ccc;
   }
   
-  button {
+  .sellerbutton {
     width: 100%;
     padding: 10px;
     border: none;
@@ -55,7 +55,7 @@
     cursor: pointer;
   }
   
-  button.btn-link {
+ .sellog {
     background: none;
     color: #007bff;
     border: none;
@@ -73,4 +73,3 @@
     display: block;
     font-weight: bold;
   }
-  

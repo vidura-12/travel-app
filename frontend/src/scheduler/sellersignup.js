@@ -132,11 +132,15 @@ const Sellersignup = () => {
        <div className='sellbtn'>
         <button type="submit" className="sellerbutton">Register</button>
         </div>
-        <p>Already Have an Account? <a href="/login">Login here</a></p>
+       
+        <p>Already Have an Account?</p> 
+        <div className='sellog'>
+        <a href="/login">Login here</a>
+        </div>
       </form>
     </div>
     </div>
   );
 };
 
-export default Sellersignup;
+export default Sellersignup;
