@@ -3,17 +3,43 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function VehicleOwnerRegister() {
-  const [name, setName] = useState('');
+  const [firstname, setFirstname] = useState('');
+  // const [secondname, setSecondname] = useState('');
+  const [phoneno, setPhoneNo] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State for error messages
+  const [nameError, setNameError] = useState(''); // State for name error messages
+  const [phoneError, setPhoneError] = useState(''); 
   const navigate = useNavigate();
+
+  // Handler for first name and second name input to allow only letters
+  const handleNameChange = (setter) => (e) => {
+    const { value } = e.target;
+    if (/^[a-z A-Z]*$/.test(value)) {
+      setter(value);
+      setNameError(''); // Clear name error if valid
+    } else {
+      setNameError('You can only enter letters for first and last names.');
+    }
+  };
+
+  // Handler for phone number input to allow only numbers
+  const handlePhoneNoChange = (e) => {
+    const { value } = e.target;
+    if (/^[0-9]*$/.test(value)) {
+      setPhoneNo(value);
+      setPhoneError(''); // Clear phone error if valid
+    } else {
+      setPhoneError('You can only enter numbers.');
+    }
+  };
 
   // Handler for username input to allow only letters
   const handleUsernameChange = (e) => {
     const { value } = e.target;
-    if (/^[a-zA-Z]*$/.test(value)) {
+    if (/^[a-z A-Z]*$/.test(value)) {
       setUsername(value); // Update state only if value is valid
     }
   };
@@ -36,10 +62,19 @@ function VehicleOwnerRegister() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8081/vehicle-owner/register', { name, username, email, password });
+      const response = await axios.post('http://localhost:8081/vehicle-owner/register', {
+        firstname,
+        // secondname,
+        phoneno,
+        username,
+        email,
+        password
+      });
       localStorage.setItem('token', response.data.token);
       navigate('/vehicle-owner/login');
+
     } catch (error) {
+      
       // Capture error and set the error state
       console.error('Registration failed:', error.response.data);
       setError(error.response.data.msg || 'Registration failed. Please try again.');
@@ -117,17 +152,39 @@ function VehicleOwnerRegister() {
         <h2>Vehicle Owner Register</h2>
         {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>} {/* Display error message */}
         <form onSubmit={handleSubmit}>
-          <div style={inputGroupStyle}>
-            <label htmlFor="name" style={labelStyle}> Name:</label>
+           <div style={inputGroupStyle}>
+            <label htmlFor="firstname" style={labelStyle}> Full name:</label>
             <input
               type="text"
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={firstname}
+              onChange={handleNameChange(setFirstname)}
               required
               style={inputStyle}
             />
-            </div>
+          </div>
+          {/* {/* <div style={inputGroupStyle}>
+            <label htmlFor="secondname" style={labelStyle}> Second name:</label>
+            <input
+              type="text"
+              id="name"
+              value={secondname}
+              onChange={handleNameChange(setSecondname)}
+              required
+              style={inputStyle}
+            />
+          </div> */}
+          <div style={inputGroupStyle}>
+            <label htmlFor="phoneno" style={labelStyle}> Phone number:</label>
+            <input
+              type="text"
+              id="phoneno"
+              value={phoneno}
+              onChange={handlePhoneNoChange} // Updated onChange handler
+              required
+              style={inputStyle}
+            />
+          </div>
           <div style={inputGroupStyle}>
             <label htmlFor="username" style={labelStyle}>Username:</label>
             <input

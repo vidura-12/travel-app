@@ -47,6 +47,9 @@ const AdminLogin = () => {
         case 'location_manager':
           navigate('/LocationAdmin/home');
           break;
+        case 'vehicle_manager':
+          navigate('/VehicleAdmin/home');
+          break;
         // handle other roles
         default:
           setError('Unknown role');

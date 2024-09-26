@@ -41,7 +41,7 @@ function Login() {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://images.squarespace-cdn.com/content/v1/58cfd41c17bffcb09bd654f0/1716730657161-LZBSBCQCDSZMP2G0C73L/image-asset.jpeg)', // Update with your image URL
+    backgroundImage: 'url(https://images.squarespace-cdn.com/content/v1/58cfd41c17bffcb09bd654f0/1716730657161-LZBSBCQCDSZMP2G0C73L/image-asset.jpeg)', // Update with image URL
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };

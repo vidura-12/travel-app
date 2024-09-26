@@ -6,10 +6,9 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET || 'your_jwt_secret'; // Use environment variable for security
 
 // Register vehicle owner
-// Register vehicle owner
 exports.register = async (req, res) => {
   try {
-    const { username, email, password, firstName, lastName, age, location, phone } = req.body;
+    const { firstname, phoneno, username, email, password } = req.body;
 
     // Check if vehicle owner already exists
     let vehicleOwner = await VehicleOwner.findOne({ email });
@@ -19,6 +18,9 @@ exports.register = async (req, res) => {
 
     // Create a new vehicle owner
     vehicleOwner = new VehicleOwner({
+      firstname,
+      // secondname,
+      phoneno,
       username,
       email,
       password,

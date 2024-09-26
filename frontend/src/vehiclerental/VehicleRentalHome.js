@@ -192,7 +192,7 @@ const VehicleRentalHome = () => {
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.buttonStyle.backgroundColor}
           onClick={() => navigate('/vehicle-owner-dashboard')}
         >
-          Vehicle Owners' Portal
+          List Your Property Here...
         </button>
 
         <div style={styles.searchContainer}>
@@ -262,7 +262,7 @@ const VehicleRentalHome = () => {
                   alt={`${vehicle.make} ${vehicle.model}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                <div style={styles.priceTag}>${vehicle.pricePerDay}/day</div>
+                <div style={styles.priceTag}>LKR {vehicle.pricePerDay}/day</div>
               </div>
               
               <div style={styles.cardContent}>

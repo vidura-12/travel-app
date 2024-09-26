@@ -8,6 +8,14 @@ function VehicleOwnerLogin() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // Handler for username input to allow only letters
+  const handleUsernameChange = (e) => {
+    const { value } = e.target;
+    if (/^[a-zA-Z]*$/.test(value)) {
+      setUsername(value); // Update state only if value is valid
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,7 +138,7 @@ function VehicleOwnerLogin() {
               type="text"
               id="username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleUsernameChange} // Updated onChange handler
               required
               style={inputStyle}
             />

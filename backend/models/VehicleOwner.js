@@ -3,7 +3,17 @@ const bcrypt = require("bcrypt");
 
 const vehicleOwnerSchema = new mongoose.Schema({
 
-     username: { 
+    firstname: {    
+        type: String, 
+        required: true 
+    },
+
+    phoneno: {
+        type: String,
+        required: true
+    },
+    
+    username: { 
         type: String, 
         required: true, 
         unique: true 
