@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 export default function UpdateTourGuide() {
   const { id } = useParams(); // Get the id from the URL params
   const navigate = useNavigate();
-
+  const location = useLocation(); // Get location to access state
   const [guide, setFormData] = useState({
     name: "",
     email: "",
@@ -17,13 +17,19 @@ export default function UpdateTourGuide() {
   });
 
   useEffect(() => {
-    fetchTourGuide();
-  }, []);
+    // Check if data is passed through location.state
+    if (location.state?.guide) {
+      setFormData(location.state.guide);
+    } else {
+      fetchTourGuide(); // Fetch data if not passed through state
+    }
+  }, [location.state]);
 
   // Fetch the tour guide details
   const fetchTourGuide = async () => {
     try {
       const response = await axios.get(`http://localhost:8081/TourGuide/${id}`);
+      console.log('Fetched tour guide data:', response.data); // Debug: Log fetched data
       setFormData(response.data);
     } catch (error) {
       console.error('Error fetching tour guide:', error);
@@ -33,6 +39,8 @@ export default function UpdateTourGuide() {
   // Handle form submission and update tour guide
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
+
+    console.log('Data being sent:', guide); // Debug: Log data being sent
 
     try {
       const response = await axios.put(`http://localhost:8081/TourGuide/update/${id}`, guide, {
@@ -44,7 +52,7 @@ export default function UpdateTourGuide() {
       console.log('Update response:', response); // Debug: Log response
 
       if (response.status === 200) {
-        navigate('/travelagent/succ'); // Redirect to the success page
+        navigate('/travelagent/dashboard'); // Redirect to the success page
       } else {
         console.error('Update failed with status:', response.status);
       }
