@@ -1,11 +1,4 @@
-body {
-    
-    /* background-image: url('./image/cocanat.png');  */
-    background-size: cover;
-    background-position: center;
-    
-    position: relative;
-  }
+
 
 .update-container{
     margin-top: 120px;
