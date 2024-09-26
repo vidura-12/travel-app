@@ -115,7 +115,7 @@ function VehicleOwner() {
                 <td style={styles.td}>{booking.userName}</td>
                 <td style={styles.td}>{new Date(booking.startDate).toLocaleDateString()}</td>
                 <td style={styles.td}>{new Date(booking.returnDate).toLocaleDateString()}</td>
-                <td style={styles.td}>${booking.totalCost}</td>
+                <td style={styles.td}>LKR {booking.totalCost}</td>
                 <td style={styles.td}>{booking.status}</td>
               </tr>
             ))

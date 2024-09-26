@@ -9,9 +9,11 @@ function VehicleOwnerRegister() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('vehicleOwner'); // Default role for vehicle owners
   const [error, setError] = useState(''); // State for error messages
   const [nameError, setNameError] = useState(''); // State for name error messages
   const [phoneError, setPhoneError] = useState(''); 
+  const [roleError, setRoleError] = useState(''); // State for role error messages
   const navigate = useNavigate();
 
   // Handler for first name and second name input to allow only letters
@@ -54,11 +56,17 @@ function VehicleOwnerRegister() {
     e.preventDefault();
     // Clear previous errors
     setError('');
+    setRoleError('');
 
     // Validate password
     if (!isPasswordValid(password)) {
       setError('Password must contain at least one uppercase letter and number.');
       return; // Stop form submission
+    }
+
+    if(!role) {
+      setError('Please select a role.');
+      return;
     }
 
     try {
@@ -68,7 +76,8 @@ function VehicleOwnerRegister() {
         phoneno,
         username,
         email,
-        password
+        password,
+        role,
       });
       localStorage.setItem('token', response.data.token);
       navigate('/vehicle-owner/login');
@@ -218,6 +227,20 @@ function VehicleOwnerRegister() {
               style={inputStyle}
             />
           </div>
+          <div style={inputGroupStyle}>
+          <label htmlFor="role" style={labelStyle}>Select Role:</label>
+          <select
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)} // Add role state handling
+            required
+            style={inputStyle}>
+            <option value="">Choose your role</option>
+            <option value="vehicleOwner">Vehicle Owner</option>
+            <option value="tourGuide">Tour Guide</option>
+            <option value="agent">Agent</option>
+          </select>
+        </div>
           <button
             type="submit"
             style={buttonStyle}
