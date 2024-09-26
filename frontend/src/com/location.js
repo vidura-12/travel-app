@@ -3,7 +3,6 @@ import './style.css';
 
 function Location() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
   const [newComment, setNewComment] = useState('');
@@ -11,16 +10,14 @@ function Location() {
   const [visibleComments, setVisibleComments] = useState({});
   const [visibleDescriptions, setVisibleDescriptions] = useState({});
   const destinationRef = useRef(null);
-  const debounceTimeout = useRef(null); // Ref to store timeout ID for debounce
 
-  // Fetch liked locations on component mount
   useEffect(() => {
     const fetchLikedLocations = async () => {
       try {
         const response = await fetch('http://localhost:8081/Location/liked', {
           method: 'GET',
           headers: {
-            Authorization: `${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
         const data = await response.json();
@@ -37,75 +34,119 @@ function Location() {
     fetchLikedLocations();
   }, []);
 
-  // Function to fetch suggestions based on input
-  const fetchSuggestions = async (input) => {
-    try {
-      const response = await fetch(`http://localhost:8081/Location/search?city=${input}`);
-      const data = await response.json();
-      if (response.ok) {
-        setSuggestions(data);
-      } else {
-        setSuggestions([]);
-      }
-    } catch (error) {
-      console.error('Error fetching suggestions:', error);
-    }
-  };
+const handleSearch = async () => {
+  try {
+    const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
+    const data = await response.json();
 
-  const handleSearchInputChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
+    console.log(data); // Log the response data
 
-    // Clear the previous debounce timeout
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
-    }
-
-    // Set a new timeout to delay the fetch call
-    debounceTimeout.current = setTimeout(() => {
-      if (value) {
-        fetchSuggestions(value);
-      } else {
-        setSuggestions([]); // Clear suggestions if input is empty
-      }
-    }, 300); // Wait for 300ms before making a request
-  };
-
-  // Handle clicking a suggestion
-  const handleSuggestionClick = (cityName) => {
-    setSearchTerm(cityName);
-    setSuggestions([]); // Clear suggestions once a suggestion is clicked
-    handleSearch();
-  };
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
-      const data = await response.json();
-
-      if (response.ok) {
-        if (Array.isArray(data) && data.length === 0) {
-          setError('No locations found with that name.');
-          setResults([]);
-        } else {
-          setError('');
-          setResults(Array.isArray(data) ? data : [data]);
-          setVisibleComments({});
-          setVisibleDescriptions({});
-
-          if (destinationRef.current) {
-            destinationRef.current.classList.add('scroll-to-middle');
-            destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-      } else {
-        setError(data.error || 'No locations found with that name.');
+    if (response.ok) {
+      if (Array.isArray(data) && data.length === 0) {
+        setError('No locations found with that name.');
         setResults([]);
+      } else {
+        setError('');
+        setResults(Array.isArray(data) ? data : [data]);
+        setVisibleComments({});
+        setVisibleDescriptions({});
+
+        if (destinationRef.current) {
+          destinationRef.current.classList.add('scroll-to-middle');
+          destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
-    } catch (error) {
-      setError('Error fetching search results.');
+    } else {
+      setError(data.error || 'No locations found with that name.');
       setResults([]);
     }
+  } catch (error) {
+    setError('Error fetching search results.');
+    console.error('Error fetching search results:', error);
+    setResults([]);
+  }
+};
+
+
+  const handleLike = async (locationId) => {
+    try {
+      const response = await fetch(`http://localhost:8081/Location/like/${locationId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        setResults((prevResults) =>
+          prevResults.map((location) =>
+            location._id === locationId ? { ...location, likes: location.likes + 1 } : location
+          )
+        );
+        setLikedLocations((prevLiked) => [...prevLiked, locationId]);
+      } else {
+        console.error('Error liking the location:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error liking the location:', error);
+    }
+  };
+
+  const handleAddComment = async (locationId) => {
+    if (newComment.trim() !== '') {
+      try {
+        const response = await fetch(`http://localhost:8081/Location/comment/${locationId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify({ text: newComment }),
+        });
+
+        if (response.ok) {
+          const updatedLocation = await response.json();
+          setResults((prevResults) =>
+            prevResults.map((location) =>
+              location._id === locationId ? updatedLocation : location
+            )
+          );
+          setNewComment('');
+        } else {
+          console.error('Error adding comment:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding comment:', error);
+      }
+    }
+  };
+
+  const handleSeeMoreComments = (locationId) => {
+    setVisibleComments((prevVisibleComments) => ({
+      ...prevVisibleComments,
+      [locationId]: (prevVisibleComments[locationId] || 5) + 5,
+    }));
+  };
+
+  const handleSeeLessComments = (locationId) => {
+    setVisibleComments((prevVisibleComments) => ({
+      ...prevVisibleComments,
+      [locationId]: Math.max((prevVisibleComments[locationId] || 5) - 5, 5),
+    }));
+  };
+
+  const handleSeeMoreDescription = (locationId) => {
+    setVisibleDescriptions((prevVisibleDescriptions) => ({
+      ...prevVisibleDescriptions,
+      [locationId]: true,
+    }));
+  };
+
+  const handleSeeLessDescription = (locationId) => {
+    setVisibleDescriptions((prevVisibleDescriptions) => ({
+      ...prevVisibleDescriptions,
+      [locationId]: false,
+    }));
   };
 
   return (
@@ -120,40 +161,15 @@ function Location() {
                 type="text"
                 placeholder="Your journey begins with a search..."
                 value={searchTerm}
-                onChange={handleSearchInputChange} // Updated to handle input change
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button onClick={handleSearch}>Search</button>
-
-              {/* Dropdown for city suggestions */}
-              {suggestions.length > 0 && (
-                <ul className="suggestions-list">
-                  {suggestions.map((suggestion) => (
-                    <li
-                      key={suggestion._id}
-                      onClick={() => handleSuggestionClick(suggestion.city)}
-                      className="suggestion-item"
-                    >
-                      {suggestion.city}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
             {error && <p className="error-message">{error}</p>}
           </div>
         </div>
       </section>
 
-      <section className="destination" ref={destinationRef}>
-        <div className="container">
-          {/* Render location results */}
-          {results.map((location) => (
-            <div key={location._id} className="gallery">
-              {/* Content */}
-            </div>
-          ))}
-        </div>
-      </section>
       <section className="destination" ref={destinationRef}>
         <div className="container">
           {results.map((location) => (
