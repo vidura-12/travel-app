@@ -91,7 +91,7 @@ export default function Register() {
       backgroundImage: "url('/img/reglast.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '100vh',
+      height: '120vh', // Increased height to 120vh for a taller page
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

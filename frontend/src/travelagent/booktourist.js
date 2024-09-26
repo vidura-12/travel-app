@@ -49,11 +49,12 @@ export default function BookTourists() {
         width: '80%',
         maxWidth: '400%',
         height: '90vh',
-        overflowY: 'auto'
+        overflowY: 'auto' ,
+        marginTop: '50px' ,
       }}>
         <h2 className="text-center mb-4">Approved Tour Guides</h2>
         <div style={{ overflowX: 'auto' }}>
-          <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
+          <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px'  }}>
             <thead className="thead-dark">
               <tr>
                 <th>Name</th>
