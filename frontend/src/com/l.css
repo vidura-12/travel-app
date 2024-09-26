@@ -1,81 +1,42 @@
-
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 2;
-    }
-  }
-  
-  .fade-in {
-    animation: fadeIn 1.5s ease-in-out;
-  }
-
-  
-  .form-background::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    filter: blur(70px);
-    z-index: -1;
-  }
-  
-  .form-custom-margin {
-    margin-top: -50px;
-  }
-  
-  .form-transparent {
-    background: rgba(255, 255, 255, 0.8); 
-    border: none;
-    padding: 20px;
-    border-radius: 10px;
-  }
- 
-
-
 .body12 {
-    
-    background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Replace with the actual path to your image */
-    background-size: cover;
-    background-position: center;
-    padding: 50px 0; 
-    position: relative;
-  }
+  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Replace with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0; 
+  position: relative;
 
-/* General container styling */
+}
+
+/* Background effect */
 .location-form-container {
   position: relative;
   margin: 100px auto;
   max-width: 850px;
-  background: rgba(245, 245, 245, 0.95); /* Keep this for content visibility */
+  background: rgba(245, 245, 245, 0.863); /* Content visibility */
   border-radius: 18px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
   padding: 35px;
   overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
   animation: slideIn 1s ease-out;
+
 }
 
 /* Blurred Background */
-.location-form-container::before {
-  content: "";
+.body12::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg');
+  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Same image as in .body12 */
   background-size: cover;
   background-position: center;
-  filter: blur(8px); /* Adjust the blur value as needed */
-  z-index: -1; /* Position it behind the content */
+  filter: blur(2px); /* Adjust the blur value as needed */
+ 
 }
 
-
+/* Other styles remain the same */
 .location-form-card-header h3 {
   font-family: 'Montserrat', sans-serif;
   color: #444;
@@ -86,6 +47,7 @@
   font-weight: 700;
 }
 
+/* Rest of your CSS styles */
 .location-form-group label {
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
@@ -180,19 +142,6 @@
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-/* Background effect */
-.location-form-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: inherit;
-  filter: blur(60px);
-  z-index: -1;
 }
 
 /* Media queries for responsiveness */

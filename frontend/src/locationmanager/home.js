@@ -4,6 +4,7 @@ import './location.css';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
@@ -48,6 +49,18 @@ const LocationTable = () => {
       return;
     }
 
+    // SweetAlert confirmation for approve action
+    const { isConfirmed } = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to approve this location?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, approve it!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (!isConfirmed) return; // If user cancels, stop the function
+
     try {
       await axios.put(`http://localhost:8081/locationAdmin/update/${locationId}`, {
         status: 'approved',
@@ -63,6 +76,7 @@ const LocationTable = () => {
         return location;
       });
       setLocations(updatedLocations);
+      Swal.fire('Approved!', 'The location has been approved.', 'success'); // Success alert
     } catch (error) {
       console.error('Error approving location:', error);
       if (error.response && error.response.status === 401) {
@@ -81,9 +95,17 @@ const LocationTable = () => {
       return;
     }
 
-    // Add confirmation prompt before deleting
-    const confirmDelete = window.confirm('Are you sure you want to delete this location?');
-    if (!confirmDelete) return; // If the user cancels, stop the function
+    // SweetAlert confirmation for delete action
+    const { isConfirmed } = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this location?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (!isConfirmed) return; // If user cancels, stop the function
 
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
@@ -93,6 +115,7 @@ const LocationTable = () => {
       });
       const updatedLocations = locations.filter(location => location._id !== locationId);
       setLocations(updatedLocations);
+      Swal.fire('Deleted!', 'The location has been deleted.', 'success'); // Success alert
     } catch (error) {
       console.error('Error deleting location:', error);
       if (error.response && error.response.status === 401) {
@@ -159,9 +182,7 @@ const LocationTable = () => {
     <div className="location-dashboard-body">
       <div className="location-dashboard-container">
         <h2 className="location-dashboard-title">Location Details</h2>
-        <button className="location-btn-report" onClick={downloadReport}>
-          Download Report
-        </button>
+        
         <table className="location-dashboard-table">
           <thead>
             <tr>
@@ -210,7 +231,11 @@ const LocationTable = () => {
             </div>
           </div>
         )}
+        <button className="location-btn-report" onClick={downloadReport}>
+          Download Report
+        </button>
       </div>
+      
     </div>
   );
 };
