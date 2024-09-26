@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from './com/header';
-import Footer from './com/footer';
+import Header from './admin/packHeader';
+
 
 const schedulerLayout = ({ children }) => (
   <div>
     <Header />
     {children}
-    <Footer />
+    
   </div>
 );
 

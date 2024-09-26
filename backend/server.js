@@ -10,6 +10,7 @@ const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
+const SellersRoutes = require('./routes/Sellers');
 const checklistRoutes = require('./routes/checklist');
 const locationAdmin = require('./routes/Locationadmin');
 const auth1 = require('./routes/auth1');
@@ -43,6 +44,7 @@ app.use('/location', locationRoutes);
 // app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
+app.use('/Seller',SellersRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 

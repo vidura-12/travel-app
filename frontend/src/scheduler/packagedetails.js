@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './packagedetails.css';
+import '../locationmanager/home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -14,11 +14,18 @@ const Dashboard = () => {
   const [editId, setEditId] = useState(null);
   const [editedPackage, setEditedPackage] = useState({});
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login');
+      return;
+    }
+    
     const fetchPackages = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/packageS');
+        const response = await axios.get('http://localhost:8081/packages/');
         setPackages(response.data);
         setLoading(false);
       } catch (err) {
@@ -28,7 +35,7 @@ const Dashboard = () => {
     };
 
     fetchPackages();
-  }, []);
+  }, [token, navigate]);
 
   const toggleModal = () => setModal(!modal);
 
@@ -42,7 +49,7 @@ const Dashboard = () => {
     
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8081/packageS/${id}`);
+        await axios.delete(`http://localhost:8081/packages/${id}`);
         setPackages(packages.filter((pkg) => pkg._id !== id));
       } catch (err) {
         setError(err.message);
@@ -52,19 +59,32 @@ const Dashboard = () => {
 
   const handleApprove = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:8081/packageS/${id}`, { approved: true });
-      const approvedPackage = response.data;
-
-      // Update the package list with the approved status
-      setPackages(packages.map(pkg => (pkg._id === id ? { ...pkg, approved: true } : pkg)));
-
-      // Navigate to EditPackage and pass the approved package details
-      navigate('/editpackage', { state: { package: approvedPackage } });
-    } catch (err) {
-      setError(err.message);
+      await axios.put(`http://localhost:8081/packages/update/${id}`, 
+      { status: 'approved' }, 
+      {
+        headers: { authorization: token }
+      });
+  
+      const updatedPackages = packages.map(pkg => {
+        if (pkg._id === id) {
+          return { ...pkg, status: 'approved' };
+        }
+        return pkg;
+      });
+  
+      setPackages(updatedPackages);
+    } catch (error) {
+      console.error('Error approving package:', error.response?.data || error.message);
+      if (error.response && error.response.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token');
+        navigate('/admin/login');
+      } else {
+        alert('An error occurred while approving the package.');
+      }
     }
   };
-
+  
   const handleEditClick = (pkg) => {
     setEditId(pkg._id);
     setEditedPackage(pkg);
@@ -120,13 +140,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='dash'>
-      <div className="dashboard1">
-        <h1 className='title1'>Travel Package Details</h1>
+    <div className='dash location-dashboard-body'>
+      <div className="dashboard1 location-dashboard-container">
+        <h1 className='title1 location-dashboard-title'>Travel Package Details</h1>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>
         ) : (
-          <table className="table1">
+          <table className="table1 location-dashboard-table">
             <thead>
               <tr>
                 <th>Agency Name</th>
@@ -180,13 +200,13 @@ const Dashboard = () => {
                           alt={pkg.agencyName}
                           width="100"
                           onClick={() => handleImageClick(`/img/${pkg.image}`)}
-                          style={{ cursor: 'pointer' }}
+                          className="location-table-img"
                         />
                       </td>
-                      <td>
-                        <button className="edit-button" onClick={() => handleApprove(pkg._id)}>Approve</button>
+                      <td className="location-action-buttons">
+                        <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
                         <button className="edit-button" onClick={() => handleEditClick(pkg)}>Edit</button>
-                        <button className="delete-button" onClick={() => handleDelete(pkg._id)}>Deny</button>
+                        <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
                       </td>
                     </>
                   )}

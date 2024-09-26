@@ -15,8 +15,8 @@
 
 
 
-.signup-container {
-    width: 900px;
+.sellersignup-container {
+    width: 700px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -32,7 +32,7 @@
     margin-bottom: 30px;
   }
   
-  .form-group {
+  .sellerform-group {
     margin-bottom: 15px;
   }
   
@@ -44,7 +44,7 @@
     border: 1px solid #ccc;
   }
   
-  button {
+  .sellerbutton {
     width: 100%;
     padding: 10px;
     border: none;
@@ -55,7 +55,7 @@
     cursor: pointer;
   }
   
-  button.btn-link {
+ .sellog {
     background: none;
     color: #007bff;
     border: none;

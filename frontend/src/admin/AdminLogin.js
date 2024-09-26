@@ -47,7 +47,7 @@ const AdminLogin = () => {
           navigate('/LocationAdmin/home');
           break;
         case 'Schedule_Manager':
-          navigate('/scheduladmin');
+          navigate('/packagedetails');
           break;
         case 'event_manager':
             navigate('/EventManager/addEvent');
