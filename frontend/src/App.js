@@ -49,18 +49,6 @@ import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
 import AgentGHome from './com/guideHome';
-
-
- //Event Manager Components
-import AddEvent from './EventManager/addEvent'
-import EventList from './EventManager/EventList';
-import EventView from './com/eventView';
-import EditEvent from './EventManager/updateEvent';
-import UserTicketForm from './com/ticket';
-import TicketReport from './EventManager/report';
-import AdminEventApproval from './EventManager/Admin';
-
-
 import Navbar from './components/Layout/Navbar';
 import ChecklistOverview from './components/checklist/ChecklistOverview';
 import CreateChecklist from './components/checklist/CreateChecklist';
@@ -162,17 +150,6 @@ function App() {
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
-
-
-        {/* Event manager */}
-        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
-        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
-        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
-        <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
-        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
-        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
-        <Route path="/EventManager/Admin" element={<EventLayout><AdminEventApproval/></EventLayout>} />
-
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
 
