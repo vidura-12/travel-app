@@ -139,7 +139,7 @@ function AddEvent() {
       <form onSubmit={handleSubmit} className="form">
         <h2>Add your Event</h2>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="name">Event Name: </label>
           <input
             type="text"
@@ -154,7 +154,7 @@ function AddEvent() {
           {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="category">Event Category: </label>
           <select
             className="form-control"
@@ -174,7 +174,7 @@ function AddEvent() {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="description">Event Description: </label>
           <textarea
             className="form-control"
@@ -188,7 +188,7 @@ function AddEvent() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="location">Location: </label>
           <input
             type="text"
@@ -203,7 +203,7 @@ function AddEvent() {
           {errors.location && <p style={{ color: 'red' }}>{errors.location}</p>}
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="date">Date: </label>
           <input
             type="date"
@@ -216,7 +216,7 @@ function AddEvent() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="time">Time: </label>
           <input
             type="time"
@@ -229,7 +229,7 @@ function AddEvent() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="price">Price (in LKR): </label>
           <input
             type="number"
@@ -243,7 +243,7 @@ function AddEvent() {
           />
         </div>
 
-        <div className="form-group">
+        <div className="event-form-group">
           <label htmlFor="image">Upload Image: </label>
           <input
             type="file"
@@ -260,8 +260,8 @@ function AddEvent() {
         {/* Ticket Criteria Inputs */}
         <h4 style={{ textAlign: 'center' }}>Ticket Criteria</h4>
 
-        {Array.from({ length: 7 }, (_, index) => (
-          <div className="form-group" key={`t${index + 1}`}>
+        {Array.from({ length: 5 }, (_, index) => (
+          <div className="event-form-group" key={`t${index + 1}`}>
             <label htmlFor={`t${index + 1}`}>Ticket Criteria {index + 1}: </label>
             <input
               type="text"
@@ -275,7 +275,7 @@ function AddEvent() {
           </div>
         ))}
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="addevent-btn btn-primary" >Submit</button>
       </form>
     </div>
   );

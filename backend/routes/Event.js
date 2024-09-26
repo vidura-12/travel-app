@@ -32,24 +32,58 @@ router.post('/add', upload.single('image'), async (req, res) => {
 });
 
 // Add user ticket details
+// router.post('/:id/tickets', async (req, res) => {
+//     const { tname, phone, email, noOfTicket, otherFields } = req.body;
+
+//     try {
+//         const event = await Events.findById(req.params.id);
+//         if (!event) {
+//             return res.status(404).json({ error: 'Event not found' });
+//         }
+
+//         // Add user ticket details based on dynamic fields
+//         event.userTickets.push({ otherFields });
+//         await event.save();
+
+//         res.status(200).json(event);
+//     } catch (error) {
+//         res.status(400).json({ error: error.message });
+//     }
+// });
+
 router.post('/:id/tickets', async (req, res) => {
-    const { otherFields } = req.body;
+    const { tname,tcategory, phone, email, noOfTicket, otherFields } = req.body;
 
     try {
+        // Find the event by ID
         const event = await Events.findById(req.params.id);
         if (!event) {
             return res.status(404).json({ error: 'Event not found' });
         }
 
-        // Add user ticket details based on dynamic fields
-        event.userTickets.push({ otherFields });
+        // Create a new user ticket object
+        const newTicket = {
+            tname: tname,
+            tcategory:tcategory,
+            phone: phone,
+            email: email,
+            noOfTicket: noOfTicket,
+            otherFields: otherFields // Dynamic fields passed as a Map or object
+        };
+
+        // Add the new ticket to the event's userTickets array
+        event.userTickets.push(newTicket);
+
+        // Save the updated event document
         await event.save();
 
+        // Respond with the updated event
         res.status(200).json(event);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 });
+
 
   
 
