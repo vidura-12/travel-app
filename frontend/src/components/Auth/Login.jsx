@@ -30,7 +30,7 @@ function Login() {
         try {
             const response = await axios.post('http://localhost:8081/api/auth/login', formData);
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('name', response.data.name);  // Save email to local storage
+            localStorage.setItem('email', response.data.email);  // Save email to local storage
             alert('Login successful');
             navigate('/home');
         } catch (error) {

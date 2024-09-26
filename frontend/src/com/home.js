@@ -4,7 +4,7 @@ import './home.css';
 
 function Home() {
   const [locations, setLocations] = useState([]);
-  const [visibleDescription, setVisibleDescription] = useState({});
+  const [visibleDescription, setVisibleDescription] = useState(null); // Store the currently visible location's id
 
   useEffect(() => {
     // Fetch locations from the API
@@ -20,12 +20,11 @@ function Home() {
     fetchLocations();
   }, []);
 
-  // Function to toggle the description visibility
+  // Function to toggle the description visibility for a single location
   const toggleDescription = (locationId) => {
-    setVisibleDescription((prevState) => ({
-      ...prevState,
-      [locationId]: !prevState[locationId], // Toggle the description visibility
-    }));
+    setVisibleDescription((prevState) => 
+      prevState === locationId ? null : locationId // Show or hide the clicked location's description
+    );
   };
 
   return (
@@ -112,7 +111,7 @@ function Home() {
                 />
                 <h3>{location.name}</h3>
                 {/* Conditionally render the description based on visibility */}
-                {visibleDescription[location._id] && (
+                {visibleDescription === location._id && (
                   <p className="location-description">{location.description}</p>
                 )}
               </div>
