@@ -1,20 +1,32 @@
-require('dotenv').config();
-const mongoose = require("mongoose");
 const express = require('express');
-const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
 const cors = require('cors');
+const dotenv = require("dotenv");
+require('dotenv').config();
+
+// Import Routes
+const bodyParser = require('body-parser');
 const authController = require('./controllers/authController');
 const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const vehicleRoutes = require('./routes/vehicleRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const path = require('path');
+const auth1 = require('./routes/auth1');
+const addRoute = require("./routes/create");
+const addRoute1 = require("./routes/feedback");
+const checklistRoutes = require('./routes/checklist');
+const authRoutes = require('./routes/auth');
+const locationRoutes = require('./routes/Location');
+const packageRoutes = require('./routes/package');
+const locationAdmin = require('./routes/Locationadmin');
+
 
 const app = express();
 const PORT = process.env.PORT || 8081;
 
 app.use(cors());
 
-// Middleware
+
 app.use(cors());
 app.use(express.json()); // Use express.json() to parse JSON bodies
 
@@ -50,3 +62,15 @@ app.post('/register', authController.register);
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/vehicle-owner/login', vehicleOwnerController.login);
 
+// Route Definitions
+app.use('/api/auth', auth1);
+app.use('/api/checklists', checklistRoutes);
+app.use('/TourGuide', addRoute);
+app.use('/auth', authRoutes);
+app.use('/location', locationRoutes);
+// Uncomment the line below if needed
+// app.use('/vehicle', vehicleRoutes);
+app.use('/uploads', express.static('uploads'));
+app.use('/packages', packageRoutes);
+app.use('/locationAdmin', locationAdmin);
+app.use('/FeedBack', addRoute1); // Feedback route
