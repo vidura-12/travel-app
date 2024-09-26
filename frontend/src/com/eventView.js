@@ -46,9 +46,9 @@ function EventView() {
 
   return (
     <div>
-      <section className="hero-section3">
+      <section className="hero-section4">
         <div>
-          <h4 style={{ color: 'white' }}>Find your Event ....</h4>
+          <h4 className="head" style={{ color: 'white' }}>Find your Event ....</h4>
           {/* Search Bar */}
           <div className="search-bar1">
             <input
