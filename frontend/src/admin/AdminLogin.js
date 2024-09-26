@@ -50,7 +50,7 @@ const AdminLogin = () => {
           navigate('/scheduladmin');
           break;
         case 'event_manager':
-            navigate('/EventManager/Admin');
+            navigate('/EventManager/addEvent');
             break;
        case 'vehicle_manager':
             navigate('/dvbxbjkds');

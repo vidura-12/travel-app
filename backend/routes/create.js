@@ -1,11 +1,11 @@
 const express = require("express");
-const Create = require("../models/create"); // Import your tour guide model
+const Create = require("../models/create"); // Ensure this model exists
 
 const router = express.Router();
 
-// Create Route (Add a Tour Guide)
+// Create Route
 router.post('/add', async (req, res) => {
-    const { name, email, address, number, experience, language, username, password } = req.body;
+    const { name, email, address, number, experience, language } = req.body;
 
     try {
         const newCreate = new Create({
@@ -14,11 +14,7 @@ router.post('/add', async (req, res) => {
             address,
             number,
             experience,
-            language,
-            username,
-            password,
-            status: 'pending', // New field to track the tour guide's status
-            isApproved: false  // Default to false until approved
+            language
         });
 
         await newCreate.save();
@@ -29,57 +25,66 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// Get All Tour Guides Route
-router.get('/all', async (req, res) => {
+
+
+// Retrieve All Tour Guides
+router.get("/all", async (req, res) => {
     try {
-        const allGuides = await Create.find();
-        res.json(allGuides);
+        const tourGuides = await Create.find(); // Retrieve all tour guides
+        res.json(tourGuides);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Approve Tour Guide Route
-router.put('/approve/:id', async (req, res) => {
-    try {
-        const guide = await Create.findById(req.params.id);
 
-        if (!guide) {
-            return res.status(404).json({ error: "Tour Guide not found" });
+// Retrieve a Single Tour Guide by ID
+router.get("/:id", async(req,res) =>{
+    try{
+        const tourGuide = await Create.findById(req.params.id);
+        res.json(tourGuide);
+        }catch(error){
+            res.status(500).json({error:error.message})
+        }
+});
+
+// Update  
+router.put("/update/:id", async (req, res) => {
+    const { name, email, address, number, experience, language } = req.body;
+
+    try {
+        const updatedTourGuide = await Create.findByIdAndUpdate(
+            req.params.id,
+            { name, email, address, number, experience, language },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedTourGuide) {
+            return res.status(404).json({ error: "Tour guide not found" });
         }
 
-        guide.isApproved = true; // Mark as approved
-        guide.status = 'approved';
-
-        await guide.save();
-        res.json("Tour Guide Approved");
+        res.json("Tour Guide Updated Successfully");
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Deny (Delete) Tour Guide Route
-router.delete('/delete/:id', async (req, res) => {
-    try {
-        const guide = await Create.findByIdAndDelete(req.params.id);
 
-        if (!guide) {
-            return res.status(404).json({ error: "Tour Guide not found" });
+
+// Delete a Tour Guide by ID
+router.delete("/delete/:id", async (req, res) => {
+    const TourGuideID = req.params.id;
+
+    try {
+        const deleteTourGuide = await Create.findByIdAndDelete(TourGuideID);
+
+        if (!deleteTourGuide) {
+            return res.status(404).json({ error: "Tour guide not found" });
         }
 
-        res.json("Tour Guide Denied and Deleted Successfully");
+        res.json({ message: "Tour guide deleted successfully" });
 
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Get Approved Tour Guides Route
-router.get('/approved', async (req, res) => {
-    try {
-        const approvedGuides = await Create.find({ isApproved: true });
-        res.json(approvedGuides);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
