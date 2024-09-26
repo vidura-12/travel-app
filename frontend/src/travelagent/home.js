@@ -29,13 +29,13 @@ export default function Home() {
           </button>
         </Link>
 
-        <Link to="/travelagent/register">
+        <Link to="/register">
           <button style={{ backgroundColor: "#1E201E" }} className='button'>
             Register
           </button>
         </Link>
 
-        <Link to="/travelagent/profile">
+        <Link to="/profile">
           <button style={{ backgroundColor: "#1E201E" }} className='button'>
             Profile
           </button>

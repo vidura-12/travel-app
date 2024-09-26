@@ -38,8 +38,8 @@ import Newlocation from './com/newLocation';
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 
-import Tour from './com/tours'; 
-import SchedulerHome from './scheduler/home';
+
+
 
 import AdminProfile from './admin/Adminlprofile';
 
@@ -53,10 +53,9 @@ import AgentDashboard from './travelagent/dashboard';
 import AgentCreatePost from './travelagent/createpost';
 import AgentBookTourist from './travelagent/booktourist';
 import AgentRegister from './com/register';
-import AgentProfile from './com/profile';
+import AgentProfile from './com/profileGuide';
 import AgentUpProfile from './travelagent/upProfile';
 
-import AgentSucc from './travelagent/succ'; 
 import AgentLog from './travelagent/login'
 import AgentView from './travelagent/viewBooking';
 import AgentApprove from './travelagent/approveDeny';
@@ -65,7 +64,7 @@ import  AgentAll from './com/allGuides';
 import  AgentBookGuide from './com/bookGuide';
 
 import AgentSucc from './travelagent/succ';
-import AgentGHome from './com/guideHome';
+
 
 
 
@@ -97,7 +96,7 @@ import ContactUs from './com/ContactUs';
 import LocationsSummary from './locationmanager/LocationsSummary';
 
 // Scheduler Components
-import Tour from './scheduler/tours';
+
 import SchedulerLayout from './schedulerlayout';
 import Travelagency from './scheduler/agency';
 import SellerSignup from './scheduler/sellersignup';
@@ -105,6 +104,7 @@ import SellersProfile from './scheduler/Sellersprofile';
 import EditPackage from './scheduler/Editpackage';
 import Packagedetails from './scheduler/packagedetails';
 import Scheduladmin from './scheduler/scheduladmin';
+import Tour from './scheduler/tours'
 
 
 
@@ -138,8 +138,7 @@ function App() {
 
         <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
-        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
+        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} /> 
 
 
 
@@ -153,7 +152,6 @@ function App() {
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
 
 
         
@@ -164,7 +162,7 @@ function App() {
 
         
         <Route path="/register" element={<UserLayout><AgentRegister /></UserLayout>} />
-        <Route path="/profile" element={<UserLayout><AgentProfile /></UserLayout>} />
+        <Route path="/profileGuide" element={<UserLayout><AgentProfile /></UserLayout>} />
         
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />

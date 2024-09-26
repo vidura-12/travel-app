@@ -68,7 +68,7 @@ export default function Register() {
         },
       });
 
-      navigate('/profile', { state: formData });
+      navigate('/profileGuide', { state: formData });
 
       setFormData({
         name: '',
@@ -120,7 +120,7 @@ export default function Register() {
         alignItems: 'center',
         zIndex: 2 // Ensure the form is above the overlay
       }}>
-        <h2 className="text-center mb-4" style={{ fontWeight: 'bold' }}>Register Tour Guide</h2>
+        <h2 className="text-center mb-4" style={{ fontWeight: 'bold' , color:'black' }}>Register Tour Guide</h2>
         {Object.keys(formData).map((key) => (
           <div key={key} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', width: '100%' }}>
             <label 
