@@ -58,6 +58,13 @@ const AdminLogin = () => {
         case 'vehicle_manager':
           navigate('/dvbxbjkds');
           break;
+          case 'tourGuide_manager':
+          navigate('/travelagent/dashboard');
+          break;
+          case 'support_manager':
+            navigate('/');
+            break;
+          
         default:
           setError('Unknown role');
       }
