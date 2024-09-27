@@ -170,8 +170,7 @@ function App() {
 
         {/* Role-based Routes */}
 
-         <Route path="/location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
-
+       
 
         {/* Travel Agent Routes */}
          <Route path="/travelagent/dashboard" element={<TravelAgentLayout><AgentDashboard /></TravelAgentLayout>} />

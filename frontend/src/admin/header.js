@@ -11,7 +11,7 @@ const Header = () => {
     };
 
     return (
-        <div className="navbar-custom-header1">
+        <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/LocationAdmin/home">DashBoard</a>

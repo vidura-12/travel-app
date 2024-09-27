@@ -39,29 +39,26 @@ router.get('/check', async (req, res) => {
   }
 });
 
+// Route to search locations by city
 router.get('/search', async (req, res) => {
   const { city } = req.query;
-  
-  if (!city) {
-    return res.status(400).json({ error: 'City query parameter is required' });
-  }
-
   try {
     const locations = await Location.find({
-      city: { $regex: `^${city}`, $options: 'i' }, // Case-insensitive search starting with city
-      status: 'approved' // Assuming you only want approved locations
-    }).select('city _id'); // Select only the necessary fields
-
+      city: { $regex: `^${city}`, $options: 'i' },
+      status: 'approved' 
+    });
+    
     if (!locations || locations.length === 0) {
       return res.status(404).json({ error: 'No locations found with that name.' });
     }
-
+    
     res.status(200).json(locations);
   } catch (err) {
     console.error('Error fetching locations:', err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Route to increment likes for a location
 router.post('/like/:id', async (req, res) => {
@@ -104,5 +101,4 @@ router.post('/comment/:id', async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
 module.exports = router;
