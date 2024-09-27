@@ -1,0 +1,74 @@
+.navbar-custom-header {
+    width: calc(100% - 4rem);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: .7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    z-index: 100;
+   
+    margin-left: 30px;
+    margin-top: 2rem;
+}
+
+.navbar-custom-header ul {
+    text-decoration: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    letter-spacing: 0.05cm;
+}
+
+.navbar-custom-header ul .menu-item-header {
+    position: relative;
+    margin: 0 1.5rem;
+    cursor: pointer;
+}
+
+.navbar-custom-header ul .menu-item-header .nav-link-header {
+    margin-left: 20px;
+    color: var(--white-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.navbar-custom-header ul .menu-item-header::before {
+    position: absolute;
+    bottom: -3px;
+    content: "";
+    width: 0;
+    height: 3px;
+    border-radius: 5px;
+    background: var(--white-color);
+    transition: .5s;
+}
+
+.navbar-custom-header ul .menu-item-header:hover::before {
+    width: 100%;
+}
+
+.profile-header {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.nav-link-profile-header, .nav-link-profile-logout-header {
+    background: transparent;
+    border: none;
+    color: var(--white-color);
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-link-profile-header:hover, .nav-link-profile-logout-header:hover {
+    text-decoration: underline;
+}
+
+.nav-link-profile-logout-header {
+    margin-left: 1rem;
+}

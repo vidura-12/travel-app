@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Header.css'; 
+import './Header4.css'; 
 
 const Header = () => {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Header = () => {
                 </li>
             </ul>
             <div className="profile-header">
-                <button className="nav-link-profile-header" onClick={() => navigate('/scheduler/schedulprofile')}>Profile</button>
+                <button className="nav-link-profile-header" onClick={() => navigate('/Admin/profile')}>Profile</button>
                 <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
             </div>
         </div>

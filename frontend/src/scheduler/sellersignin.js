@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './sellersignin.css'
 
 const SellerSignIn = () => {
   const [email, setEmail] = useState('');
@@ -12,73 +13,44 @@ const SellerSignIn = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Seller Sign In</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
+    <div className='sel'>
+    <div className='seller'>
+    <div className="container mt-5">
+      <center>
+      <h2>Sign In</h2>
+      </center>
+      </div>
+      <div className='sellercon'>
+        <center>
+      <form onSubmit={handleSubmit} className="mt-4">
+        <div className="form-group">
           <label>Email:</label>
           <input
             type="email"
+            className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={styles.input}
           />
         </div>
-        <div style={styles.inputGroup}>
+        <div className="form-group">
           <label>Password:</label>
           <input
             type="password"
+            className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={styles.input}
           />
         </div>
-        <div style={styles.inputGroup}>
-          <label>Role:</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)} style={styles.input}>
-            <option value="packageSeller">Package Seller</option>
-            <option value="eventOrganizer">Event Organizer</option>
-            <option value="vehicleOwner">Vehicle Owner</option>
-            <option value="hotelOwner">Hotel Owner</option>
-          </select>
-        </div>
-        <button type="submit" style={styles.button}>Sign In</button>
+      
+        <button type="submit" className="btn btn-success">Sign In</button>
       </form>
+      </center>
+    </div>
+    </div>
     </div>
   );
-};
-
-// Simple styles for the component
-const styles = {
-  container: {
-    maxWidth: '400px',
-    margin: 'auto',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  inputGroup: {
-    marginBottom: '15px',
-  },
-  input: {
-    padding: '8px',
-    fontSize: '16px',
-  },
-  button: {
-    padding: '10px',
-    backgroundColor: '#28a745',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
 };
 
 export default SellerSignIn;
