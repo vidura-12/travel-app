@@ -178,7 +178,7 @@ const LocationTable = () => {
       };
     };
   
-    // Handle logo loading errors
+    // Handle logo loading errorskmk
     logoImg.onerror = () => {
       console.error('Failed to load the logo image.');
       doc.text('Location Report', 10, 40);
