@@ -6,6 +6,7 @@ import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
+import TourGideLayout from './tourGuideLayOut';
 
 import UserSupportLayOut from './UserSupportLayOut';
 
@@ -48,7 +49,24 @@ import AgentRegister from './travelagent/register';
 import AgentProfile from './travelagent/profile';
 import AgentUpProfile from './travelagent/upProfile';
 import AgentSucc from './travelagent/succ';
+
+import AgentDash from './travelagent/dashGuide' ;
+import AgentTBooked from './travelagent/touristBooked' ;
+
+
+
+ //Event Manager Components
+import AddEvent from './EventManager/addEvent'
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
+import EditEvent from './EventManager/updateEvent';
+import UserTicketForm from './com/ticket';
+import TicketReport from './EventManager/report';
+import AdminEventApproval from './EventManager/Admin';
+
+
 import AgentGHome from './com/guideHome';
+
 import Navbar from './components/Layout/Navbar';
 import ChecklistOverview from './components/checklist/ChecklistOverview';
 import CreateChecklist from './components/checklist/CreateChecklist';
@@ -124,6 +142,7 @@ function App() {
         <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
 
 
+
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
@@ -143,10 +162,12 @@ function App() {
         <Route path="/travelagent/about" element={<TravelAgentLayout><AgentAbout /></TravelAgentLayout>} />
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost /></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist /></TravelAgentLayout>} />
-        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister /></TravelAgentLayout>} />
-        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile /></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
+        <Route path="/travelagent/dashGuide" element={<TourGideLayout><AgentDash /></TourGideLayout>} />
+
+        <Route path="/register" element={<TourGideLayout><AgentRegister /></TourGideLayout>} />
+        <Route path="/profileGuide" element={<TourGideLayout><AgentProfile /></TourGideLayout>} />
+        <Route path="/travelagent/touristBooked" element={<TourGideLayout><AgentTBooked /></TourGideLayout>} />
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
