@@ -17,17 +17,10 @@ function Header2() {
             <div className="menu-container1">
              
               <ul className="menu-list1">
-<<<<<<< HEAD
                 <li><Link to="">Home</Link></li>
                
                 <li><a href="/EventManager/addEvent">Add Event</a></li>
                 <li><a href="#">Dashboard</a></li>
-=======
-                
-               
-                <li><a href="/EventManager/addEvent">Add Event</a></li>
-                <li><a href="/EventManager/Dashboard">Dashboard</a></li>
->>>>>>> origin/Final
                 <li><a href="/EventManager/EventList">View Event</a></li>
                 <li><Link to="/EventManager/report">Report</Link></li>
                 

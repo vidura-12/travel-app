@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 body {
   font-family: Arial, sans-serif;
 }
@@ -10,9 +9,6 @@ body {
 }
 
 h4 {
-=======
-.head {
->>>>>>> origin/Final
   text-align: center;
   margin-bottom: 20px;
   /* color: rgb(0, 1, 1); */
@@ -68,10 +64,6 @@ h4 {
   object-fit: cover;
 }
 
-<<<<<<< HEAD
 .card-body {
-=======
-.card-body-event {
->>>>>>> origin/Final
   text-align: center;
 }

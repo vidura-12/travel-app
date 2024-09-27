@@ -46,15 +46,9 @@ function EventView() {
 
   return (
     <div>
-<<<<<<< HEAD
       <section className="hero-section3">
         <div>
           <h4 style={{ color: 'white' }}>Find your Event ....</h4>
-=======
-      <section className="hero-section4">
-        <div>
-          <h4 className="head" style={{ color: 'white' }}>Find your Event ....</h4>
->>>>>>> origin/Final
           {/* Search Bar */}
           <div className="search-bar1">
             <input
@@ -73,16 +67,10 @@ function EventView() {
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
               <div className="card mb-4">
-<<<<<<< HEAD
                 <img
                   src={`http://localhost:8081/backend/frontend/public/img/${event.image}`}
                   className="card-img-top"
                   alt={event.name}
-=======
-              <img 
-                  src={`/img/${event.image}`} // Corrected image source
-                  alt={event.name} 
->>>>>>> origin/Final
                 />
                 <div className="card-body">
                   <h5 className="card-title">{event.name}</h5>

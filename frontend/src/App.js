@@ -4,15 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Import Layouts
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
-<<<<<<< HEAD
 
-=======
-import Adminevent from './eventAdmin'
->>>>>>> origin/Final
 import EventLayout from './EventLayout';
 
 import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
+import TourGideLayout from './tourGuideLayOut';
 
 import UserSupportLayOut from './UserSupportLayOut';
 
@@ -59,7 +56,6 @@ import AgentBookTourist from './travelagent/booktourist';
 import AgentRegister from './com/register';
 import AgentProfile from './com/profileGuide';
 import AgentUpProfile from './travelagent/upProfile';
-<<<<<<< HEAD
 
 import AgentLog from './travelagent/login'
 import AgentView from './travelagent/viewBooking';
@@ -72,10 +68,6 @@ import AgentSucc from './travelagent/succ';
 import AgentDash from './travelagent/dashGuide' ;
 import AgentTBooked from './travelagent/touristBooked' ;
 
-=======
-import AgentSucc from './travelagent/succ';
-import AgentGHome from './com/guideHome';
->>>>>>> origin/Final
 
 
  //Event Manager Components
@@ -86,8 +78,6 @@ import EditEvent from './EventManager/updateEvent';
 import UserTicketForm from './com/ticket';
 import TicketReport from './EventManager/report';
 import AdminEventApproval from './EventManager/Admin';
-import Dashboard from './EventManager/Dashbord';
-import PendingEvent from './EventManager/PendingEvent';
 
 
 
@@ -154,7 +144,6 @@ function App() {
 
 
 
-
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
         <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
@@ -165,11 +154,6 @@ function App() {
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         
-<<<<<<< HEAD
-
-=======
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
->>>>>>> origin/Final
 
 
         
@@ -178,11 +162,8 @@ function App() {
         <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
 
 
-<<<<<<< HEAD
         
          
-=======
->>>>>>> origin/Final
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/home" element={<AdminLayout><AdminHome /></AdminLayout>} />
@@ -211,11 +192,7 @@ function App() {
 
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost /></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist /></TravelAgentLayout>} />
-        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister /></TravelAgentLayout>} />
-        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile /></TravelAgentLayout>} />
         <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
-<<<<<<< HEAD
         <Route path="/travelagent/dashGuide" element={<TourGideLayout><AgentDash /></TourGideLayout>} />
 
 
@@ -225,8 +202,6 @@ function App() {
        
 
  
-=======
->>>>>>> origin/Final
 
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
@@ -238,13 +213,7 @@ function App() {
         <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
         <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
-<<<<<<< HEAD
         <Route path="/EventManager/Admin" element={<EventLayout><AdminEventApproval/></EventLayout>} />
-=======
-        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
-        <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
-        <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
->>>>>>> origin/Final
 
 
      
