@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-// POST /api/auth/register
+// POST /api/auth/registerdfghj
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
   const { name, dob, age, gender, contact, NIC, email, password } = req.body;
