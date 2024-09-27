@@ -13,6 +13,7 @@ export default function FeedbackForm() {
     });
 
     const [errors, setErrors] = useState({});
+    const [isHovered, setIsHovered] = useState(false); // State for hover effect
     const navigate = useNavigate();  // Initialize useNavigate
 
     const handleChange = (e) => {
@@ -111,7 +112,7 @@ export default function FeedbackForm() {
             <form onSubmit={handleSubmit} style={{
                 maxWidth: '800px', // Width for the form
                 width: '100%',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)', // Slightly opaque for better readability
+                backgroundColor: 'rgba(255, 255, 255, 0.6)', // Updated for transparency
                 borderRadius: '15px', // Softer corners
                 padding: '40px', // Generous padding
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)' // Enhanced shadow for depth
@@ -186,7 +187,24 @@ export default function FeedbackForm() {
                     />
                     {errors.comment && <div className="text-danger">{errors.comment}</div>}
                 </div>
-                <button type="submit" className="btn btn-primary btn-lg w-100">Submit Feedback</button> {/* Larger button */}
+                <button 
+                    type="submit" 
+                    className="btn"
+                    style={{
+                        backgroundColor: isHovered ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)', // Change color on hover
+                        color: 'white',
+                        fontSize: '18px',
+                        borderRadius: '10px',
+                        padding: '15px',
+                        width: '100%',
+                        transition: 'transform 0.3s ease, background-color 0.3s ease', // Transition effects
+                        transform: isHovered ? 'scale(1.05)' : 'scale(1)' // Enlarge on hover
+                    }}
+                    onMouseEnter={() => setIsHovered(true)} // Set hover state to true
+                    onMouseLeave={() => setIsHovered(false)} // Set hover state to false
+                >
+                    Submit Feedback
+                </button>
             </form>
         </div>
     );

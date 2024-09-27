@@ -6,6 +6,7 @@ const AdminChatbox = () => {
     const [messages, setMessages] = useState([]);
     const [reply, setReply] = useState('');
     const [selectedMessageId, setSelectedMessageId] = useState(null); // To keep track of the message being replied to
+    const ADMIN_ID = 'admin'; // You can replace this with the actual admin identifier if it's different
 
     // Function to fetch messages from the server
     const fetchMessages = async () => {
@@ -24,6 +25,7 @@ const AdminChatbox = () => {
     const handleReply = async (messageId) => {
         if (reply.trim()) {
             try {
+                // Ensure you have the correct PUT endpoint for replying
                 await axios.put(`http://localhost:8081/api/chat/messages/${messageId}`, {
                     response: reply
                 });
@@ -32,6 +34,7 @@ const AdminChatbox = () => {
                 fetchMessages(); // Fetch messages again to update the UI
             } catch (error) {
                 console.error('Error replying to message:', error);
+                // You might want to show a notification to the user here
             }
         }
     };
@@ -73,7 +76,7 @@ const AdminChatbox = () => {
                     {messages.map((msg) => (
                         <div key={msg._id} style={{ marginBottom: '10px' }}>
                             <div
-                                className={`p-2 rounded ${msg.userId === 'admin' ? 'bg-secondary text-white' : 'bg-primary text-white'}`}
+                                className={`p-2 rounded ${msg.userId === ADMIN_ID ? 'bg-secondary text-white' : 'bg-primary text-white'}`}
                                 style={{
                                     display: 'inline-block',
                                     borderRadius: '20px',
@@ -87,7 +90,7 @@ const AdminChatbox = () => {
                                     </div>
                                 )}
                             </div>
-                            {msg.userId !== 'admin' && !msg.response && ( // Show reply button only if there's no admin response
+                            {msg.userId !== ADMIN_ID && !msg.response && ( // Show reply button only if there's no admin response
                                 <button
                                     className="btn btn-link"
                                     onClick={() => {

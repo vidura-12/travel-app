@@ -18,7 +18,7 @@ function Header() {
              
               <ul className="menu-list">
                 <li><Link to="/home">Home</Link></li>
-                <li><a href="#">About</a></li>
+                <li><a href="/UserSupportHome">Customer Support</a></li>
                 <li><Link to ="/tours">Travel Packages</Link></li>
                 <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Gallery</Link></li>

@@ -8,15 +8,15 @@ const Chatbox = () => {
     const [canSendMessage, setCanSendMessage] = useState(true);
     const [loading, setLoading] = useState(true); // State to manage loading status
 
-    const userName = localStorage.getItem('email') || 'User';
+    const userEmail = localStorage.getItem('email') || 'User';
 
     const fetchMessages = async () => {
         setLoading(true); // Start loading
         try {
-            const response = await axios.get(`http://localhost:8081/api/chat/messages?userId=${userName}`);
+            const response = await axios.get(`http://localhost:8081/api/chat/messages?userId=${userEmail}`);
             setMessages(response.data);
 
-            const userMessage = response.data.find(msg => msg.userId === userName && msg.status === 'waiting');
+            const userMessage = response.data.find(msg => msg.userId === userEmail && msg.status === 'waiting');
             setCanSendMessage(!userMessage);
         } catch (error) {
             console.error('Error fetching messages:', error);
@@ -31,14 +31,14 @@ const Chatbox = () => {
 
     const handleSendMessage = async () => {
         if (input.trim() && canSendMessage) {
-            const userMessage = { text: input, from: userName };
+            const userMessage = { text: input, from: userEmail };
             setMessages(prevMessages => [...prevMessages, userMessage]);
             setInput('');
 
             try {
                 setLoading(true); // Start loading
                 const response = await axios.post('http://localhost:8081/api/chat/messages', {
-                    userId: userName,
+                    userId: userEmail,
                     message: input
                 });
 
@@ -88,22 +88,22 @@ const Chatbox = () => {
                         <div className="text-center">Loading messages...</div>
                     ) : (
                         messages.map((msg, index) => (
-                            <div key={index} style={{ marginBottom: '10px', textAlign: msg.from === userName ? 'right' : 'left' }}>
-                                <div className={`p-2 rounded position-relative ${msg.from === userName ? 'bg-primary text-white' : 'bg-secondary text-white'}`}
+                            <div key={index} style={{ marginBottom: '10px', textAlign: msg.from === userEmail ? 'right' : 'left' }}>
+                                <div className={`p-2 rounded position-relative ${msg.from === userEmail ? 'bg-primary text-white' : 'bg-secondary text-white'}`}
                                     style={{
                                         display: 'inline-block',
                                         borderRadius: '20px',
                                         maxWidth: '75%',
-                                        marginLeft: msg.from === userName ? 'auto' : '0',
-                                        marginRight: msg.from === userName ? '0' : 'auto',
+                                        marginLeft: msg.from === userEmail ? 'auto' : '0',
+                                        marginRight: msg.from === userEmail ? '0' : 'auto',
                                         marginTop: '5px',
                                     }}>
                                     {msg.text}
-                                    <span className={`position-absolute ${msg.from === userName ? 'end-0' : 'start-0'}`}
+                                    <span className={`position-absolute ${msg.from === userEmail ? 'end-0' : 'start-0'}`}
                                         style={{
                                             width: '10px',
                                             height: '10px',
-                                            backgroundColor: msg.from === userName ? '#007bff' : '#6c757d',
+                                            backgroundColor: msg.from === userEmail ? '#007bff' : '#6c757d',
                                             borderRadius: '50%',
                                             top: '50%',
                                             transform: 'translateY(-50%)',

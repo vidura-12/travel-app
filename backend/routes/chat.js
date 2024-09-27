@@ -19,12 +19,11 @@ router.post('/messages', async (req, res) => {
     res.status(200).json({ response: adminResponse });
 });
 
-// Route for user to get messages based on userId
 router.get('/messages', async (req, res) => {
-    const { userId } = req.query; // Get the userId from query
+    const { userId } = req.query; // Get the userId (email) from query
 
     try {
-        // If userId is provided, filter messages
+        // If userId (email) is provided, filter messages
         const messages = userId ? await UserMessage.find({ userId }) : await UserMessage.find();
         res.status(200).json(messages);
     } catch (error) {
