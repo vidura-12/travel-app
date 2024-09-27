@@ -37,7 +37,7 @@ function VehicleOwnerCreatePost() {
       navigate('/vehicle-owner/login');
     }
   }, [navigate]);
-
+  
   const fetchVehicles = async (username) => {
     try {
       const token = localStorage.getItem('token');
@@ -49,9 +49,18 @@ function VehicleOwnerCreatePost() {
       const userVehicles = response.data.data.filter(vehicle => vehicle.username === username);
       setVehicles(userVehicles);
     } catch (err) {
-      setError(`Failed to fetch vehicles: ${err.response?.data?.message || err.message}`);
+      // Handle session expiration
+      if (err.response?.status === 401 || err.response?.status === 403) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('vehicleOwner'); // Clear user data
+        localStorage.removeItem('token'); // Clear token
+        navigate('/vehicle-owner/login'); // Redirect to login
+      } else {
+        setError(`Failed to fetch vehicles: ${err.response?.data?.message || err.message}`);
+      }
     }
   };
+    
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
