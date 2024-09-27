@@ -42,7 +42,7 @@ export default function Dash() {
 
       {/* Bottom-Right Corner Button */}
       <a
-        href="/travelagent/booktourist"
+        href="/travelagent/touristBooked"
         className="position-absolute bottom-0 end-0 m-4"
       >
         <button className="btn btn-primary btn-lg shadow" style={{ 
@@ -51,7 +51,7 @@ export default function Dash() {
             transition: 'background-color 0.3s, transform 0.3s',
             fontSize: '1rem'
           }}>
-          Approve Tour Guides
+        Booked Tourist
         </button>
       </a>
     </div>

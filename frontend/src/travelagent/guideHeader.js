@@ -1,8 +1,8 @@
 import React from 'react';
-import './style1.css';
+import './stl.css';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header2() {
   return (
     <div>
       <section className="home-section">
@@ -17,14 +17,8 @@ function Header() {
             <div className="menu-container">
              
               <ul className="menu-list">
-                <li><Link to="/home">Home</Link></li>
-                <li><a href="#">About</a></li>
-                <li><Link to ="/tours">Travel Packages</Link></li>
-                <li><a href="#">Vehicle Rentle</a></li>
-                <li><Link to="/location">Gallery</Link></li>
-                <li><Link to="/hotel">Hotels</Link></li>
-                <li><Link to="/guide">Travel Agents</Link></li>
-                <li><Link to="#">Events</Link></li>
+                <li><Link to="/travelagent/dashGuide">Dashboard</Link></li> 
+                 
               </ul>
             </div>
             <div className="auth-container">
@@ -44,4 +38,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header2;

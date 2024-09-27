@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './eventList.css';
 
@@ -17,7 +17,6 @@ function EventList() {
   const fetchEvents = async () => {
     try {
       const response = await axios.get('http://localhost:8081/event/');
-      console.log(response);
       setEvents(response.data.filter(event => event.isApproved)); // Only approved events
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -49,7 +48,7 @@ function EventList() {
     <div>
       <section className="hero-section3">
         <div>
-          <h4 className="head" style={{ color: 'white' }}>Find your Event ....</h4>
+          <h4 style={{ color: 'white' }}>Find your Event ....</h4>
           {/* Search Bar */}
           <div className="search-bar1">
             <input
@@ -67,28 +66,29 @@ function EventList() {
         <div className="row">
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
-              <div className="card img">
-                <img 
-                  src={`/img/${event.image}`} // Corrected image source
-                  alt={event.name} 
+              <div className="card mb-4">
+                <img
+                  src={`http://localhost:8081/backend/frontend/public/img/${event.image}`}
+                  className="card-img-top"
+                  alt={event.name}
                 />
-                <div className="card-body-event">
+                <div className="card-body">
                   <h5 className="card-title">{event.name}</h5>
-                  <p className="card-text1">{event.description}</p>
-                  <p className="card-text1">
+                  <p className="card-text">{event.description}</p>
+                  <p className="card-text">
                     <strong>Date:</strong> {new Date(event.date).toLocaleDateString()}
                   </p>
-                  <p className="card-text1">
+                  <p className="card-text">
                     <strong>Time:</strong> {event.time}
                   </p>
-                  <p className="card-text1">
+                  <p className="card-text">
                     <strong>Location:</strong> {event.location}
                   </p>
-                  <p className="card-text1">
+                  <p className="card-text">
                     <strong>Price:</strong> RS.{event.price}
                   </p>
                   <Link to={`/EventManager/updateEvent/${event._id}`}>
-                    <button className="btn btn-primary" style={{ marginRight: '10px' }}>Edit</button>
+                    <button className="btn btn-warning mr-2">Edit</button>
                   </Link>
                   <button
                     className="btn btn-danger"
