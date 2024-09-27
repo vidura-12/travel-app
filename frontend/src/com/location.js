@@ -34,39 +34,38 @@ function Location() {
     fetchLikedLocations();
   }, []);
 
-const handleSearch = async () => {
-  try {
-    const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
-    const data = await response.json();
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
+      const data = await response.json();
 
-    console.log(data); // Log the response data
+      console.log(data); // Log the response data
 
-    if (response.ok) {
-      if (Array.isArray(data) && data.length === 0) {
-        setError('No locations found with that name.');
-        setResults([]);
-      } else {
-        setError('');
-        setResults(Array.isArray(data) ? data : [data]);
-        setVisibleComments({});
-        setVisibleDescriptions({});
+      if (response.ok) {
+        if (Array.isArray(data) && data.length === 0) {
+          setError('No locations found with that name.');
+          setResults([]);
+        } else {
+          setError('');
+          setResults(Array.isArray(data) ? data : [data]);
+          setVisibleComments({});
+          setVisibleDescriptions({});
 
-        if (destinationRef.current) {
-          destinationRef.current.classList.add('scroll-to-middle');
-          destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (destinationRef.current) {
+            destinationRef.current.classList.add('scroll-to-middle');
+            destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
         }
+      } else {
+        setError(data.error || 'No locations found with that name.');
+        setResults([]);
       }
-    } else {
-      setError(data.error || 'No locations found with that name.');
+    } catch (error) {
+      setError('Error fetching search results.');
+      console.error('Error fetching search results:', error);
       setResults([]);
     }
-  } catch (error) {
-    setError('Error fetching search results.');
-    console.error('Error fetching search results:', error);
-    setResults([]);
-  }
-};
-
+  };
 
   const handleLike = async (locationId) => {
     try {
@@ -181,8 +180,8 @@ const handleSearch = async () => {
                 <h2 className="heading">{location.name} - {location.city}</h2>
                 <div className="content">
                   <p>
-                    {visibleDescriptions[location._id] 
-                      ? location.description 
+                    {visibleDescriptions[location._id]
+                      ? location.description
                       : `${location.description.substring(0, 100)}...`}
                   </p>
                   {location.description.length > 100 && (
@@ -232,7 +231,6 @@ const handleSearch = async () => {
                       Comment
                     </button>
                   </div>
-                 
                 </div>
               </div>
             </div>
