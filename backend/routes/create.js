@@ -58,6 +58,31 @@ router.put('/approve/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+// Update Tour Guide Route
+router.put('/update/:id', async (req, res) => {
+    try {
+        const { name, email, address, number, experience, language } = req.body;
+        const guide = await Create.findById(req.params.id);
+
+        if (!guide) {
+            return res.status(404).json({ error: "Tour Guide not found" });
+        }
+
+        // Update the guide's information
+        guide.name = name;
+        guide.email = email;
+        guide.address = address;
+        guide.number = number;
+        guide.experience = experience;
+        guide.language = language;
+
+        await guide.save();
+        res.json("Tour Guide Updated Successfully");
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 // Deny (Delete) Tour Guide Route
 router.delete('/delete/:id', async (req, res) => {

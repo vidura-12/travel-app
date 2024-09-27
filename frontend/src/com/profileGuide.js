@@ -11,15 +11,16 @@ export default function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the updated data from the database after component mounts
-    fetchTourGuideDetails(formData.id);
-  }, []);
+    // Fetch tour guide details if editing an existing guide
+    if (formData._id) {
+      fetchTourGuideDetails(formData._id);
+    }
+  }, [formData._id]);
 
-  // Function to fetch tour guide details by ID
   const fetchTourGuideDetails = async (id) => {
     try {
       const response = await axios.get(`http://localhost:8081/TourGuide/${id}`);
-      setFormData(response.data); // Update formData with the latest details from the database
+      setFormData(response.data);
     } catch (error) {
       console.error('Error fetching tour guide details:', error);
     }
@@ -27,39 +28,30 @@ export default function Profile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
+      const response = await axios.put(`http://localhost:8081/TourGuide/update/${formData._id}`, formData);
       alert('Tour guide updated successfully!');
       setIsEditing(false);
-      
-      // Update localStorage
-      const approvedGuides = JSON.parse(localStorage.getItem('approvedGuides')) || [];
-      const updatedGuides = approvedGuides.map(guide => 
-        guide._id === formData.id ? formData : guide
-      );
-      localStorage.setItem('approvedGuides', JSON.stringify(updatedGuides));
-
-      // Fetch the updated data from the database to display
-      fetchTourGuideDetails(formData.id);
     } catch (error) {
       console.error('Error updating the tour guide:', error);
+      alert('Failed to update the tour guide. Please try again.');
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this tour guide?')) {
       try {
-        await axios.delete(`http://localhost:8081/TourGuide/delete/${id}`);
+        await axios.delete(`http://localhost:8081/TourGuide/delete/${formData._id}`);
         alert('Tour guide deleted successfully!');
-        navigate('/register');
+        navigate('/register'); // Navigate to the registration page after deletion
       } catch (error) {
         console.error('Error deleting tour guide:', error);
         alert('Failed to delete the tour guide.');
@@ -74,7 +66,7 @@ export default function Profile() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',  // Ensure full height for the background
+        minHeight: '100vh',
         backdropFilter: 'blur(5px)',
       }}
     >
@@ -154,7 +146,7 @@ export default function Profile() {
               className="form-control"
             />
           </div>
-          <button className="btn btn-primary w-100" type="submit" onClick={() => setIsEditing(false)}>Save</button>
+          <button className="btn btn-primary w-100" type="submit" onClick={() => setIsEditing(false)}> Save</button>
         </form>
       ) : (
         <div className="bg-light rounded p-4 shadow" style={{ width: '400px' }}>
@@ -172,7 +164,7 @@ export default function Profile() {
           <button className="btn btn-primary" onClick={() => setIsEditing(true)}>Update</button>
         )}
         {!isEditing && (
-          <button className="btn btn-danger" onClick={() => handleDelete(formData.id)}>Delete</button>
+          <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
         )}
       </div>
     </div>
