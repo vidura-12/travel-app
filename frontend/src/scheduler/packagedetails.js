@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './packagedetails.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import './packagedetails.css';
 
 const Dashboard = () => {
   const [packages, setPackages] = useState([]);
@@ -14,11 +16,18 @@ const Dashboard = () => {
   const [editId, setEditId] = useState(null);
   const [editedPackage, setEditedPackage] = useState({});
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login');
+      return;
+    }
+
     const fetchPackages = async () => {
       try {
-        const response = await axios.get('http://localhost:8081/packageS');
+        const response = await axios.get('http://localhost:8081/packages/');
         setPackages(response.data);
         setLoading(false);
       } catch (err) {
@@ -28,7 +37,7 @@ const Dashboard = () => {
     };
 
     fetchPackages();
-  }, []);
+  }, [token, navigate]);
 
   const toggleModal = () => setModal(!modal);
 
@@ -39,10 +48,9 @@ const Dashboard = () => {
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to deny this package?');
-    
     if (confirmDelete) {
       try {
-        await axios.delete(`http://localhost:8081/packageS/${id}`);
+        await axios.delete(`http://localhost:8081/packages/${id}`);
         setPackages(packages.filter((pkg) => pkg._id !== id));
       } catch (err) {
         setError(err.message);
@@ -52,16 +60,27 @@ const Dashboard = () => {
 
   const handleApprove = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:8081/packageS/${id}`, { approved: true });
-      const approvedPackage = response.data;
+      await axios.put(`http://localhost:8081/packages/update/${id}`, { status: 'approved' }, {
+        headers: { authorization: token }
+      });
 
-      // Update the package list with the approved status
-      setPackages(packages.map(pkg => (pkg._id === id ? { ...pkg, approved: true } : pkg)));
+      const updatedPackages = packages.map(pkg => {
+        if (pkg._id === id) {
+          return { ...pkg, status: 'approved' };
+        }
+        return pkg;
+      });
 
-      // Navigate to EditPackage and pass the approved package details
-      navigate('/editpackage', { state: { package: approvedPackage } });
-    } catch (err) {
-      setError(err.message);
+      setPackages(updatedPackages);
+    } catch (error) {
+      console.error('Error approving package:', error.response?.data || error.message);
+      if (error.response && error.response.status === 401) {
+        alert('Session expired. Please log in again.');
+        localStorage.removeItem('token');
+        navigate('/admin/login');
+      } else {
+        alert('An error occurred while approving the package.');
+      }
     }
   };
 
@@ -73,10 +92,6 @@ const Dashboard = () => {
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditedPackage({ ...editedPackage, [name]: value });
-  };
-
-  const handleImageChange = (e) => {
-    setEditedPackage({ ...editedPackage, imageFile: e.target.files[0] });
   };
 
   const handleSave = async (id) => {
@@ -94,7 +109,7 @@ const Dashboard = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8081/packageS/${id}`, formData, {
+      const response = await axios.put(`http://localhost:8081/packages/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -111,6 +126,30 @@ const Dashboard = () => {
     }
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const tableColumn = ['Agency Name', 'Phone Number', 'Email', 'Location', 'Places', 'Max People', 'Price', 'Status'];
+    const tableRows = [];
+
+    packages.forEach(pkg => {
+      const packageData = [
+        pkg.agencyName,
+        pkg.phoneNumber,
+        pkg.email,
+        pkg.location,
+        pkg.places.join(', '),
+        pkg.maxPeople,
+        pkg.price,
+        pkg.status
+      ];
+      tableRows.push(packageData);
+    });
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.text('Travel Package Details', 14, 15);
+    doc.save('travel_packages_report.pdf');
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -120,13 +159,14 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='dash'>
-      <div className="dashboard1">
-        <h1 className='title1'>Travel Package Details</h1>
+    <div className='dash location-dashboard-body'>
+      <div className="dashboard1 location-dashboard-container">
+        <h1 className='title1 location-dashboard-title'>Travel Package Details</h1>
+        <button className="btn btn-primary" onClick={generatePDF}>Download PDF</button>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>
         ) : (
-          <table className="table1">
+          <table className="table1 location-dashboard-table">
             <thead>
               <tr>
                 <th>Agency Name</th>
@@ -137,59 +177,34 @@ const Dashboard = () => {
                 <th>Max People</th>
                 <th>Price</th>
                 <th>Image</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {packages.map((pkg) => (
                 <tr key={pkg._id}>
-                  {editId === pkg._id ? (
-                    <>
-                      <td><input name="agencyName" value={editedPackage.agencyName} onChange={handleEditChange} /></td>
-                      <td><input name="phoneNumber" value={editedPackage.phoneNumber} onChange={handleEditChange} /></td>
-                      <td><input name="email" value={editedPackage.email} onChange={handleEditChange} /></td>
-                      <td><input name="location" value={editedPackage.location} onChange={handleEditChange} /></td>
-                      <td><input name="places" value={editedPackage.places} onChange={handleEditChange} /></td>
-                      <td><input name="maxPeople" value={editedPackage.maxPeople} onChange={handleEditChange} /></td>
-                      <td><input name="price" value={editedPackage.price} onChange={handleEditChange} /></td>
-                      <td>
-                        <input type="file" onChange={handleImageChange} />
-                        {editedPackage.imageFile ? (
-                          <img src={URL.createObjectURL(editedPackage.imageFile)} alt={pkg.agencyName} width="100" />
-                        ) : (
-                          <img src={`/img/${pkg.image}`} alt={pkg.agencyName} width="100" />
-                        )}
-                      </td>
-                      <td>
-                        <button className="save-button" onClick={() => handleSave(pkg._id)}>Save</button>
-                        <button className="cancel-button" onClick={() => setEditId(null)}>Cancel</button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{pkg.agencyName}</td>
-                      <td>{pkg.phoneNumber}</td>
-                      <td>{pkg.email}</td>
-                      <td>{pkg.location}</td>
-                      <td>{pkg.places.join(', ')}</td>
-                      <td>{pkg.maxPeople}</td>
-                      <td>{pkg.price}</td>
-                      <td>
-                        <img
-                          src={`/img/${pkg.image}`}
-                          alt={pkg.agencyName}
-                          width="100"
-                          onClick={() => handleImageClick(`/img/${pkg.image}`)}
-                          style={{ cursor: 'pointer' }}
-                        />
-                      </td>
-                      <td>
-                        <button className="edit-button" onClick={() => handleApprove(pkg._id)}>Approve</button>
-                        <button className="edit-button" onClick={() => handleEditClick(pkg)}>Edit</button>
-                        <button className="delete-button" onClick={() => handleDelete(pkg._id)}>Deny</button>
-                      </td>
-                    </>
-                  )}
+                  <td>{pkg.agencyName}</td>
+                  <td>{pkg.phoneNumber}</td>
+                  <td>{pkg.email}</td>
+                  <td>{pkg.location}</td>
+                  <td>{pkg.places.join(', ')}</td>
+                  <td>{pkg.maxPeople}</td>
+                  <td>{pkg.price}</td>
+                  <td>
+                    <img
+                      src={`/img/${pkg.image}`}
+                      alt={pkg.agencyName}
+                      width="100"
+                      onClick={() => handleImageClick(`/img/${pkg.image}`)}
+                      className="location-table-img"
+                    />
+                  </td>
+                  <td>{pkg.status}</td>
+                  <td className="location-action-buttons">
+                    <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
+                    <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
+                  </td>
                 </tr>
               ))}
             </tbody>

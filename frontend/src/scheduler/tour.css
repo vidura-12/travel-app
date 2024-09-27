@@ -2,8 +2,8 @@
 
 .tourpic{
     background:
-     url("./sheduler image/tourpic.jpg") no-repeat center;
-     height:400px;
+     url("./sheduler image/i1.jpg") no-repeat center;
+     height:700px;
      display:flex;
      flex-direction: column;
      align-items: center;
@@ -12,16 +12,14 @@
      background-size: cover;
      padding: 50px 0; 
      position: relative;
-     margin-top: 79px;
+     margin-top: 77px;
+     border-radius: 10px;
+    
      
 
 }
 
-.tourpic h1{
-    color: #fff;
-    
-    font-weight: bold;
-}
+
 
 .searc {
     display: flex;
@@ -29,10 +27,21 @@
     align-items: center;
     justify-content: center;
     
+    
 
 
     
 }
+
+
+
+.our{
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
 
 @import '~remixicon/fonts/remixicon.css';
 
@@ -40,14 +49,14 @@
     padding: 0.5rem 1rem;
     border-radius: 50px;
     box-shadow: rgba(17, 12, 46, 0.2) 0px 10px 40px, rgba(17, 12, 46, 0.1) 0px 5px 20px;
-    margin-top: 50px;
+    margin-bottom: 100px;
     width: 600px;
     background-color: white;
-    height: 130px;
+    height: 80px;
 }
 
 .form_group span{
-    font-size: 1.8rem;
+    font-size: 2rem;
     color:gray;
     
 
@@ -60,6 +69,7 @@
     font-weight: 500;
     border-radius: 5px;
     width: 180px;
+    
 }
 
 .form_group input:focus{
@@ -75,26 +85,34 @@
     
 }
 
-.search-icon{
-    font-size: 1.6rem;
-    padding: 0.5rem;
-    background: orangered;
-    color: #ddd;
-    border-radius: 10px 5px 10px 5px;
-    cursor:pointer;
+.search-icon {
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
+    
+}
+
+.search-icon:hover{
+    background: var(--dark-green);
 }
 
 .description {
     text-align: center;
-    margin: 0 auto;
     font-style:italic;
-    margin-top: px;
-    font-size: 15px;
+    margin-bottom: 100px;
+    font-size: 50px;
     font-weight: bold;
-    background-color: #D1E9F6;
-    color: black;
+    color: white;
     border-radius: 10px;
-    padding: 20px;
+    position: relative;
+    
     
     
 }
@@ -119,17 +137,16 @@
 }
 
 .agency {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #008000; 
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 20px; 
-    cursor: pointer;
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
     border: none;
-    margin-right: 10px;
-    width: 200px;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
 }
 
 .agency:hover{
@@ -137,9 +154,10 @@
 }
 
 
+
+
 .enjoy-life-section{
-    background: 
-     url("./sheduler image/sigiriya.jpeg") no-repeat center;
+   
      height:400px;
      width:1500px;
      display:flex;
@@ -153,19 +171,38 @@
      overflow: hidden;
      position: relative;
      
+     
     
     
 
 }
 
+.enjoy {
+    display: inline-block;
+    padding: 5px 10px; /* Reduce padding for a smaller button */
+    background-color: #008000; 
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 15px; /* Slightly smaller border radius */
+    cursor: pointer;
+    border: none;
+    margin-right: 10px;
+    width: 150px; /* Adjust width as needed */
+    font-size: 16px; /* Adjust font size for a smaller look */
+}
+
+
 .enjoy-life-text {
     border-radius: 10px;
     font-size: 30px;
     font-weight: bold;
-    padding: 20px;
-    color: white;
+    padding: 10px;
+    color: black;
     margin-left: 100px;
     box-shadow: rgba(255, 255, 255, 0.3) 0px 4px 10px, rgba(255, 255, 255, 0.5) 0px 0px 20px;
+    background:#B7E0FF ;
+    width: 600px;
 }
 
 .app{
@@ -175,15 +212,50 @@
     padding: 25px;
     color: white;
     margin-left: 100px;
-    background: black;
+    margin-bottom: 100px;
+    margin-right: 500px;
+    
 }
+
+.enjoy1{
+    text-align: center;
+    background-image: url('./sheduler image/im4.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+    height: 400px;
+    width: 1500px;
+    margin-left: 100px;
+    
+}
+
+.enjoy2{
+    text-align: center;
+    background-image: url('./sheduler image/im2.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+    height: 400px;
+    width: 1500px;
+    margin-left: 100px;
+}
+
+
 
 
 
 .destinations-title {
     margin: auto;
     margin-top: 20px;
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
     margin-left: 20px;
  }
@@ -208,32 +280,52 @@
      color: #333;
  }
 
-.package-card {
-    width: 18rem; /* Adjust the card width as needed */
-    margin: 20px auto; /* Center the card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visuals */
-    border-radius: 8px; /* Rounded corners */
-    overflow: hidden; /* Prevent content from overflowing */
+  .package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
   }
   
-  .package-card img {
-    width: 100%; /* Make the image take full card width */
-    height: auto;
+  .package-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
   }
   
-  .package-card .card-body {
+  .package-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card-body {
     padding: 15px;
   }
   
-  .package-card .card-title {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+  .enjoybtn button, .agency {
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
   }
   
-  .package-card .card-text {
-    font-size: 1rem;
-    margin-bottom: 8px;
-  }
+  .enjoybtn button:hover, .agency:hover {
+    background: var(--dark-green);
+}
+  
+
   
 
 

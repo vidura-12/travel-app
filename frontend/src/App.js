@@ -73,6 +73,9 @@ import SellersProfile from './scheduler/Sellersprofile';
 import EditPackage from './scheduler/Editpackage';
 import Packagedetails from './scheduler/packagedetails';
 import Scheduladmin from './scheduler/scheduladmin';
+import SellerRegister from './scheduler/Sellerregister';
+
+import SellerSignIn from './scheduler/sellersignin';
 
 
 
@@ -154,12 +157,14 @@ function App() {
 
 
         {/* Scheduler Layout Routes */}
-        <Route path="/tours" element={<SchedulerLayout><Tour /></SchedulerLayout>} />
+        <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
         <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
-        <Route path="/Sellersprofile" element={<SchedulerLayout><SellersProfile /></SchedulerLayout>} />
+        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
+        <Route path="/scheduler/Sellersregister" element={<UserLayout><SellerRegister /></UserLayout>} />
+        <Route path="/scheduler/sellersignin" element={<UserLayout><SellerSignIn /></UserLayout>} />
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
 

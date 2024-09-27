@@ -62,7 +62,7 @@ const AdminLogin = () => {
           navigate('/travelagent/dashboard');
           break;
           case 'support_manager':
-            navigate('/usersupporter/dashboard');
+            navigate('/');
             break;
           
         default:
