@@ -4,6 +4,7 @@ import './location.css';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
@@ -48,6 +49,18 @@ const LocationTable = () => {
       return;
     }
 
+    // SweetAlert confirmation for approve action
+    const { isConfirmed } = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to approve this location?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, approve it!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (!isConfirmed) return; // If user cancels, stop the function
+
     try {
       await axios.put(`http://localhost:8081/locationAdmin/update/${locationId}`, {
         status: 'approved',
@@ -63,6 +76,7 @@ const LocationTable = () => {
         return location;
       });
       setLocations(updatedLocations);
+      Swal.fire('Approved!', 'The location has been approved.', 'success'); // Success alert
     } catch (error) {
       console.error('Error approving location:', error);
       if (error.response && error.response.status === 401) {
@@ -81,9 +95,17 @@ const LocationTable = () => {
       return;
     }
 
-    // Add confirmation prompt before deleting
-    const confirmDelete = window.confirm('Are you sure you want to delete this location?');
-    if (!confirmDelete) return; // If the user cancels, stop the function
+    // SweetAlert confirmation for delete action
+    const { isConfirmed } = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this location?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    });
+
+    if (!isConfirmed) return; // If user cancels, stop the function
 
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
@@ -93,6 +115,7 @@ const LocationTable = () => {
       });
       const updatedLocations = locations.filter(location => location._id !== locationId);
       setLocations(updatedLocations);
+      Swal.fire('Deleted!', 'The location has been deleted.', 'success'); // Success alert
     } catch (error) {
       console.error('Error deleting location:', error);
       if (error.response && error.response.status === 401) {
@@ -113,35 +136,28 @@ const LocationTable = () => {
   // Function to download the report
   const downloadReport = async () => {
     const doc = new jsPDF();
-    
-    // Load the logo and signature images
     const logo = await import('./img/ll.png'); // Adjust the path if necessary
-    const sign = await import('./img/sign.jpg'); // Path to the admin's signature image
-  
-    const logoImg = new Image();
-    const signImg = new Image();
-  
-    // Load and add logo image
-    logoImg.src = logo.default;
-    logoImg.onload = () => {
-      // Add logo in the top-right corner
-      doc.addImage(logoImg, 'PNG', 150, 10, 50, 20); // Adjust position and size as needed
-  
+
+    const img = new Image();
+    img.src = logo.default; // Use default export from the image
+    img.onload = () => {
+      doc.addImage(img, 'PNG', 10, 10, 50, 20); // Adjust dimensions as needed
       doc.setFontSize(20);
       doc.text('Location Report', 10, 40);
       doc.setFontSize(12);
-  
-      // Define table headers and data (without Picture column)
-      const headers = ['Name', 'City', 'Description', 'Added By', 'Status'];
+
+      // Add table headers and data
+      const headers = ['Name', 'City', 'Description', 'Picture', 'Added By', 'Status'];
       const data = locations.map(location => [
         location.name,
         location.city,
         location.description,
+        location.picture ? `/img/${location.picture}` : 'No Image',
         location.addedBy || 'Unknown',
         location.status
       ]);
-  
-      // Generate table with adjusted column widths
+
+      // Make sure the autoTable is called after adding the image and text
       doc.autoTable({
         head: [headers],
         body: data,
@@ -149,51 +165,24 @@ const LocationTable = () => {
         theme: 'grid',
         headStyles: { fillColor: [22, 160, 133] },
         styles: { cellPadding: 2, fontSize: 10 },
-        columnStyles: {
-          2: { cellWidth: 60 }, // Increase width for the 'Description' column
-        },
       });
-  
-      // Load and add signature image after the table
-      signImg.src = sign.default;
-      signImg.onload = () => {
-        // Calculate Y position after the table
-        const finalY = doc.autoTable.previous.finalY + 10; // Space after the table
-  
-        doc.addImage(signImg, 'PNG', 10, finalY, 40, 20); // Add signature
-  
-        // Add location manager name below the signature
-        doc.setFontSize(12);
-        doc.text('Location Manager: John Doe', 10, finalY + 25); // Ensure the name shows below the signature
-        
-        // Save the PDF
-        doc.save('Location_Report.pdf');
-      };
-  
-      signImg.onerror = () => {
-        console.error('Failed to load the signature image.');
-        const finalY = doc.autoTable.previous.finalY + 10;
-        doc.text('Location Manager: John Doe', 10, finalY); // Add name if image fails
-        doc.save('Location_Report.pdf');
-      };
+
+      doc.save('Location_Report.pdf');
     };
-  
-    // Handle logo loading errorskmk
-    logoImg.onerror = () => {
+
+    // Handle image loading errors
+    img.onerror = () => {
       console.error('Failed to load the logo image.');
       doc.text('Location Report', 10, 40);
       doc.save('Location_Report.pdf');
     };
   };
-  
 
   return (
     <div className="location-dashboard-body">
       <div className="location-dashboard-container">
         <h2 className="location-dashboard-title">Location Details</h2>
-        <button className="location-btn-report" onClick={downloadReport}>
-          Download Report
-        </button>
+        
         <table className="location-dashboard-table">
           <thead>
             <tr>
@@ -242,7 +231,11 @@ const LocationTable = () => {
             </div>
           </div>
         )}
+        <button className="location-btn-report" onClick={downloadReport}>
+          Download Report
+        </button>
       </div>
+      
     </div>
   );
 };

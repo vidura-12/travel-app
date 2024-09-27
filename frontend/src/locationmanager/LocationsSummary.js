@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './LocationsSummary.css'; // Import the custom CSS file
 import { useNavigate } from 'react-router-dom'; // For navigation
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 function LocationsSummary() {
   const [locations, setLocations] = useState([]);
@@ -50,37 +51,48 @@ function LocationsSummary() {
       return;
     }
 
-    // Display confirmation message
-    const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
-    if (!confirmDelete) return; // If user cancels, stop the function
+    // Use SweetAlert for confirmation
+    const { isConfirmed } = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!'
+    });
 
-    try {
-      const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
-        method: 'DELETE',
-        headers: {
-          authorization: token
-        },
-      });
+    if (isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
+          method: 'DELETE',
+          headers: {
+            authorization: token
+          },
+        });
 
-      if (response.ok) {
-        setLocations((prevLocations) =>
-          prevLocations.map((location) =>
-            location._id === locationId
-              ? { ...location, comments: location.comments.filter((comment) => comment._id !== commentId) }
-              : location
-          )
-        );
-      } else {
-        console.error('Error deleting comment:', response.statusText);
-        if (response.status === 401) {
-          alert('Session expired. Please log in again.');
-          localStorage.removeItem('token');
-          navigate('/admin/login');
+        if (response.ok) {
+          setLocations((prevLocations) =>
+            prevLocations.map((location) =>
+              location._id === locationId
+                ? { ...location, comments: location.comments.filter((comment) => comment._id !== commentId) }
+                : location
+            )
+          );
+          Swal.fire('Deleted!', 'Your comment has been deleted.', 'success'); // Success message
+        } else {
+          console.error('Error deleting comment:', response.statusText);
+          if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            localStorage.removeItem('token');
+            navigate('/admin/login');
+          }
         }
+      } catch (error) {
+        console.error('Error deleting comment:', error);
+        alert('An error occurred while deleting the comment.');
       }
-    } catch (error) {
-      console.error('Error deleting comment:', error);
-      alert('An error occurred while deleting the comment.');
     }
   };
 
