@@ -14,7 +14,10 @@ const Header = () => {
         <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/EventManager/Admin">DashBoard</a>
+                    <a className="nav-link-header" href="/travelagent/dashboard">DashBoard</a>
+                </li>
+                <li className="menu-item-header">
+                    <a className="nav-link-header" href="/travelagent/approveDeny">Requests</a>
                 </li>
             </ul>
             <div className="profile-header">

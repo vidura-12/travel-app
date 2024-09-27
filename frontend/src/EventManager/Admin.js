@@ -5,20 +5,21 @@ import { FaTrash } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import './AdminEventApproval.css'; // Import the CSS file
+
 
 function AdminEventApproval() {
   const [events, setEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
   const navigate = useNavigate();
 
+
   useEffect(() => {
+
     const fetchEvents = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         alert('You need to log in first.');
-        navigate('/admin/login');
+        navigate('/admin/login'); // Redirect to login page
         return;
       }
 
@@ -33,26 +34,16 @@ function AdminEventApproval() {
       }
     };
     fetchEvents();
-  }, [navigate]);
+  }, []);
+
 
   const handleApproval = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to approve this event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, approve it!'
-      });
-      if (result.isConfirmed) {
-        await axios.put(`http://localhost:8081/event/approve/${eventId}`);
-        const approvedEvent = events.find(event => event._id === eventId);
-        setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
-        setEvents(events.filter(event => event._id !== eventId));
-        Swal.fire('Approved!', 'Event has been approved.', 'success');
-      }
+      await axios.put(`http://localhost:8081/event/approve/${eventId}`);
+      const approvedEvent = events.find(event => event._id === eventId);
+      setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
+      setEvents(events.filter(event => event._id !== eventId));
+      alert('Event approved successfully!');
     } catch (error) {
       console.error('Error approving event:', error);
     }
@@ -60,20 +51,9 @@ function AdminEventApproval() {
 
   const handleRejection = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to reject this event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reject it!'
-      });
-      if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
-        setEvents(events.filter(event => event._id !== eventId));
-        Swal.fire('Rejected!', 'Event has been rejected.', 'success');
-      }
+      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
+      setEvents(events.filter(event => event._id !== eventId));
+      alert('Event rejected successfully!');
     } catch (error) {
       console.error('Error rejecting event:', error);
     }
@@ -81,20 +61,9 @@ function AdminEventApproval() {
 
   const handleDeleteApproved = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to delete this approved event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      });
-      if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
-        setApprovedEvents(approvedEvents.filter(event => event._id !== eventId));
-        Swal.fire('Deleted!', 'Approved event has been deleted.', 'success');
-      }
+      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
+      setApprovedEvents(approvedEvents.filter(event => event._id !== eventId));
+      alert('Approved event deleted successfully!');
     } catch (error) {
       console.error('Error deleting approved event:', error);
     }
@@ -104,7 +73,8 @@ function AdminEventApproval() {
     const doc = new jsPDF();
     doc.setFontSize(20);
     doc.text('Approved Events Report', 14, 22);
-
+    
+    // Prepare data for the PDF
     const tableData = approvedEvents.map(event => [
       event.name,
       event.category,
@@ -115,23 +85,25 @@ function AdminEventApproval() {
       event.price,
     ]);
 
+    // Add table to the PDF
     autoTable(doc, {
       startY: 30,
       head: [['Event Name', 'Category', 'Description', 'Location', 'Date', 'Time', 'Price']],
       body: tableData,
     });
 
+    // Save the PDF
     doc.save('approved_events_report.pdf');
   };
 
   return (
-    <div className="event-container">
-      <h2 className="event-heading">Pending Event Approvals</h2>
+    <div className="container mt-5">
+      <h2 style={{ color: 'black' }}>Pending Event Approvals</h2>
       {events.length === 0 ? (
-        <p className="event-no-data">No events pending approval.</p>
+        <p style={{color: 'skyblue'}}>No events pending approval.</p>
       ) : (
         <table className="table table-bordered table-hover">
-          <thead className="event-table-head">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">Event Name</th>
               <th scope="col">Category</th>
@@ -155,7 +127,7 @@ function AdminEventApproval() {
                 <td>{event.price}</td>
                 <td>
                   <button
-                    className="btn event-approve-btn btn-sm"
+                    className="btn btn-success btn-sm"
                     onClick={() => handleApproval(event._id)}
                   >
                     Approve
@@ -173,12 +145,12 @@ function AdminEventApproval() {
         </table>
       )}
 
-      <h2 className="event-approved-heading">Approved Events</h2>
+      <h2 style={{ color: 'black' }} className="mt-5">Approved Events</h2>
       {approvedEvents.length === 0 ? (
-        <p className="event-no-data">No approved events.</p>
+        <p>No approved events.</p>
       ) : (
         <table className="table table-bordered table-hover">
-          <thead className="event-table-head">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">Event Name</th>
               <th scope="col">Category</th>
@@ -217,10 +189,10 @@ function AdminEventApproval() {
           </tbody>
         </table>
       )}
-
+      
       {approvedEvents.length > 0 && (
         <div className="text-center mt-4">
-          <button className="btn btn-primary event-report-btn" onClick={generatePDF}>
+          <button className="btn btn-primary" style={{ width: '150px' }} onClick={generatePDF}>
             Events Report
           </button>
         </div>
