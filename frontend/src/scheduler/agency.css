@@ -1,7 +1,7 @@
 .travelagency{
    
      margin-top: 80px;
-     background-image: url('./sheduler image/im1.jpg'); /* Replace with the actual path to your image */
+     background-image: url('./sheduler image/i5.jpg'); /* Replace with the actual path to your image */
      background-size: cover;
      background-position: center;
      padding: 50px 0; 
@@ -43,13 +43,7 @@
     margin-bottom: 5px;
   }
   
-  input.form-control {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+
   
   #emailHelp {
     font-size: 12px;
