@@ -138,6 +138,7 @@ const VehicleRentalHome = () => {
   const [filters, setFilters] = useState({
     make: '',
     model: '',
+    category: '',
     minPrice: '',
     maxPrice: '',
     location: '',
@@ -155,11 +156,12 @@ const VehicleRentalHome = () => {
   }, []);
 
   useEffect(() => {
-    const { make, model, minPrice, maxPrice, location } = filters;
+    const { make, model, category, minPrice, maxPrice, location } = filters;
     const filtered = vehicles.filter(vehicle => {
       return (
         (make === '' || vehicle.make.toLowerCase().includes(make.toLowerCase())) &&
-        (model === '' || vehicle.model.toLowerCase().includes(model.toLowerCase())) &&
+        (model === '' || vehicle.category.toLowerCase().includes(model.toLowerCase())) &&
+        (category === '' || vehicle.category.toLowerCase().includes(category.toLowerCase())) &&
         (location === '' || vehicle.location.toLowerCase().includes(location.toLowerCase())) &&
         (minPrice === '' || vehicle.pricePerDay >= parseFloat(minPrice)) &&
         (maxPrice === '' || vehicle.pricePerDay <= parseFloat(maxPrice))
@@ -213,6 +215,17 @@ const VehicleRentalHome = () => {
               name="model"
               placeholder="Model"
               value={filters.model}
+              onChange={handleFilterChange}
+              style={styles.searchBox}
+            />
+            <FaCar style={styles.searchIcon} />
+          </div>
+          <div style={styles.searchBoxContainer}>
+            <input
+              type="text"
+              name="category"
+              placeholder="Category"
+              value={filters.category}
               onChange={handleFilterChange}
               style={styles.searchBox}
             />

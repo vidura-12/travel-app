@@ -7,11 +7,10 @@
 /backend/node_modules/
 
 frontend/public/img/videoplayback.webm
-<<<<<<< HEAD
-frontend/src/com/img/Sri Lanka.mp4
-=======
 
->>>>>>> Final
+frontend/src/com/img/Sri Lanka.mp4
+
+backend/uploads
 
 /node_modules
 .env
