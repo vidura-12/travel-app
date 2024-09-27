@@ -51,7 +51,7 @@ import AgentAll from './com/allGuides';
 import AgentBGuide from './com/bookGuide';
 import AgentGuide from './com/guide';
 import AgentproGuide from './com/profileGuide';
-import AgentRegister from './com/GuideRegister';
+import AgentRegister from './com/GuideRegister'; 
 
 import ChecklistOverview from './components/checklist/ChecklistOverview';
 import CreateChecklist from './components/checklist/CreateChecklist';
@@ -106,7 +106,7 @@ function App() {
         <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />
         <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
-        <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} />
+        <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
 
       
         

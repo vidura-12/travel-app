@@ -17,6 +17,7 @@ router.post('/add', async (req, res) => {
             language,
             username,
             password,
+            role: 'Tour Guide', // Set the role to 'Tour Guide'
             status: 'pending', // New field to track the tour guide's status
             isApproved: false  // Default to false until approved
         });
@@ -32,7 +33,7 @@ router.post('/add', async (req, res) => {
 // Get All Tour Guides Route
 router.get('/all', async (req, res) => {
     try {
-        const allGuides = await Create.find();
+        const allGuides = await Create.find({ role: 'Tour Guide' }); // Filter by role
         res.json(allGuides);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -78,7 +79,7 @@ router.delete('/delete/:id', async (req, res) => {
 // Get Approved Tour Guides Route
 router.get('/approved', async (req, res) => {
     try {
-        const approvedGuides = await Create.find({ isApproved: true });
+        const approvedGuides = await Create.find({ isApproved: true, role: 'Tour Guide' }); // Filter by role
         res.json(approvedGuides);
     } catch (error) {
         res.status(500).json({ error: error.message });

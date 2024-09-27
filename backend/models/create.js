@@ -35,6 +35,10 @@ const createSchema = new Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        default: 'Tour Guide'  // Default role set to 'Tour Guide'
+    },
     status: {
         type: String,
         default: 'pending'  // Default value to 'pending'
