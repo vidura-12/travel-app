@@ -24,7 +24,7 @@ function Header() {
                 <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotel">Hotels</Link></li>
                 <li><Link to="/travelagent/dashboard">Travel Agents</Link></li>
-                <li><Link to="/eventView">Events</Link></li>
+                <li><Link to="#">Events</Link></li>
               </ul>
             </div>
             <div className="auth-container">
