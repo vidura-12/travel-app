@@ -68,7 +68,7 @@ export default function Register() {
         },
       });
 
-      navigate('/profileGuide', { state: formData });
+      navigate('/scheduler/sellersignin', { state: formData });
 
       setFormData({
         name: '',

@@ -106,8 +106,7 @@ function App() {
         <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />
         <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
-        
-
+        <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} />
 
       
         
@@ -153,8 +152,7 @@ function App() {
          <Route path="/travelagent/dashGuide" element={<TourGuideLayout><AgentGuideDash /></TourGuideLayout>} />
          <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
          <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
-         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} />
-         <Route path="/guideRegister" element={<TourGuideLayout><AgentRegister /></TourGuideLayout>} />
+         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
          
          
         {/* Location Manager Routes */}
