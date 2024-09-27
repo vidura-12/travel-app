@@ -6,15 +6,12 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
 
-
 function AdminEventApproval() {
   const [events, setEvents] = useState([]);
   const [approvedEvents, setApprovedEvents] = useState([]);
   const navigate = useNavigate();
 
-
   useEffect(() => {
-
     const fetchEvents = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -34,8 +31,7 @@ function AdminEventApproval() {
       }
     };
     fetchEvents();
-  }, []);
-
+  }, [navigate]);
 
   const handleApproval = async (eventId) => {
     try {
@@ -97,8 +93,8 @@ function AdminEventApproval() {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 style={{ color: 'black' }}>Pending Event Approvals</h2>
+    <div className="container mt-5" style={{marginTop:'30px'}}>
+      <h2 style={{ color: 'black' , position:'relative' , top:'50%' }}>Pending Event Approvals</h2>
       {events.length === 0 ? (
         <p style={{color: 'skyblue'}}>No events pending approval.</p>
       ) : (
@@ -145,7 +141,7 @@ function AdminEventApproval() {
         </table>
       )}
 
-      <h2 style={{ color: 'black' }} className="mt-5">Approved Events</h2>
+      <h2 style={{ color: 'black', marginTop: '30px' }} className="mt-5">Approved Events</h2>
       {approvedEvents.length === 0 ? (
         <p>No approved events.</p>
       ) : (
@@ -189,7 +185,7 @@ function AdminEventApproval() {
           </tbody>
         </table>
       )}
-      
+
       {approvedEvents.length > 0 && (
         <div className="text-center mt-4">
           <button className="btn btn-primary" style={{ width: '150px' }} onClick={generatePDF}>

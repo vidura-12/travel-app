@@ -62,6 +62,8 @@ import EditEvent from './EventManager/updateEvent';
 import UserTicketForm from './com/ticket';
 import TicketReport from './EventManager/report';
 import AdminEventApproval from './EventManager/Admin';
+import Dashboard from './EventManager/Dashbord';
+import PendingEvent from './EventManager/PendingEvent';
 
 
 
@@ -179,6 +181,8 @@ function App() {
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
         <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
         <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
+        <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
+        <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
 
 
      
