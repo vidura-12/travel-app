@@ -6,15 +6,11 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const middle = require('../middleware/auth.js');
 
-<<<<<<< HEAD
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  
-=======
+
 router.post('/loginn', async (req, res) => {
   const password = req.body.password;
   const username = req.body.username;
->>>>>>> main
+
   try {
     const admin = await Admin.findOne({ username });
 
@@ -43,23 +39,7 @@ router.post('/loginn', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-router.get('/profile/:username', middle, async (req, res) => {
-  try {
-    const { username } = req.params; // Extract username from request parameters
 
-    // Use findOne to search by username instead of findById
-    const admin = await Admin.findOne({ username });
-
-    if (!admin) {
-      return res.status(404).json({ error: 'Admin not found' });
-    }
-
-    res.json(admin);
-  } catch (err) {
-    console.error('Error fetching admin:', err);
-    res.status(500).json({ error: 'Internal server error' });
-=======
 const User = require('../models/User');
 
 // POST /api/auth/register
@@ -163,7 +143,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
->>>>>>> main
+
   }
 });
 
