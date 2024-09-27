@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 require("dotenv").config();
 
 // Import routes
+const eventsRoutes = require('./routes/Event.js');
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
@@ -43,7 +44,7 @@ app.use('/location', locationRoutes);
 // app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
-
+app.use('/event', eventsRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);

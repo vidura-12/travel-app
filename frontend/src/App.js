@@ -7,7 +7,7 @@ import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
 import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
-
+import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
 
 
@@ -19,7 +19,7 @@ import Home from './com/home';
 import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
-
+import EventLayout from'./EventLayout';
 
 
 import SchedulerDashboard from './com/Schedulerdashboard';
@@ -81,7 +81,15 @@ import SellerRegister from './scheduler/Sellerregister';
 import SellerSignIn from './scheduler/sellersignin';
 
 
-
+import AddEvent from './EventManager/addEvent'
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
+import EditEvent from './EventManager/updateEvent';
+import UserTicketForm from './com/ticket';
+import TicketReport from './EventManager/report';
+import AdminEventApproval from './EventManager/Admin';
+import Dashboard from './EventManager/Dashbord';
+import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 
@@ -108,7 +116,15 @@ function App() {
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
         <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
 
-      
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
+        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
+        <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
+        <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
         
         
        
