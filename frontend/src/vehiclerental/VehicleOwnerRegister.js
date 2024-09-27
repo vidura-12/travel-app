@@ -13,7 +13,7 @@ function VehicleOwnerRegister() {
   const [error, setError] = useState(''); // State for error messages
   const [nameError, setNameError] = useState(''); // State for name error messages
   const [phoneError, setPhoneError] = useState(''); 
-  const [roleError, setRoleError] = useState(''); // State for role error messages
+  //const [roleError, setRoleError] = useState(''); // State for role error messages
   const navigate = useNavigate();
 
   // Handler for first name and second name input to allow only letters
@@ -56,7 +56,7 @@ function VehicleOwnerRegister() {
     e.preventDefault();
     // Clear previous errors
     setError('');
-    setRoleError('');
+    //setRoleError('');
 
     // Validate password
     if (!isPasswordValid(password)) {
@@ -64,10 +64,10 @@ function VehicleOwnerRegister() {
       return; // Stop form submission
     }
 
-    if(!role) {
-      setError('Please select a role.');
-      return;
-    }
+    // if(!role) {
+    //   setError('Please select a role.');
+    //   return;
+    // }
 
     try {
       const response = await axios.post('http://localhost:8081/vehicle-owner/register', {
@@ -228,7 +228,7 @@ function VehicleOwnerRegister() {
               style={inputStyle}
             />
           </div>
-          <div style={inputGroupStyle}>
+          {/* <div style={inputGroupStyle}>
           <label htmlFor="role" style={labelStyle}>Select Role:</label>
           <select
             id="role"
@@ -241,7 +241,7 @@ function VehicleOwnerRegister() {
             <option value="tourGuide">Tour Guide</option>
             <option value="agent">Agent</option>
           </select>
-        </div>
+        </div> */}
           <button
             type="submit"
             style={buttonStyle}
