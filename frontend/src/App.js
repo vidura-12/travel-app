@@ -10,6 +10,8 @@ import TravelAgentLayout from './TravelAgentLayout';
 import LocationLayout from './LocationLayout';
 import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
 import UserSupportLayOut from './UserSupportLayOut';
+import VehicleOwnerLayout from './vehiclerental/VehicleOwnerLayout';
+import VehicleAdminLayout from './vehiclerentalMannager/VehiceAdminLayout';
 
 // Auth Components
 import SignUp from './components/Auth/SignUp';
@@ -96,6 +98,7 @@ import VehicleOwnerLogin from './vehiclerental/VehicleOwnerLogin';
 import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
 import Mybookings from './vehiclerental/MyBookings';
 import VehicleBook from './vehiclerental/VehicelBook';
+import VehicleOwnerProfile from './vehiclerental/VehicleOwnerProfile';
 
 function App() {
   return (
@@ -195,12 +198,13 @@ function App() {
 
         {/* Vehicle Rental Routes */}
         <Route path="/VehicleRentalHome" element={<UserLayout><VehicleRentalHome /></UserLayout>} />
-        <Route path="/vehicle-owner-dashboard" element={<UserLayout><VehicleOwnerPage /></UserLayout>} />
+        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerLayout><VehicleOwnerPage /></VehicleOwnerLayout>} />
         <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
         <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
         <Route path="/mybookings" element={<Mybookings />} />
         <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
-        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerPage />} />
+        <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
+
         
       </Routes>
     </Router>

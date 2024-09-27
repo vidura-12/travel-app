@@ -36,8 +36,8 @@ function VehicleOwnerProfile() {
   }
 
   return (
-    <div style={containerStyle}>
-      <div style={boxStyle}>
+    <div >
+      <div >
         <h2>Vehicle Owner Profile</h2>
         {ownerData ? (
           <>
