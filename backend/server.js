@@ -42,7 +42,6 @@ mongoose.connect(URL).then(() => {
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
-<<<<<<< HEAD
 
 
 app.use('/FeedBack', addRoute1); // new
@@ -60,5 +59,3 @@ app.use('/packages', packageRoutes);
 app.use('/userauth',authuser);
 app.use('/locationAdmin',locationAdmin);
 
-=======
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)

@@ -4,12 +4,6 @@ import axios from 'axios';
 import './location.css';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; // For navigation
-<<<<<<< HEAD
-=======
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import Swal from 'sweetalert2'; // Import SweetAlert2
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
 
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
@@ -54,18 +48,6 @@ const LocationTable = () => {
       return;
     }
 
-    // SweetAlert confirmation for approve action
-    const { isConfirmed } = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to approve this location?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, approve it!',
-      cancelButtonText: 'No, cancel!',
-    });
-
-    if (!isConfirmed) return; // If user cancels, stop the function
-
     try {
       await axios.put(`http://localhost:8081/locationAdmin/update/${locationId}`, {
         status: 'approved',
@@ -81,7 +63,6 @@ const LocationTable = () => {
         return location;
       });
       setLocations(updatedLocations);
-      Swal.fire('Approved!', 'The location has been approved.', 'success'); // Success alert
     } catch (error) {
       console.error('Error approving location:', error);
       if (error.response && error.response.status === 401) {
@@ -100,21 +81,6 @@ const LocationTable = () => {
       return;
     }
 
-<<<<<<< HEAD
-=======
-    // SweetAlert confirmation for delete action
-    const { isConfirmed } = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this location?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-    });
-
-    if (!isConfirmed) return; // If user cancels, stop the function
-
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
         headers: {
@@ -123,7 +89,6 @@ const LocationTable = () => {
       });
       const updatedLocations = locations.filter(location => location._id !== locationId);
       setLocations(updatedLocations);
-      Swal.fire('Deleted!', 'The location has been deleted.', 'success'); // Success alert
     } catch (error) {
       console.error('Error deleting location:', error);
       if (error.response && error.response.status === 401) {
@@ -145,10 +110,6 @@ const LocationTable = () => {
     <div className="location-dashboard-body">
       <div className="location-dashboard-container">
         <h2 className="location-dashboard-title">Location Details</h2>
-<<<<<<< HEAD
-=======
-        
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
         <table className="location-dashboard-table">
           <thead>
             <tr>
@@ -195,11 +156,7 @@ const LocationTable = () => {
             </div>
           </div>
         )}
-        <button className="location-btn-report" onClick={downloadReport}>
-          Download Report
-        </button>
       </div>
-      
     </div>
   );
 };

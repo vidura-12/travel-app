@@ -2,43 +2,16 @@ import React from 'react';
 import './home.css';
 //ghjkl
 function Home() {
-<<<<<<< HEAD
   return (
     <div>
       <section className="home">
         <div className="home-container">      
-=======
-  const [locations, setLocations] = useState([]);
-  const [visibleDescription, setVisibleDescription] = useState({});
-
-  useEffect(() => {
-    // Fetch locations from the API
-    const fetchLocations = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/locationAdmin/');
-        setLocations(response.data);
-      } catch (error) {
-        console.error('Error fetching locations:', error);
-      }
-    };
-
-    fetchLocations();
-  }, []);
-
-  // Function to toggle the description visibility
-
-
-  return (
-    <div>
-      <section className="home">
-        <div className="home-container1">
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
           <video autoPlay muted loop className="background-video">
             <source src={`${process.env.PUBLIC_URL}/img/videoplayback.webm`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
-          <div className="content1">
+          <div className="content">
             <h4>Discover Your Next Adventure</h4>
             <h1>Explore the world with <b>TravelMate</b>, where every journey begins with inspiration. Find your perfect destination, plan unforgettable experiences, and embark on a voyage of discovery. Start your adventure today!</h1>
             <p></p>
@@ -70,37 +43,7 @@ function Home() {
           </div>
         </div>
       </section>
-<<<<<<< HEAD
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossOrigin="anonymous" referrerPolicy="no-referrer"></script>
-=======
-
-      {/* Add a new section to display the locations */}
-      <section className="location-gallery">
-        <div className="container">
-          <h2>Featured Locations</h2>
-          <div className="location-grid">
-            {locations.map((location) => (
-              <div
-                className="location-card"
-                key={location._id}
-              
-              >
-                <img
-                  src={`/img/${location.picture}`}
-                  alt={location.name}
-                  className="location-card-img"
-                />
-                <h3>{location.name}</h3>
-                {/* Conditionally render the description based on visibility */}
-                {visibleDescription[location._id] && (
-                  <p className="location-description">{location.description}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
->>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
     </div>
   );
 }
