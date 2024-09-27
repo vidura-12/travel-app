@@ -12,17 +12,18 @@ const vehicleRoutes = require('./routes/vehicleRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const path = require('path');
 // Import routes
+const eventsRoutes = require('./routes/Event.js');
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const packageRoutes = require('./routes/package');
-const SellersRoutes = require('./routes/Sellers');
 const checklistRoutes = require('./routes/checklist');
 const locationAdmin = require('./routes/Locationadmin');
 const auth1 = require('./routes/auth1');
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 
+const sellerlog = require('./routes/sellerlog');
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -57,7 +58,7 @@ app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
-app.use('/Seller',SellersRoutes);
+app.use('/event', eventsRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use(bodyParser.json());
@@ -70,3 +71,6 @@ app.post('/login', authController.login);
 app.post('/register', authController.register);
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/vehicle-owner/login', vehicleOwnerController.login);
+
+
+

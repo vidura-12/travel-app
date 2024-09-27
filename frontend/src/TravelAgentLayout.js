@@ -1,12 +1,11 @@
-import React from 'react';
-import Header2 from './travelagent/header';
- 
+import React from 'react'; 
+import Header from './admin/guideHeader'
 
 //import Footer from './travelagent/footer';
 
 const TavelAgentLayout = ({ children }) => (
   <div>
-    <Header2 />
+    <Header />
     {children}
     
   </div>

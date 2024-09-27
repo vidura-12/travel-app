@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Header.css'; 
+import './Header4.css'; 
 
 const Header = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Header = () => {
     };
 
     return (
-        <div className="navbar-custom-header">
+        <div className="navbar-custom-header1">
             <ul className="menu-header">
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/LocationAdmin/home">DashBoard</a>

@@ -5,10 +5,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 //import Adminevent from './eventAdmin'
-import EventLayout from './EventLayout';
 import TravelAgentLayout from './TravelAgentLayout';
+import TourGuideLayout from './tourGuideLayOut';
+import EventLayout from './EventLayout';
 import LocationLayout from './LocationLayout';
 import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
+import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
 import VehicleOwnerLayout from './vehiclerental/VehicleOwnerLayout';
 import VehicleAdminLayout from './vehiclerentalManager/VehiceAdminLayout';
@@ -25,6 +27,9 @@ import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
 import Newlocation from './com/newLocation';
+
+
+
 import SchedulerDashboard from './com/Schedulerdashboard';
 import FeedbackList from './com/feedRite';
 import FeedbackForm from './com/feedbackForm';
@@ -38,22 +43,29 @@ import AdminProfile from './admin/Adminlprofile';
 
 
 // Travel Agent Components
-import AgentHome from './travelagent/home';
-import AgentContact from './travelagent/num';
-import AgentAbout from './travelagent/details';
-import AgentDashboard from './travelagent/dashboard';
-import AgentCreatePost from './travelagent/createpost';
-import AgentBookTourist from './travelagent/booktourist';
-import AgentRegister from './travelagent/register';
-import AgentProfile from './travelagent/profile';
-import AgentUpProfile from './travelagent/upProfile';
+import AgentDashboard from './travelagent/dashboard'; 
+import AgentBookTourist from './travelagent/booktourist'; 
+import AgentApproveDeny from './travelagent/approveDeny';
+import AgentBooked from './travelagent/booktourist'; 
+import AgentGuideDash from './travelagent/dashGuide';
+import AgentGuideHeader from './travelagent/guideHeader';
+import AgentTouristBooked from './travelagent/touristBooked';
+// import AgentHome from './travelagent/home';
+// import AgentContact from './travelagent/num';
+// import AgentAbout from './travelagent/details';
+// import AgentDashboard from './travelagent/dashboard';
+// import AgentCreatePost from './travelagent/createpost';
+// import AgentBookTourist from './travelagent/booktourist';
+// import AgentRegister from './travelagent/register';
+// import AgentProfile from './travelagent/profile';
+// import AgentUpProfile from './travelagent/upProfile';
 //import AgentLog from './travelagent/login';
 //import AgentView from './travelagent/viewBooking';
 //import AgentApprove from './travelagent/approveDeny';
 // import AgentGuide from './com/guide'; 
 // import AgentAll from './com/allGuides'; 
 // import AgentBookGuide from './com/bookGuide';
-import AgentSucc from './travelagent/succ';
+//import AgentSucc from './travelagent/succ';
 
 // Event Manager Components
 import AddEvent from './EventManager/addEvent';
@@ -65,8 +77,20 @@ import AddEvent from './EventManager/addEvent';
 // import AdminEventApproval from './EventManager/Admin';
 
 
-import AgentGHome from './com/guideHome';
+//import AgentGHome from './com/guideHome';
 
+// Travel Agent Components   
+import AgentAll from './com/allGuides';
+import AgentBGuide from './com/bookGuide';
+import AgentGuide from './com/guide';
+import AgentproGuide from './com/profileGuide';
+import AgentRegister from './com/GuideRegister'; 
+
+
+import ChecklistOverview from './components/checklist/ChecklistOverview';
+import CreateChecklist from './components/checklist/CreateChecklist';
+import ChecklistItems from './components/checklist/ChecklistItems';
+import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 import LocationsSummary from './locationmanager/LocationsSummary';
@@ -90,15 +114,21 @@ import SellerSignIn from './scheduler/sellersignin';
 
 
 // User Support Components
+import AdminChatDashboard from './usersupporter/AdminChatDashboard';
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
+import EditEvent from './EventManager/updateEvent';
+import UserTicketForm from './com/ticket';
+import TicketReport from './EventManager/report';
+import AdminEventApproval from './EventManager/Admin';
+import Dashboard from './EventManager/Dashbord';
+import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 
 // Checklist Components
 import Navbar from './components/Layout/Navbar';
-import ChecklistOverview from './components/checklist/ChecklistOverview';
-import CreateChecklist from './components/checklist/CreateChecklist';
-import ChecklistItems from './components/checklist/ChecklistItems';
-import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
+
 
 // Vehicle Rental Components
 import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
@@ -117,6 +147,18 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
+        <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
+        <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+        <Route path="/admin/chat-dashboard" element={<AdminLayout><AdminChatDashboard /></AdminLayout>} />
+        <Route path="/admin/dash" element={<AdminLayout><FeedDash /></AdminLayout>} />
+        <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
+        <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
+        <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
+        <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
+        <Route path="/allFeedBack" element={<UserLayout><allFeedBack /></UserLayout>} />
+        <Route path="/Chatbox" element={<UserLayout><Chatbox /></UserLayout>} />
+        <Route path="/FAQ" element={<UserLayout><FAQ /></UserLayout>} />
+        <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
@@ -138,15 +180,28 @@ function App() {
         <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} /> 
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-      
+
+        <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />
+        <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
+        <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
+        <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
+
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
+        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
+        <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
+        <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
         
         
        
         <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
-
+        
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
@@ -158,8 +213,7 @@ function App() {
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
-
+         
         
         {/* User Support Home Route */}
         <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
@@ -171,19 +225,26 @@ function App() {
         <Route path="/Admin/profile" element={<AdminLayout><AdminProfile /></AdminLayout>} />
 
         {/* Role-based Routes */}
-        <Route path="/travelagent/home" element={<TravelAgentLayout><AgentHome /></TravelAgentLayout>} />
+        
         <Route path="/location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+
 
         {/* Travel Agent Routes */}
         <Route path="/travelagent/dashboard" element={<TravelAgentLayout><AgentDashboard /></TravelAgentLayout>} />
-        <Route path="/travelagent/contact" element={<TravelAgentLayout><AgentContact /></TravelAgentLayout>} />
+        <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBooked /></TravelAgentLayout>} />
+         <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApproveDeny /></TravelAgentLayout>} />
+         <Route path="/travelagent/dashGuide" element={<TourGuideLayout><AgentGuideDash /></TourGuideLayout>} />
+         <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
+         <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
+         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+        {/* <Route path="/travelagent/contact" element={<TravelAgentLayout><AgentContact /></TravelAgentLayout>} />
         <Route path="/travelagent/about" element={<TravelAgentLayout><AgentAbout /></TravelAgentLayout>} />
         <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost /></TravelAgentLayout>} />
         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist /></TravelAgentLayout>} />
         <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister /></TravelAgentLayout>} />
         <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile /></TravelAgentLayout>} />
         <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
+        <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} /> */}
         {/* <Route path="/travelagent/login" element={<TravelAgentLayout><AgentLog /></TravelAgentLayout>} />
         <Route path="/travelagent/viewBooking" element={<TravelAgentLayout><AgentView /></TravelAgentLayout>} />
         <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApprove /></TravelAgentLayout>} /> */}
@@ -201,6 +262,15 @@ function App() {
         <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} /> */}
 
 
+         <Route path="/travelagent/dashboard" element={<TravelAgentLayout><AgentDashboard /></TravelAgentLayout>} />
+         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBooked /></TravelAgentLayout>} />
+         <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApproveDeny /></TravelAgentLayout>} />
+         <Route path="/travelagent/dashGuide" element={<TourGuideLayout><AgentGuideDash /></TourGuideLayout>} />
+         <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
+         <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
+         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+         
+         
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />

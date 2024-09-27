@@ -7,22 +7,29 @@ const Review = () => {
   const [hover, setHover] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [percentage, setPercentage] = useState(0);
+  const [error, setError] = useState(''); // State for error message
 
   const handleRatingClick = (ratingValue) => {
     setRating(ratingValue);
     setPercentage((ratingValue / 5) * 100);
+    setError(''); // Clear error message when rating is selected
   };
 
   const handleSubmit = () => {
-    setSubmitted(true);
-    alert('Review submitted');
+    if (rating === 0) {
+      setError('Please select a rating before submitting.'); // Set error if no rating
+    } else {
+      setSubmitted(true);
+      setError(''); // Clear error message if submission is successful
+      alert('Review submitted');
+    }
   };
 
   return (
     <div
       style={{
         minHeight: '100vh',
-        backgroundImage: 'url("/img/sl26.jpg")', // Add your background image here
+        backgroundImage: 'url("/img/sl58.jpg")', // Add your background image here
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -73,6 +80,9 @@ const Review = () => {
         <div className="text-center mb-3">
           {rating > 0 && <p>You rated: {percentage}%</p>}
         </div>
+
+        {/* Error Message */}
+        {error && <div className="alert alert-danger text-center" role="alert">{error}</div>}
 
         {/* Submit Button */}
         <div className="d-flex justify-content-center">

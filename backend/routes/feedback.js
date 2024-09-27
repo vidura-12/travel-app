@@ -74,7 +74,7 @@ router.put('/update/:id', async (req, res) => {
 // Delete a specific feedback by ID
 router.delete("/delete/:id", async (req, res) => {
     try {
-        const deletedFeedback = await Feedback.findByIdAndDelete(req.params.id);
+        const deletedFeedback = await Feedback.findOneAndDelete(req.params.email);
 
         if (!deletedFeedback) {
             return res.status(404).json({ message: "Feedback not found" });
