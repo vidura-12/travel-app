@@ -161,7 +161,7 @@ const Sellersignup = () => {
             </div>
             <p className="text-center mt-3">Already Have an Account?</p>
             <div className='text-center'>
-              <a href="/login" className="btn btn-link">Login here</a>
+              <a href="/scheduler/sellersignin" className="btn btn-link">Login here</a>
             </div>
           </form>
         </div>

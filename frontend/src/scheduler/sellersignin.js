@@ -36,11 +36,14 @@ const SellerSignIn = () => {
         case 'Hotel Owner':
           navigate('/admin-dashboard'); // Admin dashboard route
           break;
+          case 'Tour Guide':
+            navigate('/travelagent/dashGuide'); // Admin dashboard route
+            break;
         case 'Travel Agency':
           navigate('/scheduler/Sellersregister'); // Event Manager dashboard route
           break;
         case 'Event Manager':
-          navigate('/vehicle-owner-dashboard'); // Vehicle Owner dashboard route
+          navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route
           break;
         case 'Vehicle Owner':
         default:

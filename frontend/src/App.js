@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLayout from './UserLayout';
 import AdminLayout from './AdminLayout';
 import TravelAgentLayout from './TravelAgentLayout';
+import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
-
+import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
 
 
@@ -18,7 +19,7 @@ import Home from './com/home';
 import Location from './com/location';
 import Hotel from './com/hotel';
 import Feed from './com/feedback';
-
+import EventLayout from'./EventLayout';
 
 
 import SchedulerDashboard from './com/Schedulerdashboard';
@@ -37,19 +38,21 @@ import AdminLogin from './admin/AdminLogin';
 import AdminProfile from './admin/Adminlprofile';
 
 
-// Travel Agent Components
-import AgentHome from './travelagent/home';
-import AgentContact from './travelagent/num';
-import AgentAbout from './travelagent/details';
-import AgentDashboard from './travelagent/dashboard';
-import AgentCreatePost from './travelagent/createpost';
-import AgentBookTourist from './travelagent/booktourist';
-import AgentRegister from './travelagent/register';
-import AgentProfile from './travelagent/profile';
-import AgentUpProfile from './travelagent/upProfile';
-import AgentSucc from './travelagent/succ';
-import AgentGHome from './com/guideHome';
-import Navbar from './components/Layout/Navbar';
+// Travel Agent Components   
+import AgentDashboard from './travelagent/dashboard'; 
+import AgentBookTourist from './travelagent/booktourist'; 
+import AgentApproveDeny from './travelagent/approveDeny';
+import AgentBooked from './travelagent/booktourist'; 
+import AgentGuideDash from './travelagent/dashGuide';
+import AgentGuideHeader from './travelagent/guideHeader';
+import AgentTouristBooked from './travelagent/touristBooked';
+
+import AgentAll from './com/allGuides';
+import AgentBGuide from './com/bookGuide';
+import AgentGuide from './com/guide';
+import AgentproGuide from './com/profileGuide';
+import AgentRegister from './com/GuideRegister'; 
+
 import ChecklistOverview from './components/checklist/ChecklistOverview';
 import CreateChecklist from './components/checklist/CreateChecklist';
 import ChecklistItems from './components/checklist/ChecklistItems';
@@ -78,7 +81,15 @@ import SellerRegister from './scheduler/Sellerregister';
 import SellerSignIn from './scheduler/sellersignin';
 
 
-
+import AddEvent from './EventManager/addEvent'
+import EventList from './EventManager/EventList';
+import EventView from './com/eventView';
+import EditEvent from './EventManager/updateEvent';
+import UserTicketForm from './com/ticket';
+import TicketReport from './EventManager/report';
+import AdminEventApproval from './EventManager/Admin';
+import Dashboard from './EventManager/Dashbord';
+import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 
@@ -99,15 +110,28 @@ function App() {
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-      
+
+        <Route path="/allGuides" element={<UserLayout><AgentAll /></UserLayout>} />
+        <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
+        <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
+        <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
+
+        <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
+        <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
+        <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
+        <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
+        <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
+        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
+        <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
+        <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
         
         
        
         <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
-
+        
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
@@ -119,8 +143,7 @@ function App() {
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
         <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-        <Route path="/guideHome" element={<UserLayout><AgentGHome /></UserLayout>} />
-
+         
         
         {/* User Support Home Route */}
         {/* <Route path="/com/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} /> */}
@@ -135,22 +158,19 @@ function App() {
 
         {/* Role-based Routes */}
 
-        <Route path="/travelagent/home" element={<AdminLayout><AgentHome /></AdminLayout>} />
-        <Route path="/location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
+         <Route path="/location/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
 
 
         {/* Travel Agent Routes */}
-        <Route path="/travelagent/home" element={<TravelAgentLayout><AgentHome /></TravelAgentLayout>} />
-        <Route path="/travelagent/dashboard" element={<TravelAgentLayout><AgentDashboard /></TravelAgentLayout>} />
-        <Route path="/travelagent/contact" element={<TravelAgentLayout><AgentContact /></TravelAgentLayout>} />
-        <Route path="/travelagent/about" element={<TravelAgentLayout><AgentAbout /></TravelAgentLayout>} />
-        <Route path="/travelagent/createpost" element={<TravelAgentLayout><AgentCreatePost /></TravelAgentLayout>} />
-        <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBookTourist /></TravelAgentLayout>} />
-        <Route path="/travelagent/register" element={<TravelAgentLayout><AgentRegister /></TravelAgentLayout>} />
-        <Route path="/travelagent/profile" element={<TravelAgentLayout><AgentProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/upProfile" element={<TravelAgentLayout><AgentUpProfile /></TravelAgentLayout>} />
-        <Route path="/travelagent/succ" element={<TravelAgentLayout><AgentSucc /></TravelAgentLayout>} />
-
+         <Route path="/travelagent/dashboard" element={<TravelAgentLayout><AgentDashboard /></TravelAgentLayout>} />
+         <Route path="/travelagent/booktourist" element={<TravelAgentLayout><AgentBooked /></TravelAgentLayout>} />
+         <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApproveDeny /></TravelAgentLayout>} />
+         <Route path="/travelagent/dashGuide" element={<TourGuideLayout><AgentGuideDash /></TourGuideLayout>} />
+         <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
+         <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
+         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+         
+         
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
