@@ -43,6 +43,7 @@ const Sellersignup = () => {
   };
 
   return (
+    <div className='sellers'>
     <div className='sellersignup-page'>
       <div className="signup-container">
         <form onSubmit={handleSubmit} className="signup-form">
@@ -147,6 +148,7 @@ const Sellersignup = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };
