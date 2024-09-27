@@ -19,6 +19,8 @@ const addRoute1 = require("./routes/feedback");
 // Import the new chat routes
 const chatRoutes = require('./routes/chat');  // <-- New chat routes
 
+const sellerlog = require('./routes/sellerlog');
+
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -46,11 +48,14 @@ app.use('/location', locationRoutes);
 // app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
+
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 
 // Add the chat route for handling messages and responses
 app.use('/api/chat', chatRoutes);  // <-- New chat route
+
+app.use('/sellerlog', sellerlog);
 
 // Start the server
 const server = app.listen(PORT, () => {

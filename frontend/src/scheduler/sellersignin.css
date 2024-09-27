@@ -1,0 +1,113 @@
+/* General container styling */
+.sel{
+  background:
+     url("./sheduler image/im7.jpg") no-repeat center;
+     background-size: cover;
+     height:700px;
+     display:flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     padding: 50px 0; 
+     position: relative;
+     margin-top: 77px;
+     border-radius: 10px;
+    
+}
+
+
+
+.seller {
+  background-color: #f8f9fa;
+  padding-bottom: 50px;
+  margin: 0;
+  padding: 0;
+  margin-top: 60px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+.sellercon {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form and input styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+/* Placeholder styling */
+.form-control::placeholder {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Select styling */
+.form-control-select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+/* Button styling */
+.btn-success {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
