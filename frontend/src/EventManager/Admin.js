@@ -5,8 +5,7 @@ import { FaTrash } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import './AdminEventApproval.css'; // Import the CSS file
+import './admin.css';
 
 function AdminEventApproval() {
   const [events, setEvents] = useState([]);
@@ -18,7 +17,7 @@ function AdminEventApproval() {
       const token = localStorage.getItem('token');
       if (!token) {
         alert('You need to log in first.');
-        navigate('/admin/login');
+        navigate('/admin/login'); // Redirect to login page
         return;
       }
 
@@ -37,22 +36,11 @@ function AdminEventApproval() {
 
   const handleApproval = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to approve this event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, approve it!'
-      });
-      if (result.isConfirmed) {
-        await axios.put(`http://localhost:8081/event/approve/${eventId}`);
-        const approvedEvent = events.find(event => event._id === eventId);
-        setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
-        setEvents(events.filter(event => event._id !== eventId));
-        Swal.fire('Approved!', 'Event has been approved.', 'success');
-      }
+      await axios.put(`http://localhost:8081/event/approve/${eventId}`);
+      const approvedEvent = events.find(event => event._id === eventId);
+      setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
+      setEvents(events.filter(event => event._id !== eventId));
+      alert('Event approved successfully!');
     } catch (error) {
       console.error('Error approving event:', error);
     }
@@ -60,20 +48,9 @@ function AdminEventApproval() {
 
   const handleRejection = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to reject this event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reject it!'
-      });
-      if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
-        setEvents(events.filter(event => event._id !== eventId));
-        Swal.fire('Rejected!', 'Event has been rejected.', 'success');
-      }
+      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
+      setEvents(events.filter(event => event._id !== eventId));
+      alert('Event rejected successfully!');
     } catch (error) {
       console.error('Error rejecting event:', error);
     }
@@ -81,20 +58,9 @@ function AdminEventApproval() {
 
   const handleDeleteApproved = async (eventId) => {
     try {
-      const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you want to delete this approved event?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      });
-      if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
-        setApprovedEvents(approvedEvents.filter(event => event._id !== eventId));
-        Swal.fire('Deleted!', 'Approved event has been deleted.', 'success');
-      }
+      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
+      setApprovedEvents(approvedEvents.filter(event => event._id !== eventId));
+      alert('Approved event deleted successfully!');
     } catch (error) {
       console.error('Error deleting approved event:', error);
     }
@@ -103,8 +69,20 @@ function AdminEventApproval() {
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(20);
-    doc.text('Approved Events Report', 14, 22);
+    
+    // Add logo in the top right corner
+    const logoImg = '/img/logo.jpeg'; // Path to your logo image
+    const signatureImg = '/img/sig.jpeg'; // Path to your signature image
+    const margin = 10; // Margin from the right edge
+    const logoWidth = 50; // Logo width
+    const logoHeight = 15; // Logo height
 
+    // Calculate x position to align the logo to the right
+    const xPosition = doc.internal.pageSize.getWidth() - logoWidth - margin;
+    doc.addImage(logoImg, 'JPEG', xPosition, 10, logoWidth, logoHeight); // Logo position and size
+    doc.text('Approved Events Report', 14, 30);
+    
+    // Prepare data for the PDF
     const tableData = approvedEvents.map(event => [
       event.name,
       event.category,
@@ -115,116 +93,123 @@ function AdminEventApproval() {
       event.price,
     ]);
 
+    // Add table to the PDF
     autoTable(doc, {
-      startY: 30,
+      startY: 50, // Adjust startY to avoid overlapping with images
       head: [['Event Name', 'Category', 'Description', 'Location', 'Date', 'Time', 'Price']],
       body: tableData,
     });
 
+    // Add a border around the PDF page
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    doc.rect(5, 5, pageWidth - 10, pageHeight - 10); // Adjust for margin
+
+    // Add signature below the table
+    doc.addImage(signatureImg, 'JPEG', 10, doc.autoTable.previous.finalY + 10, 50, 15); // Signature position and size
+    
+    // Add "Admin Signature" text below the signature
+    doc.setFontSize(10); // Decrease font size for "Admin Signature"
+    doc.text('Admin Signature', 10, doc.autoTable.previous.finalY + 30); // Adjust position for the text
+
+    // Save the PDF
     doc.save('approved_events_report.pdf');
   };
 
   return (
-    <div className="event-container">
-      <h2 className="event-heading">Pending Event Approvals</h2>
-      {events.length === 0 ? (
-        <p className="event-no-data">No events pending approval.</p>
-      ) : (
-        <table className="table table-bordered table-hover">
-          <thead className="event-table-head">
-            <tr>
-              <th scope="col">Event Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Description</th>
-              <th scope="col">Location</th>
-              <th scope="col">Date</th>
-              <th scope="col">Time</th>
-              <th scope="col">Price</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.map((event) => (
-              <tr key={event._id}>
-                <td>{event.name}</td>
-                <td>{event.category}</td>
-                <td>{event.description}</td>
-                <td>{event.location}</td>
-                <td>{new Date(event.date).toLocaleDateString()}</td>
-                <td>{event.time}</td>
-                <td>{event.price}</td>
-                <td>
-                  <button
-                    className="btn event-approve-btn btn-sm"
-                    onClick={() => handleApproval(event._id)}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm ml-2"
-                    onClick={() => handleRejection(event._id)}
-                  >
-                    Reject
-                  </button>
-                </td>
+    <div className='AdminBack'>
+      <div className="event-dashboard-container mt-5">
+        <h2 className="event-dashboard-title">Pending Event Approvals</h2>
+        {events.length === 0 ? (
+          <p style={{ color: 'skyblue' }}>No events pending approval.</p>
+        ) : (
+          <table className="event-dashboard-table table table-bordered table-hover">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">Event Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Location</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      <h2 className="event-approved-heading">Approved Events</h2>
-      {approvedEvents.length === 0 ? (
-        <p className="event-no-data">No approved events.</p>
-      ) : (
-        <table className="table table-bordered table-hover">
-          <thead className="event-table-head">
-            <tr>
-              <th scope="col">Event Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Description</th>
-              <th scope="col">Location</th>
-              <th scope="col">Date</th>
-              <th scope="col">Time</th>
-              <th scope="col">Price</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {approvedEvents.map((event) => (
-              <tr key={event._id}>
-                <td>{event.name}</td>
-                <td>{event.category}</td>
-                <td>{event.description}</td>
-                <td>{event.location}</td>
-                <td>{new Date(event.date).toLocaleDateString()}</td>
-                <td>{event.time}</td>
-                <td>{event.price}</td>
-                <td>
-                  <span className="badge badge-success" style={{ backgroundColor: 'green', color: 'white' }}>
-                    Approved
-                  </span>
-                  <button
-                    className="btn btn-light btn-sm ml-2"
-                    onClick={() => handleDeleteApproved(event._id)}
-                    title="Delete"
-                  >
-                    <FaTrash style={{ color: 'black' }} />
-                  </button>
-                </td>
+            </thead>
+            <tbody>
+              {events.map((event) => (
+                <tr key={event._id}>
+                  <td>{event.name}</td>
+                  <td>{event.category}</td>
+                  <td>{event.description}</td>
+                  <td>{event.location}</td>
+                  <td>{new Date(event.date).toLocaleDateString()}</td>
+                  <td>{event.time}</td>
+                  <td>{event.price}</td>
+                  <td className="event-action-buttons">
+                    <button className="event-btn-approve" onClick={() => handleApproval(event._id)}>Approve</button>
+                    <button className="event-btn-delete" onClick={() => handleRejection(event._id)}>Reject</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        <h2 className="event-dashboard-title mt-5">Approved Events</h2>
+        {approvedEvents.length === 0 ? (
+          <p style={{ color: 'skyblue' }}>No approved events.</p>
+        ) : (
+          <table className="event-dashboard-table table table-bordered table-hover">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">Event Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Location</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {approvedEvents.map((event) => (
+                <tr key={event._id}>
+                  <td>{event.name}</td>
+                  <td>{event.category}</td>
+                  <td>{event.description}</td>
+                  <td>{event.location}</td>
+                  <td>{new Date(event.date).toLocaleDateString()}</td>
+                  <td>{event.time}</td>
+                  <td>{event.price}</td>
+                  <td className="event-action-buttons">
+                    <button className="event-btn-delete" onClick={() => handleDeleteApproved(event._id)}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        <button className="event-btn-report" onClick={generatePDF}>Generate Report</button>
 
-      {approvedEvents.length > 0 && (
-        <div className="text-center mt-4">
-          <button className="btn btn-primary event-report-btn" onClick={generatePDF}>
-            Events Report
-          </button>
-        </div>
-      )}
+        <style>{`
+          .AdminBack {
+            background-image: url('/img/event8.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: white; /* Adjust text color for better visibility */
+          }
+
+          .event-dashboard-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Set the transparency level here */
+            padding: 20px; /* Optional padding */
+            border-radius: 8px; /* Optional border radius for aesthetics */
+          }
+        `}</style>
+      </div>
     </div>
   );
 }

@@ -13,13 +13,7 @@ function AddEvent() {
     date: '',
     time: '',
     price: '',
-    t1: '',
-    t2: '',
-    t3: '',
-    t4: '',
-    t5: '',
-    t6: '',
-    t7: '',
+    ticketCriteria: [''], // Initialize with one empty criteria
   });
 
   const [image, setImage] = useState(null);
@@ -70,6 +64,18 @@ function AddEvent() {
     setImage(e.target.files[0]);
   };
 
+  const handleTicketCriteriaChange = (index, value) => {
+    const updatedCriteria = [...formData.ticketCriteria];
+    updatedCriteria[index] = value;
+    setFormData({ ...formData, ticketCriteria: updatedCriteria });
+  };
+
+  const addTicketCriteria = () => {
+    if (formData.ticketCriteria.length < 7) {
+      setFormData({ ...formData, ticketCriteria: [...formData.ticketCriteria, ''] });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -85,13 +91,12 @@ function AddEvent() {
     eventdata.append('date', formData.date);
     eventdata.append('time', formData.time);
     eventdata.append('price', formData.price);
-    eventdata.append('t1', formData.t1);
-    eventdata.append('t2', formData.t2);
-    eventdata.append('t3', formData.t3);
-    eventdata.append('t4', formData.t4);
-    eventdata.append('t5', formData.t5);
-    eventdata.append('t6', formData.t6);
-    eventdata.append('t7', formData.t7);
+    
+    formData.ticketCriteria.forEach((criteria, index) => {
+      if (criteria) {
+        eventdata.append(`t${index + 1}`, criteria);
+      }
+    });
 
     if (image) {
       eventdata.append('image', image);
@@ -113,13 +118,7 @@ function AddEvent() {
           date: '',
           time: '',
           price: '',
-          t1: '',
-          t2: '',
-          t3: '',
-          t4: '',
-          t5: '',
-          t6: '',
-          t7: '',
+          ticketCriteria: [''], // Reset to one empty criteria
         });
         setImage(null);
         navigate(0); // This reloads the current page
@@ -256,20 +255,25 @@ function AddEvent() {
 
           {/* Ticket Criteria Inputs */}
           <h4 style={styles.subHeading}>Ticket Criteria</h4>
-          {Array.from({ length: 5 }, (_, index) => (
-            <div className="form-group mb-3" key={`t${index + 1}`}>
+          {formData.ticketCriteria.map((criteria, index) => (
+            <div className="form-group mb-3" key={index}>
               <label htmlFor={`t${index + 1}`}>Ticket Criteria {index + 1}</label>
               <input
                 type="text"
                 className="form-control"
                 id={`t${index + 1}`}
-                name={`t${index + 1}`}
                 placeholder={`Enter ticket criteria ${index + 1}`}
-                value={formData[`t${index + 1}`]}
-                onChange={handleInputChange}
+                value={criteria}
+                onChange={(e) => handleTicketCriteriaChange(index, e.target.value)}
               />
             </div>
           ))}
+
+          <div className="text-center mb-3">
+            <button type="button" className="btn btn-secondary" onClick={addTicketCriteria} disabled={formData.ticketCriteria.length >= 7}>
+              Add Ticket Criteria
+            </button>
+          </div>
 
           <div className="text-center">
             <button type="submit" className="btn btn-primary" style={styles.button}>Submit</button>
@@ -282,7 +286,7 @@ function AddEvent() {
 
 const styles = {
   backgroundevent: {
-    backgroundImage: "url(/img/event9.jpg)",
+    backgroundImage: "url(/img/event3.jpg)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     padding: '50px 0',
@@ -293,24 +297,23 @@ const styles = {
     justifyContent: 'center',
   },
   form: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    margintop: '50px',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     padding: '30px',
     borderRadius: '10px',
-    boxShadow: '0px 0px 15px rgba(0,0,0,0.2)',
-    width: '50%',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    width: '650px', // Increased width
   },
   heading: {
     textAlign: 'center',
-    color: '#333',
     marginBottom: '20px',
   },
   subHeading: {
-    marginTop: '20px',
-    color: '#555',
+    marginBottom: '10px',
   },
   button: {
-    width: '150px',
-  }
+    width: '100%',
+  },
 };
 
 export default AddEvent;
