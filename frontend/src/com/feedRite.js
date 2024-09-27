@@ -1,70 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import jsPDF from 'jspdf';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';  // Import useLocation to access passed data
+import axios from 'axios';  // Make sure you import axios
+import jsPDF from 'jspdf';  // Import jsPDF for generating PDF
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
 const FeedRite = () => {
     const location = useLocation();
-    const initialFormData = location.state?.feedbackData || {};  // Get the feedback data passed via navigation
+    const initialFormData = location.state;  // Get the form data passed via navigation
+
     const [formData, setFormData] = useState(initialFormData);
     const [isEditing, setIsEditing] = useState(false);
-    const [feedbacks, setFeedbacks] = useState([]);
-
-    useEffect(() => {
-        const fetchFeedbacks = async () => {
-            try {
-                const response = await axios.get('http://localhost:8081/FeedBack/all'); // Ensure this endpoint is correct
-                setFeedbacks(response.data);
-            } catch (error) {
-                console.error('Error fetching feedbacks:', error);
-            }
-        };
-
-        fetchFeedbacks();
-    }, []);
+    const [feedbacks, setFeedbacks] = useState([]); // Initialize feedbacks array
 
     const handleEdit = () => {
         setIsEditing(true);
     };
 
-    const handleSave = async () => {
-        try {
-             
-            setIsEditing(false);
-
-            const response = await axios.put(`http://localhost:8081/FeedBack/update/${formData._id}`, {
-                name: formData.name,
-                email: formData.email,
-                contact: formData.contact,  // Include contact field
-                feedbackCategory: formData.feedbackCategory,
-                comment: formData.comment
-            });
-
-            console.log('Update response:', response.data);
-            const updatedFeedbacks = await axios.get('http://localhost:8081/FeedBack/all');
-            setFeedbacks(updatedFeedbacks.data);
-
-            console.log('Feedback updated successfully');
-        } catch (error) {
-            console.error('Error updating feedback:', error.response ? error.response.data : error.message);
-        }
+    const handleSave = () => {
+        // Save updated data logic here
+        setIsEditing(false);
     };
 
-    const handleDelete = async () => {
-        if (!formData._id) {
-            console.error('Feedback ID is missing!');
-            return;
-        }
-
+    const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8081/FeedBack/delete/${formData._id}`);
-            console.log('Feedback deleted successfully');
+            await axios.delete(`http://localhost:8081/FeedBack/delete/${id}`);
+            setFeedbacks(feedbacks.filter(feedback => feedback._id !== id));
 
-            const updatedFeedbacks = await axios.get('http://localhost:8081/FeedBack/all');
-            setFeedbacks(updatedFeedbacks.data);
+            // Optionally log or display a success message
+            console.log('Feedback deleted successfully');
         } catch (error) {
-            console.error('Error deleting feedback:', error.response ? error.response.data : error.message);
+            console.error('Error deleting feedback:', error);
         }
     };
 
@@ -73,25 +38,27 @@ const FeedRite = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    // Function to generate PDF
     const handleDownloadPDF = () => {
         const doc = new jsPDF();
 
         doc.setFontSize(16);
-        doc.text('Feedback Summary', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Name: ${formData.name || "N/A"}`, 20, 40);
-        doc.text(`Email: ${formData.email || "N/A"}`, 20, 50);
-        doc.text(`Contact: ${formData.contact || "N/A"}`, 20, 60);  // Include contact in PDF
-        doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 70);
-        doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 80);
+        doc.text('Feedback Summary', 20, 20);  // Title for PDF
 
-        doc.save('feedback-summary.pdf');
+        doc.setFontSize(12);
+        doc.text(`Name: ${formData.name}`, 20, 40);
+        doc.text(`Email: ${formData.email}`, 20, 50);
+        doc.text(`Contact: ${formData.contact}`, 20, 60);
+        doc.text(`Category: ${formData.category}`, 20, 70);
+        doc.text(`Feedback: ${formData.feedback}`, 20, 80);
+
+        doc.save('feedback-summary.pdf');  // Save PDF with this name
     };
 
     return (
         <div style={{
             minHeight: '100vh',
-            backgroundImage: 'url("/img/sl25.jpg")',
+            backgroundImage: 'url("/img/sl25.jpg")',  // Background image URL
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
@@ -111,50 +78,45 @@ const FeedRite = () => {
                     <div className="mb-3">
                         <label className="form-label"><strong>Name:</strong></label>
                         {isEditing ? (
-                            <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
+                            <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} />
                         ) : (
-                            <p>{formData.name || "N/A"}</p>
+                            <p>{formData.name}</p>
                         )}
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label"><strong>Email:</strong></label>
                         {isEditing ? (
-                            <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
+                            <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} />
                         ) : (
-                            <p>{formData.email || "N/A"}</p>
+                            <p>{formData.email}</p>
                         )}
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label"><strong>Contact:</strong></label>
+                        <label className="form-label"><strong>Contact Number:</strong></label>
                         {isEditing ? (
-                            <input type="text" name="contact" className="form-control" value={formData.contact} onChange={handleChange} required />
+                            <input type="text" name="contact" className="form-control" value={formData.contact} onChange={handleChange} />
                         ) : (
-                            <p>{formData.contact || "N/A"}</p>
+                            <p>{formData.contact}</p>
                         )}
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label"><strong>Category:</strong></label>
                         {isEditing ? (
-                            <select name="feedbackCategory" className="form-control" value={formData.feedbackCategory} onChange={handleChange} required>
-                                <option value="hotel service">Hotel Service</option>
-                                <option value="transport service">Transport Service</option>
-                                <option value="tour guide service">Tour guide Service</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <input type="text" name="category" className="form-control" value={formData.category} onChange={handleChange} />
                         ) : (
-                            <p>{formData.feedbackCategory || "N/A"}</p>
+                            <p>{formData.category}</p>
                         )}
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label"><strong>Feedback:</strong></label>
                         {isEditing ? (
-                            <textarea name="comment" className="form-control" value={formData.comment} onChange={handleChange} rows="4" required />
+                            <textarea name="feedback" className="form-control" value={formData.feedback} onChange={handleChange} rows="4" />
                         ) : (
-                            <p>{formData.comment || "N/A"}</p>
+                            <p>{formData.feedback}</p>
                         )}
                     </div>
 
@@ -167,12 +129,13 @@ const FeedRite = () => {
                         <button
                             type="button"
                             className="btn btn-danger"
-                            onClick={handleDelete}
+                            onClick={() => handleDelete(formData._id)}  // Use formData._id for delete
                         >
                             Delete
                         </button>
                     </div>
 
+                    {/* Download PDF Button */}
                     <button 
                         type="button" 
                         className="btn btn-secondary w-100" 

@@ -4,7 +4,7 @@ const { Location, upload } = require('../models/Locations');
 const middle = require('../middleware/auth.js');
 
 
-router.get('/', async (req, res) => {
+router.get('/', middle, async (req, res) => {
     const user = req.user;
     try {
       const locations = await Location.find();
@@ -60,32 +60,6 @@ router.put('/update/:id', middle, upload.single('picture'), async (req, res) => 
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
-});
-router.delete('/locations/:locationId/comments/:commentId', middle, async (req, res) => {
-  const { locationId, commentId } = req.params;
-
-  try {
-    const location = await Location.findById(locationId);
-
-    if (!location) {
-      return res.status(404).json({ error: 'Location not found' });
-    }
-
-    // Filter out the comment to be deleted
-    const updatedComments = location.comments.filter((comment) => comment._id.toString() !== commentId);
-
-    if (updatedComments.length === location.comments.length) {
-      return res.status(404).json({ error: 'Comment not found' });
-    }
-
-    location.comments = updatedComments;
-
-    await location.save();
-
-    res.status(200).json({ message: 'Comment deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
 
 module.exports = router;

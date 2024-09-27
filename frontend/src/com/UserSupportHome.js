@@ -9,13 +9,6 @@ const UserSupportHome = () => {
         navigate(path);
     };
 
-    const handleSearch = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            navigate('/contactus'); // Redirect to Contact Us page when "Enter" is pressed
-        }
-    };
-
     return (
         <div
             style={{
@@ -30,22 +23,12 @@ const UserSupportHome = () => {
             }}
         >
             <div className="container">
-                <h2 className="text-center mb-4" style={{ fontWeight: 'normal', color: 'white' }}>How can we help you?</h2> {/* Text color set to white */}
+                <h2 className="text-center mb-4">How can we help you?</h2>
                 <div className="d-flex justify-content-center mb-4">
                     <input
                         type="text"
-                        className="form-control"
+                        className="form-control w-50 rounded-pill" // Rounded corners
                         placeholder="Search for help..."
-                        onKeyDown={handleSearch} // Trigger search on 'Enter'
-                        style={{
-                            width: '70%', // Make the search bar longer
-                            borderRadius: '50px', // Rounded corners
-                            border: 'none', // Remove border
-                            backgroundColor: 'rgba(255, 255, 255, 0.7)', // Slightly transparent white background
-                            paddingLeft: '20px', // Add some padding
-                            paddingRight: '20px',
-                            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)' // Add a subtle shadow to the input
-                        }}
                     />
                 </div>
 
