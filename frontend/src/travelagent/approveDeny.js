@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './book.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,42 +9,42 @@ export default function Register() {
   const [approvedGuides, setApprovedGuides] = useState(
     JSON.parse(localStorage.getItem('approvedGuides')) || []
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTourGuides = async () => {
       try {
+        // Fetch all tour guides and filter out the already approved ones
         const response = await axios.get('http://localhost:8081/TourGuide/all');
-        setTourGuides(response.data);
+        const unapprovedGuides = response.data.filter(
+          guide => !approvedGuides.some(approved => approved._id === guide._id)
+        );
+        setTourGuides(unapprovedGuides);
       } catch (error) {
         console.error('Error fetching tour guides:', error);
       }
     };
 
     fetchTourGuides();
-  }, []);
+  }, [approvedGuides]);
 
-  const handleApprove = async (id) => {
+  const handleApprove = (guide) => {
     if (window.confirm('Are you sure you want to approve this tour guide?')) {
-      try {
-        const approvedGuide = tourGuides.find(guide => guide._id === id);
+      // Add the approved guide to local storage
+      const updatedApprovedGuides = [...approvedGuides, guide];
+      localStorage.setItem('approvedGuides', JSON.stringify(updatedApprovedGuides));
+      setApprovedGuides(updatedApprovedGuides);
 
-        // Check if the guide is already approved
-        if (approvedGuides.find(guide => guide._id === approvedGuide._id)) {
-          alert('This tour guide has already been approved.');
-          return;
-        }
-
-        // Update state and localStorage
-        const updatedApprovedGuides = [...approvedGuides, approvedGuide];
-        setApprovedGuides(updatedApprovedGuides);
-        localStorage.setItem('approvedGuides', JSON.stringify(updatedApprovedGuides));
-
-        alert('Tour guide approved successfully!');
-      } catch (error) {
-        console.error('Error approving tour guide:', error);
-        alert('Failed to approve the tour guide.');
-      }
+      // Remove the approved guide from the frontend display
+      setTourGuides(tourGuides.filter(g => g._id !== guide._id));
+      
+      alert('Tour guide approved successfully!');
     }
+  };
+
+  const handleViewBookings = () => {
+    // Navigate to the BookTourist page where the approved guides will be displayed
+    navigate('/booktourist');
   };
 
   const handleDeny = async (id) => {
@@ -77,10 +78,11 @@ export default function Register() {
         width: '80%',
         maxWidth: '400%',
         height: '90vh',
-        overflowY: 'auto' ,
+        overflowY: 'auto',
         marginTop: '50px'
       }}>
         <h2 className="text-center mb-4">Tour Guides</h2>
+         
         <div style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
             <thead className="thead-dark">
@@ -106,7 +108,7 @@ export default function Register() {
                   <td>
                     <button
                       className="btn btn-success me-2"
-                      onClick={() => handleApprove(guide._id)}
+                      onClick={() => handleApprove(guide)}
                     >
                       Approve
                     </button>

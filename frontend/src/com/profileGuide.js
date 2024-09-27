@@ -39,6 +39,14 @@ export default function Profile() {
       await axios.put(`http://localhost:8081/TourGuide/update/${formData.id}`, formData);
       alert('Tour guide updated successfully!');
       setIsEditing(false);
+      
+      // Update localStorage
+      const approvedGuides = JSON.parse(localStorage.getItem('approvedGuides')) || [];
+      const updatedGuides = approvedGuides.map(guide => 
+        guide._id === formData.id ? formData : guide
+      );
+      localStorage.setItem('approvedGuides', JSON.stringify(updatedGuides));
+
       // Fetch the updated data from the database to display
       fetchTourGuideDetails(formData.id);
     } catch (error) {
@@ -61,16 +69,16 @@ export default function Profile() {
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center"  
-    style={{
-      backgroundImage: "url('/img/all4.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      minHeight: '100vh',  // Ensure full height for the background
-      backdropFilter: 'blur(5px)',
-    }}
-  >
-      <h2 className="mb-4" style={{ fontWeight: 'bold' , color:'black' }}>Tour Guide Profile</h2>
+      style={{
+        backgroundImage: "url('/img/all4.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',  // Ensure full height for the background
+        backdropFilter: 'blur(5px)',
+      }}
+    >
+      <h2 className="mb-4" style={{ fontWeight: 'bold', color: 'black' }}>Tour Guide Profile</h2>
 
       {isEditing ? (
         <form onSubmit={handleUpdate} className="bg-light rounded p-4 shadow" style={{ width: '400px' }}>
