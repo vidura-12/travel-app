@@ -26,18 +26,25 @@ function AddEvent() {
     const newErrors = {};
 
     // Validate name and location for special characters
-    if (!specialRegex.test(formData.name)) {
+    if (!formData.name) {
+      newErrors.name = "Event name is required";
+      valid = false;
+    } else if (!specialRegex.test(formData.name)) {
       newErrors.name = "No special characters allowed";
       valid = false;
     }
-    if (!specialRegex.test(formData.location)) {
+    
+    if (!formData.location) {
+      newErrors.location = "Location is required";
+      valid = false;
+    } else if (!specialRegex.test(formData.location)) {
       newErrors.location = "No special characters allowed";
       valid = false;
     }
 
-    // Ensure price is a positive number
-    if (formData.price <= 0) {
-      newErrors.price = "Price should be a positive number";
+    // Ensure price is a non-negative number
+    if (formData.price < 0) {
+      newErrors.price = "Price should be a non-negative number";
       valid = false;
     }
 
@@ -135,7 +142,7 @@ function AddEvent() {
           <h2 style={styles.heading}>Add your Event</h2>
 
           <div className="form-group mb-3">
-            <label htmlFor="name">Event Name</label>
+            <label htmlFor="name" style={{ color: errors.name ? 'red' : 'black' }}>Event Name</label>
             <input
               type="text"
               className="form-control"
@@ -184,7 +191,7 @@ function AddEvent() {
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="location">Location</label>
+            <label htmlFor="location" style={{ color: errors.location ? 'red' : 'black' }}>Location</label>
             <input
               type="text"
               className="form-control"
@@ -225,7 +232,7 @@ function AddEvent() {
           </div>
 
           <div className="form-group mb-3">
-            <label htmlFor="price">Price (in LKR)</label>
+            <label htmlFor="price" style={{ color: errors.price ? 'red' : 'black' }}>Price (in LKR)</label>
             <input
               type="number"
               className="form-control"
@@ -289,14 +296,17 @@ const styles = {
     backgroundImage: "url(/img/event3.jpg)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    padding: '50px 0',
+    padding: '100px 0',
     minHeight: '100vh',
   },
   container: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  form: {
+    width: '650px',
+    maxWidth: '600px',
+    margin: 'auto',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: '8px',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     margintop: '50px',
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
     padding: '30px',
@@ -304,15 +314,18 @@ const styles = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '650px', // Increased width
   },
+  form: {
+   
+  },
   heading: {
     textAlign: 'center',
     marginBottom: '20px',
   },
   subHeading: {
-    marginBottom: '10px',
+    marginTop: '20px',
   },
   button: {
-    width: '100%',
+    marginTop: '20px',
   },
 };
 

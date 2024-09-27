@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div 
       style={{
-        backgroundImage: "url(/img/tree.png)",   
+        backgroundImage: "url(/img/event5.jpg)",   
         backgroundSize: 'cover',                   
         backgroundPosition: 'center',              
         backgroundRepeat: 'no-repeat',             
@@ -85,7 +85,7 @@ const styles = `
     background-size: cover;
     background-position: center;
     min-height: 70vh;
-    padding: 50px;
+    padding: 20px;
     position: relative;
     backdrop-filter: blur(8px);  /* Adds a blur effect */
     -webkit-backdrop-filter: blur(8px); /* For Safari support */

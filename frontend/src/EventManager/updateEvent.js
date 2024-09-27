@@ -18,7 +18,7 @@ function EditEvent() {
     location: "",
     price: "",
     image: "", // Store image filename or path
-    ticketCriteria:{
+    ticketCriteria: {
       t1: "",
       t2: "",
       t3: "",
@@ -42,7 +42,20 @@ function EditEvent() {
   const fetchEvent = async () => {
     try {
       const response = await axios.get(`http://localhost:8081/event/${id}`);
-      setEvent(response.data);
+      // Ensure ticketCriteria is set to default if not present
+      setEvent((prevState) => ({
+        ...prevState,
+        ...response.data,
+        ticketCriteria: response.data.ticketCriteria || {
+          t1: "",
+          t2: "",
+          t3: "",
+          t4: "",
+          t5: "",
+          t6: "",
+          t7: ""
+        }
+      }));
     } catch (error) {
       console.error('Error fetching event:', error);
     }
@@ -69,13 +82,9 @@ function EditEvent() {
     formData.append("price", event.price);
 
     // Append the ticket criteria to form data
-    formData.append("t1", event.ticketCriteria.t1);
-    formData.append("t2", event.ticketCriteria.t2);
-    formData.append("t3", event.ticketCriteria.t3);
-    formData.append("t4", event.ticketCriteria.t4);
-    formData.append("t5", event.ticketCriteria.t5);
-    formData.append("t6", event.ticketCriteria.t6);
-    formData.append("t7", event.ticketCriteria.t7);
+    for (let key in event.ticketCriteria) {
+      formData.append(key, event.ticketCriteria[key]);
+    }
 
     // Append the new image file if a new one was selected
     if (imageFile) {
@@ -91,8 +100,8 @@ function EditEvent() {
       Swal.fire({
         title: "Event Updated Successfully",
         icon: "success"
-      }).then(()=>{
-      navigate('/EventManager/EventList'); 
+      }).then(() => {
+        navigate('/EventManager/EventList'); 
       });
     } catch (error) {
       console.error('Error updating event:', error);
@@ -140,7 +149,7 @@ function EditEvent() {
 
   return (
     <div className="update-container">
-      <h2 style={{color: "black"}}>Edit Event</h2>
+      <h2 style={{ color: "black" }}>Edit Event</h2>
       <form onSubmit={handleUpdate}>
         <div className="form-group">
           <label>Event Name</label>
@@ -157,7 +166,6 @@ function EditEvent() {
         <div className="form-group">
           <label>Event Category</label>
           <select
-            
             className="form-control"
             name="category"
             value={event.category}
@@ -230,82 +238,18 @@ function EditEvent() {
         </div>
 
         {/* Ticket Criteria Fields */}
-        <div className="form-group">
-          <label>Ticket Criteria 1</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t1"
-            value={event.ticketCriteria.t1}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 2</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t2"
-            value={event.ticketCriteria.t2}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 3</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t3"
-            value={event.ticketCriteria.t3}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 4</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t4"
-            value={event.ticketCriteria.t4}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 5</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t5"
-            value={event.ticketCriteria.t5}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 6</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t6"
-            value={event.ticketCriteria.t6}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Ticket Criteria 7</label>
-          <input
-            type="text"
-            className="form-control"
-            name="t7"
-            value={event.ticketCriteria.t7}
-            onChange={handleChange}
-          />
-        </div>
+        {Object.keys(event.ticketCriteria).map((key) => (
+          <div className="form-group" key={key}>
+            <label>{`Ticket Criteria ${key.charAt(1)}`}</label>
+            <input
+              type="text"
+              className="form-control"
+              name={key}
+              value={event.ticketCriteria[key]}
+              onChange={handleChange}
+            />
+          </div>
+        ))}
 
         <div className="form-group">
           <label>Current Image</label>
