@@ -1,6 +1,6 @@
 /* AdminProfile.css */
 
-.profile-container {
+.profile-containerr {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
     background-repeat: no-repeat; /* Prevent the image from repeating */
     padding: 20px;
   }
-  .profile-container {
+  .profile-containerr {
     display: flex;
     justify-content: center;
     align-items: center;
