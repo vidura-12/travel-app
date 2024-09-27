@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
 const UserSupportHome = () => {
     const navigate = useNavigate();
+    const [hoverIndex, setHoverIndex] = useState(null); // State to track which box is hovered
 
     const handleNavigate = (path) => {
         navigate(path);
@@ -61,15 +62,18 @@ const UserSupportHome = () => {
                             <div
                                 className="p-3 border rounded shadow-sm"
                                 style={{
-                                    backgroundColor: 'white',
-                                    height: '250px',
-                                    width: '200px',
-                                    display: 'flex',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                    height: hoverIndex === index ? '280px' : '250px', // Increase height when hovered
+                                    width: hoverIndex === index ? '220px' : '200px', // Increase width when hovered
+                                    //display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    cursor: 'pointer' // Cursor indicates clickable
+                                    cursor: 'pointer', // Cursor indicates clickable
+                                    transition: 'all 0.3s ease-in-out' // Smooth transition
                                 }}
+                                onMouseEnter={() => setHoverIndex(index)} // Set the hovered box index
+                                onMouseLeave={() => setHoverIndex(null)} // Reset the hovered index
                                 onClick={() => handleNavigate(item.path)} // Navigation
                             >
                                 <img

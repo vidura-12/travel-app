@@ -80,7 +80,7 @@ import SellerRegister from './scheduler/Sellerregister';
 
 import SellerSignIn from './scheduler/sellersignin';
 
-
+import AdminChatDashboard from './usersupporter/AdminChatDashboard';
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';
@@ -100,6 +100,18 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
+        <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
+        <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+        <Route path="/admin/chat-dashboard" element={<AdminLayout><AdminChatDashboard /></AdminLayout>} />
+        <Route path="/admin/dash" element={<AdminLayout><FeedDash /></AdminLayout>} />
+        <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
+        <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
+        <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
+        <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
+        <Route path="/allFeedBack" element={<UserLayout><allFeedBack /></UserLayout>} />
+        <Route path="/Chatbox" element={<UserLayout><Chatbox /></UserLayout>} />
+        <Route path="/FAQ" element={<UserLayout><FAQ /></UserLayout>} />
+        <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
