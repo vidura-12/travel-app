@@ -21,12 +21,17 @@ function Home() {
   }, []);
 
   // Function to toggle the description visibility
-
+  const toggleDescription = (locationId) => {
+    setVisibleDescription((prevState) => ({
+      ...prevState,
+      [locationId]: !prevState[locationId], // Toggle the description visibility
+    }));
+  };
 
   return (
     <div>
       <section className="home">
-        <div className="home-container1">
+        <div className="home-container">
           <video autoPlay muted loop className="background-video">
             <source
               src={`${process.env.PUBLIC_URL}/img/videoplayback.webm`}
@@ -35,7 +40,7 @@ function Home() {
             Your browser does not support the video tag.
           </video>
 
-          <div className="content1">
+          <div className="content">
             <h4>Discover Your Next Adventure</h4>
             <h1>
               Explore the world with <b>TravelMate</b>, where every journey
@@ -98,7 +103,7 @@ function Home() {
               <div
                 className="location-card"
                 key={location._id}
-              
+                onClick={() => toggleDescription(location._id)}
               >
                 <img
                   src={`/img/${location.picture}`}
