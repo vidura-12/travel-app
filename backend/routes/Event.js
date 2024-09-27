@@ -33,7 +33,12 @@ router.post('/add', upload.single('image'), async (req, res) => {
 });
 
 
+//add ticket details
+router.post('/event/:id/tickets', async (req, res) => {
+  const { id } = req.params;
+  const { tname, tcategory, phone, email, noOfTicket, totalPrice, otherFields } = req.body;
 
+<<<<<<< HEAD
 //Add ticket details
 router.post('/:id/tickets', async (req, res) => {
     const { tname,tcategory, phone, email, noOfTicket, otherFields } = req.body;
@@ -69,6 +74,38 @@ router.post('/:id/tickets', async (req, res) => {
 });
 
 
+=======
+  try {
+    // Find the event by its ID
+    const event = await Events.findById(id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Add the new ticket details to the userTickets array
+    event.userTickets.push({
+      tname,
+      phone,
+      email,
+      noOfTicket,
+      totalPrice,
+      tcategory,
+      ...otherFields // Spread additional fields here
+    });
+
+    // Save the updated event
+    await event.save();
+
+    res.status(201).json({ message: 'Ticket added successfully' });
+  } catch (error) {
+    console.error('Error adding ticket:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+>>>>>>> origin/Final
   
 
 // Get all events
@@ -95,6 +132,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
+<<<<<<< HEAD
 //book ticket
 router.get('/tickets', async (req, res) => {
   try {
@@ -114,11 +152,38 @@ router.get('/tickets', async (req, res) => {
     res.json(formattedTickets);
   } catch (error) {
     res.status(500).json({ error: error.message });
+=======
+
+//get ticket booking etails
+router.get('/tickets', async (req, res) => {
+  try {
+      const events = await Events.find({ "userTickets.0": { $exists: true } });
+      const tickets = events.flatMap(event => event.userTickets.map(ticket => ({
+          tname: ticket.tname,
+          tcategory: ticket.tcategory,
+          phone: ticket.phone,
+          email: ticket.email,
+          noOfTicket: ticket.noOfTicket,
+          totalPrice: ticket.totalPrice
+      })));
+
+      console.log("Fetched tickets:", tickets);  // Add this line for debugging
+      res.status(200).json(tickets);
+  } catch (error) {
+      console.error('Error retrieving tickets:', error);  // Add error logging
+      res.status(500).json({ error: 'Error retrieving tickets' });
+>>>>>>> origin/Final
   }
 });
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> origin/Final
  //--------------------------------------------------
 
  // Approve event
