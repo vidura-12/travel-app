@@ -8,13 +8,6 @@ require("dotenv").config();
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
-
-
-
-const eventsRoutes = require('./routes/Event.js');
-// const ticketRoutes = require('./routes/tickets');
-
-
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
 const checklistRoutes = require('./routes/checklist');
@@ -57,30 +50,3 @@ app.use('/FeedBack', addRoute1); // Feedback route
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
-
-app.use('/auth', authRoutes);
-app.use('/location',locationRoutes);
-
-
-app.use('/event',eventsRoutes);
-// app.use('/Ticket',ticketRoutes)
-
-//app.use('/vehicle',vehicleRoutes); 
-
-app.use('/uploads', express.static('uploads'));
-app.use('/packages', packageRoutes);
-
-
-
-app.use('/TourGuide', addRoute); // new
- 
-app.use('/auth', authRoutes);
-
-app.use('/location',locationRoutes);
-
-
-app.use('/uploads', express.static('uploads'));
-app.use('/packages', packageRoutes);
-
-app.use('/locationAdmin',locationAdmin);
-

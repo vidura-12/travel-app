@@ -1,9 +1,9 @@
 import React from 'react'; 
-import Header from './admin/guideHeader'
+import Header from './travelagent/guideHeader'
 
 //import Footer from './travelagent/footer';
 
-const TavelAgentLayout = ({ children }) => (
+const TourGuideLayout = ({ children }) => (
   <div>
     <Header />
     {children}
@@ -11,4 +11,4 @@ const TavelAgentLayout = ({ children }) => (
   </div>
 );
 
-export default TavelAgentLayout;
+export default TourGuideLayout;
