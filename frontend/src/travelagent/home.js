@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 import './st.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   return (
@@ -29,13 +28,13 @@ export default function Home() {
           </button>
         </Link>
 
-        <Link to="/register">
+        <Link to="/travelagent/register">
           <button style={{ backgroundColor: "#1E201E" }} className='button'>
             Register
           </button>
         </Link>
 
-        <Link to="/profile">
+        <Link to="/travelagent/profile">
           <button style={{ backgroundColor: "#1E201E" }} className='button'>
             Profile
           </button>
