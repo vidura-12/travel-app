@@ -6,10 +6,7 @@ const fs = require('fs');
 const util = require('util');
 
 // Create MongoDB connection
-const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

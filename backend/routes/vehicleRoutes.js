@@ -6,10 +6,7 @@ const { upload, uploadToGridFS } = require('../middleware/upload');
 const { GridFSBucket } = require('mongodb');
 const mongoose = require('mongoose');
 
-const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss');
 
 // Serve images from GridFS
 router.get('/image/:filename', (req, res) => {
