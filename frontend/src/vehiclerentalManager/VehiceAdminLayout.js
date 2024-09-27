@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./admin/vehicleHeader";
+import Header from '../admin/vehicleHeader';
 
 const VehicleAdminLayout = ({ children }) => (
     <div>

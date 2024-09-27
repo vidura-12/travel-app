@@ -191,6 +191,7 @@ function VehicleOwnerRegister() {
               value={phoneno}
               onChange={handlePhoneNoChange} // Updated onChange handler
               required
+              maxLength={10}
               style={inputStyle}
             />
           </div>

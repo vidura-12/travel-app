@@ -6,15 +6,25 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        // Remove token from localStorage and sessionStorage
         localStorage.removeItem('token');
-        navigate('/admin/login');
+        sessionStorage.clear(); // Clear session storage
+
+        // Optionally, make an API call to inform the backend that the user has logged out
+        // Example:
+        // fetch('/api/logout', {
+        //   method: 'POST',
+        //   headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        // })
+
+        navigate('/admin/login'); // Redirect to login
     };
 
     return (
         <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/LocationAdmin/home">DashBoard</a>
+                    <a className="nav-link-header" href="/vehicle-manager-dashboard">DashBoard</a>
                 </li>
             </ul>
             <div className="profile-header">

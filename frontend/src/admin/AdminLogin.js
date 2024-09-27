@@ -47,7 +47,7 @@ const AdminLogin = () => {
           navigate('/LocationAdmin/home');
           break;
         case 'vehicle_manager':
-          navigate('/VehicleAdmin/home');
+          navigate('/vehicle-manager-dashboard');
           break;
         // handle other roles
         case 'Schedule_Manager':
