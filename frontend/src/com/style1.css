@@ -6,7 +6,7 @@
     box-sizing: border-box;
     font-family: Poppins;
     text-decoration: none;
-    text-transform: capitalize;
+   
     transition: .5s ease;
 }
 :root {
@@ -23,7 +23,7 @@
 .label {
     font-size: 1.1rem;
     color: #666;
-    text-transform: uppercase;
+  
     font-weight: 500;
 }
 .heading {

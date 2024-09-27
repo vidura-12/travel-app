@@ -4,6 +4,28 @@
   padding: 8rem;
 
 }
+.location-btn-report {
+  margin-top: 10px;
+  margin-left: 500px;
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Top/bottom and left/right padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition effects */
+}
+
+.location-btn-report:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.location-btn-report:active {
+  background-color: #3e8e41; /* Even darker green when clicked */
+  transform: translateY(0); /* Reset lift effect */
+}
 
 .location-dashboard-container {
   max-width: 1200px;

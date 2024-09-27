@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 
 .home .home-container {
+=======
+/* Home Section */
+.home .home-container1 {
+>>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
     position: relative;
     width: 100%;
     height: 100vh; /* Full viewport height */
@@ -18,21 +23,142 @@
     z-index: -1;
 }
 
-.home .content {
+.home .content1 {
     position: relative;
     z-index: 1;
     color: white;
     /* Add other styling as needed */
 }
 
+<<<<<<< HEAD
+=======
+.home .content1 h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+ 
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.home .content1 h1 {
+    font-size: 3.5rem;
+    max-width: 500rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+.home .content1 p {
+    max-width: 35rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Travel Section */
+.travel .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem 0;
+    align-items: start;
+    justify-content: center;
+}
+
+.travel .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.travel .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.travel .box img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.travel .box h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.travel .box p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #666;
+}
+
+/* Location Gallery */
+.location-gallery {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.location-gallery h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.location-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.location-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.location-card h3 {
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Media Queries */
+>>>>>>> parent of 6e77a094 (Merge pull request #106 from vidura-12/Nimesha)
 @media (max-width: 885px) {
-    .home .home-container .navbar .menu {
+    .home .home-container1 .navbar .menu {
         display: none;
     }
-    .home .home-container .navbar .logo .bar {
+    .home .home-container1 .navbar .logo .bar {
         display: block;
     }
-    .home .home-container .navbar .menu.active {
+    .home .home-container1 .navbar .menu.active {
         display: block;
         position: absolute;
         left: -1.5rem;
@@ -44,7 +170,7 @@
         align-items: center;
         padding: 0 3rem;
     }
-    .home .home-container .navbar .menu .close {
+    .home .home-container1 .navbar .menu .close {
         display: block;
         position: absolute;
         color: var(--white-color);
@@ -53,17 +179,17 @@
         font-size: 2rem;
         cursor: pointer;
     }
-    .home .home-container .navbar .menu .close:hover {
+    .home .home-container1 .navbar .menu .close:hover {
         color: #bbbbbb;
     }
-    .home .home-container .navbar .menu ul {
+    .home .home-container1 .navbar .menu ul {
         flex-direction: column;
         font-size: 1.3rem;
     }
-    .home .home-container .navbar .menu ul li {
+    .home .home-container1 .navbar .menu ul li {
         margin: 1.5rem 0;
     }
-    .home .home-container .content {
+    .home .home-container1 .content {
         padding: 2rem;
     }
     .travel .container {
