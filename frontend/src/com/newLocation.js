@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import './l.css'; 
+import Swal from 'sweetalert2'; // Import SweetAlert
+import './l.css'; // Updated CSS is referenced here
 
 const Newlocation = () => {
   const [formData, setFormData] = useState({
@@ -13,18 +15,22 @@ const Newlocation = () => {
   const [errors, setErrors] = useState({
     name: '',
     city: '',
+    locationExists: '',
   });
 
-  const [message, setMessage] = useState('');
-  const [alertVisible, setAlertVisible] = useState(false);
-
   const formRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const email = localStorage.getItem('email');
+    if (!email) {
+      Swal.fire('You need to log in first.', '', 'warning');
+      navigate("/home");
+    }
     if (formRef.current) {
       formRef.current.classList.add('fade-in');
     }
-  }, []);
+  }, [navigate]);
 
   const validateField = (name, value) => {
     let valid = true;
@@ -39,6 +45,21 @@ const Newlocation = () => {
     }
 
     return { valid, errorMessage };
+  };
+
+  const checkLocationExists = async (name) => {
+    if (name) {
+      try {
+        const response = await axios.get(`http://localhost:8081/Location/check?name=${name}`);
+        if (response.data.exists) {
+          setErrors((prev) => ({ ...prev, locationExists: 'Location name already exists' }));
+        } else {
+          setErrors((prev) => ({ ...prev, locationExists: '' }));
+        }
+      } catch (error) {
+        console.error('Error checking location existence', error);
+      }
+    }
   };
 
   const handleChange = (e) => {
@@ -60,6 +81,10 @@ const Newlocation = () => {
         ...errors,
         [name]: valid ? '' : errorMessage,
       });
+
+      if (name === 'name') {
+        checkLocationExists(value);
+      }
     }
   };
 
@@ -69,21 +94,23 @@ const Newlocation = () => {
     const nameValidation = validateField('name', formData.name);
     const cityValidation = validateField('city', formData.city);
 
-    if (!nameValidation.valid || !cityValidation.valid) {
+    if (!nameValidation.valid || !cityValidation.valid || errors.locationExists) {
       setErrors({
         name: nameValidation.errorMessage,
         city: cityValidation.errorMessage,
+        locationExists: errors.locationExists,
       });
-      setMessage('Please correct the errors before submitting.');
-      setAlertVisible(true);
+      Swal.fire('Please correct the errors before submitting.', '', 'error');
       return;
     }
 
+    const userName = localStorage.getItem('name');
     const data = new FormData();
     data.append('name', formData.name);
     data.append('city', formData.city);
     data.append('description', formData.description);
     data.append('picture', formData.picture);
+    data.append('addedBy', userName);
 
     try {
       const response = await axios.post('http://localhost:8081/Location/add', data, {
@@ -91,8 +118,7 @@ const Newlocation = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setMessage('Thanks for your support, we will notify you after we approve.');
-      setAlertVisible(true);
+      Swal.fire('Thanks for your support, we will notify you after we approve.', '', 'success');
 
       setFormData({
         name: '',
@@ -102,88 +128,79 @@ const Newlocation = () => {
       });
     } catch (error) {
       console.error('Error submitting the form', error);
-      if (error.response && error.response.data && error.response.data.error) {
-        setMessage(error.response.data.error);
-      } else {
-        setMessage('Error submitting the form');
-      }
-      setAlertVisible(true);
+      const errorMessage = error.response && error.response.data && error.response.data.error
+        ? error.response.data.error
+        : 'Error submitting the form';
+      Swal.fire(errorMessage, '', 'error');
     }
   };
 
   return (
-    <div className="body">
-      <div className="container mt-5 form-background">
-        <div className="card form-custom-margin form-transparent" ref={formRef}>
-          <div className="card-header">
-            <h3>Share Your Experience</h3>
-          </div>
-          <div className="card-body">
-            {alertVisible && (
-              <div className="alert alert-info alert-dismissible fade show" role="alert">
-                {message}
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setAlertVisible(false)}></button>
-              </div>
-            )}
-            <form onSubmit={handleSubmit}>
-              <div className="form-group mb-3">
-                <label htmlFor="name">Location Name</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-                {errors.name && (
-                  <div className="text-danger">{errors.name}</div>
-                )}
-              </div>
-              <div className="form-group mb-3">
-                <label htmlFor="city">Location City</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                />
-                {errors.city && (
-                  <div className="text-danger">{errors.city}</div>
-                )}
-              </div>
-              <div className="form-group mb-3">
-                <label htmlFor="description">Description about Location</label>
-                <textarea
-                  className="form-control"
-                  id="description"
-                  name="description"
-                  rows="3"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                ></textarea>
-              </div>
-              <div className="form-group mb-3">
-                <label htmlFor="picture">Picture</label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="picture"
-                  name="picture"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="custom-button">
-                Submit
-              </button>
-            </form>
-          </div>
+    <div className="body12">
+      <div className="location-form-container" ref={formRef}>
+        <div className="location-form-card-header">
+          <h3>Share Your Experience</h3>
+        </div>
+        <div className="location-form-body">
+          <form onSubmit={handleSubmit} ref={formRef}>
+            <div className="location-form-group">
+              <label htmlFor="name">Location Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              {errors.name && <div className="location-form-error">{errors.name}</div>}
+              {errors.locationExists && <div className="location-form-error">{errors.locationExists}</div>}
+            </div>
+
+            <div className="location-form-group">
+              <label htmlFor="city">Location City</label>
+              <input
+                type="text"
+                className="form-control"
+                id="city"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+              {errors.city && <div className="location-form-error">{errors.city}</div>}
+            </div>
+
+            <div className="location-form-group">
+              <label htmlFor="description">Description about Location</label>
+              <textarea
+                className="form-control"
+                id="description"
+                name="description"
+                rows="3"
+                value={formData.description}
+                onChange={handleChange}
+                required
+              ></textarea>
+            </div>
+
+            <div className="location-form-group">
+              <label htmlFor="picture">Picture</label>
+              <input
+                type="file"
+                className="form-control"
+                id="picture"
+                name="picture"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="unique-button">
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>
