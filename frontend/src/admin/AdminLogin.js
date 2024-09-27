@@ -50,7 +50,18 @@ const AdminLogin = () => {
           navigate('/scheduladmin');
           break;
         case 'event_manager':
-            navigate('/EventManager/addEvent');
+
+          navigate('/EventManager/addEvent');
+          break;
+        case 'vehicle_manager':
+          navigate('/dvbxbjkds');
+          break;
+          case 'tourGuide_manager':
+          navigate('/travelagent/dashboard');
+          break;
+          case 'support_manager':
+            navigate('/usersupporter/dashboard');
+
             break;
         default:
           setError('Unknown role');
