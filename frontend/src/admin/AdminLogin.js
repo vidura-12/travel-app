@@ -33,7 +33,7 @@ const AdminLogin = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:8081/auth/login', admin);
+      const response = await axios.post('http://localhost:8081/auth/loginn', admin);
       console.log('Response Data:', response.data);
       
       // Store the token in localStorage
