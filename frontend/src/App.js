@@ -75,6 +75,7 @@ import Packagedetails from './scheduler/packagedetails';
 import Scheduladmin from './scheduler/scheduladmin';
 import SellerRegister from './scheduler/Sellerregister';
 
+import SellerSignIn from './scheduler/sellersignin';
 
 
 
@@ -163,7 +164,7 @@ function App() {
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
         <Route path="/scheduler/Sellersregister" element={<UserLayout><SellerRegister /></UserLayout>} />
-        
+        <Route path="/scheduler/sellersignin" element={<SchedulerLayout><SellerSignIn /></SchedulerLayout>} />
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
 

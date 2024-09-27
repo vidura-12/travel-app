@@ -14,14 +14,18 @@ const Header = () => {
         <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/packagedetails">DashBoard</a>
+                    <a className="nav-link-header" href="/scheduladmin">DashBoard</a>
                 </li>
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/LocationAdmin/LocationsSummary">Report</a>
+                    <a className="nav-link-header" href="#">Report</a>
+                    <a className="nav-link-header" href="#">Package sellers</a>
+                    <a className="nav-link-header" href="/packagedetails">Travel packages</a>
+
+                    
                 </li>
             </ul>
             <div className="profile-header">
-                <button className="nav-link-profile-header" onClick={() => navigate('/Admin/profile')}>Profile</button>
+                <button className="nav-link-profile-header" onClick={() => navigate('/scheduler/schedulprofile')}>Profile</button>
                 <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
             </div>
         </div>

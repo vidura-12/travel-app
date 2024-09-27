@@ -42,13 +42,11 @@ const Tours = () => {
     <div>
       <div className="tourpic">
         <div className='ourtour'>
-          <center>
+        <center>
         <h1 className='our'>Our Tours</h1>
         </center>
         <p className="description">
-               Welcome to TravelMate! Discover our diverse range of tours designed for every traveler's dream. 
-               From adventure to relaxation, our meticulously planned tours offer unforgettable experiences in breathtaking destinations. 
-               Join us and create lasting memories. Start your journey with TravelMate today!
+        Welcome to TravelMate! Explore our diverse tours, offering unforgettable experiences from adventure to relaxation. Create lasting memories and start your journey with us today!
         </p>
         </div>
 
@@ -121,30 +119,23 @@ const Tours = () => {
         )}
       </div>
 
-      <div className="enjoy-life-section">
-        <div className="enjoy-life-text">
-          Enjoy life with beautiful memories!
-           <div className='enjoybtn'>
-             <button className="enjoy" onClick={handleCreatePackageClick}>Customize Package</button>
-           </div>
-        </div>
-        <p className='app'>Discover a Seamless Travel Experience with Our App:
-        Our travel app allows you to explore, customize, and book travel packages tailored to your preferences. Whether you're seeking an adventurous getaway, a cultural journey, or a relaxing retreat, we empower you to customize your own travel package!</p>
-      </div>
+    
 
-      
+      <div className='enjoy2'>
       <div className="enjoy-life-section">
-        <div className="enjoy-life-text">
+       
+        <div className='app'>
+          <center>
         <h3>Welcome Travel Agencies!</h3>
-        
-           <div className='enjoybtn'>
-           <button className="agency" onClick={handleCreatePackageClick}>Travel Agency</button>
-           </div>
-        </div>
-        <p className='app'>Register on our website and review our partnership agreement. 
+        <p>Register on our website and review our partnership agreement. 
           Use our tools to design tailored travel packages, list them, and utilize our marketing resources. 
-          Respond to inquiries, manage bookings, and use analytics to track performance and update packages.<h5>Join us today!</h5></p>
-          
+          Respond to inquiries, manage bookings, and use analytics to track performance and update packages.<h5>Join us today!</h5></p></center>
+          <div className='enjoybtn'>
+           <button className="agency" onClick={handleCreatePackageClick}>Travel Agency</button>
+           </div> 
+        </div> 
+       
+      </div>
       </div>
 
       

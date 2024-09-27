@@ -2,8 +2,8 @@
 
 .tourpic{
     background:
-     url("./sheduler image/tourpic.jpg") no-repeat center;
-     height:900px;
+     url("./sheduler image/i1.jpg") no-repeat center;
+     height:700px;
      display:flex;
      flex-direction: column;
      align-items: center;
@@ -13,6 +13,8 @@
      padding: 50px 0; 
      position: relative;
      margin-top: 77px;
+     border-radius: 10px;
+    
      
 
 }
@@ -35,9 +37,9 @@
 
 .our{
     color: #fff;
-   margin-top: 10px;
+    margin-bottom: 20px;
     font-weight: bold;
-    font-size: 60px;
+    font-size: 40px;
 }
 
 
@@ -47,7 +49,7 @@
     padding: 0.5rem 1rem;
     border-radius: 50px;
     box-shadow: rgba(17, 12, 46, 0.2) 0px 10px 40px, rgba(17, 12, 46, 0.1) 0px 5px 20px;
-   
+    margin-bottom: 100px;
     width: 600px;
     background-color: white;
     height: 80px;
@@ -84,24 +86,32 @@
 }
 
 .search-icon {
-    font-size: 1.8rem; /* Decreased font size */
-    padding: 0.3rem;   /* Decreased padding */
-    background: orangered;
-    color: #ddd;
-    border-radius: 10px 5px 10px 5px;
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
+    border: none;
+    outline: none;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
+    
 }
 
+.search-icon:hover{
+    background: var(--dark-green);
+}
 
 .description {
     text-align: center;
     font-style:italic;
     margin-bottom: 100px;
-    font-size: 30px;
+    font-size: 50px;
     font-weight: bold;
     color: white;
     border-radius: 10px;
+    position: relative;
     
     
     
@@ -127,17 +137,16 @@
 }
 
 .agency {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #008000; 
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 20px; 
-    cursor: pointer;
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
     border: none;
-    margin-right: 10px;
-    width: 200px;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
 }
 
 .agency:hover{
@@ -188,7 +197,7 @@
     border-radius: 10px;
     font-size: 30px;
     font-weight: bold;
-    padding: 20px;
+    padding: 10px;
     color: black;
     margin-left: 100px;
     box-shadow: rgba(255, 255, 255, 0.3) 0px 4px 10px, rgba(255, 255, 255, 0.5) 0px 0px 20px;
@@ -203,15 +212,50 @@
     padding: 25px;
     color: white;
     margin-left: 100px;
-    background: black;
+    margin-bottom: 100px;
+    margin-right: 500px;
+    
 }
+
+.enjoy1{
+    text-align: center;
+    background-image: url('./sheduler image/im4.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+    height: 400px;
+    width: 1500px;
+    margin-left: 100px;
+    
+}
+
+.enjoy2{
+    text-align: center;
+    background-image: url('./sheduler image/im2.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px;
+    color: white;
+    margin-bottom: 70px;
+    border-radius: 20px; 
+    overflow: hidden;
+    height: 400px;
+    width: 1500px;
+    margin-left: 100px;
+}
+
+
 
 
 
 .destinations-title {
     margin: auto;
     margin-top: 20px;
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
     margin-left: 20px;
  }
@@ -265,17 +309,23 @@
   }
   
   .enjoybtn button, .agency {
-    background-color: #FF6347;
-    color: #fff;
+    height: 60px;
+    padding: 0 1.5rem;
+    background: var(--green-color);
+    color: var(--white-color);
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    outline: none;
     cursor: pointer;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    
   }
   
   .enjoybtn button:hover, .agency:hover {
-    background-color: #FF4500;
-  }
+    background: var(--dark-green);
+}
+  
+
   
 
 
