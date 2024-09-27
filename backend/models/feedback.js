@@ -10,15 +10,11 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    feedbackCategory: { // Updated to match your requirement
+    feedbackCategory: {
         type: String,
         required: true
     },
-    comment: { // Changed 'comment' to 'feedback' to match your terminology
-        type: String,
-        required: true
-    },
-    contact: { // New field for contact
+    comment: {
         type: String,
         required: true
     }

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 export default function FeedbackForm() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        feedbackCategory: 'hotel service', // Default value
-        comment: '', // Initialize comment
-        contact: '' // Initialize contact
+        contact: '',
+        category: 'hotel service',
+        feedback: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -22,70 +21,27 @@ export default function FeedbackForm() {
 
     const validate = () => {
         const newErrors = {};
-        // Validate name
         if (!/^[A-Za-z\s]+$/.test(formData.name)) {
             newErrors.name = 'Name must contain only letters';
         }
-        // Validate email
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = 'Email is not valid';
         }
-        // Validate contact
-        if (!formData.contact) {
-            newErrors.contact = 'Contact number is required';
+        if (!/^\d{10}$/.test(formData.contact)) {
+            newErrors.contact = 'Contact number must be exactly 10 digits';
         }
-        // Validate comment
-        if (!formData.comment) {
-            newErrors.comment = 'Feedback comment is required';
-        }
-        // Validate feedback category
-        if (!formData.feedbackCategory) {
-            newErrors.feedbackCategory = 'Please select a feedback category';
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (validate()) {  // Ensure validation is called before submission
-            try {
-                // Prepare payload to match Mongoose schema
-                const payload = {
-                    name: formData.name,
-                    email: formData.email,
-                    feedbackCategory: formData.feedbackCategory, // Match the key to the backend
-                    comment: formData.comment, // Match the key to the backend
-                    contact: formData.contact // Include contact in the payload
-                };
-
-                // Attempt to post the feedback data
-                const response = await axios.post('http://localhost:8081/FeedBack/save', payload, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                console.log('Feedback submitted successfully:', response.data); // Log the response
-
-                // Navigate to FeedRite page with the submitted data
-                navigate('/feedRite', { state: { feedbackData: payload } });
-
-                // Reset form data
-                setFormData({
-                    name: '',
-                    email: '',
-                    feedbackCategory: 'hotel service', // Reset to default
-                    comment: '', // Reset to default
-                    contact: '' // Reset contact
-                });
-
-            } catch (error) {
-                console.error('Error submitting form:', error.response ? error.response.data : error.message); // Log any errors
-            }
+        if (validate()) {
+            console.log('Feedback Submitted:', formData);
+            // Navigate to feedRite page with form data
+            navigate('/feedRite', { state: formData });
         } else {
-            console.log('Validation failed:', errors); // Log validation errors
+            console.log('Validation failed');
         }
     };
 
@@ -134,9 +90,9 @@ export default function FeedbackForm() {
                         {errors.email && <div className="text-danger">{errors.email}</div>}
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Contact</label>
+                        <label className="form-label">Contact Number</label>
                         <input
-                            type="text"
+                            type="tel"
                             className="form-control"
                             name="contact"
                             value={formData.contact}
@@ -149,28 +105,27 @@ export default function FeedbackForm() {
                         <label className="form-label">Feedback Category</label>
                         <select
                             className="form-select"
-                            name="feedbackCategory"
-                            value={formData.feedbackCategory}
+                            name="category"
+                            value={formData.category}
                             onChange={handleChange}
                             required
                         >
-                            <option value="hotel service">Hotel Service</option>
-                            <option value="transport service">Transport Service</option>
-                            <option value="tour guide service">Tour guide Service</option>
-                            <option value="other">Other</option>
+                            <option value="Hotel service">Hotel Service</option>
+                            <option value="Transport service">Transport Service</option>
+                            <option value="Tour guide service">Tour guide Service</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Feedback</label>
                         <textarea
                             className="form-control"
-                            name="comment"
-                            value={formData.comment}
+                            name="feedback"
+                            value={formData.feedback}
                             onChange={handleChange}
                             rows="4"
                             required
                         />
-                        {errors.comment && <div className="text-danger">{errors.comment}</div>}
                     </div>
                     <button type="submit" className="btn btn-primary w-100">Submit Feedback</button>
                 </form>

@@ -1,0 +1,323 @@
+
+.tourpic{
+    background:
+     url("./img/tool/tourpic.jpg") no-repeat center;
+     height:500px;
+     display:flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     padding: 50px 0; /* Padding for extra space */
+     position: relative;
+     margin-top: 78px;
+     
+
+}
+
+.tourpic h1{
+    color: #fff;
+    
+    font-weight: bold;
+}
+
+.searc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+
+@import '~remixicon/fonts/remixicon.css';
+
+.search_bar{
+    padding: 0.5rem 1 rem ;
+    border-radius: 50px;
+    box-shadow: rgba(17,12,46,0.15) 1400px;
+    width: max-content;
+    margin-top: 50px;
+    width:600px;
+    background-color: white;
+    
+
+    
+
+    
+}
+
+.form_group span{
+    font-size: 1.8rem;
+    color:gray;
+
+}
+
+.form_group input{
+    border:none;
+    font-size: 0.9rem;
+    color: var(--heading-color);
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.form_group input:focus{
+    outline: none;;
+}
+
+.form_group h6{
+    margin-bottom: 0;
+}
+
+.form_group-fast{
+    border-right:2px solid #ddd;
+}
+
+.search-icon{
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    background: orangered;
+    color: #ddd;
+    border-radius: 10px 5px 10px 5px;
+    cursor:pointer;
+}
+
+.description {
+    text-align: center;
+    margin: 0 auto;
+    font-style:italic;
+    margin-top: px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #D1E9F6;
+    color: black;
+    border-radius: 10px;
+    padding: 20px;
+    
+}
+
+.destinations{
+   margin:auto;
+   margin-top: 20px;
+   font-size: 25px;
+   font-weight: bold;
+   margin-left: 20px;
+}
+
+
+
+.welcome {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.welcome h3{
+    color: #00008B;
+}
+
+.agency {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #008000; 
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    border: none;
+    margin-right: 10px;
+}
+
+.agency:hover{
+    background-color: #45a049;
+}
+
+
+.enjoy-life-section{
+    background: 
+     url("./img/tool/sigiriya.jpeg") no-repeat center;
+     height:300px;
+     width:1200px;
+     display:flex;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     margin-left: 180px;
+     overflow: hidden;
+     position: relative;
+    
+    
+
+}
+
+.enjoy-life-text{
+  
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px;
+    color: white;
+    margin-left: 100px;
+
+    
+}
+
+.destinations-title {
+    margin: auto;
+    margin-top: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 20px;
+ }
+ 
+ .destinations {
+     display: flex;
+     overflow-x: auto;
+     margin: auto;
+     max-width: 100%;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     gap: 1px;
+ }
+ 
+
+ 
+
+ 
+ .destination-item p {
+     margin-top: 10px;
+     font-weight: bold;
+     color: #333;
+ }
+
+ .destination-item1{
+    background: 
+     url("./img/tool/place1.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item2{
+    background: 
+     url("./img/tool/place2.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item3{
+    background: 
+     url("./img/tool/place3.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item4{
+    background: 
+     url("./img/tool/place5.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item5{
+    background: 
+     url("./img/tool/place7.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item6{
+    background: 
+     url("./img/tool/place8.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item7{
+    background: 
+     url("./img/tool/place9.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.destination-item8{
+    background: 
+     url("./img/tool/place10.jpeg") no-repeat center;
+     height:200px;
+     width:300px;
+     background-size: cover;
+     border-radius: 10px;
+     margin-top: 20px;
+     padding: 20px;
+
+}
+
+.package-card {
+    width: 18rem; /* Adjust the card width as needed */
+    margin: 20px auto; /* Center the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visuals */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevent content from overflowing */
+  }
+  
+  .package-card img {
+    width: 100%; /* Make the image take full card width */
+    height: auto;
+  }
+  
+  .package-card .card-body {
+    padding: 15px;
+  }
+  
+  .package-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  
+  .package-card .card-text {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+
+
+
+
