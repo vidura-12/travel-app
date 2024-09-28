@@ -9,13 +9,14 @@ import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
+import HotelLayout from './HotelLayout';
 
 
 
 
 import Home from './com/home';
 import Location from './com/location';
-import Hotel from './com/hotel';
+import Hotels from './com/hotels';
 import Feed from './com/feedback';
 import EventLayout from'./EventLayout';
 
@@ -54,6 +55,8 @@ import AgentRegister from './com/GuideRegister';
 
 // Location Manager Components
 import Location_Home from './locationmanager/home';
+
+
 
 import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
@@ -113,7 +116,8 @@ function App() {
         
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
-        <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
+        <Route path="/hotels" element={<HotelLayout><Hotels /></HotelLayout>} />
+
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />

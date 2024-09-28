@@ -22,7 +22,7 @@ function Header() {
                 <li><Link to ="/tours">Travel Packages</Link></li>
                 <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Gallery</Link></li>
-                <li><Link to="/hotel">Hotels</Link></li>
+                <li><Link to="/hotels">Hotels</Link></li>
                 <li><Link to="/guide">Travel Agents</Link></li>
                 <li><Link to="/eventView">Events</Link></li>
               </ul>
