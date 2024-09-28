@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './packagedetails.css';
+import Swal from 'sweetalert2';
 
 const Dashboard = () => {
   const [packages, setPackages] = useState([]);
@@ -45,15 +46,25 @@ const Dashboard = () => {
     setModalImage(image);
     toggleModal();
   };
-
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to deny this package?');
-    if (confirmDelete) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, deny it!'
+    });
+
+    if (result.isConfirmed) {
       try {
         await axios.delete(`http://localhost:8081/packages/${id}`);
         setPackages(packages.filter((pkg) => pkg._id !== id));
+        Swal.fire('Denied!', 'The package has been denied.', 'success');
       } catch (err) {
         setError(err.message);
+        Swal.fire('Error!', err.message, 'error');
       }
     }
   };
@@ -72,6 +83,7 @@ const Dashboard = () => {
       });
 
       setPackages(updatedPackages);
+      Swal.fire('Approved!', 'The package has been approved.', 'success');
     } catch (error) {
       console.error('Error approving package:', error.response?.data || error.message);
       if (error.response && error.response.status === 401) {
@@ -79,10 +91,11 @@ const Dashboard = () => {
         localStorage.removeItem('token');
         navigate('/admin/login');
       } else {
-        alert('An error occurred while approving the package.');
+        Swal.fire('Error!', 'An error occurred while approving the package.', 'error');
       }
     }
   };
+
 
   const handleEditClick = (pkg) => {
     setEditId(pkg._id);
@@ -160,7 +173,7 @@ const Dashboard = () => {
 
   return (
     <div className='dash location-dashboard-body'>
-      <div className="dashboard1 location-dashboard-container">
+      <div className="">
         <h1 className='title1 location-dashboard-title'>Travel Package Details</h1>
         <button className="btn btn-primary" onClick={generatePDF}>Download PDF</button>
         {packages.length === 0 ? (
