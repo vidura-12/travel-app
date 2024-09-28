@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button, Spinner } from 'react-bootstrap';
+import './supporth.css'; // Updated CSS file
 
 const FeedRite = () => {
     const location = useLocation();
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate();
     const initialFormData = location.state?.feedbackData || {};
     const [formData, setFormData] = useState(initialFormData);
     const [isEditing, setIsEditing] = useState(false);
@@ -33,7 +34,6 @@ const FeedRite = () => {
             setLoading(true);
             try {
                 const response = await axios.get('http://localhost:8081/FeedBack/all');
-                // Handle response if needed
             } catch (error) {
                 console.error('Error fetching feedbacks:', error);
             } finally {
@@ -77,9 +77,9 @@ const FeedRite = () => {
         try {
             await axios.delete(`http://localhost:8081/FeedBack/delete/${formData.email}`);
             console.log('Feedback deleted successfully');
-            alert('Feedback deleted successfully'); // Show alert
+            alert('Feedback deleted successfully');
             setShowDeleteModal(false);
-            navigate('/feedbackForm'); // Navigate to /feedbackForm after deletion
+            navigate('/feedbackForm');
         } catch (error) {
             console.error('Error deleting feedback:', error.response ? error.response.data : error.message);
         } finally {
@@ -114,8 +114,8 @@ const FeedRite = () => {
 
     const handleDownloadPDF = async () => {
         const doc = new jsPDF();
-        const logoUrl = '/img/logo.jpeg';  
-        const signatureUrl = '/img/sig.jpeg';  
+        const logoUrl = '/img/logo.jpeg';
+        const signatureUrl = '/img/sig.jpeg';
 
         try {
             const [logoBase64, signatureBase64] = await Promise.all([
@@ -123,13 +123,10 @@ const FeedRite = () => {
                 loadImageAsBase64(signatureUrl)
             ]);
 
-            // Add logo to the PDF, enlarged
-            doc.addImage(logoBase64, 'JPEG', 120, 10, 70, 30); // Increased size
-
-            // Add a frame
-            doc.setDrawColor(0, 0, 0); // Set color for frame (black)
-            doc.setLineWidth(2); // Set line width for frame
-            doc.rect(10, 10, 190, 250); // Draw the frame (x, y, width, height)
+            doc.addImage(logoBase64, 'JPEG', 120, 10, 70, 30);
+            doc.setDrawColor(0, 0, 0);
+            doc.setLineWidth(2);
+            doc.rect(10, 10, 190, 250);
 
             doc.setFontSize(16);
             doc.text('Feedback Summary', 20, 50);
@@ -141,7 +138,6 @@ const FeedRite = () => {
             doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 100);
             doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 110);
 
-            // Add signature to the PDF
             doc.addImage(signatureBase64, 'JPEG', 20, 180, 50, 15);
             doc.text(' Signature \n Customer Affairs Admin', 20, 200);
             doc.save('feedback-summary.pdf');
@@ -151,94 +147,67 @@ const FeedRite = () => {
     };
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            backgroundImage: 'url("/img/sl69.jpg")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '60px'
-        }}>
-            <div style={{
-                padding: '20px',
-                width: '100%',
-                maxWidth: '1000px',
-                color: 'black',
-                backgroundColor: 'rgba(0, 0, 0, 0.2)', // Background with transparency
-                borderRadius: '8px', // Rounded corners
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.9)', // Shadow effect
-            }}>
-                <h1 className="text-center mb-4" style={{ color: 'white' }}>
-                    Feedback Summary
-                </h1>
+        <div className="feedrite-container">
+            <div className="feedrite-card">
+                <h1 className="feedrite-title">Feedback Summary</h1>
                 {loading && <Spinner animation="border" variant="primary" />}
 
                 <form>
-                    <div className="mb-3">
-                        <label className="form-label"><strong>Name:</strong></label>
+                    <div className="feedrite-form-group">
+                        <label className="feedrite-label">Name:</label>
                         {isEditing ? (
-                            <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
+                            <input type="text" name="name" className="feedrite-input" value={formData.name} onChange={handleChange} required />
                         ) : (
-                            <p>{formData.name || "N/A"}</p>
+                            <p className="feedrite-text">{formData.name || "N/A"}</p>
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label"><strong>Email:</strong></label>
+                    <div className="feedrite-form-group">
+                        <label className="feedrite-label">Email:</label>
                         {isEditing ? (
-                            <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
+                            <input type="email" name="email" className="feedrite-input" value={formData.email} onChange={handleChange} required />
                         ) : (
-                            <p>{formData.email || "N/A"}</p>
+                            <p className="feedrite-text">{formData.email || "N/A"}</p>
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label"><strong>Contact:</strong></label>
+                    <div className="feedrite-form-group">
+                        <label className="feedrite-label">Contact:</label>
                         {isEditing ? (
-                            <input type="text" name="contact" className="form-control" value={formData.contact} onChange={handleChange} required />
+                            <input type="text" name="contact" className="feedrite-input" value={formData.contact} onChange={handleChange} required />
                         ) : (
-                            <p>{formData.contact || "N/A"}</p>
+                            <p className="feedrite-text">{formData.contact || "N/A"}</p>
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label"><strong>Category:</strong></label>
+                    <div className="feedrite-form-group">
+                        <label className="feedrite-label">Category:</label>
                         {isEditing ? (
-                            <select name="feedbackCategory" className="form-control" value={formData.feedbackCategory} onChange={handleChange} required>
+                            <select name="feedbackCategory" className="feedrite-select" value={formData.feedbackCategory} onChange={handleChange} required>
                                 <option value="hotel service">Hotel Service</option>
                                 <option value="transport service">Transport Service</option>
                                 <option value="tour guide service">Tour Guide Service</option>
                                 <option value="other">Other</option>
                             </select>
                         ) : (
-                            <p>{formData.feedbackCategory || "N/A"}</p>
+                            <p className="feedrite-text">{formData.feedbackCategory || "N/A"}</p>
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label"><strong>Feedback:</strong></label>
+                    <div className="feedrite-form-group">
+                        <label className="feedrite-label">Feedback:</label>
                         {isEditing ? (
-                            <textarea name="comment" className="form-control" value={formData.comment} onChange={handleChange} rows="4" required />
+                            <textarea name="comment" className="feedrite-textarea" value={formData.comment} onChange={handleChange} rows="4" required />
                         ) : (
-                            <p>{formData.comment || "N/A"}</p>
+                            <p className="feedrite-text">{formData.comment || "N/A"}</p>
                         )}
                     </div>
 
-                    <div className="d-flex justify-content-between mb-3">
+                    <div className="feedrite-actions">
                         {isEditing ? (
                             <button
                                 type="button"
-                                className="btn btn-success"
-                                style={{
-                                    width: '48%',
-                                    padding: '10px',
-                                    fontSize: '16px',
-                                    backgroundColor: hover.save ? '#28a745cc' : '#28a745', // Hover effect
-                                    color: hover.save ? 'white' : 'white',
-                                    transition: 'background-color 0.3s ease',
-                                }}
+                                className="feedrite-btn feedrite-btn-save"
                                 onMouseEnter={() => handleMouseEnter('save')}
                                 onMouseLeave={() => handleMouseLeave('save')}
                                 onClick={handleSave}
@@ -248,15 +217,7 @@ const FeedRite = () => {
                         ) : (
                             <button
                                 type="button"
-                                className="btn btn-primary"
-                                style={{
-                                    width: '48%',
-                                    padding: '10px',
-                                    fontSize: '16px',
-                                    backgroundColor: hover.update ? '#007bffcc' : '#007bff', // Hover effect
-                                    color: hover.update ? 'white' : 'white',
-                                    transition: 'background-color 0.3s ease',
-                                }}
+                                className="feedrite-btn feedrite-btn-update"
                                 onMouseEnter={() => handleMouseEnter('update')}
                                 onMouseLeave={() => handleMouseLeave('update')}
                                 onClick={handleEdit}
@@ -266,15 +227,7 @@ const FeedRite = () => {
                         )}
                         <button
                             type="button"
-                            className="btn btn-danger"
-                            style={{
-                                width: '48%',
-                                padding: '10px',
-                                fontSize: '16px',
-                                backgroundColor: hover.delete ? '#dc3545cc' : '#dc3545', // Hover effect
-                                color: hover.delete ? 'white' : 'white',
-                                transition: 'background-color 0.3s ease',
-                            }}
+                            className="feedrite-btn feedrite-btn-delete"
                             onMouseEnter={() => handleMouseEnter('delete')}
                             onMouseLeave={() => handleMouseLeave('delete')}
                             onClick={() => setShowDeleteModal(true)}
@@ -285,12 +238,7 @@ const FeedRite = () => {
 
                     <button
                         type="button"
-                        className="btn btn-secondary w-100"
-                        style={{
-                            backgroundColor: hover.pdf ? '#6c757dcc' : '#6c757d', // Hover effect
-                            color: hover.pdf ? 'white' : 'white',
-                            transition: 'background-color 0.3s ease',
-                        }}
+                        className="feedrite-btn feedrite-btn-pdf"
                         onMouseEnter={() => handleMouseEnter('pdf')}
                         onMouseLeave={() => handleMouseLeave('pdf')}
                         onClick={handleDownloadPDF}
@@ -301,18 +249,12 @@ const FeedRite = () => {
 
                 <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Confirm Deletion</Modal.Title>
+                        <Modal.Title>Confirm Delete</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        Are you sure you want to delete this feedback? This action cannot be undone.
-                    </Modal.Body>
+                    <Modal.Body>Are you sure you want to delete this feedback?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                            Cancel
-                        </Button>
-                        <Button variant="danger" onClick={handleDelete}>
-                            Delete
-                        </Button>
+                        <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>Cancel</Button>
+                        <Button variant="danger" onClick={handleDelete}>Delete</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
