@@ -191,7 +191,7 @@ function App() {
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
-        <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
+        <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />

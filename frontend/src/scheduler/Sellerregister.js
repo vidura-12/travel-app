@@ -32,10 +32,12 @@ const Sellerregister = () => {
   return (
     <div className='sellerregister'>
       <div className="container mt-5">
+        <center>
         <h2 className="selre">Registered Seller Information</h2>
+        </center>
         {sellersData.length > 0 ? (
           <table className="table table-bordered mt-4">
-            <thead>
+            <thead className='sellertable'>
               <tr>
                 <th>Agency Name</th>
                 <th>Email</th>
@@ -53,12 +55,12 @@ const Sellerregister = () => {
                   <td>{seller.address}</td>
                   <td>
                     <button
-                      className="btn btn-success me-2"
+                      className="location-btn-approve"
                       onClick={() => handleApprove(index)}
                     >
                       Approve
                     </button>
-                    <button className="btn btn-danger" onClick={() => handleDeny(index)}>
+                    <button className="location-btn-delete" onClick={() => handleDeny(index)}>
                       Deny
                     </button>
                   </td>
