@@ -223,7 +223,7 @@ function App() {
 
         {/* Vehicle Rental Manager Routes */}
 
-        <Route path="/vehicle-manager-dashboard" element={<VehicleAdminDashboard />} />
+        <Route path="/vehicle-manager/dashboard" element={<VehicleAdminDashboard />} />
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
        
