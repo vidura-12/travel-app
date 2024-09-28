@@ -62,7 +62,7 @@ import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
 import FAQ from './com/FAQ';
 import ContactUs from './com/ContactUs';
-
+import Sellerlayout from'./sellerlayout';
 import LocationsSummary from './locationmanager/LocationsSummary';
 
 // Scheduler Components
@@ -77,10 +77,10 @@ import SellerRegister from './scheduler/Sellerregister';
 import SellerSignIn from './scheduler/sellersignin';
 import EditRegister from './scheduler/editregister';
 import EditPackage from './scheduler/Editpackage';
-import Approveseller from './scheduler/approveseller';
-import Sellerlayout from './sellerlayout';
+import Approveseller from './scheduler/approvedPackages';
 
 
+import Approvepack from './scheduler/approvedPackages'
 import AdminChatDashboard from './usersupporter/AdminChatDashboard';
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
@@ -152,8 +152,7 @@ function App() {
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-         
+      
         
         {/* User Support Home Route */}
         {/* <Route path="/com/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} /> */}
@@ -187,19 +186,19 @@ function App() {
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
         <Route path="/scheduler/Sellersregister" element={<SchedulerLayout><SellerRegister /></SchedulerLayout>} />
-        <Route path="/scheduler/sellersignin" element={<UserLayout><SellerSignIn /></UserLayout>} />
+        <Route path="/scheduler/sellersignin" element={<Sellerlayout><SellerSignIn /></Sellerlayout>} />
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
-
+       
         <Route path="/Admin/profile" element={<AdminProfile />} />
-
+  <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />

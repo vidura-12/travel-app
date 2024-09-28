@@ -11,13 +11,13 @@ const Header = () => {
     };
 
     return (
-        <div className="navbar-custom-header1">
+        <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="">View approved Packages</a>
+                    <a className="nav-link-header" href="/scheduler/approveseller">View approved Packages</a>
                 </li>
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/scheduler/Editpackage">Edit Packages</a>
+                    <a className="nav-link-header" href="/agency">Add Packages</a>
                 </li>
             </ul>
             <div className="profile-header">
