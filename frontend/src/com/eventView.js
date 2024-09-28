@@ -8,6 +8,7 @@ import './eventView.css';
 function EventView() {
   const [events, setEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     fetchEvents();
@@ -35,6 +36,11 @@ function EventView() {
     } catch (error) {
       console.error('Error deleting event:', error);
     }
+  };
+
+  // Handle button click to navigate to the dashboard
+  const handleSellEventClick = () => {
+    navigate('/sellersignup');
   };
 
   // Filter events based on the search term
@@ -67,7 +73,7 @@ function EventView() {
           {filteredEvents.map(event => (
             <div key={event._id} className="col-md-4">
               <div className="card mb-4">
-              <img 
+                <img 
                   src={`/img/${event.image}`} // Corrected image source
                   alt={event.name} 
                 />
@@ -95,6 +101,24 @@ function EventView() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className='enjoy2'>
+        <div className="enjoy-life-section">
+          <div className='app'>
+            <center>
+              <h2>Welcome Event Sellers !</h2>
+              <h5>
+                The Event Management Dashboard provides a centralized hub for managing all aspects of event organization.
+                With features like approval tracking, event category management, and reporting tools, this dashboard ensures seamless event planning and execution, helping administrators and organizers stay on top of their tasks.
+                <h5>Join us today!</h5>
+              </h5>
+            </center>
+            <div className='enjoybtn'>
+              <button className="agency" onClick={handleSellEventClick}>Sell Your Event</button> {/* Navigate to dashboard */}
+            </div>
+          </div>
         </div>
       </div>
     </div>
