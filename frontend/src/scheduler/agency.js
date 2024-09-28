@@ -296,7 +296,7 @@ const Agency = () => {
           />
         </div>
         <div className="m2">
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit">Submit</button>
         </div>
       </form>
       </div>

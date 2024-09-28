@@ -1,0 +1,38 @@
+/* Sellerregister.css */
+.sellerregister .selre {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .location-btn-approve {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .location-btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Editregister.css */
+  .editregister .editre-title {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .seller-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+  }
+  
+  .seller-card .card-title {
+    color: #007bff;
+    font-weight: bold;
+  }
+  

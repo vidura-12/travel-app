@@ -1,6 +1,4 @@
-.sellerregister {
-    margin-top: 20px;
-  }
+
   
   .table {
     margin-top: 20px;
@@ -9,8 +7,13 @@
   .table th, .table td {
     text-align: center;
   }
-
-  .selre{
-    margin-top: 100px;
-  }
   
+  
+.sellertable th {
+  background-color: #687786; /* Set the header color */
+  color: white; /* Text color for better contrast */
+}
+
+.sellerregister-container{
+  margin-top: 200px;
+}

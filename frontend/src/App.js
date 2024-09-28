@@ -68,12 +68,15 @@ import SchedulerLayout from './schedulerlayout';
 import Travelagency from './scheduler/agency';
 import SellerSignup from './scheduler/sellersignup';
 import SellersProfile from './scheduler/Sellersprofile';
-import EditPackage from './scheduler/Editpackage';
 import Packagedetails from './scheduler/packagedetails';
 import Scheduladmin from './scheduler/scheduladmin';
 import SellerRegister from './scheduler/Sellerregister';
-
 import SellerSignIn from './scheduler/sellersignin';
+import EditRegister from './scheduler/editregister';
+import EditPackage from './scheduler/Editpackage';
+import Approveseller from './scheduler/approveseller';
+import Sellerlayout from './sellerlayout';
+
 
 import AdminChatDashboard from './usersupporter/AdminChatDashboard';
 import AddEvent from './EventManager/addEvent'
@@ -133,8 +136,7 @@ function App() {
         
        
         <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
-        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
-        <Route path="/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
+      
         
 
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
@@ -181,13 +183,16 @@ function App() {
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-        <Route path="/agency" element={<SchedulerLayout><Travelagency /></SchedulerLayout>} />
-        <Route path="/sellersignup" element={<SchedulerLayout><SellerSignup /></SchedulerLayout>} />
+        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
-        <Route path="/scheduler/Sellersregister" element={<UserLayout><SellerRegister /></UserLayout>} />
+        <Route path="/scheduler/Sellersregister" element={<SchedulerLayout><SellerRegister /></SchedulerLayout>} />
         <Route path="/scheduler/sellersignin" element={<UserLayout><SellerSignIn /></UserLayout>} />
+        <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
+        <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
+        <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
 
