@@ -11,12 +11,13 @@ const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const packageRoutes = require('./routes/package');
-const checklistRoutes = require('./routes/checklist');
+
 const locationAdmin = require('./routes/Locationadmin');
-const auth1 = require('./routes/auth1');
+
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 const sellerlog = require('./routes/sellerlog');
+
 const bodyParser = require('body-parser');
 const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const vehicleRoutes = require('./routes/vehicleRoutes');
@@ -39,8 +40,6 @@ mongoose.connect(URL)
     });
 
 // Route Definitions
-app.use('/api/auth', auth1);
-app.use('/api/checklists', checklistRoutes);
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
@@ -52,6 +51,7 @@ app.use('/event', eventsRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/vehicles', vehicleRoutes);

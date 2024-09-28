@@ -1,7 +1,7 @@
 .travelagency{
    
      margin-top: 80px;
-     background-image: url('./sheduler image/i5.jpg'); /* Replace with the actual path to your image */
+     background-image: url('./sheduler image/im9.jpg'); /* Replace with the actual path to your image */
      background-size: cover;
      background-position: center;
      padding: 50px 0; 
@@ -50,20 +50,22 @@
     color: #6c757d;
   }
   
-  .m2 {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
+  .m2 button{
+    background-color: #73d99b;
     color: white;
-    font-size: 16px;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    width: 100%;
+    border-radius: 12px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
   }
   
-  .m2:hover {
-    background-color: #0056b3;
+  .m2 button:hover {
+    background-color: #00404f;
   }
 
   .packages {
@@ -87,4 +89,4 @@
     display: block;
   }
   
-  
+ 

@@ -40,7 +40,7 @@ const SellerSignIn = () => {
             navigate('/travelagent/dashGuide'); // Admin dashboard route
             break;
         case 'Travel Agency':
-          navigate('/scheduler/Sellersregister'); // Event Manager dashboard route
+          navigate('/Sellersprofile'); // Event Manager dashboard route
           break;
         case 'Event Manager':
           navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route

@@ -1,0 +1,162 @@
+/* Base Styles */
+.feedrite-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('img/sl69.jpg') no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(8px); /* Blur the background image */
+    padding: 20px;
+    position: relative;
+}
+
+.feedrite-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
+    z-index: 0;
+}
+
+.feedrite-card {
+    position: relative;
+    background-color: rgba(41, 39, 39, 0.9); /* Semi-transparent background */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for modern look */
+    border-radius: 15px; /* Slightly larger border-radius */
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    z-index: 1; /* Make sure the card is above the background overlay */
+    backdrop-filter: blur(10px); /* Optional: Blur the card itself slightly */
+}
+
+.feedrite-title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase; /* Modern typography */
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); /* Add text shadow for depth */
+}
+
+.feedrite-form-group {
+    margin-bottom: 20px;
+}
+
+.feedrite-label {
+    display: block;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.feedrite-input,
+.feedrite-textarea,
+.feedrite-select {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Lighter borders */
+    border-radius: 10px; /* Softer edges for inputs */
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background for input fields */
+    color: #fff; /* White text */
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.feedrite-input:focus,
+.feedrite-textarea:focus,
+.feedrite-select:focus {
+    border-color: #00d2ff; /* Brighter border on focus */
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.7); /* Stronger focus shadow */
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.feedrite-text {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Actions and Buttons */
+.feedrite-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.feedrite-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px; /* Rounded buttons */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase; /* Button text styling */
+    letter-spacing: 1.5px;
+}
+
+.feedrite-btn:hover {
+    transform: scale(1.05); /* Add scale effect on hover */
+}
+
+/* Specific button styles */
+.feedrite-btn-save {
+    background-color: #28a745;
+    color: white;
+}
+
+.feedrite-btn-save:hover {
+    background-color: #218838;
+}
+
+.feedrite-btn-update {
+    background-color: #17a2b8;
+    color: white;
+}
+
+feedrite-btn-update:hover {
+    background-color: #138496;
+}
+
+.feedrite-btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.feedrite-btn-delete:hover {
+    background-color: #c82333;
+}
+
+.feedrite-btn-pdf {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.feedrite-btn-pdf:hover {
+    background-color: #e0a800;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feedrite-card {
+    animation: fadeIn 0.6s ease-out; /* Add animation to the card */
+}

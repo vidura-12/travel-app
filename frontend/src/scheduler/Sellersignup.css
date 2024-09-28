@@ -1,22 +1,38 @@
-
+.sellers{
+    background:
+     url("./sheduler image/im8.jpg") no-repeat center;
+     height:1100px;
+     display:flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     padding: 50px 0; 
+     position: relative;
+    border-radius: 10px;
+}
 
 
 
 
 .sellersignup-page {
     background-color: #f8f9fa; /* Light background */
-    padding: 50px 0; /* Padding for spacing */
-    min-height: 100vh; /* Full height of the viewport */
+    padding: 50px 0; /* Padding for spacing */ /* Full height of the viewport */
     display: flex; /* Use flexbox for centering */
     align-items: center; /* Center vertically */
     justify-content: center;
+    width: 400px;
+    height: 200px;
+    
     /* Center horizontally */
 }
 
 .signup-container {
     max-width: 500px; /* Maximum width of the form */
     width: 100%;
-    margin-top: 100px;
+    height: 200px;
+    margin-bottom: 600px;
      /* Allow the form to take full width up to max-width */
 }
 

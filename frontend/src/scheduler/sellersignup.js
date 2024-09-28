@@ -43,18 +43,22 @@ const Sellersignup = () => {
       const userData = { name, email, password, phone, address, role };
       
       try {
-        // Make POST request to the server
+        // Make POST request to the server (Optional)
         const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
         console.log('Response:', response.data);
         
+        // Save seller data to localStorage
+        const savedSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
+        localStorage.setItem('sellersData', JSON.stringify([...savedSellers, userData]));
+
         // Show alert on successful registration
         alert('Registration successful! Please log in.');
 
         // Navigate to login page
-        navigate('/scheduler/sellersignin'); // Use navigate instead of history.push
+        navigate('/scheduler/sellersignin');
       } catch (error) {
         console.error('Error submitting form:', error);
-        alert('Error registering user. Please try again.'); // Show error alert
+        alert('Error registering user. Please try again.');
       }
     }
   };

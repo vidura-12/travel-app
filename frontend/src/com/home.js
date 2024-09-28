@@ -5,7 +5,7 @@ import './home.css';
 function Home() {
   const [locations, setLocations] = useState([]);
   const [visibleDescription, setVisibleDescription] = useState({});
-
+  localStorage.setItem('email', "viduranirmal@gmail.com");
   useEffect(() => {
     // Fetch locations from the API
     const fetchLocations = async () => {
