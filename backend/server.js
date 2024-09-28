@@ -11,9 +11,9 @@ const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
-const checklistRoutes = require('./routes/checklist');
+
 const locationAdmin = require('./routes/Locationadmin');
-const auth1 = require('./routes/auth1');
+
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 const sellerlog = require('./routes/sellerlog');
@@ -34,9 +34,7 @@ mongoose.connect(URL)
         console.error("Connection error:", error);
     });
 
-// Route Definitions
-app.use('/api/auth', auth1);
-app.use('/api/checklists', checklistRoutes);
+
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);

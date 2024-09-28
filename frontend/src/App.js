@@ -11,9 +11,7 @@ import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
 
 
-import SignUp from './components/Auth/SignUp';
-import Login from './components/Auth/Login';
-import Profile from './components/Auth/Profile';
+
 
 import Home from './com/home';
 import Location from './com/location';
@@ -53,10 +51,7 @@ import AgentGuide from './com/guide';
 import AgentproGuide from './com/profileGuide';
 import AgentRegister from './com/GuideRegister'; 
 
-import ChecklistOverview from './components/checklist/ChecklistOverview';
-import CreateChecklist from './components/checklist/CreateChecklist';
-import ChecklistItems from './components/checklist/ChecklistItems';
-import DeleteChecklistModal from './components/checklist/DeleteChecklistModal';
+
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 
@@ -112,10 +107,7 @@ function App() {
         <Route path="/Chatbox" element={<UserLayout><Chatbox /></UserLayout>} />
         <Route path="/FAQ" element={<UserLayout><FAQ /></UserLayout>} />
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
-        {/* User Routes */}
+        
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
@@ -202,11 +194,6 @@ function App() {
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
-
-        <Route path="/checklists" element={<ChecklistOverview />} />
-        <Route path="/checklists/create" element={<CreateChecklist />} />
-        <Route path="/checklists/:id/items" element={<ChecklistItems />} /> 
-        <Route path="/checklists/delete/:id" element={<DeleteChecklistModal />} />
 
        
       </Routes>
