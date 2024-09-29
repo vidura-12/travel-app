@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './agency.css';
-const storedEmail = localStorage.getItem('email'); // Adjust the key as necessary
+
 const Agency = () => {
   const [formData, setFormData] = useState({
     agencyName: '',
     phoneNumber: '',
-    email: '', // Keep email in state, but it won't be editable
+    email: '',
     location: '',
     places: [''],
     maxPeople: '',
@@ -17,14 +17,6 @@ const Agency = () => {
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-
-  // Effect to set email from local storage
-  useEffect(() => {
-   
-    if (storedEmail) {
-      setFormData((prevData) => ({ ...prevData, email: storedEmail }));
-    }
-  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -50,6 +42,19 @@ const Agency = () => {
         newErrors.agencyName = '';
       } else {
         newErrors.agencyName = 'Agency Name must contain only letters and spaces';
+      }
+      setErrors(newErrors);
+    } else if (id === 'email') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailPattern.test(value)) {
+        setFormData({
+          ...formData,
+          [id]: value,
+        });
+        localStorage.setItem('email', value);
+        newErrors.email = '';
+      } else {
+        newErrors.email = 'Invalid email address';
       }
       setErrors(newErrors);
     } else {
@@ -91,6 +96,11 @@ const Agency = () => {
 
     if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
       newErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
+      valid = false;
+    }
+
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
       valid = false;
     }
 
@@ -150,7 +160,7 @@ const Agency = () => {
         setFormData({
           agencyName: '',
           phoneNumber: '',
-          email: storedEmail || '', // Resetting email to stored value
+          email: '',
           location: '',
           places: [''],
           maxPeople: '',
@@ -194,27 +204,28 @@ const Agency = () => {
 
             <div className="inline-inputs">
               <div className='l1'>
-                <label>Max People</label>
+                <label>Phone Number</label>
               </div>
               <input
-                type="number"
+                type="tel"
                 className="form-control"
-                id="maxPeople"
-                value={formData.maxPeople}
+                id="phoneNumber"
+                value={formData.phoneNumber}
                 onChange={handleInputChange}
               />
-              {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
+              {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
 
               <div className='l1'>
-                <label>Price</label>
+                <label>Email address</label>
               </div>
               <input
-                type="number"
+                type="email"
                 className="form-control"
-                id="price"
-                value={formData.price}
+                id="email"
+                value={formData.email}
                 onChange={handleInputChange}
               />
+              {errors.email && <div className="error text-danger">{errors.email}</div>}
             </div>
 
             <div className='l1'>
@@ -228,20 +239,6 @@ const Agency = () => {
               onChange={handleInputChange}
             />
             {errors.location && <div className="error text-danger">{errors.location}</div>}
-            {errors.price && <div className="error text-danger">{errors.price}</div>}
-            <div className='l1'>
-              <label>Phone Number</label>
-            </div>
-            <input
-              type="tel"
-              className="form-control"
-              id="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-            />
-            {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
-
-            {/* Removed Email Input Field */}
 
             <div className='l1'>
               <label>Places</label>
@@ -264,6 +261,30 @@ const Agency = () => {
             <button type="button" className="btn btn-secondary mt-2" onClick={addPlace}>
               Add Place
             </button>
+
+            <div className='l1'>
+              <label>Max People</label>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              id="maxPeople"
+              value={formData.maxPeople}
+              onChange={handleInputChange}
+            />
+            {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
+
+            <div className='l1'>
+              <label>Price</label>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              value={formData.price}
+              onChange={handleInputChange}
+            />
+            {errors.price && <div className="error text-danger">{errors.price}</div>}
 
             <div className='l1'>
               <label>Upload an Image</label>
