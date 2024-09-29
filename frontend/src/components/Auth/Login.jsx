@@ -36,7 +36,7 @@ function Login() {
       localStorage.setItem('email', formData.email);
       console.log('Login successful', response.data);
       alert('Login successful');
-      navigate('/profile');
+      navigate('/home');
     } catch (error) {
       console.error('Login failed', error);
       setErrors({ general: 'Login failed. Please check your credentials and try again.' });

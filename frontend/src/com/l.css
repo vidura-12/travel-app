@@ -1,10 +1,8 @@
 .body12 {
-  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Replace with the actual path to your image */
+  background-image: url('./img/elephant-3903267.jpg'); /* Replace with the actual path to your image */
   background-size: cover;
   background-position: center;
   padding: 50px 0; 
-  position: relative;
-
 }
 
 /* Background effect */
@@ -12,7 +10,8 @@
   position: relative;
   margin: 100px auto;
   max-width: 850px;
-  background: rgba(245, 245, 245, 0.863); /* Content visibility */
+  max-height: 700px;
+  background: rgba(245, 245, 245, 0.575); /* Content visibility */
   border-radius: 18px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
   padding: 35px;
@@ -29,11 +28,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Same image as in .body12 */
+  background-image: url('./img/elephant-3903267.jpg'); /* Same image as in .body12 */
   background-size: cover;
   background-position: center;
-  filter: blur(1px); /* Adjust the blur value as needed */
- 
+  filter: blur(0.8px);
 }
 
 /* Other styles remain the same */
