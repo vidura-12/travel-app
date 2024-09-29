@@ -1,0 +1,196 @@
+.vehicle-content {
+  padding: 70px; /* Keep this if you want padding */
+  background-color: #f4f4f4; /* Change if necessary */
+  min-height: calc(100vh - 100px); /* Adjust height to account for the navbar */
+  font-family: Arial, sans-serif;
+  /* Adjust if overlapping with navbar */
+}
+
+.vehicle-header {
+
+    margin-top: 70px;
+  }
+  .vehicle-headerButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .vehicle-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .vehicle-button2 {
+    padding: 10px 15px;
+    background-color: #de6e05;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .vehicle-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 20px;
+    margin: center;
+  }
+  
+  .vehicle-th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .vehicle-td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .vehicle-actionButton {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 14px;
+  }
+  
+  .vehicle-approveButton {
+    background-color: #28a745;
+  }
+  
+  .vehicle-rejectButton {
+    background-color: #dc3545;
+  }
+  
+  .vehicle-deleteButton { 
+    background-color: #dc3545;
+  }
+  .vehicle-deleteButton:hover {
+    background-color: #d14452;
+  }
+  
+  .vehicle-approvedButton {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: none;
+    cursor: default;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  
+  .vehicle-rejectedButton {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: none;
+    cursor: default;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  
+  .vehicle-noVehicles {
+    text-align: center;
+    padding: 20px;
+    font-size: 18px;
+  }
+  
+  .vehicle-vehicleImageStyle {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .vehicle-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 12px;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .vehicle-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .vehicle-confirmText {
+    margin: 20px 0;
+  }
+  
+  .vehicle-actionButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* 10px space between buttons */
+  }
+  
+  .vehicle-AmodalButton {
+    background-color: #dc3545;
+    padding: 8px 12px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .vehicle-AmodalButton:hover {
+    background-color: #d14452;
+  }
+  
+  .vehicle-CmodalButton {
+    background-color: #28a745;
+    padding: 8px 12px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .vehicle-CmodalButton:hover {
+    background-color: #2e9e46;
+  }
+  
+  .vehicle-AfterClosemodalButton {
+    background-color: #007bff;
+    padding: 8px 12px;
+    margin-top: 10px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  

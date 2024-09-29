@@ -56,7 +56,7 @@ const AdminLogin = () => {
           navigate('/EventManager/Admin');
           break;
         case 'vehicle_manager':
-          navigate('/dvbxbjkds');
+          navigate('/vehicle-manager/dashboard');
           break;
           case 'tourGuide_manager':
           navigate('/travelagent/dashboard');

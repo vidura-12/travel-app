@@ -31,7 +31,7 @@ function Header() {
                 <li><a href="/home">Home</a></li>
                 <li><a href="/UserSupportHome">Customer Support</a></li>
                 <li><a href="/tours">Travel Packages</a></li>
-                <li><a href="#">Vehicle Rental</a></li>
+                <li><a href="/VehicleRentalHome">Vehicle Rental</a></li>
                 <li><a href="/location">Gallery</a></li>
                 <li><a href="/hotel">Hotels</a></li>
                 <li><a href="/guide">Travel Agents</a></li>
