@@ -45,32 +45,42 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+
+    // Check if username and password are provided
+    if (!email || !password) {
+      return res.status(400).json({ msg: 'Username and password are required' });
+    }
 
     // Find the user by username
-    const vehicleOwner = await VehicleOwner.findOne({ username });
+    const vehicleOwner = await VehicleOwner.findOne({ email });
     if (!vehicleOwner) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'Invalid username or password' });
     }
 
+    // Compare the password with the hashed password
     const isMatch = await bcrypt.compare(password, vehicleOwner.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'Invalid username or password' });
     }
 
+    // Generate a JWT token
     const token = jwt.sign(
       {
         id: vehicleOwner._id,
-        username: vehicleOwner.username,
+        email: vehicleOwner.email,
         role: vehicleOwner.role
       },
       secret,
       { expiresIn: '1h' }
     );
 
-    res.json({ token });
+    // Send back the token
+    res.status(200).json({ token, msg: 'Login successful' });
+
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    console.error(err.message);
+    res.status(500).json({ msg: 'Server error, please try again later' });
   }
 };
 

@@ -2,16 +2,16 @@ const Vehicle = require('../models/Vehicle');
 
 // Create a new vehicle post
 exports.createVehicle = async (req, res) => {
-    const { username, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = req.body;
+    const { email, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = req.body;
     const image = req.file ? req.file.filename : ''; // Use filename here
   
     try {
-      if (!username || !make || !model || !numberOfSeats || !pricePerDay || !color || !category || !contact || !ac || !vnumber || !location) {
+      if (!email || !make || !model) {
         return res.status(400).json({ message: 'All fields are required' });
       }
   
       const vehicle = new Vehicle({
-        username,
+        email,
         make,
         model,
         numberOfSeats,

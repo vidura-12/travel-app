@@ -63,14 +63,15 @@ const styles = {
 function VehicleOwner() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState('');
-  const [username, setUsername] = useState('');
+  //const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('vehicleOwner'));
-    if (user && user.username) {
-      setUsername(user.username);
-      fetchBookings(user.username);
+    if (user && user.email) {
+      setEmail(user.email);
+      fetchBookings(user.email);
     } else {
       navigate('/vehicle-owner/login');
     }

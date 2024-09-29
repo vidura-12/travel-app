@@ -43,15 +43,15 @@ exports.getBookingsForOwner = async (req, res) => {
     try {
         console.log('Received request to get bookings for owner');
 
-        if (!req.user || !req.user.username) {
-            console.error('No username found in JWT payload');
-            return res.status(400).json({ success: false, message: 'No username found' });
+        if (!req.user || !req.user.email) {
+            console.error('No email found in JWT payload');
+            return res.status(400).json({ success: false, message: 'No email found' });
         }
 
-        const { username } = req.user;
-        console.log('Extracted username from JWT:', username);
+        const { email } = req.user;
+        console.log('Extracted email from JWT:', email);
 
-        const vehicles = await Vehicle.find({ username });
+        const vehicles = await Vehicle.find({ email });
         console.log('Found vehicles for the owner:', vehicles);
 
         if (vehicles.length === 0) {

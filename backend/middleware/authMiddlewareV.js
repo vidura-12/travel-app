@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET; 
 
-const authMiddlewareV = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   // Get token from headers
   const token = req.header('Authorization') && req.header('Authorization').replace('Bearer ', '');
   
@@ -14,7 +14,7 @@ const authMiddlewareV = (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     console.log('Decoded JWT:', decoded); 
 
-    if (!decoded.username) {
+    if (!decoded.email) {
       console.log('JWT does not contain username');
       return res.status(401).json({ msg: 'Token is not valid (no username)' });
     }
@@ -27,4 +27,4 @@ const authMiddlewareV = (req, res, next) => {
   }
 };
 
-module.exports = authMiddlewareV;
+module.exports = authMiddleware;

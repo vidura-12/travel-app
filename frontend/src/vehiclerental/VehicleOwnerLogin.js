@@ -1,49 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; // Correct the import statement for jwtDecode
+import { jwtDecode } from 'jwt-decode';
 
 function VehicleOwnerLogin() {
-  const [username, setUsername] = useState('');
+  //const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  // Handler for username input to allow only letters
-  const handleUsernameChange = (e) => {
-    const { value } = e.target;
-    if (/^[a-zA-Z]*$/.test(value)) {
-      setUsername(value); // Update state only if value is valid
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post('http://localhost:8081/vehicle-owner/login', {
-        username,
+        email,
         password,
       });
 
       const { token } = response.data;
       localStorage.setItem('token', token);
-      localStorage.setItem('vehicleOwner', JSON.stringify({ username }));
+      localStorage.setItem('vehicleOwner', JSON.stringify({ email }));
 
       const decodedToken = jwtDecode(token);
       console.log('Decoded Token:', decodedToken);
 
-      setSuccess('Login successful! Redirecting...');
-      setError(''); // Clear the error
-      setTimeout(() => {
-        window.location.href = '/vehicle-owner-dashboard';
-      }, 1000); // Delay for 1 second before redirecting
+      window.location.href = '/vehicle-owner-dashboard';
     } catch (err) {
-      console.error('Login Error:', err);
-      if (err.response && err.response.data && err.response.data.msg) {
-        setError(err.response.data.msg); // Display the backend error message
-      } else {
-        setError('Login failed. Please check your credentials.');
-      }
+      console.error('Login Error:', err.response);
+      setError('Login failed');
       setSuccess('');
     }
   };
@@ -53,7 +38,7 @@ function VehicleOwnerLogin() {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)',
+    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)', 
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };
@@ -107,6 +92,7 @@ function VehicleOwnerLogin() {
     cursor: 'pointer',
     fontSize: '16px',
     marginTop: '10px'
+
   };
 
   const buttonHoverStyle = {
@@ -126,6 +112,8 @@ function VehicleOwnerLogin() {
   };
 
   return (
+    <div>
+
     <div style={containerStyle}>
       <div style={boxStyle}>
         <h2>Vehicle Owner Login</h2>
@@ -133,12 +121,12 @@ function VehicleOwnerLogin() {
         {success && <p style={successStyle}>{success}</p>}
         <form onSubmit={handleSubmit}>
           <div style={inputGroupStyle}>
-            <label htmlFor="username" style={labelStyle}>Username:</label>
+            <label htmlFor="email" style={labelStyle}>Email:</label>
             <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange} // Updated onChange handler
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               style={inputStyle}
             />
@@ -163,14 +151,14 @@ function VehicleOwnerLogin() {
             Login
           </button>
           <button
-            type="button" // Prevent form submission with this button
+            type="submit"
             style={buttonStyleRegister}
-            onClick={() => window.location.href = '/vehicle-owner/register'}
-          >
+            onClick={() => window.location.href = '/vehicle-owner/register'}>
             Register
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }

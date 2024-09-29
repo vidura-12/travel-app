@@ -16,7 +16,7 @@ function VehicleOwnerCreatePost() {
   const [ac, setAc] = useState('');
   const [vnumber, setVnumber] = useState('');
   const [location, setLocation] = useState('');
-  const [username, setUsername] = useState('');
+  //const [username, setUsername] = useState('');
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [error, setError] = useState('');
@@ -26,27 +26,29 @@ function VehicleOwnerCreatePost() {
   const [vehicles, setVehicles] = useState([]);
   const [editingVehicle, setEditingVehicle] = useState(null);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('vehicleOwner'));
-    if (user && user.username) {
-      setUsername(user.username);
-      fetchVehicles(user.username);
+    if (user && user.email) {
+      setEmail(user.email);
+      fetchVehicles(user.email);
     } else {
       navigate('/vehicle-owner/login');
     }
   }, [navigate]);
   
-  const fetchVehicles = async (username) => {
+  const fetchVehicles = async (email) => {
     try {
       const token = localStorage.getItem('token');
+
       const response = await axios.get('http://localhost:8081/api/vehicles', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      const userVehicles = response.data.data.filter(vehicle => vehicle.username === username);
+      const userVehicles = response.data.data.filter(vehicle => vehicle.email === email);
       setVehicles(userVehicles);
     } catch (err) {
       // Handle session expiration
@@ -82,7 +84,7 @@ function VehicleOwnerCreatePost() {
     }
 
     const formData = new FormData();
-    formData.append('username', username);
+    formData.append('email', email);
     formData.append('make', make);
     formData.append('model', model);
     formData.append('numberOfSeats', numberOfSeats);
@@ -123,7 +125,7 @@ function VehicleOwnerCreatePost() {
       setError('');
       setModalIsOpen(false);
 
-      fetchVehicles(username);
+      fetchVehicles(email);
     } catch (err) {
       setError(`Failed to create vehicle post: ${err.response?.data?.message || err.message}`);
     }
@@ -190,7 +192,7 @@ function VehicleOwnerCreatePost() {
       setError('');
       closeEditModal();
 
-      fetchVehicles(username);
+      fetchVehicles(email);
     } catch (err) {
       setError(`Failed to update vehicle post: ${err.response?.data?.message || err.message}`);
     }
@@ -210,7 +212,7 @@ function VehicleOwnerCreatePost() {
       setError('');
       setDeleteVehicleId(null);
 
-      fetchVehicles(username);
+      fetchVehicles(email);
     } catch (err) {
       setError(`Failed to delete vehicle post: ${err.response?.data?.message || err.message}`);
     }
