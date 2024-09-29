@@ -17,7 +17,7 @@ const Header = () => {
                     <a className="nav-link-header" href="/scheduler/approveseller">View approved Packages</a>
                 </li>
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/agency">Add Packages</a>
+                    <a className="nav-link-header" href="scheduler/sellersignin">Add Packages</a>
                 </li>
             </ul>
             <div className="profile-header">

@@ -201,7 +201,7 @@ function App() {
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
         <Route path="/scheduler/Sellersregister" element={<SchedulerLayout><SellerRegister /></SchedulerLayout>} />
-        <Route path="/scheduler/sellersignin" element={<Sellerlayout><SellerSignIn /></Sellerlayout>} />
+        <Route path="/scheduler/sellersignin" element={<UserLayout><SellerSignIn /></UserLayout>} />
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
