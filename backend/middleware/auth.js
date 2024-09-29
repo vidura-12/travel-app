@@ -1,28 +1,25 @@
+// backend/middleware/auth.js
+
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
-module.exports = function(req, res, next) {
-    // Access Authorization header correctly
-    const authHeader = req.headers.authorization;
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Extract token from 'Bearer <token>'
 
-    if (authHeader) {
-        // Use the token directly if not using Bearer scheme
-        const token = authHeader;
-
-        // Verify token
-        jwt.verify(token, process.env.TOKEN, (err, user) => {
-            if (err) {
-                console.error('Token verification failed:', err);
-                return res.sendStatus(403); // Forbidden
-            }
-
-            // Attach user to request object if needed
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
+    if (!token) {
+        console.log('No token provided');
+        return res.sendStatus(401); // Unauthorized
     }
+
+    jwt.verify(token, process.env.TOKEN, (err, user) => {
+        if (err) {
+            console.log('Token verification failed:', err);
+            return res.sendStatus(403); // Forbidden
+        }
+        console.log('Token verified, user:', user);
+        req.user = user; // Attach user info to request object
+        next(); // Proceed to the next middleware or route handler
+    });
 };
 
-
+module.exports = authenticateToken; // Export directly
