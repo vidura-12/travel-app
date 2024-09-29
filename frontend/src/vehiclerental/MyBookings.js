@@ -80,7 +80,7 @@ function VehicleOwner() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8081/api/bookings/owner', {
+      const response = await axios.get('http://localhost:5000/api/bookings/owner', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -90,7 +90,7 @@ function VehicleOwner() {
       setError(`Failed to fetch bookings: ${err.response?.data?.message || err.message}`);
     }
   };
-
+  
   return (
     <div>
       <Header />

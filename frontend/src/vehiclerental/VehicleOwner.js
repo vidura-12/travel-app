@@ -26,18 +26,21 @@ function VehicleOwnerCreatePost() {
   const [vehicles, setVehicles] = useState([]);
   const [editingVehicle, setEditingVehicle] = useState(null);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
+  
+  const email = localStorage.getItem('email');
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('vehicleOwner'));
-    if (user && user.email) {
-      setEmail(user.email);
-      fetchVehicles(user.email);
+    // Check if the email exists in localStorage
+    if (email) {
+      fetchVehicles(email);
     } else {
-      navigate('/vehicle-owner/login');
+      // If no email, navigate to login
+      navigate('/scheduler/sellersignin');
     }
-  }, [navigate]);
+  }, [email, navigate]); // Trigger fetching when the email is set
+  
   
   const fetchVehicles = async (email) => {
     try {
@@ -56,7 +59,7 @@ function VehicleOwnerCreatePost() {
         alert('Session expired. Please log in again.');
         localStorage.removeItem('vehicleOwner'); // Clear user data
         localStorage.removeItem('token'); // Clear token
-        navigate('/vehicle-owner/login'); // Redirect to login
+        navigate('/scheduler/sellersignin'); // Redirect to login
       } else {
         setError(`Failed to fetch vehicles: ${err.response?.data?.message || err.message}`);
       }
@@ -133,8 +136,8 @@ function VehicleOwnerCreatePost() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('vehicleOwner');
-    navigate('/vehicle-owner/login');
+    localStorage.removeItem('email');
+    navigate('/scheduler/sellersignin'); // Redirect to the login page
   };
 
   const handleMyBookingsClick = () => {

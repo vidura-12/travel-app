@@ -59,7 +59,7 @@ app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')
 app.use('/api', bookingRoutes);
 
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
-app.post('/vehicle-owner/login', vehicleOwnerController.login);
+app.post('/scheduler/sellersignin', vehicleOwnerController.login);
 
 // Start the server
 const server = app.listen(PORT, () => {
