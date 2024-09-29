@@ -9,9 +9,14 @@ import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
-import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
-import VehicleOwnerLayout from './vehiclerental/VehicleOwnerLayout';
-import VehicleAdminLayout from './vehiclerentalManager/VehiceAdminLayout';
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
+
+import ChecklistForm from './components/Check/ChecklistForm';
+import ChecklistDisplay from './components/Check/ChecklistDisplay';
+import ChecklistItem from './components/Check/ChecklistItem';
+
 
 
 import Home from './com/home';
@@ -60,7 +65,7 @@ import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
 import FAQ from './com/FAQ';
 import ContactUs from './com/ContactUs';
-
+import Sellerlayout from'./sellerlayout';
 import LocationsSummary from './locationmanager/LocationsSummary';
 
 // Scheduler Components
@@ -75,10 +80,10 @@ import SellerRegister from './scheduler/Sellerregister';
 import SellerSignIn from './scheduler/sellersignin';
 import EditRegister from './scheduler/editregister';
 import EditPackage from './scheduler/Editpackage';
-import Approveseller from './scheduler/approveseller';
-import Sellerlayout from './sellerlayout';
+import Approveseller from './scheduler/approvedPackages';
 
 
+import Approvepack from './scheduler/approvedPackages'
 import AdminChatDashboard from './usersupporter/AdminChatDashboard';
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
@@ -103,7 +108,9 @@ import VehicleOwnerProfile from './vehiclerental/VehicleOwnerProfile';
 
 // Vehicle Rental Manager Components
 import VehicleAdminDashboard from './vehiclerentalManager/VehicleAdminDashboard';
-
+import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
+import VehicleOwnerLayout from './vehiclerental/VehicleOwnerLayout';
+import VehicleAdminLayout from './vehiclerentalManager/VehiceAdminLayout';
 function App() {
   return (
     <Router>
@@ -159,8 +166,7 @@ function App() {
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
-         
+      
         
         {/* User Support Home Route */}
         {/* <Route path="/com/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} /> */}
@@ -194,7 +200,7 @@ function App() {
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
-        <Route path="/agency" element={<UserLayout><Travelagency /></UserLayout>} />
+        <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
@@ -204,16 +210,22 @@ function App() {
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
-
+       
         <Route path="/Admin/profile" element={<AdminProfile />} />
-
+        <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
+     
+        <Route path="/create-checklist" element={<UserLayout><ChecklistForm /></UserLayout>} />
+        <Route path="/checklists" element={<UserLayout><ChecklistDisplay /></UserLayout>}  />
+        <Route path="/checklists/:checklistId/:checklistTitle" element={<UserLayout><ChecklistItem /></UserLayout>}  />
+ {/* Vehicle Rental Routes */}
 
-        {/* Vehicle Rental Routes */}
-
-        <Route path="/VehicleRentalHome" element={<UserLayout><VehicleRentalHome /></UserLayout>} />
+ <Route path="/VehicleRentalHome" element={<UserLayout><VehicleRentalHome /></UserLayout>} />
         <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerLayout><VehicleOwnerPage /></VehicleOwnerLayout>} />
         <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
         <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
@@ -226,6 +238,7 @@ function App() {
         <Route path="/vehicle-manager/dashboard" element={<VehicleAdminLayout><VehicleAdminDashboard /></VehicleAdminLayout>} />
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+       
        
       </Routes>
     </Router>

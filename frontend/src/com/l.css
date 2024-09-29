@@ -32,7 +32,7 @@
   background-image: url('./img/pexels-tomas-malik-793526-1998439.jpg'); /* Same image as in .body12 */
   background-size: cover;
   background-position: center;
-  filter: blur(2px); /* Adjust the blur value as needed */
+  filter: blur(1px); /* Adjust the blur value as needed */
  
 }
 

@@ -8,7 +8,7 @@ const Header = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('vehicleOwner');
-        navigate('/vehicle-owner/login');
+        navigate('/scheduler/sellersignin');
       };
 
     return (

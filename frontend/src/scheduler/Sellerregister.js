@@ -40,7 +40,7 @@ const Sellerregister = () => {
         </center>
         {sellersData.length > 0 ? (
           <table className="table table-bordered mt-4">
-            <thead className='sellertable'>
+            <thead className='sellertable1'>
               <tr>
                 <th>Agency Name</th>
                 <th>Email</th>

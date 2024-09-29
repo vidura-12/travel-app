@@ -133,10 +133,9 @@ const LocationTable = () => {
     toggleModal();
   };
 
-  // Function to download the report
   const downloadReport = async () => {
     const doc = new jsPDF();
-    
+  
     // Load the logo and signature images
     const logo = await import('./img/ll.png'); // Adjust the path if necessary
     const sign = await import('./img/sign.jpg'); // Path to the admin's signature image
@@ -150,9 +149,19 @@ const LocationTable = () => {
       // Add logo in the top-right corner
       doc.addImage(logoImg, 'PNG', 150, 10, 50, 20); // Adjust position and size as needed
   
+      // Add a border frame
+      doc.rect(5, 5, 200, 287, 'S'); // Adjust size and position for the border
+  
+      // Add watermark
+      doc.setFontSize(60);
+      doc.setTextColor(200, 200, 200); // Light grey color for watermark
+      doc.text('SL HOLIDAYS', 105, 150, { align: 'center', angle: 45 }); // Centered and rotated watermark
+  
       doc.setFontSize(20);
+      doc.setTextColor(0, 0, 0); // Black color for the title
       doc.text('Location Report', 10, 40);
       doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0); // Reset text color to black for normal text
   
       // Define table headers and data (without Picture column)
       const headers = ['Name', 'City', 'Description', 'Added By', 'Status'];
@@ -170,7 +179,7 @@ const LocationTable = () => {
         body: data,
         startY: 50, // Adjust starting Y position if needed
         theme: 'grid',
-        headStyles: { fillColor: [22, 160, 133] },
+        headStyles: { fillColor: [22, 160, 133], textColor: [255, 255, 255] }, // White text on header
         styles: { cellPadding: 2, fontSize: 10 },
         columnStyles: {
           2: { cellWidth: 60 }, // Increase width for the 'Description' column
@@ -187,8 +196,9 @@ const LocationTable = () => {
   
         // Add location manager name below the signature
         doc.setFontSize(12);
-        doc.text('Location Manager: John Doe', 10, finalY + 25); // Ensure the name shows below the signature
-        
+        doc.setTextColor(0, 0, 0); // Ensure the name shows below the signature
+        doc.text('Location Manager: John Doe', 10, finalY + 25); 
+  
         // Save the PDF
         doc.save('Location_Report.pdf');
       };
@@ -201,13 +211,14 @@ const LocationTable = () => {
       };
     };
   
-    // Handle logo loading errorskmk
+    // Handle logo loading errors
     logoImg.onerror = () => {
       console.error('Failed to load the logo image.');
       doc.text('Location Report', 10, 40);
       doc.save('Location_Report.pdf');
     };
   };
+  
   
 
   return (

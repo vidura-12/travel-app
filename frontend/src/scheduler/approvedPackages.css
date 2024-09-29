@@ -1,0 +1,82 @@
+.body65 {
+    background-image: url('./sheduler image/im8.jpg'); /* Correct the image path */
+    background-size: cover;
+    background-position: center;
+    padding: 130px 0; 
+    position: relative;
+}
+
+.seller-packages77 {
+    position: static;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.h2 {
+    text-align: center;
+    color: #444;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.loading, .error, .no-packages {
+    text-align: center;
+    font-size: 18px;
+    color: #ff4d4d; /* Use a red tone for errors or alerts */
+}
+
+.no-packages {
+    color: #555;
+}
+
+/* Table Styling */
+.packages-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.packages-table th,
+.packages-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.packages-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.packages-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.packages-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.package-image {
+    width: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .seller-packages77 {
+        padding: 10px;
+    }
+
+    .packages-table th, .packages-table td {
+        padding: 10px 8px;
+    }
+
+    .package-image {
+        width: 80px;
+    }
+}

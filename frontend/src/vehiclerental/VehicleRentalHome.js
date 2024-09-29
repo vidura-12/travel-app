@@ -192,7 +192,7 @@ const VehicleRentalHome = () => {
           style={styles.buttonStyle}
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHoverStyle.backgroundColor}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.buttonStyle.backgroundColor}
-          onClick={() => navigate('/vehicle-owner-dashboard')}
+          onClick={() => navigate('/sellersignup')}
         >
           List Your Property Here...
         </button>

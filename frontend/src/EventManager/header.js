@@ -1,8 +1,15 @@
 import React from 'react';
 import './stl.css';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function Header2() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+      localStorage.removeItem('token');
+      navigate('/scheduler/sellersignin');
+  };
   return (
     <div>
       <section className="home-section1">
@@ -27,9 +34,9 @@ function Header2() {
                  
               </ul>
             </div>
-            <div className="auth-container1">
+            <div className="profile-header">
               
-              <a href="#">Log out</a>
+                <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
             </div>
           </nav>
         </div>

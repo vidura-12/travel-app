@@ -101,5 +101,21 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });  // Changed status to 500 for errors
   }
 });
+router.get('/sellerlog/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+    const packages = await Package.find({ email: email, status: 'approved' });
+    
+    if (packages.length === 0) {
+      return res.status(404).json({ message: 'No approved packages found for this seller.' });
+    }
+
+    res.status(200).json(packages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error, please try again later.' });
+  }
+});
+
 
 module.exports = router;

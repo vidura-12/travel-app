@@ -18,7 +18,6 @@ const Agency = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Handle form field changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     let newErrors = { ...errors };
@@ -29,7 +28,7 @@ const Agency = () => {
           ...formData,
           [id]: value,
         });
-        newErrors.phoneNumber = ''; // Clear error if valid
+        newErrors.phoneNumber = '';
       } else {
         newErrors.phoneNumber = 'Phone Number must be exactly 10 digits';
       }
@@ -40,9 +39,22 @@ const Agency = () => {
           ...formData,
           [id]: value,
         });
-        newErrors.agencyName = ''; // Clear error if valid
+        newErrors.agencyName = '';
       } else {
-        newErrors.agencyName = 'Agency Name must contain only letters and spaces'; // Set error message
+        newErrors.agencyName = 'Agency Name must contain only letters and spaces';
+      }
+      setErrors(newErrors);
+    } else if (id === 'email') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailPattern.test(value)) {
+        setFormData({
+          ...formData,
+          [id]: value,
+        });
+        localStorage.setItem('email', value);
+        newErrors.email = '';
+      } else {
+        newErrors.email = 'Invalid email address';
       }
       setErrors(newErrors);
     } else {
@@ -80,9 +92,6 @@ const Agency = () => {
     if (!formData.agencyName) {
       newErrors.agencyName = 'Agency Name is required';
       valid = false;
-    } else if (!/^[a-zA-Z\s]*$/.test(formData.agencyName)) {
-      newErrors.agencyName = 'Agency Name must contain only letters and spaces';
-      valid = false;
     }
 
     if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
@@ -90,30 +99,23 @@ const Agency = () => {
       valid = false;
     }
 
-
     if (!formData.email) {
-      newErrors.agencyName = 'Email is required';
-      valid = false;
-    } else if (!/^[a-z]+@[a-z]+\.[a-z]+$/.test(formData.email)) {
-      newErrors.agencyName = 'Invalid email address: must contain only lowercase letters and "@"';
+      newErrors.email = 'Email is required';
       valid = false;
     }
-
 
     if (!formData.location) {
-      newErrors.location = 'Location Name is required';
+      newErrors.location = 'Location is required';
       valid = false;
     } else if (!/^[a-zA-Z\s]*$/.test(formData.location)) {
-      newErrors.location = 'Locat Name must contain only letters and spaces';
+      newErrors.location = 'Location must contain only letters and spaces';
       valid = false;
     }
-    
 
     if (formData.places.some(place => place === '')) {
       newErrors.places = 'All places must be filled out';
       valid = false;
     }
-    
 
     if (!formData.maxPeople) {
       newErrors.maxPeople = 'Max People is required';
@@ -130,7 +132,6 @@ const Agency = () => {
   };
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
 
     if (validateForm()) {
@@ -155,8 +156,6 @@ const Agency = () => {
         console.log('Form submitted successfully:', response.data);
 
         window.alert('Your details have been submitted successfully!');
-       
-        
 
         setFormData({
           agencyName: '',
@@ -169,6 +168,7 @@ const Agency = () => {
           image: null,
         });
 
+        setSuccessMessage('Form submitted successfully!');
         setTimeout(() => setSuccessMessage(''), 3000);
 
       } catch (error) {
@@ -182,123 +182,124 @@ const Agency = () => {
   return (
     <div className="travelagency">
       <div className='traveltitle'>
-        <h1>Welcome Travel Agencies!</h1>
-        <p>Customize the travel packages</p>
+        <h1 className='kkk'>Welcome Travel Agencies!</h1>
+        <p className='kkk'>Customize the travel packages</p>
       </div>
 
       {successMessage && <div className="success-message">{successMessage}</div>}
-     <div className='travelform'>
-      <form onSubmit={handleSubmit}>
-        <div className="m1">
-          <div className='l1'>
-          <label>Name of the Travel Agency</label>
-          </div>
-          <input
-            type="text"
-            className="form-control"
-            id="agencyName"
-            value={formData.agencyName}
-            onChange={handleInputChange}
-          />
-          {errors.agencyName && <div className="error text-danger">{errors.agencyName}</div>}
-          <div className='l1'>
-          <label>Phone Number</label>
-          </div>
-          <input
-            type="tel"
-            className="form-control"
-            id="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleInputChange}
-          />
-          {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
-
-          <div className='l1'>
-          <label>Email Address</label>
-          </div>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-          {errors.email && <div className="error text-danger">{errors.email}</div>}
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-
-          <div className='l1'>
-          <label>Location</label>
-          </div>
-          <input
-            type="text"
-            className="form-control"
-            id="location"
-            value={formData.location}
-            onChange={handleInputChange}
-          />
-          {errors.location && <div className="error text-danger">{errors.location}</div>}
-
-          <div className='l1'>
-          <label>Places of Specific Location</label>
-          </div>
-          {formData.places.map((place, index) => (
-            <div key={index} className="place-input">
-              <input
-                type="text"
-                className="form-control"
-                value={place}
-                onChange={(e) => handlePlaceChange(index, e.target.value)}
-              />
-              {errors.places && <div className="error text-danger">{errors.places}</div>}
-              {formData.places.length > 1 && (
-                <button type="button" onClick={() => removePlace(index)} className="btn btn-danger">
-                  Remove
-                </button>
-              )}
+      <div className='travelform'>
+        <form onSubmit={handleSubmit}>
+          <div className="m1">
+            <div className='l1'>
+              <label>Name of the Travel Agency</label>
             </div>
-          ))}
-          <button type="button" onClick={addPlace} className="btn btn-secondary">
-            Add Place
-          </button>
+            <input
+              type="text"
+              className="form-control"
+              id="agencyName"
+              value={formData.agencyName}
+              onChange={handleInputChange}
+            />
+            {errors.agencyName && <div className="error text-danger">{errors.agencyName}</div>}
 
-          <div className='l1'>
-          <label>Max People</label>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            id="maxPeople"
-            value={formData.maxPeople}
-            onChange={handleInputChange}
-          />
-          {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
+            <div className="inline-inputs">
+              <div className='l1'>
+                <label>Phone Number</label>
+              </div>
+              <input
+                type="tel"
+                className="form-control"
+                id="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+              />
+              {errors.phoneNumber && <div className="error text-danger">{errors.phoneNumber}</div>}
 
-          <div className='l1'>
-          <label>Price</label>
-          </div>
-          <input
-            type="number"
-            className="form-control"
-            id="price"
-            value={formData.price}
-            onChange={handleInputChange}
-          />
-          {errors.price && <div className="error text-danger">{errors.price}</div>}
+              <div className='l1'>
+                <label>Email address</label>
+              </div>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+              {errors.email && <div className="error text-danger">{errors.email}</div>}
+            </div>
 
-          <div className='l1'>
-          <label>Upload Image</label>
+            <div className='l1'>
+              <label>Location</label>
+            </div>
+            <input
+              type="text"
+              className="form-control"
+              id="location"
+              value={formData.location}
+              onChange={handleInputChange}
+            />
+            {errors.location && <div className="error text-danger">{errors.location}</div>}
+
+            <div className='l1'>
+              <label>Places</label>
+            </div>
+            {formData.places.map((place, index) => (
+              <div className="place-input" key={index}>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={place}
+                  onChange={(e) => handlePlaceChange(index, e.target.value)}
+                />
+                {formData.places.length > 1 && (
+                  <button type="button" className="btn btn-danger" onClick={() => removePlace(index)}>
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
+            <button type="button" className="btn btn-secondary mt-2" onClick={addPlace}>
+              Add Place
+            </button>
+
+            <div className='l1'>
+              <label>Max People</label>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              id="maxPeople"
+              value={formData.maxPeople}
+              onChange={handleInputChange}
+            />
+            {errors.maxPeople && <div className="error text-danger">{errors.maxPeople}</div>}
+
+            <div className='l1'>
+              <label>Price</label>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              value={formData.price}
+              onChange={handleInputChange}
+            />
+            {errors.price && <div className="error text-danger">{errors.price}</div>}
+
+            <div className='l1'>
+              <label>Upload an Image</label>
+            </div>
+            <input
+              type="file"
+              className="form-control"
+              onChange={handleImageChange}
+            />
+
+            <div className='m2'>
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
           </div>
-          <input
-            type="file"
-            className="form-control"
-            id="image"
-            onChange={handleImageChange}
-          />
-        </div>
-        <div className="m2">
-        <button type="submit">Submit</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
   );

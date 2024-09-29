@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Change this to useNavigate
+import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import './sellersignin.css';
 
 const SellerSignIn = () => {
@@ -35,9 +35,9 @@ const SellerSignIn = () => {
         case 'Hotel Owner':
           navigate('/admin-dashboard'); // Admin dashboard route
           break;
-          case 'Tour Guide':
-            navigate('/travelagent/dashGuide'); // Admin dashboard route
-            break;
+        case 'Tour Guide':
+          navigate('/travelagent/dashGuide'); // Admin dashboard route
+          break;
         case 'Travel Agency':
           navigate('/Sellersprofile'); // Event Manager dashboard route
           break;
@@ -45,7 +45,7 @@ const SellerSignIn = () => {
           navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route
           break;
         case 'Vehicle Owner':
-          navigate('/vehicle-owner-dashboard'); // Vehicle Owner dashboard route
+          navigate('/vehicle-owner-dashboard');
           break;
         default:
           navigate('/package-seller-dashboard'); // Default to package seller dashboard
@@ -90,6 +90,9 @@ const SellerSignIn = () => {
               </div>
               <button type="submit" className="btn btn-success">Sign In</button>
             </form>
+            <div className="mt-3">
+              <p>Don't have an account? <Link to="/sellersignup">Sign up here</Link></p> {/* Link to sign-up page */}
+            </div>
           </center>
         </div>
       </div>
