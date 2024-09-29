@@ -34,8 +34,8 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/events" className={styles.link}>
-            <FaCalendarAlt className={styles.icon} /> My Events
+          <Link to="/viewLocation" className={styles.link}>
+            <FaClipboardList className={styles.icon} /> User Added Locations
           </Link>
         </li>
       </ul>

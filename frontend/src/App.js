@@ -36,7 +36,7 @@ import allFeedBack from './com/allFeedBack';
 
 import Newlocation from './com/newLocation';
 
-
+import Viewl from'./components/Check/Viewl'
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import AdminProfile from './admin/Adminlprofile';
@@ -200,6 +200,7 @@ function App() {
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+        <Route path="/viewLocation" element={<UserLayout><Viewl /></UserLayout>} />
         <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />

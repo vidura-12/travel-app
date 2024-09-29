@@ -53,10 +53,12 @@
   color: #333;
   margin-bottom: 0.6rem;
   display: block;
+  margin-top: 10px;
 }
 
 .location-form-group input,
 .location-form-group textarea {
+  
   width: 100%;
   padding: 12px 15px;
   font-size: 1rem;
