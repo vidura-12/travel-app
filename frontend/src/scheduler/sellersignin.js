@@ -34,7 +34,7 @@ const SellerSignIn = () => {
       // Redirect based on role
       switch (role) {
         case 'Hotel Owner':
-          navigate('/admin-dashboard'); // Admin dashboard route
+          navigate('/hotelowner/dashboard'); // Admin dashboard route
           break;
         case 'Tour Guide':
           navigate('/travelagent/dashGuide'); // Admin dashboard route
