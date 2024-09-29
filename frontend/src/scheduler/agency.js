@@ -45,16 +45,20 @@ const Agency = () => {
       }
       setErrors(newErrors);
     } else if (id === 'email') {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (emailPattern.test(value)) {
-        setFormData({
-          ...formData,
-          [id]: value,
-        });
-        localStorage.setItem('email', value);
-        newErrors.email = '';
+      if (!value.includes('@')) {
+        newErrors.email = 'Email must contain @ symbol';
       } else {
-        newErrors.email = 'Invalid email address';
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailPattern.test(value)) {
+          setFormData({
+            ...formData,
+            [id]: value,
+          });
+          newErrors.email = '';
+          localStorage.setItem('email', value); // Save to localStorage as before
+        } else {
+          newErrors.email = 'Invalid email address';
+        }
       }
       setErrors(newErrors);
     } else {

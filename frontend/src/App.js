@@ -184,7 +184,7 @@ function App() {
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
         <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
-        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
+        <Route path="/Sellersprofile" element={<Sellerlayout><SellersProfile /></Sellerlayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
         <Route path="/scheduler/Sellersregister" element={<SchedulerLayout><SellerRegister /></SchedulerLayout>} />
@@ -192,6 +192,7 @@ function App() {
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
+        <Route path="/scheduler/approvedPackages" element={<Sellerlayout><Approvepack/></Sellerlayout>} />
        
         <Route path="/Admin/profile" element={<AdminProfile />} />
   <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
