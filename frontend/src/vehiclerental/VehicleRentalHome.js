@@ -130,6 +130,7 @@ const styles = {
     transform: 'translateY(-50%)',
     color: '#aaa',
   },
+ 
 };
 
 const VehicleRentalHome = () => {
