@@ -173,14 +173,15 @@ function EditEvent() {
 
         <div className="edit-form-group">
           <label>Description</label>
-          <input
-            type="text"
-            className="edit-form-control"
-            name="description"
-            value={event.description}
-            onChange={handleChange}
-          />
+            <textarea
+              className="edit-form-control"
+              name="description"
+              value={event.description}
+              onChange={handleChange}
+              rows="4"  // Adjust the number of rows as needed
+           />
         </div>
+
 
         <div className="edit-form-group">
           <label>Date</label>
