@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './style.css';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function Location() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,7 +12,7 @@ function Location() {
   const [visibleComments, setVisibleComments] = useState({});
   const [visibleDescriptions, setVisibleDescriptions] = useState({});
   const destinationRef = useRef(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchLikedLocations = async () => {
       try {
@@ -148,7 +150,26 @@ const handleSearch = async () => {
       [locationId]: false,
     }));
   };
+  const handleAddLocation = () => {
+    const token = localStorage.getItem('token');
 
+    if (!token) {
+      // Show SweetAlert and navigate to login
+      Swal.fire({
+        title: 'Authentication Required',
+        text: 'Please login to add a new location.',
+        icon: 'warning',
+        confirmButtonText: 'Go to Login'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    } else {
+      // Navigate to new location page if token exists
+      navigate('/newLocation');
+    }
+  };
   return (
     <div>
       <section className="home">
@@ -243,9 +264,7 @@ const handleSearch = async () => {
       <section>
         <div className="containe">
           <h1 className="title">Are you a Traveller? Share your experience with us</h1>
-          <a href="/newLocation">
-            <button className="buttonadd">Click Here ...</button>
-          </a>
+          <button className="buttonadd" onClick={handleAddLocation}>Click Here ...</button>
         </div>
       </section>
     </div>
