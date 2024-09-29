@@ -1,3 +1,4 @@
+// controllers/hotelOwnerController.js
 const asyncHandler = require('express-async-handler');
 const HotelOwner = require('../models/HotelOwner');
 const jwt = require('jsonwebtoken');
@@ -67,6 +68,26 @@ const loginHotelOwner = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get hotel owner profile
+// @route   GET /api/hotelOwners/profile
+// @access  Private
+const getHotelOwnerProfile = asyncHandler(async (req, res) => {
+    const hotelOwner = await HotelOwner.findById(req.user._id).populate('hotels');
+
+    if (hotelOwner) {
+        res.json({
+            _id: hotelOwner._id,
+            name: hotelOwner.name,
+            email: hotelOwner.email,
+            phone: hotelOwner.phone,
+            hotels: hotelOwner.hotels, // Include hotels
+        });
+    } else {
+        res.status(404);
+        throw new Error('Hotel owner not found');
+    }
+});
+
 // Generate JWT
 const generateToken = (id) => {
     if (!process.env.JWT_SECRET) {
@@ -80,4 +101,5 @@ const generateToken = (id) => {
 module.exports = {
     registerHotelOwner,
     loginHotelOwner,
+    getHotelOwnerProfile,
 };
