@@ -1,0 +1,118 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+    background: #f0f4f8;
+}
+
+/* Container Styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #f7fafc, #d1d5db);
+}
+
+.formContainer {
+    max-width: 400px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 1.8rem;
+    color: #2d3748;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form Styles */
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.2);
+}
+
+.inputError {
+    border-color: #f56565;
+}
+
+.errorMessage {
+    color: #f56565;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Button Styles */
+.submitBtn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+    background-color: #3ca678;
+    transform: translateY(-2px);
+}
+
+.generalError {
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Signup Link */
+.signupLink {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link {
+    color: #2e8b57;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

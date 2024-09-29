@@ -9,7 +9,13 @@ import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
 
+import ChecklistForm from './components/Check/ChecklistForm';
+import ChecklistDisplay from './components/Check/ChecklistDisplay';
+import ChecklistItem from './components/Check/ChecklistItem';
 
 
 
@@ -194,10 +200,17 @@ function App() {
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
        
         <Route path="/Admin/profile" element={<AdminProfile />} />
-  <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
+        <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
+     
+        <Route path="/create-checklist" element={<UserLayout><ChecklistForm /></UserLayout>} />
+        <Route path="/checklists" element={<UserLayout><ChecklistDisplay /></UserLayout>}  />
+        <Route path="/checklists/:checklistId/:checklistTitle" element={<UserLayout><ChecklistItem /></UserLayout>}  />
 
        
       </Routes>
