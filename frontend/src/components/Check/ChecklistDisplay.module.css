@@ -1,6 +1,7 @@
 /* General Layout */
 .container {
   display: flex;
+  margin-top: 50px;
 }
 
 .sidebar {
@@ -16,6 +17,7 @@
 }
 
 .checklistContainer {
+  padding: 50px;
   flex: 1;
   padding: 40px;
   margin-left: 250px;
@@ -25,6 +27,7 @@
 }
 
 h2 {
+  
   font-size: 2rem;
   color: #333;
   margin-bottom: 30px;

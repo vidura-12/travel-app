@@ -28,14 +28,14 @@ function Header() {
             </div>
             <div className="menu-container">
               <ul className="menu-list">
-                <li><Link to="/home">Home</Link></li>
-                <li><a href="/UserSupportHome">Customer Support</a></li>
-                <li><Link to="/tours">Travel Packages</Link></li>
-                <li><a href="#">Vehicle Rental</a></li>
-                <li><Link to="/location">Gallery</Link></li>
-                <li><Link to="/hotel">Hotels</Link></li>
-                <li><Link to="/guide">Travel Agents</Link></li>
-                <li><Link to="/eventView">Events</Link></li>
+                <li><a to="/home">Home</a></li>
+                <li><a to="/UserSupportHome">Customer Support</a></li>
+                <li><a to="/tours">Travel Packages</a></li>
+                <li><a to="#">Vehicle Rental</a></li>
+                <li><a to="/location">Gallery</a></li>
+                <li><a to="/hotel">Hotels</a></li>
+                <li><a to="/guide">Travel Agents</a></li>
+                <li><a to="/eventView">Events</a></li>
               </ul>
             </div>
             <div className="auth-container">
@@ -43,14 +43,12 @@ function Header() {
                 <>
                   <a href="/profile">Profile</a>
                   <a onClick={handleLogout} style={{ background: 'red', color: 'white', textDecoration: 'none', cursor: 'pointer' }} >Logout</a>
-
-                  
                 </>
               ) : (
                 // If no token, show Login and SignUp buttons
                 <>
                   <a href="/login">Login</a>
-                  <a href='/signin'>Signin</a>
+                  <a href='/signup'>Signup</a>
                 </>
               )}
             </div>

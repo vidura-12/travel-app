@@ -9,7 +9,8 @@
     top: 60px; /* Adjust to match the height of your header */
     left: 0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 99; /* Ensure it's just below the header */
+    z-index: 1; /* Ensure it's just below the header */
+    margin-top: 60px;
   }
   
   /* Sidebar Title */
