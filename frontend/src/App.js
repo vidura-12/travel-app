@@ -59,7 +59,8 @@ import Location_Home from './locationmanager/home';
 // Hotel Owner Components
 
 import HotelOwnerDashboard from './com/HotelOwnerDashboard'; // Import the hotel owner dashboard component  
-
+import HotelOwnerRegister from './com/HotelOwnerRegister'; // Adjust the path as necessary
+import HotelOwnerLogin from './com/HotelOwnerLogin'; // Adjust the path as necessary
 
 
 import UserSupportHome from './com/UserSupportHome'; // New component
@@ -185,7 +186,9 @@ function App() {
          {/* Route for hotel owner*/}
         
           <Route path="/hotelowner/dashboard" element={<HotelOwnerDashboard />} />
-         
+          <Route path="/hotelowner/register" element={<UserLayout><HotelOwnerRegister /></UserLayout>} />
+          <Route path="/hotelowner/login" element={<UserLayout><HotelOwnerLogin /></UserLayout>} />
+
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />

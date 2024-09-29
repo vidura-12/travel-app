@@ -1,68 +1,62 @@
-// src/components/SellerProfile.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
 
-export function SellerProfile() {
-    const [sellerData, setSellerData] = useState({});
+const HotelOwnerProfile = () => {
+    const [ownerData, setOwnerData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchSellerData = async () => {
-            setLoading(true); // Start loading state
-            try {
-                const token = localStorage.getItem('token'); // Fetch token from local storage
-                if (!token) {
-                    throw new Error('No token found');
-                }
+        const fetchOwnerData = async () => {
+            const token = localStorage.getItem('token'); // Retrieve the token from local storage
 
-                const response = await axios.get('http://localhost:8081/auth/profile', {
+            try {
+                const response = await fetch('http://localhost:8081/api/hotelOwners/profile', {
+                    method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}` // Include token in request header
-                    }
+                        'Authorization': `Bearer ${token}`, // Include the token in the headers
+                        'Content-Type': 'application/json',
+                    },
                 });
-                setSellerData(response.data);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setOwnerData(data); // Store the fetched data in state
+                } else {
+                    setError('Failed to fetch profile data');
+                }
             } catch (err) {
-                console.error('Error fetching seller data:', err);
-                setError(err.response?.data?.message || 'Failed to load profile data'); // More detailed error message
+                setError('An error occurred. Please try again later.');
             } finally {
-                setLoading(false); // End loading state
+                setLoading(false); // Set loading to false after fetching
             }
         };
 
-        fetchSellerData();
-
-        // Cleanup function
-        return () => {
-            setSellerData({});
-            setLoading(false);
-            setError(null);
-        };
-    }, []);
+        fetchOwnerData();
+    }, []); // Fetch data only on component mount
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <p>Loading...</p>; // Display loading state
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <p style={{ color: 'red' }}>{error}</p>; // Display error message
     }
 
     return (
-        <div className="mt-3">
-            {sellerData ? (
-                <>
-                    <p><b>Name:</b> {sellerData.name}</p>
-                    <p><b>Email:</b> {sellerData.email}</p>
-                    <p><b>Phone:</b> {sellerData.phone || 'Not provided'}</p>
-                    <p><b>Address:</b> {sellerData.address || 'Not provided'}</p>
-                    <p><b>Role:</b> {sellerData.role}</p>
-                </>
+        <div>
+            <h2>My Profile</h2>
+            {ownerData ? (
+                <div>
+                    <p><strong>Name:</strong> {ownerData.name}</p>
+                    <p><strong>Email:</strong> {ownerData.email}</p>
+                    <p><strong>Phone:</strong> {ownerData.phone}</p>
+                    {/* Add any additional fields you want to display */}
+                </div>
             ) : (
-                <div>No seller data available.</div>
+                <p>No profile data available.</p>
             )}
         </div>
     );
-}
+};
 
-export default SellerProfile;
+export default HotelOwnerProfile;
