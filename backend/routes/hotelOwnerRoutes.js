@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const hotelOwnerController = require('../controllers/hotelOwnerController');
-const { authenticateToken } = require('../middleware/auth');
+// Instead of destructuring, import the middleware directly
+const authenticateToken = require('../middleware/auth');
 
 // Routes for hotel owner management
 router.post('/', hotelOwnerController.createHotelOwner); // Create a new hotel owner
