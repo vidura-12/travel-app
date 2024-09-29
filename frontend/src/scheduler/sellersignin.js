@@ -46,6 +46,8 @@ const SellerSignIn = () => {
           navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route
           break;
         case 'Vehicle Owner':
+          navigate('/vehicle-owner-dashboard');
+          break;
         default:
           navigate('/package-seller-dashboard'); // Default to package seller dashboard
           break;
