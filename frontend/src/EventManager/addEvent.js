@@ -64,7 +64,21 @@ function AddEvent() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    // Validate input according to its name
+    if (name === 'name' || name === 'location') {
+      // Prevent invalid characters for name and location
+      if (specialRegex.test(value) || value === "") {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else if (name === 'price') {
+      // Allow only non-negative numbers for price
+      if (!isNaN(value) && value >= 0) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -275,16 +289,9 @@ function AddEvent() {
               />
             </div>
           ))}
+          <button type="button" className="btn btn-secondary" onClick={addTicketCriteria}>Add More Criteria</button>
 
-          <div className="text-center mb-3">
-            <button type="button" className="btn btn-secondary" onClick={addTicketCriteria} disabled={formData.ticketCriteria.length >= 7}>
-              Add Ticket Criteria
-            </button>
-          </div>
-
-          <div className="text-center">
-            <button type="submit" className="btn btn-primary" style={styles.button}>Submit</button>
-          </div>
+          <button type="submit" className="btn btn-primary mt-3">Add Event</button>
         </form>
       </div>
     </div>
@@ -293,39 +300,37 @@ function AddEvent() {
 
 const styles = {
   backgroundevent: {
-    backgroundImage: "url(/img/event4.jpg)",
+    backgroundImage: "url(/img/event19.jpg)",
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
     padding: '100px 0',
+    display: 'flex',
     minHeight: '100vh',
   },
   container: {
     width: '650px',
     maxWidth: '600px',
     margin: 'auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: '8px',
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     margintop: '50px',
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     padding: '30px',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '650px', // Increased width
   },
   form: {
-   
+    display: 'flex',
+    flexDirection: 'column',
   },
   heading: {
     textAlign: 'center',
     marginBottom: '20px',
   },
   subHeading: {
-    marginTop: '20px',
-  },
-  button: {
-    marginTop: '20px',
+    marginBottom: '10px',
   },
 };
 

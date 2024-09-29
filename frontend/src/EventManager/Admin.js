@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
 import './admin.css';
+import Swal from 'sweetalert2';
 
 function AdminEventApproval() {
   const [events, setEvents] = useState([]);
@@ -35,26 +36,52 @@ function AdminEventApproval() {
   }, [navigate]);
 
   const handleApproval = async (eventId) => {
-    try {
-      await axios.put(`http://localhost:8081/event/approve/${eventId}`);
-      const approvedEvent = events.find(event => event._id === eventId);
-      setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
-      setEvents(events.filter(event => event._id !== eventId));
-      alert('Event approved successfully!');
-    } catch (error) {
-      console.error('Error approving event:', error);
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to approve this event?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, approve it!',
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        await axios.put(`http://localhost:8081/event/approve/${eventId}`);
+        const approvedEvent = events.find(event => event._id === eventId);
+        setApprovedEvents([...approvedEvents, { ...approvedEvent, isApproved: true }]);
+        setEvents(events.filter(event => event._id !== eventId));
+        Swal.fire('Approved!', 'The event has been approved.', 'success'); // Success message
+      } catch (error) {
+        console.error('Error approving event:', error);
+      }
     }
   };
+  
 
   const handleRejection = async (eventId) => {
-    try {
-      await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
-      setEvents(events.filter(event => event._id !== eventId));
-      alert('Event rejected successfully!');
-    } catch (error) {
-      console.error('Error rejecting event:', error);
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to reject this event?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, reject it!',
+    });
+  
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:8081/event/delete/${eventId}`);
+        setEvents(events.filter(event => event._id !== eventId));
+        Swal.fire('Rejected!', 'The event has been rejected.', 'success'); // Success message
+      } catch (error) {
+        console.error('Error rejecting event:', error);
+      }
     }
   };
+  
 
   const handleDeleteApproved = async (eventId) => {
     try {
@@ -199,7 +226,7 @@ function AdminEventApproval() {
             background-repeat: no-repeat;
             background-position: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 120px;
             color: white; /* Adjust text color for better visibility */
           }
 

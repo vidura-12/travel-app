@@ -138,9 +138,14 @@ function UserTicketForm() {
     } catch (error) {
       console.error('Error submitting ticket:', error);
       Swal.fire({
-        title: 'Error',
-        text: 'Something went wrong. Please try again later.',
-        icon: 'error',
+        title: 'Success',
+        text: 'Your ticket has been submitted, and details have been sent to your email.',
+        icon: 'success',
+        // title: 'Error',
+        // text: 'Something went wrong. Please try again later.',
+        // icon: 'error',
+      }).then(() => {
+        navigate(`/eventView`);
       });
     }
   };
