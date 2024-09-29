@@ -12,6 +12,8 @@ const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
 const hotelRouter = require('./routes/hotelRoutes'); // Import hotel routes
+const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import the hotel owner routes
+
 
 const locationAdmin = require('./routes/Locationadmin');
 
@@ -36,6 +38,8 @@ mongoose.connect(URL)
     });
 
 app.use('/api/hotels', hotelRouter); // Routes for hotel management
+app.use('/api/hotelOwners', hotelOwnerRoutes); // Routes for hotel owner registration and login
+
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);

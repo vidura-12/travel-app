@@ -1,0 +1,83 @@
+const asyncHandler = require('express-async-handler');
+const HotelOwner = require('../models/HotelOwner');
+const jwt = require('jsonwebtoken');
+
+// @desc    Register a new hotel owner
+// @route   POST /api/hotelOwners/register
+// @access  Public
+const registerHotelOwner = asyncHandler(async (req, res) => {
+    const { name, email, password, phone } = req.body;
+
+    // Validation
+    if (!name || !email || !password || !phone) {
+        res.status(400);
+        throw new Error('Please include all fields');
+    }
+
+    // Check if hotel owner exists
+    const ownerExists = await HotelOwner.findOne({ email });
+
+    if (ownerExists) {
+        res.status(400);
+        throw new Error('Email already registered');
+    }
+
+    // Create hotel owner
+    const hotelOwner = await HotelOwner.create({
+        name,
+        email,
+        password,
+        phone,
+    });
+
+    if (hotelOwner) {
+        res.status(201).json({
+            _id: hotelOwner.id,
+            name: hotelOwner.name,
+            email: hotelOwner.email,
+            phone: hotelOwner.phone, // Include phone number in the response
+            token: generateToken(hotelOwner._id),
+        });
+    } else {
+        res.status(400);
+        throw new Error('Invalid hotel owner data');
+    }
+});
+
+// @desc    Login a hotel owner
+// @route   POST /api/hotelOwners/login
+// @access  Public
+const loginHotelOwner = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    // Check for the hotel owner
+    const hotelOwner = await HotelOwner.findOne({ email });
+
+    if (hotelOwner && (await hotelOwner.matchPassword(password))) {
+        res.json({
+            _id: hotelOwner.id,
+            name: hotelOwner.name,
+            email: hotelOwner.email,
+            phone: hotelOwner.phone, // Include phone number in the login response if needed
+            token: generateToken(hotelOwner._id),
+        });
+    } else {
+        res.status(401);
+        throw new Error('Invalid email or password');
+    }
+});
+
+// Generate JWT
+const generateToken = (id) => {
+    if (!process.env.JWT_SECRET) {
+        throw new Error('JWT_SECRET is not defined');
+    }
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    });
+};
+
+module.exports = {
+    registerHotelOwner,
+    loginHotelOwner,
+};
