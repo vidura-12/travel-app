@@ -4,6 +4,16 @@ import axios from 'axios';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags, FaDollarSign } from 'react-icons/fa';
 
 const styles = {
+
+  bodyStyle: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    backgroundColor: '#f4f4f4',
+    backgroundImage: 'url(./Vehicle_Images/vehicle_back.jpg)',
+  },
   cardContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -184,7 +194,7 @@ const VehicleRentalHome = () => {
   };
 
   return (
-    <div>
+    <div style={styles.bodyStyle}>
       
       <div className="content" style={{ textAlign: 'center' }}>
         <h1>Vehicle Rental Home Page</h1>

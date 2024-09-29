@@ -81,9 +81,27 @@ function VehicleOwnerCreatePost() {
       return;
     }
 
-    if (pricePerDay <= 0 || numberOfSeats <= 0) {
-      setError('Price per day and number of seats must be greater than 0.');
+    // if (pricePerDay <= 0 || numberOfSeats <= 0) {
+    //   setError('Price per day and number of seats must be greater than 0.');
+    //   return;
+    // }
+
+    // Price validation: must be at least 5000
+    if (pricePerDay < 5000) {
+      setError('Price per day must be at least 5000.');
       return;
+    }
+
+    // Ensure contact number is exactly 10 digits long
+    if (contact.length !== 10) {
+        setError('Contact number must be exactly 10 digits.');
+        return;
+    }
+
+    // Ensure pricePerDay and numberOfSeats are positive
+    if (numberOfSeats < 2) {
+        setError('Number of seats must be greater than 2.');
+        return;
     }
 
     const formData = new FormData();
@@ -285,6 +303,7 @@ function VehicleOwnerCreatePost() {
 
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyles}>
           <h2>Add Your Vehicle</h2>
+          {error && <p style={errorStyle}>{error}</p>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div style={formGroupStyle}>
               <div style={inputRowStyle}>
@@ -298,14 +317,41 @@ function VehicleOwnerCreatePost() {
                 </div>
                 <div style={inputContainerStyle}>
                   <label>Number of Seats:</label>
-                  <input type="number" value={numberOfSeats} onChange={(e) => setNumberOfSeats(e.target.value)} style={inputStyle} required />
+                  <input 
+                    type="number" 
+                    value={numberOfSeats} 
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Allow only numbers and prevent empty value
+                      if (/^[0-9]+$/.test(value)) {
+                        setNumberOfSeats(value);
+                      }
+                    }} 
+                    style={inputStyle} 
+                    required 
+                    min="2" 
+                    max="100" 
+                  />
                 </div>
               </div>
               <div style={inputRowStyle}>
-                <div style={inputContainerStyle}>
-                  <label>Price Per Day:</label>
-                  <input type="number" value={pricePerDay} onChange={(e) => setPricePerDay(e.target.value)} style={inputStyle} required />
-                </div>
+              <div style={inputContainerStyle}>
+                <label>Price Per Day:</label>
+                <input 
+                  type="number" 
+                  value={pricePerDay} 
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only valid number inputs
+                    if (/^\d*\.?\d*$/.test(value)) {
+                      setPricePerDay(value);
+                    }
+                  }} 
+                  style={inputStyle} 
+                  required 
+                  min="2" 
+                />
+              </div>
                 <div style={inputContainerStyle}>
                   <label>Color:</label>
                   <input type="text" value={color} onChange={(e) => setColor(e.target.value)} style={inputStyle} required />
@@ -325,10 +371,22 @@ function VehicleOwnerCreatePost() {
               <div style={inputRowStyle}>     
               </div>
               <div style={inputRowStyle}>
-                <div style={inputContainerStyle}>
-                  <label>Contact:</label>
-                  <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} style={inputStyle} required />
-                </div>
+              <div style={inputContainerStyle}>
+                <label>Contact:</label>
+                <input 
+                    type="text" 
+                    value={contact} 
+                    onChange={(e) => {
+                        const regex = /^[0-9]*$/;
+                        if (regex.test(e.target.value) && e.target.value.length <= 10) {
+                            setContact(e.target.value);
+                        }
+                    }} 
+                    maxLength="10"
+                    style={inputStyle} 
+                    required 
+                />
+              </div>
                
                 <div style={inputContainerStyle}>
                 <label>AC:</label>

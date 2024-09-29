@@ -82,6 +82,7 @@ const AdminVehicleManagement = () => {
             <thead>
               <tr>
                 <th className="vehicle-th">Image</th>
+                <th className="vehicle-th">Owner Email</th>
                 <th className="vehicle-th">Make</th>
                 <th className="vehicle-th">Model</th>
                 <th className="vehicle-th">Color</th>
@@ -100,6 +101,7 @@ const AdminVehicleManagement = () => {
                       className="vehicle-vehicleImageStyle" 
                     />
                   </td>
+                  <td className="vehicle-td">{vehicle.email}</td>
                   <td className="vehicle-td">{vehicle.make}</td>
                   <td className="vehicle-td">{vehicle.model}</td>
                   <td className="vehicle-td">{vehicle.color}</td>
