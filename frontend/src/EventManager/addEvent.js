@@ -293,7 +293,7 @@ function AddEvent() {
 
 const styles = {
   backgroundevent: {
-    backgroundImage: "url(/img/event3.jpg)",
+    backgroundImage: "url(/img/event4.jpg)",
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     padding: '100px 0',

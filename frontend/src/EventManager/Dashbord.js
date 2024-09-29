@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div 
       style={{
-        backgroundImage: "url(/img/event5.jpg)",   
+        backgroundImage: "url(/img/event3.jpg)",   
         backgroundSize: 'cover',                   
         backgroundPosition: 'center',              
         backgroundRepeat: 'no-repeat',             
