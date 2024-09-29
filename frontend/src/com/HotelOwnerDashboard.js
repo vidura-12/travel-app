@@ -1,6 +1,9 @@
 import React from "react";
 import { Tabs } from "antd";
-import { HotelOwnerProfile } from "./HotelOwnerProfile"; // Import the profile component
+import HotelOwnerProfile from "./HotelOwnerProfile";
+
+
+
 
 const { TabPane } = Tabs;
 

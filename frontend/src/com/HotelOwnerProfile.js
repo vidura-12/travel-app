@@ -1,38 +1,43 @@
-// src/components/HotelOwnerProfile.js
+// src/components/SellerProfile.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export function HotelOwnerProfile() {
-    const [ownerData, setOwnerData] = useState({});
+export function SellerProfile() {
+    const [sellerData, setSellerData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchHotelOwnerData = async () => {
+        const fetchSellerData = async () => {
+            setLoading(true); // Start loading state
             try {
-                const token = localStorage.getItem('token'); // Ensure the token exists
+                const token = localStorage.getItem('token'); // Fetch token from local storage
                 if (!token) {
                     throw new Error('No token found');
                 }
 
-                const config = {
+                const response = await axios.get('http://localhost:8081/auth/profile', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                };
-
-                // Adjust the URL based on your frontend setup
-                const { data } = await axios.get('/api/hotelOwners/profile', config);
-                setOwnerData(data);
-                setLoading(false);
+                        'Authorization': `Bearer ${token}` // Include token in request header
+                    }
+                });
+                setSellerData(response.data);
             } catch (err) {
-                console.error(err);
-                setError('Failed to load profile data');
-                setLoading(false);
+                console.error('Error fetching seller data:', err);
+                setError(err.response?.data?.message || 'Failed to load profile data'); // More detailed error message
+            } finally {
+                setLoading(false); // End loading state
             }
         };
 
-        fetchHotelOwnerData();
+        fetchSellerData();
+
+        // Cleanup function
+        return () => {
+            setSellerData({});
+            setLoading(false);
+            setError(null);
+        };
     }, []);
 
     if (loading) {
@@ -45,19 +50,19 @@ export function HotelOwnerProfile() {
 
     return (
         <div className="mt-3">
-            <p><b>Name:</b> {ownerData.name}</p>
-            <p><b>Email:</b> {ownerData.email}</p>
-            <p><b>Phone:</b> {ownerData.phone}</p>
-            <p><b>Registered Hotels:</b></p>
-            {ownerData.hotels && ownerData.hotels.length > 0 ? (
-                <ul>
-                    {ownerData.hotels.map((hotel, index) => (
-                        <li key={index}>{hotel.name}</li> // Assuming 'name' is a field of the hotel object
-                    ))}
-                </ul>
+            {sellerData ? (
+                <>
+                    <p><b>Name:</b> {sellerData.name}</p>
+                    <p><b>Email:</b> {sellerData.email}</p>
+                    <p><b>Phone:</b> {sellerData.phone || 'Not provided'}</p>
+                    <p><b>Address:</b> {sellerData.address || 'Not provided'}</p>
+                    <p><b>Role:</b> {sellerData.role}</p>
+                </>
             ) : (
-                <p>No registered hotels.</p>
+                <div>No seller data available.</div>
             )}
         </div>
     );
 }
+
+export default SellerProfile;
