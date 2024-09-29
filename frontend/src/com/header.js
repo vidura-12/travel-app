@@ -28,14 +28,14 @@ function Header() {
             </div>
             <div className="menu-container">
               <ul className="menu-list">
-                <li><a to="/home">Home</a></li>
-                <li><a to="/UserSupportHome">Customer Support</a></li>
-                <li><a to="/tours">Travel Packages</a></li>
-                <li><a to="#">Vehicle Rental</a></li>
-                <li><a to="/location">Gallery</a></li>
-                <li><a to="/hotel">Hotels</a></li>
-                <li><a to="/guide">Travel Agents</a></li>
-                <li><a to="/eventView">Events</a></li>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/UserSupportHome">Customer Support</a></li>
+                <li><a href="/tours">Travel Packages</a></li>
+                <li><a href="#">Vehicle Rental</a></li>
+                <li><a href="/location">Gallery</a></li>
+                <li><a href="/hotel">Hotels</a></li>
+                <li><a href="/guide">Travel Agents</a></li>
+                <li><a href="/eventView">Events</a></li>
               </ul>
             </div>
             <div className="auth-container">
