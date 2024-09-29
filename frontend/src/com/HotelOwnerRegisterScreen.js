@@ -121,7 +121,7 @@ export default function HotelOwnerRegisterScreen() {
               {loading ? "Registering..." : "REGISTER"}
             </button>
             <br />
-            <a style={{ color: "black" }} href="/login">
+            <a style={{ color: "black" }} href="/login-hotel-owner">
               Click Here To Login
             </a>
           </div>

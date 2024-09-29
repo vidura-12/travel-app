@@ -42,7 +42,7 @@ export default function HotelOwnerLoginScreen() {
 
       // Redirect to dashboard or another page (if required)
       setTimeout(() => {
-        window.location.href = '/dashboard'; // Change "/dashboard" as needed
+        window.location.href = '/hotelowner/dashboard'; // Change "/dashboard" as needed
       }, 1000);
     } catch (error) {
       setLoading(false); // Stop loading state
@@ -88,7 +88,7 @@ export default function HotelOwnerLoginScreen() {
               {loading ? 'Logging in...' : 'LOGIN'}
             </button>
             <br />
-            <a style={{ color: 'black' }} href="/register">
+            <a style={{ color: 'black' }} href="/register-hotel-owner">
               Don't have an account? Register here
             </a>
           </div>
