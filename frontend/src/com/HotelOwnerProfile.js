@@ -9,6 +9,12 @@ const HotelOwnerProfile = () => {
         const fetchOwnerData = async () => {
             const token = localStorage.getItem('token'); // Retrieve the token from local storage
 
+            if (!token) {
+                setError('No token found, please log in.');
+                setLoading(false);
+                return;
+            }
+
             try {
                 const response = await fetch('http://localhost:8081/api/hotelOwners/profile', {
                     method: 'GET',
@@ -21,8 +27,12 @@ const HotelOwnerProfile = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setOwnerData(data); // Store the fetched data in state
+                } else if (response.status === 401) {
+                    setError('Unauthorized. Please log in again.'); // Handle unauthorized access
+                    localStorage.removeItem('token'); // Optionally clear the token
                 } else {
-                    setError('Failed to fetch profile data');
+                    const errorData = await response.json();
+                    setError(`Failed to fetch profile data: ${errorData.message}`);
                 }
             } catch (err) {
                 setError('An error occurred. Please try again later.');
