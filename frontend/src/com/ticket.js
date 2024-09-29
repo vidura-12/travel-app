@@ -15,13 +15,14 @@ function UserTicketForm() {
     phone: '',
     email: '',
     noOfTicket: '',
-    totalPrice: 0
+    totalPrice: 0,
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:8081/event/${id}`)
+    axios
+      .get(`http://localhost:8081/event/${id}`)
       .then((response) => {
         setEvent(response.data);
         setLoading(false);
@@ -29,7 +30,7 @@ function UserTicketForm() {
         setTicketDetails((prevDetails) => ({
           ...prevDetails,
           tname: response.data.name,
-          tcategory: response.data.category
+          tcategory: response.data.category,
         }));
       })
       .catch((error) => {
@@ -81,7 +82,7 @@ function UserTicketForm() {
 
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: error
+      [name]: error,
     }));
   };
 
@@ -111,7 +112,7 @@ function UserTicketForm() {
       Swal.fire({
         title: 'Error',
         text: 'Please fix the errors in the form before submitting.',
-        icon: 'error'
+        icon: 'error',
       });
       return;
     }
@@ -130,7 +131,7 @@ function UserTicketForm() {
       Swal.fire({
         title: 'Success',
         text: 'Your ticket has been submitted, and details have been sent to your email.',
-        icon: 'success'
+        icon: 'success',
       }).then(() => {
         navigate(`/eventView`);
       });
@@ -139,7 +140,7 @@ function UserTicketForm() {
       Swal.fire({
         title: 'Error',
         text: 'Something went wrong. Please try again later.',
-        icon: 'error'
+        icon: 'error',
       });
     }
   };
@@ -153,26 +154,31 @@ function UserTicketForm() {
   }
 
   return (
-    <div   className="ticket-hero-section"
-    style={{
-      backgroundImage: `url(/img/${event.image || '/img/event3.jpg'})`, // Use event's background image or a default one
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      padding: '50px 20px',
-      textAlign: 'center',
-      position: 'relative'
-    }}>
-
-     
-       
+    <div
+      className="ticket"
+      style={{
+        backgroundImage: `url(/img/${event.image || '/img/event7.jpg'})`, // Use event's background image or a default one
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '50px 20px',
+        textAlign: 'center',
+        position: 'relative',
+      }}
+    >
+      <section
+        className="ticket-hero-section"
+        style={{
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          padding: '50px 20px',
+          textAlign: 'center',
+          position: 'relative',
+        }}
+      >
         <div className="ticket-hero-content">
           <h2 className="ticket-hero-title">{event.name} - Book your ticket now</h2>
         </div>
-      
-
-
-    <div className="ticket">
-      {/* Dynamic Background Image from Event Data */}
+      </section>
 
       <div className="ticket-form-container">
         <form onSubmit={handleSubmit}>
@@ -259,25 +265,26 @@ function UserTicketForm() {
             />
           </div>
 
-          {Object.keys(event.ticketCriteria).map((key, index) => {
-            const criterion = event.ticketCriteria[key];
-            if (!criterion) return null;
+          {event.ticketCriteria &&
+            Object.keys(event.ticketCriteria).map((key, index) => {
+              const criterion = event.ticketCriteria[key];
+              if (!criterion) return null;
 
-            return (
-              <div className="ticket-form-group" key={index}>
-                <label htmlFor={key}>{criterion}:</label>
-                <input
-                  type="text"
-                  className="ticket-form-control"
-                  id={key}
-                  name={key}
-                  value={userInputs[key] || ''}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            );
-          })}
+              return (
+                <div className="ticket-form-group" key={index}>
+                  <label htmlFor={key}>{criterion}:</label>
+                  <input
+                    type="text"
+                    className="ticket-form-control"
+                    id={key}
+                    name={key}
+                    value={userInputs[key] || ''}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              );
+            })}
 
           <button type="submit" className="ticket-btn-submit">
             Submit Ticket
@@ -302,14 +309,18 @@ function UserTicketForm() {
 
         .ticket-hero-title {
           color: whitesmoke;
-          font-size: 2.5em;
-          margin: 0;
+          font-size: 48px;
+          font-weight: bold;
         }
 
         .ticket-form-container {
-          margin-top: 30px;
+          margin-top: 20px;
+          text-align: left;
+          background: rgba(255, 255, 255, 0.8);
+          padding: 20px;
+          border-radius: 10px;
           max-width: 600px;
-          margin: 0 auto;
+          margin: auto;
         }
 
         .ticket-form-group {
@@ -319,25 +330,26 @@ function UserTicketForm() {
         .ticket-form-control {
           width: 100%;
           padding: 10px;
-          font-size: 1em;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
         }
 
         .ticket-btn-submit {
-          background-color: #4CAF50;
-          color: white;
           padding: 10px 20px;
+          background-color: green;
+          color: white;
           border: none;
+          border-radius: 4px;
           cursor: pointer;
         }
 
         .ticket-error {
           color: red;
-          font-size: 0.8em;
+          font-size: 12px;
         }
       `}</style>
     </div>
-    </div>
-
   );
 }
 
