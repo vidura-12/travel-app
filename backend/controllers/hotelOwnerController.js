@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken'); // For generating tokens
 // Create a new hotel owner
 exports.createHotelOwner = async (req, res) => {
     try {
-        // Hash the password before saving the owner
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const newOwner = new HotelOwner({ ...req.body, password: hashedPassword }); // Save hashed password
+        const newOwner = new HotelOwner({ ...req.body, password: hashedPassword });
         const savedOwner = await newOwner.save();
-        res.status(201).json(savedOwner); // Return the created owner with status 201
+        res.status(201).json(savedOwner);
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -19,9 +19,10 @@ exports.createHotelOwner = async (req, res) => {
 exports.getAllHotelOwners = async (req, res) => {
     try {
         const owners = await HotelOwner.find();
-        res.status(200).json(owners); // Return the list of owners
+        res.status(200).json(owners);
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -30,22 +31,23 @@ exports.getHotelOwnerById = async (req, res) => {
     try {
         const owner = await HotelOwner.findById(req.params.id);
         if (!owner) {
-            return res.status(404).json({ message: 'Owner not found' }); // Handle not found
+            return res.status(404).json({ message: 'Owner not found' });
         }
-        res.status(200).json(owner); // Return the owner details
+        res.status(200).json(owner);
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
 // Get the profile of the authenticated hotel owner
 exports.getHotelOwnerProfile = async (req, res) => {
     try {
-        const owner = await HotelOwner.findById(req.user.userId); // Fetch the owner by ID from the token
+        const owner = await HotelOwner.findById(req.user.userId);
         if (!owner) {
             return res.status(404).json({ message: 'Hotel owner not found' });
         }
-        res.json(owner); // Return the owner data
+        res.status(200).json(owner);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
@@ -57,11 +59,12 @@ exports.updateHotelOwner = async (req, res) => {
     try {
         const updatedOwner = await HotelOwner.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedOwner) {
-            return res.status(404).json({ message: 'Owner not found' }); // Handle not found
+            return res.status(404).json({ message: 'Owner not found' });
         }
-        res.status(200).json(updatedOwner); // Return the updated owner details
+        res.status(200).json(updatedOwner);
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -70,11 +73,12 @@ exports.deleteHotelOwner = async (req, res) => {
     try {
         const deletedOwner = await HotelOwner.findByIdAndDelete(req.params.id);
         if (!deletedOwner) {
-            return res.status(404).json({ message: 'Owner not found' }); // Handle not found
+            return res.status(404).json({ message: 'Owner not found' });
         }
         res.status(204).send(); // No content to return
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -83,25 +87,23 @@ exports.loginHotelOwner = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const owner = await HotelOwner.findOne({ email }); // Find owner by email
-
+        const owner = await HotelOwner.findOne({ email });
         if (!owner) {
-            return res.status(401).json({ message: 'Invalid credentials' }); // Handle invalid email
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Compare hashed password
         const isMatch = await bcrypt.compare(password, owner.password);
         if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid credentials' }); // Handle invalid password
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Generate JWT token
         const token = jwt.sign({ userId: owner._id }, process.env.TOKEN, {
             expiresIn: '1h',
         });
 
-        res.json({ token }); // Return the token
+        res.json({ token });
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Handle errors
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };

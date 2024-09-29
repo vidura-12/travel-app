@@ -41,6 +41,7 @@ app.use('/api/hotels', hotelRouter); // Routes for hotel management
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
 
+
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
