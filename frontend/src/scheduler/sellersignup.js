@@ -51,6 +51,7 @@ const Sellersignup = () => {
         const savedSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
         localStorage.setItem('sellersData', JSON.stringify([...savedSellers, userData]));
 
+        
         // Show alert on successful registration
         alert('Registration successful! Please log in.');
 

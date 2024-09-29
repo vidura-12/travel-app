@@ -18,7 +18,7 @@
 
   .profile1{
     background: url('./sheduler image/profile.jpeg') no-repeat;
-    height:600px;
+    height:900px;
      display:flex;
      flex-direction: column;
      align-items: center;
@@ -27,7 +27,7 @@
      background-size: cover;
      padding: 50px 0; /* Padding for extra space */
      position: relative;
-     margin-top: 78px;
+    
   }
   
   .profile-header {

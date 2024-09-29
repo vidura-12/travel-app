@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sellerregister.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2';
 
 const Sellerregister = () => {
   const [sellersData, setSellersData] = useState([]);
@@ -13,19 +14,21 @@ const Sellerregister = () => {
   }, []);
 
   const handleApprove = (index) => {
-    alert('Seller registration approved!');
+   
     const updatedSellers = sellersData.map((seller, i) =>
       i === index ? { ...seller, status: 'Approved' } : seller
     );
 
     setSellersData(updatedSellers);
+    Swal.fire('Approved!', 'The seller has been approved.', 'success');
     localStorage.setItem('sellersData', JSON.stringify(updatedSellers));
   };
 
   const handleDeny = (index) => {
-    alert('Seller registration denied!');
+    
     const updatedSellers = sellersData.filter((_, i) => i !== index);
     setSellersData(updatedSellers);
+    Swal.fire('Denied!', 'The package has been denied.', 'success');
     localStorage.setItem('sellersData', JSON.stringify(updatedSellers));
   };
 

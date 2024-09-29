@@ -1,9 +1,10 @@
 .body65 {
-    background-image: url('./sheduler image/im8.jpg'); /* Correct the image path */
+    background-image: url('./sheduler image/p1.jpg'); /* Correct the image path */
     background-size: cover;
     background-position: center;
     padding: 130px 0; 
     position: relative;
+    height: 900px;
 }
 
 .seller-packages77 {

@@ -90,10 +90,11 @@ const Tours = () => {
           
         </div>
       </div>
-
+      <center>
       <p className="destinations-title">
         Explore Stays in Trending Destinations
       </p>
+      </center>
 
       {/* Display filtered packages */}
       <div className="package-grid">
