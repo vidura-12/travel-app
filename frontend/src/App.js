@@ -57,8 +57,7 @@ import AgentRegister from './com/GuideRegister';
 import Location_Home from './locationmanager/home';
 
 // Hotel Owner Components
-import HotelOwnerRegisterScreen from './com/HotelOwnerRegisterScreen'; // Import the hotel owner registration component
-import HotelOwnerLoginScreen from './com/HotelOwnerLoginScreen'; // Import the hotel owner login component
+
 import HotelOwnerDashboard from './com/HotelOwnerDashboard'; // Import the hotel owner dashboard component  
 
 
@@ -184,8 +183,7 @@ function App() {
          <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
          
          {/* Route for hotel owner*/}
-         <Route path="/register-hotel-owner" element={<HotelOwnerRegisterScreen />} />
-         <Route path="/login-hotel-owner" element={<HotelOwnerLoginScreen />} />
+        
           <Route path="/hotelowner/dashboard" element={<HotelOwnerDashboard />} />
          
         {/* Location Manager Routes */}
