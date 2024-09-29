@@ -20,6 +20,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 const sellerlog = require('./routes/sellerlog');
+
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -37,7 +38,6 @@ mongoose.connect(URL)
         console.error("Connection error:", error);
     });
 
-
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
@@ -49,6 +49,16 @@ app.use('/event', eventsRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/vehicles', vehicleRoutes);
+app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', bookingRoutes);
+
+app.post('/vehicle-owner/register', vehicleOwnerController.register);
+app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+
 // Start the server
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
