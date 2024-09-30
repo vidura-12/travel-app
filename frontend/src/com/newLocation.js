@@ -104,7 +104,7 @@ const Newlocation = () => {
       return;
     }
 
-    const userName = localStorage.getItem('name');
+    const userName = localStorage.getItem('email');
     const data = new FormData();
     data.append('name', formData.name);
     data.append('city', formData.city);

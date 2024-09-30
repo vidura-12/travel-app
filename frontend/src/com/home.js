@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './home.css';
-
+import Chatbot from './Chatbot'; 
 function Home() {
   const [locations, setLocations] = useState([]);
   const [visibleDescription, setVisibleDescription] = useState({});
   localStorage.setItem('email', "viduranirmal@gmail.com");
+
   useEffect(() => {
     // Fetch locations from the API
     const fetchLocations = async () => {
@@ -20,8 +21,8 @@ function Home() {
     fetchLocations();
   }, []);
 
-  // Function to toggle the description visibility
-
+  // Filter to show only locations with status 'approved'
+  const approvedLocations = locations.filter(location => location.status === "approved");
 
   return (
     <div>
@@ -47,8 +48,8 @@ function Home() {
         </div>
       </section>
 
-      <section className="travel">
-        <div className="container">
+      <section className="travel1">
+        <div className="container1">
           <div className="box">
             <img
               src={`${process.env.PUBLIC_URL}/img/tool/planning.png`}
@@ -89,16 +90,15 @@ function Home() {
         </div>
       </section>
 
-      {/* Add a new section to display the locations */}
+      {/* Add a new section to display the approved locations */}
       <section className="location-gallery">
         <div className="container">
           <h2>Featured Locations</h2>
           <div className="location-grid">
-            {locations.map((location) => (
+            {approvedLocations.map((location) => (
               <div
                 className="location-card"
                 key={location._id}
-              
               >
                 <img
                   src={`/img/${location.picture}`}
@@ -115,6 +115,7 @@ function Home() {
           </div>
         </div>
       </section>
+      <Chatbot />
     </div>
   );
 }

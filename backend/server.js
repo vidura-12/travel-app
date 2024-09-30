@@ -73,3 +73,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', bookingRoutes);
+const weatherRoutes = require('./routes/weatherRoutes');
+app.use('/apiwe', weatherRoutes); // Add this line to use the new weather routes

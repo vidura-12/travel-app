@@ -56,17 +56,21 @@
 }
 
 /* Travel Section */
-.travel .container {
-    display: grid;
+.travel1 .container1 {
+    display:flex;
+    
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 4rem 0;
+    margin: auto;
     align-items: start;
     justify-content: center;
 }
 
-.travel .box {
+.travel1 .box {
     display: flex;
+    max-height: 700px;
+    max-width: 400px;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -77,7 +81,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.travel .box:hover {
+.travel1 .box:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }

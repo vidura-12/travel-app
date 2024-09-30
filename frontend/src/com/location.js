@@ -225,7 +225,7 @@ const handleSearch = async () => {
                     >
                       <img src="./img/like.png" alt="Like" />
                     </button>
-                    <span className="like-count">{location.likes || 0} Likes</span>
+                    <span className="like-count">{location.likes || 0} HelpFul</span>
                   </div>
                   <div className="comments-section">
                     <h3>Comments</h3>
