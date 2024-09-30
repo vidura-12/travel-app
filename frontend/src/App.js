@@ -9,14 +9,11 @@ import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
-<<<<<<< HEAD
-import HotelLayout from './HotelLayout';
-import HotelComp from './HotelComp';
-=======
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
->>>>>>> main
+import HotelLayout from './HotelLayout';
+import HotelComp from './HotelComp';
 
 import ChecklistForm from './components/Check/ChecklistForm';
 import ChecklistDisplay from './components/Check/ChecklistDisplay';

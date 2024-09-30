@@ -41,19 +41,6 @@ mongoose.connect(URL)
         console.error("Connection error:", error);
     });
 
-<<<<<<< HEAD
-    app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
-    // Default Route
-app.get('/', (req, res) => {
-    res.send('Welcome to the Hotel Management API');
-});
-
-// Use the hotel owner routes
-app.use('/api/hotelOwners', hotelOwnerRoutes);
-
-
-=======
->>>>>>> main
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
@@ -74,6 +61,16 @@ app.use('/api', bookingRoutes);
 
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+
+app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
+    // Default Route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Hotel Management API');
+});
+
+// Use the hotel owner routes
+app.use('/api/hotelOwners', hotelOwnerRoutes);
+
 
 // Start the server
 const server = app.listen(PORT, () => {
