@@ -29,7 +29,7 @@ function EditEvent() {
   });
 
   const [imageFile, setImageFile] = useState(null); // Store the new image file
-  const [errors, setErrors] = useState({ name: "", location: "" }); // Error state
+  const [errors, setErrors] = useState({ name: "", location: "", price: "" }); // Error state
 
   const specialCharRegex = /^[a-zA-Z0-9\s]*$/; // Only allow letters, numbers, and spaces
 
@@ -61,7 +61,7 @@ function EditEvent() {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    if (errors.name || errors.location) {
+    if (errors.name || errors.location || errors.price) {
       Swal.fire("Validation Error", "Please fix validation errors before submitting.", "error");
       return;
     }
@@ -103,6 +103,8 @@ function EditEvent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validation for 'name' and 'location' fields: No special characters allowed
     if (name === "name" || name === "location") {
       if (!specialCharRegex.test(value)) {
         setErrors((prevErrors) => ({
@@ -114,11 +116,25 @@ function EditEvent() {
       }
     }
 
+    // Validation for 'price' field: No negative values allowed
+    if (name === "price") {
+      if (value < 0) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          price: "Price cannot be negative!",
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, price: "" }));
+      }
+    }
+
+    // Updating event state
     setEvent((prevState) => ({
       ...prevState,
       [name]: value
     }));
 
+    // Handling ticket criteria dynamically
     setEvent((prevEvent) => ({
       ...prevEvent,
       ...(name.startsWith('t') ? {
@@ -173,15 +189,14 @@ function EditEvent() {
 
         <div className="edit-form-group">
           <label>Description</label>
-            <textarea
-              className="edit-form-control"
-              name="description"
-              value={event.description}
-              onChange={handleChange}
-              rows="4"  // Adjust the number of rows as needed
-           />
+          <textarea
+            className="edit-form-control"
+            name="description"
+            value={event.description}
+            onChange={handleChange}
+            rows="4"
+          />
         </div>
-
 
         <div className="edit-form-group">
           <label>Date</label>
@@ -226,6 +241,7 @@ function EditEvent() {
             value={event.price}
             onChange={handleChange}
           />
+          {errors.price && <p className="edit-error-message">{errors.price}</p>}
         </div>
 
         {Object.keys(event.ticketCriteria).map((key) => (
