@@ -67,7 +67,7 @@ function VehicleOwner() {
       setEmail(email);
       fetchBookings(token); // Pass token for authentication
     } else {
-      navigate('/vehicle-owner/login'); // Redirect if no email or token found
+      navigate('/scheduler/sellersignin'); // Redirect if no email or token found
     }
   }, [navigate]);
 
