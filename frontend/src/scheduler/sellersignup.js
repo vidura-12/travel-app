@@ -20,7 +20,7 @@ const Sellersignup = () => {
   // Validation function
   const validate = () => {
     let errors = {};
-    
+
     if (!name.trim()) errors.name = 'Agency Name is required';
     if (!email.trim()) errors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(email)) errors.email = 'Email address is invalid';
@@ -34,6 +34,22 @@ const Sellersignup = () => {
     return errors;
   };
 
+  // Handle name input (only letters allowed)
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(value)) {
+      setName(value);
+    }
+  };
+
+  // Handle phone input (only 10 digits allowed)
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    if (/^\d{0,10}$/.test(value)) {
+      setPhone(value);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -41,12 +57,12 @@ const Sellersignup = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       const userData = { name, email, password, phone, address, role };
-      
+
       try {
         // Make POST request to the server (Optional)
         const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
         console.log('Response:', response.data);
-        
+
         // Save seller data to localStorage
         const savedSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
         localStorage.setItem('sellersData', JSON.stringify([...savedSellers, userData]));
@@ -76,7 +92,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleNameChange}
                 placeholder="Enter Name"
                 className="form-control"
               />
@@ -106,7 +122,7 @@ const Sellersignup = () => {
                 placeholder="Enter Password"
                 className="form-control"
               />
-              <span 
+              <span
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -121,7 +137,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handlePhoneChange}
                 placeholder="Enter Phone Number"
                 className="form-control"
               />

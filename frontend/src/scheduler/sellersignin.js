@@ -30,7 +30,7 @@ const SellerSignIn = () => {
       // Save token and user email in local storage
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
-           // Redirect based on role
+        // Redirect based on role
       switch (role) {
         case 'Hotel Owner':
           navigate('/admin-dashboard'); // Admin dashboard route

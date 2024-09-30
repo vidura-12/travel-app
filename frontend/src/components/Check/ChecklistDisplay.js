@@ -66,7 +66,7 @@ const ChecklistDisplay = () => {
   // Handle saving changes
   const handleSaveChanges = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/checklists/${editingChecklist._id}`, editingChecklist, {
+      await axios.put(`http://localhost:8081/api/checklists/${editingChecklist._id}`, editingChecklist, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setChecklists((prevChecklists) =>
@@ -83,7 +83,7 @@ const ChecklistDisplay = () => {
   const handleDeleteClick = async (checklistId) => {
     if (window.confirm('Are you sure you want to delete this checklist?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/checklists/${checklistId}`, {
+        await axios.delete(`http://localhost:8081/api/checklists/${checklistId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
 

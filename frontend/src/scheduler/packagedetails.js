@@ -46,6 +46,7 @@ const Dashboard = () => {
     setModalImage(image);
     toggleModal();
   };
+
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -95,7 +96,6 @@ const Dashboard = () => {
       }
     }
   };
-
 
   const handleEditClick = (pkg) => {
     setEditId(pkg._id);
@@ -175,7 +175,11 @@ const Dashboard = () => {
     <div className='dash location-dashboard-body'>
       <div className="">
         <h1 className='title1 location-dashboard-title'>Travel Package Details</h1>
+        <div className='cen'>
+        <center>
         <button className="btn btn-primary" onClick={generatePDF}>Download PDF</button>
+        </center>
+        </div>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>
         ) : (
@@ -197,27 +201,50 @@ const Dashboard = () => {
             <tbody>
               {packages.map((pkg) => (
                 <tr key={pkg._id}>
-                  <td>{pkg.agencyName}</td>
-                  <td>{pkg.phoneNumber}</td>
-                  <td>{pkg.email}</td>
-                  <td>{pkg.location}</td>
-                  <td>{pkg.places.join(', ')}</td>
-                  <td>{pkg.maxPeople}</td>
-                  <td>{pkg.price}</td>
-                  <td>
-                    <img
-                      src={`/img/${pkg.image}`}
-                      alt={pkg.agencyName}
-                      width="100"
-                      onClick={() => handleImageClick(`/img/${pkg.image}`)}
-                      className="location-table-img"
-                    />
-                  </td>
-                  <td>{pkg.status}</td>
-                  <td className="location-action-buttons">
-                    <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
-                    <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
-                  </td>
+                  {editId === pkg._id ? (
+                    <>
+                      <td><input type="text" name="agencyName" value={editedPackage.agencyName} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="phoneNumber" value={editedPackage.phoneNumber} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="email" value={editedPackage.email} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="location" value={editedPackage.location} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="places" value={editedPackage.places} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="maxPeople" value={editedPackage.maxPeople} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="price" value={editedPackage.price} onChange={handleEditChange} /></td>
+                      <td>
+                        <input type="file" name="image" onChange={(e) => setEditedPackage({ ...editedPackage, imageFile: e.target.files[0] })} />
+                      </td>
+                      <td>{pkg.status}</td>
+                      <td>
+                        <button  className="location-btn-approve" onClick={() => handleSave(pkg._id)}>Save</button>
+                        <button className="location-btn-delete" onClick={() => setEditId(null)}>Cancel</button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{pkg.agencyName}</td>
+                      <td>{pkg.phoneNumber}</td>
+                      <td>{pkg.email}</td>
+                      <td>{pkg.location}</td>
+                      <td>{pkg.places.join(', ')}</td>
+                      <td>{pkg.maxPeople}</td>
+                      <td>{pkg.price}</td>
+                      <td>
+                        <img
+                          src={`/img/${pkg.image}`}
+                          alt={pkg.agencyName}
+                          width="100"
+                          onClick={() => handleImageClick(`/img/${pkg.image}`)}
+                          className="location-table-img"
+                        />
+                      </td>
+                      <td>{pkg.status}</td>
+                      <td className="location-action-buttons">
+                        <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
+                        <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
+                        <button className="location-btn-approve" onClick={() => handleEditClick(pkg)}>Edit</button>
+                      </td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>

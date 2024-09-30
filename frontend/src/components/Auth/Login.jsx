@@ -34,8 +34,6 @@ function Login() {
       const response = await axios.post('http://localhost:8081/api/auth/login', formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('email', formData.email);
-     
-      alert(response.data.name)
       console.log('Login successful', response.data);
       alert('Login successful');
       navigate('/home');
