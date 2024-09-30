@@ -166,7 +166,7 @@ const VehicleRentalHome = () => {
     const filtered = vehicles.filter(vehicle => {
       return (
         (make === '' || vehicle.make.toLowerCase().includes(make.toLowerCase())) &&
-        (model === '' || vehicle.category.toLowerCase().includes(model.toLowerCase())) &&
+        (model === '' || vehicle.model.toLowerCase().includes(model.toLowerCase())) &&
         (category === '' || vehicle.category.toLowerCase().includes(category.toLowerCase())) &&
         (location === '' || vehicle.location.toLowerCase().includes(location.toLowerCase())) &&
         (minPrice === '' || vehicle.pricePerDay >= parseFloat(minPrice)) &&
@@ -198,7 +198,7 @@ const VehicleRentalHome = () => {
           style={styles.buttonStyle}
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHoverStyle.backgroundColor}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.buttonStyle.backgroundColor}
-          onClick={() => navigate('/scheduler/sellersignin')}
+          onClick={() => navigate('/vehicle-owner-dashboard')}
         >
           List Your Property Here...
         </button>
