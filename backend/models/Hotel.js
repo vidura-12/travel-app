@@ -45,7 +45,7 @@ const HotelSchema = new mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'HotelOwner', // Change to reference HotelOwner
+        ref: 'HotelOwner', // Reference to HotelOwner
         required: true, // Ensure an owner is assigned
     },
 }, { timestamps: true }); // Add timestamps for createdAt and updatedAt

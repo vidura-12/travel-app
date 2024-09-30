@@ -10,6 +10,7 @@ import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
 import HotelLayout from './HotelLayout';
+import HotelComp from './HotelComp';
 
 
 
@@ -185,7 +186,7 @@ function App() {
          
          {/* Route for hotel owner*/}
         
-          <Route path="/hotelowner/dashboard" element={<HotelOwnerDashboard />} />
+          <Route path="/hotelowner/dashboard" element={<HotelComp><HotelOwnerDashboard/></HotelComp>} />
           <Route path="/hotelowner/register" element={<UserLayout><HotelOwnerRegister /></UserLayout>} />
           <Route path="/hotelowner/login" element={<UserLayout><HotelOwnerLogin /></UserLayout>} />
 

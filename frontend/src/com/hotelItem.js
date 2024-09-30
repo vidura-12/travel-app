@@ -1,24 +1,24 @@
 import React, { useState } from "react";
+import { Modal, Button, Carousel } from "react-bootstrap";
 import "./hotelItem.css";
-import { Modal, Button, Carousel} from "react-bootstrap";
 
 function HotelItem({ hotel }) {
     const [show, setShow] = useState(false);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     return (
         <div className="row hotelitembs">
             <div className="col-md-4">
-                {/* Check if images exist before rendering the img element */}
                 {hotel.images && hotel.images.length > 0 ? (
                     <img
                         className="smallimg"
                         src={hotel.images[0]}
-                        alt={`Image of ${hotel.name}`} // Provide meaningful alt text
+                        alt={`Image of ${hotel.name}`}
                     />
                 ) : (
-                    <div className="no-image">No image available</div> // Placeholder if no images exist
+                    <div className="no-image">No image available</div>
                 )}
             </div>
             <div className="col-md-7 text-left">
@@ -34,33 +34,27 @@ function HotelItem({ hotel }) {
                     ))}
                 </ul>
                 <div style={{ float: 'right' }}>
-                <button className="btn btn-primary" onClick={handleShow}>View Details</button>
+                    <Button className="btn btn-primary" onClick={handleShow}>View Details</Button>
                 </div>
-
             </div>
 
-            
-                    
-            <Modal show={show} onHide={handleClose} size="lg"> 
+            <Modal show={show} onHide={handleClose} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>{hotel.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
-                    
                     <Carousel>
                         {hotel.images.map((img, index) => (
                             <Carousel.Item key={index}>
                                 <img
                                     className="d-block w-100 bigImg"
                                     src={img}
-                                    alt={`Slide ${index + 1} for ${hotel.name}`} // Better alt text
+                                    alt={`Slide ${index + 1} for ${hotel.name}`}
                                 />
                             </Carousel.Item>
                         ))}
                     </Carousel>
                     <p className="popupDescription">{hotel.description}</p>
-
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

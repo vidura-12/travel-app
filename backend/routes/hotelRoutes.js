@@ -1,27 +1,15 @@
+// backend/routes/hotelRoutes.js
+
 const express = require('express');
 const router = express.Router();
+const hotelController = require('../controllers/hotelController');
+const  authenticateToken  = require('../middleware/auth');
 
-// Import the controller functions
-const {
-    createHotel,
-    getHotels,
-    approveHotel,
-} = require('../controllers/hotelController');
+// Route to add a new hotel
+router.post('/add', authenticateToken, hotelController.addHotel);
 
-// Import the authentication middleware
-const verifyToken = require('../middleware/auth'); // Ensure the path is correct
-
-// Define routes
-
-// POST route to create a new hotel (Protected Route)
-router.post('/', verifyToken, createHotel);
-
-// GET route to fetch all approved hotels (Public Route)
-// Apply `verifyToken` if this route should also be protected
-router.get('/', getHotels);
-
-// PUT route to approve a hotel by ID (Protected Route)
-router.put('/:id/approve', verifyToken, approveHotel);
+// Route to get all approved hotels
+router.get('/approved', hotelController.getHotels);
 
 // Export the router
 module.exports = router;

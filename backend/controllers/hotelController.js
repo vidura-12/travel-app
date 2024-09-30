@@ -1,31 +1,57 @@
+// backend/controllers/hotelController.js
+
 const Hotel = require('../models/Hotel');
+const HotelOwner = require('../models/HotelOwner');
 
-// Create a new hotel
-exports.createHotel = async (req, res) => {
-    const { name, location, description, amenities, rooms, images } = req.body;
-
+// Add a new hotel
+exports.addHotel = async (req, res) => {
     try {
-        const hotel = new Hotel({
+        const {
             name,
             location,
             description,
             amenities,
             rooms,
-            images, // Included images in the hotel object
-            owner: req.user.userId // Ensure the owner is linked to the user ID from the request
+            images,
+        } = req.body;
+
+        // Validate required fields
+        if (!name || !location || !rooms || !images) {
+            return res.status(400).json({ message: 'Missing required fields.' });
+        }
+
+        // Create a new Hotel instance
+        const newHotel = new Hotel({
+            name,
+            location,
+            description,
+            amenities,
+            rooms,
+            images,
+            owner: req.user.userId, // Assuming userId is stored in req.user by middleware
         });
-        await hotel.save();
-        res.status(201).json(hotel); // Return the created hotel with a 201 status
+
+        // Save the hotel to the database
+        const savedHotel = await newHotel.save();
+
+        // Update the HotelOwner's hotels array
+        await HotelOwner.findByIdAndUpdate(
+            req.user.userId,
+            { $push: { hotels: savedHotel._id } },
+            { new: true }
+        );
+
+        res.status(201).json(savedHotel);
     } catch (error) {
-        console.error(error); // Log the error for debugging
-        res.status(500).json({ error: 'Server error' }); // Return a 500 status for server errors
+        console.error('Error adding hotel:', error);
+        res.status(500).json({ message: 'Server error while adding hotel.' });
     }
 };
 
 // Get all approved hotels
 exports.getHotels = async (req, res) => {
     try {
-        const hotels = await Hotel.find({ status: 'approved' }); // Query for approved hotels
+        const hotels = await Hotel.find({ status: 'approved' }).populate('owner', 'name email phone'); // Query for approved hotels and populate owner details
         res.json(hotels); // Return the list of approved hotels
     } catch (error) {
         console.error(error); // Log the error for debugging
@@ -33,18 +59,21 @@ exports.getHotels = async (req, res) => {
     }
 };
 
-// Approve a hotel by ID
-exports.approveHotel = async (req, res) => {
-    const { id } = req.params; // Extract hotel ID from request parameters
-
+// Get the profile of the authenticated hotel owner with populated hotels
+exports.getHotelOwnerProfile = async (req, res) => {
+    console.log('Fetching profile for user:', req.user);
     try {
-        const hotel = await Hotel.findByIdAndUpdate(id, { status: 'approved' }, { new: true }); // Update the hotel status to approved
-        if (!hotel) {
-            return res.status(404).json({ error: 'Hotel not found' }); // Handle case where hotel is not found
+        const owner = await HotelOwner.findById(req.user.userId).populate('hotels'); // Populate hotels
+        if (!owner) {
+            console.log('Hotel owner not found for userId:', req.user.userId);
+            return res.status(404).json({ message: 'Hotel owner not found' });
         }
-        res.json(hotel); // Return the updated hotel
+        const { password, ...ownerDetails } = owner.toObject();
+        res.status(200).json(ownerDetails);
     } catch (error) {
-        console.error(error); // Log the error for debugging
-        res.status(500).json({ error: 'Server error' }); // Return a 500 status for server errors
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 };
+
+// Other controller methods (e.g., updateHotel, deleteHotel) can be added here

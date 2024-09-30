@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-//import './hotels.css'; // Import your CSS file
-import HotelItem from './hotelItem'; // Correctly import HotelItem
+import HotelItem from './hotelItem'; // Ensure correct import path
 
 const Hotels = () => {
     const [hotels, setHotels] = useState([]);
@@ -11,15 +10,11 @@ const Hotels = () => {
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/api/hotels'); // Correct API call
+                const response = await axios.get('http://localhost:8081/api/hotels/approved'); // Ensure the API URL is correct
                 setHotels(response.data);
             } catch (err) {
                 console.error('Error fetching hotels:', err);
-                if (err.response) {
-                    setError(err.response.data.message || 'Failed to fetch hotels');
-                } else {
-                    setError('Network error: Unable to reach the server');
-                }
+                setError(err.response ? err.response.data.message : 'Network error: Unable to reach the server');
             } finally {
                 setLoading(false);
             }
@@ -36,8 +31,7 @@ const Hotels = () => {
         <div className='container'>
             <div className="row justify-content-center mt-5">
                 {hotels.map((hotel) => (
-                    <div className="col-md-9 mt-2" key={hotel._id}> 
-                       
+                    <div className="col-md-9 mt-2" key={hotel._id}>
                         <HotelItem hotel={hotel} />
                     </div>
                 ))}

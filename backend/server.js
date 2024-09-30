@@ -11,7 +11,7 @@ const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
-const hotelRouter = require('./routes/hotelRoutes'); // Import hotel routes
+const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
 const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
 
 
@@ -37,7 +37,12 @@ mongoose.connect(URL)
         console.error("Connection error:", error);
     });
 
-app.use('/api/hotels', hotelRouter); // Routes for hotel management
+    app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
+    // Default Route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Hotel Management API');
+});
+
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
 

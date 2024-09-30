@@ -54,7 +54,7 @@ const HotelOwnerProfile = () => {
     const handleLogout = () => {
         localStorage.removeItem('token'); // Remove the token from local storage
         setOwnerData(null); // Clear user data
-        navigate('/login'); // Redirect to login page
+        navigate('/hotelowner/login'); // Redirect to login page
     };
 
     if (loading) {
