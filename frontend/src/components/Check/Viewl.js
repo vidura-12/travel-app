@@ -45,11 +45,17 @@ const UserLocations = () => {
 
   const handleUpdateLocation = (e) => {
     const { name, value } = e.target;
+  
+    if (name === 'city' && !validateCityName(value)) {
+      return; // Prevent updating state if the value is invalid
+    }
+  
     setEditingLocation((prevLocation) => ({
       ...prevLocation,
       [name]: value,
     }));
   };
+  
 
   const handleImageChange = (e) => {
     setNewImage(e.target.files[0]); // Set the new image file
@@ -87,9 +93,9 @@ const UserLocations = () => {
   };
 
   const validateCityName = (city) => {
-    // Regular expression to check for numbers in the city name
     return /^[a-zA-Z\s]*$/.test(city);
   };
+  
 
   const toggleModal = () => {
     setModal(!modal);
@@ -174,7 +180,7 @@ const UserLocations = () => {
                 className={`location-status ${location.status === 'approved' ? 'approved' : 'not-approved'}`}
               >
                   {location.status === 'approved' ? 'Approved' : 'Not Approved'}
-                  </span>
+            </span>
 
                     </div>
                     <button

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './home.css';
-
+import Chatbot from './Chatbot'; 
 function Home() {
   const [locations, setLocations] = useState([]);
   const [visibleDescription, setVisibleDescription] = useState({});
@@ -115,6 +115,7 @@ function Home() {
           </div>
         </div>
       </section>
+      <Chatbot />
     </div>
   );
 }
