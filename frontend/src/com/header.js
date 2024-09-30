@@ -30,21 +30,12 @@ function Header() {
               <ul className="menu-list">
                 <li><a href="/home">Home</a></li>
                 <li><a href="/UserSupportHome">Customer Support</a></li>
-<<<<<<< HEAD
-                <li><Link to ="/tours">Travel Packages</Link></li>
-                <li><a href="#">Vehicle Rentle</a></li>
-                <li><Link to="/location">Gallery</Link></li>
-                <li><Link to="/hotels">Hotels</Link></li>
-                <li><Link to="/guide">Travel Agents</Link></li>
-                <li><Link to="/eventView">Events</Link></li>
-=======
                 <li><a href="/tours">Travel Packages</a></li>
                 <li><a href="/VehicleRentalHome">Vehicle Rental</a></li>
                 <li><a href="/location">Gallery</a></li>
                 <li><a href="/hotel">Hotels</a></li>
                 <li><a href="/guide">Travel Agents</a></li>
                 <li><a href="/eventView">Events</a></li>
->>>>>>> main
               </ul>
             </div>
             <div className="auth-container">
