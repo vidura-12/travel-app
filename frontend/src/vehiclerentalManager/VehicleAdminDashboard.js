@@ -87,6 +87,7 @@ const AdminVehicleManagement = () => {
                 <th className="vehicle-th">Model</th>
                 <th className="vehicle-th">Color</th>
                 <th className="vehicle-th">Category</th>
+                <th className="vehicle-th">Price Per Day</th>
                 <th className="vehicle-th">Status</th>
                 <th className="vehicle-th">Actions</th>
               </tr>
@@ -106,6 +107,7 @@ const AdminVehicleManagement = () => {
                   <td className="vehicle-td">{vehicle.model}</td>
                   <td className="vehicle-td">{vehicle.color}</td>
                   <td className="vehicle-td">{vehicle.category}</td>
+                  <td className="vehicle-td">{vehicle.pricePerDay}</td>
                   <td className="vehicle-td">
                     {vehicle.status === 'approved' ? (
                       <button className="vehicle-approvedButton">Approved</button>

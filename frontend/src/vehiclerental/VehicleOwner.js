@@ -24,7 +24,7 @@ function VehicleOwnerCreatePost() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [vehicles, setVehicles] = useState([]);
-  const [editingVehicle, setEditingVehicle] = useState(null);
+  //const [editingVehicle, setEditingVehicle] = useState(null);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
   // const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -81,11 +81,7 @@ function VehicleOwnerCreatePost() {
       return;
     }
 
-    // if (pricePerDay <= 0 || numberOfSeats <= 0) {
-    //   setError('Price per day and number of seats must be greater than 0.');
-    //   return;
-    // }
-
+  
     // Price validation: must be at least 5000
     if (pricePerDay < 5000) {
       setError('Price per day must be at least 5000.');
@@ -182,6 +178,71 @@ function VehicleOwnerCreatePost() {
     setImagePreview(null);
   };
 
+  const [editingVehicle, setEditingVehicle] = useState({
+    make: '',
+    model: '',
+    pricePerDay: '',
+    numberOfSeats: '',
+    color: '',
+    category: 'Car',
+    contact: '',
+    vnumber: '',
+    location: '',
+  });
+  
+  const [validationErrors, setValidationErrors] = useState({
+    pricePerDay: '',
+    numberOfSeats: '',
+    contact: '',
+  });
+
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+    // Validate price input
+    if (!/^\d*\.?\d*$/.test(value) || value < 5000) {
+      setValidationErrors({ ...validationErrors, pricePerDay: 'Minimum price per day is 5000' });
+    } else {
+      setValidationErrors({ ...validationErrors, pricePerDay: '' });
+    }
+    setEditingVehicle({ ...editingVehicle, pricePerDay: value });
+  };
+
+  const handleSeatsChange = (e) => {
+    const value = e.target.value;
+  
+    // Validate number of seats
+    if (/^\d*$/.test(value) && value.length <= 2) { // Check if input is numeric
+      const numericValue = parseInt(value, 10);
+      if (numericValue < 2 || numericValue >= 60) {
+        setValidationErrors({
+          ...validationErrors,
+          numberOfSeats: 'Number of seats must be between 2 and 59',
+        });
+      } else {
+        setValidationErrors({ ...validationErrors, numberOfSeats: '' }); // Clear error if valid
+      }
+      setEditingVehicle({ ...editingVehicle, numberOfSeats: value });
+    } else {
+      setValidationErrors({ ...validationErrors, numberOfSeats: 'Number of seats must be numeric' });
+    }
+  };
+
+  const handleContactChange = (e) => {
+    const value = e.target.value;
+    
+    // Allow only numeric inputs and check length
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      if (value.length === 10 ) {
+        setValidationErrors({ ...validationErrors, contact: '' }); // Clear error if valid
+      } else {
+        setValidationErrors({ ...validationErrors, contact: 'Contact number must be exactly 10 digits' });
+      }
+      setEditingVehicle({ ...editingVehicle, contact: value });
+    } else {
+      setValidationErrors({ ...validationErrors, contact: 'Contact number must be numeric' });
+    }
+  };
+
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     
@@ -203,6 +264,7 @@ function VehicleOwnerCreatePost() {
         ac,
         vnumber,
         location
+        
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -279,7 +341,7 @@ function VehicleOwnerCreatePost() {
           <td style={tableCellStyle}>{vehicle.make}</td>
           <td style={tableCellStyle}>{vehicle.model}</td>
           <td style={tableCellStyle}>{vehicle.numberOfSeats}</td>
-          <td style={tableCellStyle}>${vehicle.pricePerDay}</td>
+          <td style={tableCellStyle}>LKR {vehicle.pricePerDay}</td>
           <td style={tableCellStyle}>{vehicle.color}</td>
           <td style={tableCellStyle}>{vehicle.category}</td>
           <td style={tableCellStyle2(vehicle.status)}>{vehicle.status}</td>
@@ -352,10 +414,25 @@ function VehicleOwnerCreatePost() {
                   min="2" 
                 />
               </div>
-                <div style={inputContainerStyle}>
-                  <label>Color:</label>
-                  <input type="text" value={color} onChange={(e) => setColor(e.target.value)} style={inputStyle} required />
-                </div>
+              <div style={inputContainerStyle}>
+                <label>Color:</label>
+                <input 
+                  type="text"
+                  value={color} 
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^[A-Za-z]*$/.test(value)) {
+                      setColor(value);
+                      setValidationErrors({ ...validationErrors, color: '' }); // Clear error if valid
+                    } else {
+                      setValidationErrors({ ...validationErrors, color: 'Color must contain only letters' }); // Set error
+                    }
+                  }}
+                  style={inputStyle}
+                  required 
+                />
+                {validationErrors.color && <p style={errorStyle}>{validationErrors.color}</p>}
+              </div>
                 <div style={inputContainerStyle}>
                   <label>Category:</label>
                   <select value={category} onChange={(e) => setCategory(e.target.value)} style={inputStyle} required>
@@ -442,95 +519,151 @@ function VehicleOwnerCreatePost() {
 
         {editingVehicle && (
           <Modal isOpen={editModalIsOpen} onRequestClose={closeEditModal} style={modalStyles}>
-            <h2>Edit Vehicle</h2>
-            <form onSubmit={handleEditSubmit}>
-              <div style={formGroupStyle}>
-                <div style={inputRowStyle}>
-                  <div style={inputContainerStyle}>
-                    <label>Make:</label>
-                    <input type="text" value={editingVehicle.make} onChange={(e) => setEditingVehicle({ ...editingVehicle, make: e.target.value })} style={inputStyle} required />
-                  </div>
-                  <div style={inputContainerStyle}>
-                    <label>Model:</label>
-                    <input type="text" value={editingVehicle.model} onChange={(e) => setEditingVehicle({ ...editingVehicle, model: e.target.value })} style={inputStyle} required />
-                  </div>
-                  <div style={inputContainerStyle}>
-                    <label>Price Per Day:</label>
-                    <input type="number" value={editingVehicle.pricePerDay} onChange={(e) => setEditingVehicle({ ...editingVehicle, pricePerDay: e.target.value })} style={inputStyle} required />
-                  </div>
-                </div>
-                <div style={inputRowStyle}>
-                  
-                  <div style={inputContainerStyle}>
-                    <label>Number of Seats:</label>
-                    <input type="number" value={editingVehicle.numberOfSeats} onChange={(e) => setEditingVehicle({ ...editingVehicle, numberOfSeats: e.target.value })} style={inputStyle} required />
-                  </div>
-                  <div style={inputContainerStyle}>
-                    <label>Color:</label>
-                    <input type="text" value={editingVehicle.color} onChange={(e) => setEditingVehicle({ ...editingVehicle, color: e.target.value })} style={inputStyle} required />
-                  </div>
-                  <div style={inputContainerStyle}>
-                    <label>Category:</label>
-                    <select value={editingVehicle.category} onChange={(e) => setEditingVehicle({ ...editingVehicle, category: e.target.value })} style={inputStyle} required>
-                    <option value="Car">Car</option>
-                      <option value="SUV">SUV</option>
-                      <option value="Sedan">Sedan</option>
-                      <option value="Truck">Truck</option>
-                      <option value="Van">Van</option>
-                    </select>
-                  </div>
-                </div>
-                <div style={inputRowStyle}>
-
-                  <div style={inputContainerStyle}>
-                    <label>Contact:</label>
-                    <input type="text" value={editingVehicle.contact} onChange={(e) => setEditingVehicle({ ...editingVehicle, contact: e.target.value })} style={inputStyle} required />
-                  </div>
-
-                  <div style={inputContainerStyle}>
-                <label>AC:</label>
-                <div style={radioContainerStyle}>
-                  <label>
-                    <input
-                      type="radio"
-                      name="ac"
-                      value="Yes"
-                      checked={ac === 'Yes'}
-                      onChange={(e) => setAc(e.target.value)}
-                    />
-                    <span style={radioLabelStyle}>Yes</span>
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="ac"
-                      value="No"
-                      checked={ac === 'No'}
-                      onChange={(e) => setAc(e.target.value)}
-                    />
-                    <span style={radioLabelStyle}>No</span>
-                  </label>
-                </div>
-                </div>
-                </div>
-                <div style={inputRowStyle}>                   
-                </div>
-                <div style={inputRowStyle}>
-                  <div style={inputContainerStyle}>
-                    <label>Vehicle Number:</label>
-                    <input type="text" value={editingVehicle.vnumber} onChange={(e) => setEditingVehicle({ ...editingVehicle, vnumber: e.target.value })} style={inputStyle} required />
-                  </div>
-                  <div style={inputContainerStyle}>
-                    <label>Location:</label>
-                    <input type="text" value={editingVehicle.location} onChange={(e) => setEditingVehicle({ ...editingVehicle, location: e.target.value })} style={inputStyle} required />
-                  </div>
-                </div>
+      <h2>Edit Vehicle</h2>
+      <form onSubmit={handleEditSubmit}>
+        <div style={formGroupStyle}>
+          <div style={inputRowStyle}>
+            <div style={inputContainerStyle}>
+              <label>Make:</label>
+              <input
+                type="text"
+                value={editingVehicle.make}
+                onChange={(e) => setEditingVehicle({ ...editingVehicle, make: e.target.value })}
+                style={inputStyle}
+                required
+              />
+            </div>
+            <div style={inputContainerStyle}>
+              <label>Model:</label>
+              <input
+                type="text"
+                value={editingVehicle.model}
+                onChange={(e) => setEditingVehicle({ ...editingVehicle, model: e.target.value })}
+                style={inputStyle}
+                required
+              />
+            </div>
+            <div style={inputContainerStyle}>
+              <label>Price Per Day:</label>
+              <input
+                type="text" // Use text type for more flexible validation
+                value={editingVehicle.pricePerDay}
+                onChange={handlePriceChange}
+                style={inputStyle}
+                required
+              />
+              {validationErrors.pricePerDay && <p style={errorStyle}>{validationErrors.pricePerDay}</p>}
+            </div>
+          </div>
+          <div style={inputRowStyle}>
+            <div style={inputContainerStyle}>
+              <label>Number of Seats:</label>
+              <input
+                type="number"
+                value={editingVehicle.numberOfSeats}
+                onChange={handleSeatsChange}
+                style={inputStyle}
+                required
+              />
+              {validationErrors.numberOfSeats && <p style={errorStyle}>{validationErrors.numberOfSeats}</p>}
+            </div>
+            <div style={inputContainerStyle}>
+              <label>Color:</label>
+              <input
+                type="text"
+                value={editingVehicle.color}
+                onChange={(e) => {
+                  const regex = /^[A-Za-z]+$/;
+                  if (e.target.value === '' || regex.test(e.target.value)) {
+                    setEditingVehicle({ ...editingVehicle, color: e.target.value });
+                  }
+                }}
+                style={inputStyle}
+                required
+              />
+            </div>
+            <div style={inputContainerStyle}>
+              <label>Category:</label>
+              <select
+                value={editingVehicle.category}
+                onChange={(e) => setEditingVehicle({ ...editingVehicle, category: e.target.value })}
+                style={inputStyle}
+                required
+              >
+                <option value="Car">Car</option>
+                <option value="SUV">SUV</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Truck">Truck</option>
+                <option value="Van">Van</option>
+              </select>
+            </div>
+          </div>
+          <div style={inputRowStyle}>
+          <div style={inputContainerStyle}>
+            <label>Contact:</label>
+            <input
+              type="text"
+              value={editingVehicle.contact}
+              onChange={handleContactChange}
+              style={inputStyle}
+              maxLength="10"
+              required
+            />
+            {validationErrors.contact && <p style={errorStyle}>{validationErrors.contact}</p>}
+          </div>
+            <div style={inputContainerStyle}>
+              <label>AC:</label>
+              <div style={radioContainerStyle}>
+                <label>
+                  <input
+                    type="radio"
+                    name="ac"
+                    value="Yes"
+                    checked={editingVehicle.ac === 'Yes'}
+                    onChange={(e) => setEditingVehicle({ ...editingVehicle, ac: e.target.value })}
+                  />
+                  <span style={radioLabelStyle}>Yes</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="ac"
+                    value="No"
+                    checked={editingVehicle.ac === 'No'}
+                    onChange={(e) => setEditingVehicle({ ...editingVehicle, ac: e.target.value })}
+                  />
+                  <span style={radioLabelStyle}>No</span>
+                </label>
               </div>
-              <button type="submit" style={submitButtonStyle}>Save Changes</button>
-              <button onClick={closeEditModal} style={closeButtonStyle}>Close</button>
-            </form>
-          
-          </Modal>
+            </div>
+          </div>
+          <div style={inputRowStyle}>
+            <div style={inputContainerStyle}>
+              <label>Vehicle Number:</label>
+              <input
+                type="text"
+                value={editingVehicle.vnumber}
+                onChange={(e) => setEditingVehicle({ ...editingVehicle, vnumber: e.target.value })}
+                style={inputStyle}
+                required
+              />
+            </div>
+            <div style={inputContainerStyle}>
+              <label>Location:</label>
+              <input
+                type="text"
+                value={editingVehicle.location}
+                onChange={(e) => setEditingVehicle({ ...editingVehicle, location: e.target.value })}
+                style={inputStyle}
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <button type="submit" style={submitButtonStyle}>Save Changes</button>
+        <button onClick={closeEditModal} style={closeButtonStyle}>Close</button>
+      </form>
+    </Modal>
         )}
 
         {deleteVehicleId && (
@@ -771,7 +904,7 @@ const inputContainerStyle = {
 };
 
 const formGroupStyle = {
-  marginBottom: '20px',
+  marginBottom: '30px',
 };
 
 const modalStyles = {

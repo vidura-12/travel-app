@@ -67,8 +67,9 @@ function VehicleOwner() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
+  const user = localStorage.getItem('token');
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('vehicleOwner'));
+    //const user = JSON.parse(localStorage.getItem('vehicleOwner'));
     if (user && user.email) {
       setEmail(user.email);
       fetchBookings(user.email);
@@ -77,7 +78,8 @@ function VehicleOwner() {
     }
   }, [navigate]);
 
-  const fetchBookings = async () => {
+  const token = localStorage.getItem('token');
+  const fetchBookings = async (email) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5000/api/bookings/owner', {

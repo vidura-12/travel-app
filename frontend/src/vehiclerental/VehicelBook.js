@@ -262,7 +262,7 @@ const VehicleBook = () => {
         },
         {
           ul: [
-            `Total Cost : $${totalCost}`,
+            `Total Cost : LKR ${totalCost}`,
             `Return Date : ${returnDate}`
           ],
           style: 'costList'
@@ -330,7 +330,7 @@ const VehicleBook = () => {
             alt={`${vehicle.make} ${vehicle.model}`}
             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
           />
-          <  div style={styles.priceTag}>${vehicle.pricePerDay}/day</div>
+          <  div style={styles.priceTag}>LKR {vehicle.pricePerDay}/day</div>
 
           <h2 style={{ fontSize: '1.3em', margin: '10px 0' }}>{vehicle.make} {vehicle.model}</h2>
 
