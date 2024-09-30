@@ -13,7 +13,9 @@ const styles = {
   },
 
   content: {
+    backgroundColor: '#f9f9f9',
   },
+  
   card: {
     position: 'relative',
     backgroundColor: '#fff',

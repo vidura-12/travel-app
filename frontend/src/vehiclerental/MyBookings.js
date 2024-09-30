@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
 
 const styles = {
-  container: {
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-    backgroundColor: '#f9f9f9',
-    minHeight: '100vh',
-  },
   title: {
     fontSize: '24px',
     fontWeight: 'bold',
@@ -63,72 +56,70 @@ const styles = {
 function VehicleOwner() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState('');
-  //const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
-  const user = localStorage.getItem('token');
   useEffect(() => {
-    //const user = JSON.parse(localStorage.getItem('vehicleOwner'));
-    if (user && user.email) {
-      setEmail(user.email);
-      fetchBookings(user.email);
+    const email = localStorage.getItem('email'); // Fetch plain string
+    const token = localStorage.getItem('token'); // Fetch auth token
+
+    if (email && token) {
+      setEmail(email);
+      fetchBookings(token); // Pass token for authentication
     } else {
-      navigate('/vehicle-owner/login');
+      navigate('/vehicle-owner/login'); // Redirect if no email or token found
     }
   }, [navigate]);
 
-  const token = localStorage.getItem('token');
-  const fetchBookings = async (email) => {
+  const fetchBookings = async (token) => {
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5000/api/bookings/owner', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`, // Include token for auth
         },
       });
-      setBookings(response.data.data);
+
+      setBookings(response.data.data); // Set fetched bookings
     } catch (err) {
       setError(`Failed to fetch bookings: ${err.response?.data?.message || err.message}`);
     }
   };
-  
+
   return (
     <div>
-      <Header />
       <div className='content'>
-      <div style={styles.title}>My Bookings</div>
-      {error && <p style={styles.error}>{error}</p>}
-      <table style={styles.table}>
-        <thead style={styles.thead}>
-          <tr>
-            <th style={styles.th}>Vehicle</th>
-            <th style={styles.th}>Booked By</th>
-            <th style={styles.th}>Start Date</th>
-            <th style={styles.th}>End Date</th>
-            <th style={styles.th}>Price</th>
-            <th style={styles.th}>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.length > 0 ? (
-            bookings.map((booking, index) => (
-              <tr key={booking._id} style={index % 2 === 0 ? styles.trEven : styles.trOdd}>
-                <td style={styles.td}>{booking.vehicleId.make} {booking.vehicleId.model}</td>
-                <td style={styles.td}>{booking.userName}</td>
-                <td style={styles.td}>{new Date(booking.startDate).toLocaleDateString()}</td>
-                <td style={styles.td}>{new Date(booking.returnDate).toLocaleDateString()}</td>
-                <td style={styles.td}>LKR {booking.totalCost}</td>
-                <td style={styles.td}>{booking.status}</td>
-              </tr>
-            ))
-          ) : (
+        <div style={styles.title}>My Bookings</div>
+        {error && <p style={styles.error}>{error}</p>}
+        <table style={styles.table}>
+          <thead style={styles.thead}>
             <tr>
-              <td colSpan="6" style={styles.noBookings}>No bookings found</td>
+              <th style={styles.th}>Vehicle</th>
+              <th style={styles.th}>Booked By</th>
+              <th style={styles.th}>Start Date</th>
+              <th style={styles.th}>End Date</th>
+              <th style={styles.th}>Price</th>
+              <th style={styles.th}>Status</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bookings.length > 0 ? (
+              bookings.map((booking, index) => (
+                <tr key={booking._id} style={index % 2 === 0 ? styles.trEven : styles.trOdd}>
+                  <td style={styles.td}>{booking.vehicleId.make} {booking.vehicleId.model}</td>
+                  <td style={styles.td}>{booking.userName}</td>
+                  <td style={styles.td}>{new Date(booking.startDate).toLocaleDateString()}</td>
+                  <td style={styles.td}>{new Date(booking.returnDate).toLocaleDateString()}</td>
+                  <td style={styles.td}>LKR {booking.totalCost}</td>
+                  <td style={styles.td}>{booking.status}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" style={styles.noBookings}>No bookings found</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

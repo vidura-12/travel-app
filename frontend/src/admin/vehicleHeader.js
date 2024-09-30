@@ -7,7 +7,9 @@ const Header = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        navigate('/admin/login');
+        localStorage.removeItem('email'); 
+        sessionStorage.clear();  
+        navigate('/admin/login');  
     };
 
     return (

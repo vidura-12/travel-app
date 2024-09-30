@@ -232,7 +232,7 @@ const VehicleBook = () => {
             `Make and Model : ${vehicle.make} ${vehicle.model}`,
             `Color : ${vehicle.color}`,
             `Category : ${vehicle.category}`,
-            `Price per Day : $${vehicle.pricePerDay}`,
+            `Price per Day : LKR ${vehicle.pricePerDay}`,
             `Location : ${vehicle.location}`,
             `Number of Seats : ${vehicle.numberOfSeats}`
           ],
