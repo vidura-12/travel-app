@@ -61,6 +61,17 @@ const Agency = () => {
         }
       }
       setErrors(newErrors);
+    } else if (id === 'location') {
+      if (/^[a-zA-Z\s]*$/.test(value)) {
+        setFormData({
+          ...formData,
+          [id]: value,
+        });
+        newErrors.location = '';
+      } else {
+        newErrors.location = 'Location must contain only letters and spaces';
+      }
+      setErrors(newErrors);
     } else {
       setFormData({
         ...formData,
@@ -70,9 +81,16 @@ const Agency = () => {
   };
 
   const handlePlaceChange = (index, value) => {
-    const newPlaces = [...formData.places];
-    newPlaces[index] = value;
-    setFormData({ ...formData, places: newPlaces });
+    let newErrors = { ...errors };
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      const newPlaces = [...formData.places];
+      newPlaces[index] = value;
+      setFormData({ ...formData, places: newPlaces });
+      newErrors.places = '';
+    } else {
+      newErrors.places = 'Places must contain only letters and spaces';
+    }
+    setErrors(newErrors);
   };
 
   const handleImageChange = (e) => {
@@ -110,9 +128,6 @@ const Agency = () => {
 
     if (!formData.location) {
       newErrors.location = 'Location is required';
-      valid = false;
-    } else if (!/^[a-zA-Z\s]*$/.test(formData.location)) {
-      newErrors.location = 'Location must contain only letters and spaces';
       valid = false;
     }
 
@@ -156,8 +171,6 @@ const Agency = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-
-        console.log('Form submitted successfully:', response.data);
 
         window.alert('Your details have been submitted successfully!');
 
@@ -255,6 +268,7 @@ const Agency = () => {
                   value={place}
                   onChange={(e) => handlePlaceChange(index, e.target.value)}
                 />
+                {errors.places && <div className="error text-danger">{errors.places}</div>}
                 {formData.places.length > 1 && (
                   <button type="button" className="btn btn-danger" onClick={() => removePlace(index)}>
                     Remove
@@ -291,15 +305,17 @@ const Agency = () => {
             {errors.price && <div className="error text-danger">{errors.price}</div>}
 
             <div className='l1'>
-              <label>Upload an Image</label>
+              <label>Upload Image</label>
             </div>
             <input
               type="file"
               className="form-control"
+              id="image"
+              accept="image/*"
               onChange={handleImageChange}
             />
 
-            <div className='m2'>
+            <div className='submit'>
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </div>
