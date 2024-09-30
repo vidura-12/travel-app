@@ -18,12 +18,27 @@ export default function FeedbackForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+
+        // If the input is for contact, perform special validation
+        if (name === 'contact') {
+            // Allow only digits and limit the length to 10 digits
+            const digitsOnly = value.replace(/\D/g, ''); // Remove non-digit characters
+            if (digitsOnly.length <= 10) {
+                setFormData({ ...formData, contact: digitsOnly });
+                setErrors({ ...errors, contact: '' }); // Clear error if valid
+            }
+            if (value.length > 10) {
+                setErrors({ ...errors, contact: 'Contact number cannot exceed 10 digits' });
+            }
+        } else {
+            // Update other form fields normally
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const validate = () => {
         const newErrors = {};
-        
+
         // Validate name: should contain only letters and spaces
         if (!/^[A-Za-z\s]+$/.test(formData.name)) {
             newErrors.name = 'Name must contain only letters and spaces';

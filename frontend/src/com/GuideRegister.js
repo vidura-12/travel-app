@@ -19,48 +19,60 @@ export default function Register() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Validation logic
+    let newValue = value;
+
+    switch (name) {
+      case 'name':
+        // Only allow alphabet characters and ensure the first letter is capital
+        newValue = value.replace(/[^a-zA-Z\s]/g, ''); // Remove non-alphabet characters
+        if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
+          newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+        }
+        break;
+
+      case 'email':
+        // Ensure email starts with lowercase and allow valid email characters
+        newValue = value.replace(/[^a-zA-Z0-9@._-]/g, ''); // Remove invalid email characters
+        if (newValue && newValue[0] !== newValue[0].toLowerCase()) {
+          newValue = newValue.charAt(0).toLowerCase() + newValue.slice(1);
+        }
+        break;
+
+      case 'number':
+        // Only allow numbers and restrict length to 10 digits
+        newValue = value.replace(/\D/g, ''); // Remove non-digit characters
+        if (newValue.length > 10) {
+          newValue = newValue.slice(0, 10); // Limit to 10 digits
+        }
+        break;
+
+      case 'password':
+        // Only allow numbers and ensure at least 4 digits
+        newValue = value.replace(/\D/g, ''); // Remove non-digit characters
+        break;
+
+      case 'address':
+        // Ensure address starts with a capital letter
+        newValue = value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remove non-alphanumeric characters
+        if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
+          newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+        }
+        break;
+
+      default:
+        break;
+    }
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: newValue,
     });
   };
 
   const guideSubmit = async (e) => {
     e.preventDefault();
-
-    // Validation logic
-    const { name, email, number, password, address } = formData;
-
-    // Check if name starts with a capital letter
-    if (!/^[A-Z].*/.test(name)) {
-      alert('Name must start with a capital letter.');
-      return;
-    }
-
-    // Check if email starts with a lowercase letter
-    if (!/^[a-z].*/.test(email)) {
-      alert('Email must start with a lowercase letter.');
-      return;
-    }
-
-    // Check if number has exactly 10 digits
-    if (!/^\d{10}$/.test(number)) {
-      alert('Contact number must be exactly 10 digits long.');
-      return;
-    }
-
-    // Check if password has at least 4 digits
-    if (!/\d{4,}/.test(password)) {
-      alert('Password must contain at least 4 digits.');
-      return;
-    }
-
-    // Check if address starts with a capital letter
-    if (!/^[A-Z].*/.test(address)) {
-      alert('Address must start with a capital letter.');
-      return;
-    }
-
     try {
       await axios.post('http://localhost:8081/TourGuide/add', formData, {
         headers: {
@@ -68,7 +80,7 @@ export default function Register() {
         },
       });
 
-      navigate('/GuideLogin', { state: formData });
+      navigate('/profileGuide', { state: formData });
 
       setFormData({
         name: '',
@@ -120,7 +132,7 @@ export default function Register() {
         alignItems: 'center',
         zIndex: 2 // Ensure the form is above the overlay
       }}>
-        <h2 className="text-center mb-4" style={{ fontWeight: 'bold' , color:'black' }}>Register Tour Guide</h2>
+        <h2 className="text-center mb-4" style={{ fontWeight: 'bold', color: 'black' }}>Register Tour Guide</h2>
         {Object.keys(formData).map((key) => (
           <div key={key} style={{ display: 'flex', alignItems: 'center', marginBottom: '15px', width: '100%' }}>
             <label 
@@ -131,7 +143,7 @@ export default function Register() {
             </label>
             {key === 'language' ? (
               <select
-                className="form-control" 
+                className="form-control"
                 style={{ borderRadius: '30px', flex: 1, padding: '10px', height: '50px' }} // Distinct dropdown style
                 name={key}
                 value={formData[key]}
@@ -148,7 +160,7 @@ export default function Register() {
               </select>
             ) : (
               <input
-                className="form-control" 
+                className="form-control"
                 style={{ borderRadius: '30px', flex: 1 }} // Rounded input
                 type={key === 'password' ? 'password' : 'text'}
                 name={key}
@@ -160,7 +172,7 @@ export default function Register() {
           </div>
         ))}
         <button
-          className="btn btn-primary w-100" 
+          className="btn btn-primary w-100"
           type="submit"
           style={{ padding: '12px', fontSize: '18px', borderRadius: '30px', fontWeight: '600' }} // Button with padding and rounded corners
         >

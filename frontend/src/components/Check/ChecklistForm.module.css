@@ -1,11 +1,11 @@
-/* General layout */
+
 .container {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: #f9f9f9;
+    background: url('https://cdn.pixabay.com/photo/2017/04/07/20/23/port-2211791_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
     height: 100vh;
-    margin-top: 50px;
   }
   
   .formContainer {
@@ -13,7 +13,7 @@
     padding: 40px;
     width: calc(100% - 250px);
     box-sizing: border-box;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
     border-left: 1px solid #eaeaea;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   }
@@ -111,22 +111,22 @@
   }
   
   .addItem {
-    background-color: #6ecf68;
+    background-color: #1a05a4;
     color: white;
     margin-right: 10px;
   }
   
   .addItem:hover {
-    background-color: #5bb859;
+    background-color: #0c0d11;
   }
   
   .submitBtn {
-    background-color: #1d8f1e;
+    background-color:  #1a05a4;
     color: white;
   }
   
   .submitBtn:hover {
-    background-color: #006600;
+    background-color:  #0c0d11;
   }
   
   /* Align the buttons properly */
@@ -169,7 +169,5 @@
     .itemGroup input,
     .itemGroup select {
       width: 100%;
-      margin-bottom: 10px;
-    }
-  }
-  
+      margin-bottom:10px;}
+}

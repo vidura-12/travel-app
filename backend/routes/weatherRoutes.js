@@ -7,8 +7,13 @@ const WEATHER_API_KEY = process.env.WEATHER_API_KEY; // Add your weather API key
 // Route to get weather data
 router.get('/weather/:location', async (req, res) => {
     const { location } = req.params;
+    console.log("Weather API Key: ", WEATHER_API_KEY);
+    console.log(`Fetching weather for: ${location}`);
+
+
     try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
+            
             params: {
                 q: location,
                 appid: WEATHER_API_KEY,

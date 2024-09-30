@@ -12,7 +12,7 @@ const TravelChatbot = () => {
     // Initial bot message
     setMessages(prevMessages => [
       ...prevMessages,
-      { text: 'Hello! How can I assist you with your travel plans today?', sender: 'bot' },
+      { text: 'Hello! Do You Want To Know About Wheather Of the Places?', sender: 'bot' },
     ]);
   }, []);
 

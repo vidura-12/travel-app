@@ -135,7 +135,7 @@ function Profile() {
         return;
       }
 
-      const response = await axios.put('http://localhost:5000/api/auth/profile', formData, {
+      const response = await axios.put('http://localhost:8081/api/auth/profile', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

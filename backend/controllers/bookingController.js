@@ -69,7 +69,7 @@ exports.getBookingsForOwner = async (req, res) => {
         // Return the bookings
         res.json({ success: true, data: bookings });
     } catch (error) {
-        console.error('Error fetching bookings:', error);
-        res.status(500).json({ success: false, message: 'Failed to fetch bookings', error: error.message });
+        console.error('Error fetching bookings:', error.message);
+    res.status(500).json({ success: false, message: 'Failed to fetch bookings', error: error.stack });
     }
 };

@@ -4,16 +4,12 @@ body, html {
     padding: 0;
     font-family: 'Arial', sans-serif;
     box-sizing: border-box;
-    background: #f0f4f8;
+    /*background: url('https://cdn.pixabay.com/photo/2020/12/29/23/13/nine-arches-bridge-5871855_1280.jpg');
+    background-size: cover;*/
 }
 
 /* Wrapper for Sign-Up Form */
-.signupWrapper {
-    width: 100%;
-    max-width: 600px; /* Increased width */
-    margin: auto;
-    padding: 20px;
-}
+
 
 /* Container */
 .container {
@@ -21,16 +17,17 @@ body, html {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to right, #f7fafc, #d1d5db);
+    background: url('https://cdn.pixabay.com/photo/2022/01/31/14/14/dance-6983578_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 /* Form Container */
 .formContainer {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
+    max-width: 400%;
+    background-color: rgba(241, 228, 228, 0.8);
+    backdrop-filter: blur(9px);
     border-radius: 10px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
