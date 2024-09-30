@@ -30,8 +30,7 @@ const SellerSignIn = () => {
       // Save token and user email in local storage
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
-
-      // Redirect based on role
+      alert(email)      // Redirect based on role
       switch (role) {
         case 'Hotel Owner':
           navigate('/hotelowner/dashboard'); // Admin dashboard route
@@ -46,6 +45,8 @@ const SellerSignIn = () => {
           navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route
           break;
         case 'Vehicle Owner':
+          navigate('/vehicle-owner-dashboard');
+          break;
         default:
           navigate('/package-seller-dashboard'); // Default to package seller dashboard
           break;

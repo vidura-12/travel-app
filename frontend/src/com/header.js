@@ -1,8 +1,20 @@
 import React from 'react';
 import './style1.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header() {
+  // Check if the token is stored in localStorage
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate(); // For navigation after logout
+
+  // Function to handle logout
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    // Redirect to the login page
+    navigate('/login');
+  };
+
   return (
     <div>
       <section className="home-section">
@@ -15,21 +27,39 @@ function Header() {
               <h3>TravelMate</h3>
             </div>
             <div className="menu-container">
-             
               <ul className="menu-list">
-                <li><Link to="/home">Home</Link></li>
+                <li><a href="/home">Home</a></li>
                 <li><a href="/UserSupportHome">Customer Support</a></li>
+<<<<<<< HEAD
                 <li><Link to ="/tours">Travel Packages</Link></li>
                 <li><a href="#">Vehicle Rentle</a></li>
                 <li><Link to="/location">Gallery</Link></li>
                 <li><Link to="/hotels">Hotels</Link></li>
                 <li><Link to="/guide">Travel Agents</Link></li>
                 <li><Link to="/eventView">Events</Link></li>
+=======
+                <li><a href="/tours">Travel Packages</a></li>
+                <li><a href="/VehicleRentalHome">Vehicle Rental</a></li>
+                <li><a href="/location">Gallery</a></li>
+                <li><a href="/hotel">Hotels</a></li>
+                <li><a href="/guide">Travel Agents</a></li>
+                <li><a href="/eventView">Events</a></li>
+>>>>>>> main
               </ul>
             </div>
             <div className="auth-container">
-              <a href="#">LogIn</a>
-              <a href="#">SignUp</a>
+              {token ? (
+                <>
+                  <a href="/profile">Profile</a>
+                  <a onClick={handleLogout} style={{ background: 'red', color: 'white', textDecoration: 'none', cursor: 'pointer' }} >Logout</a>
+                </>
+              ) : (
+                // If no token, show Login and SignUp buttons
+                <>
+                  <a href="/login">Login</a>
+                  <a href='/signup'>Signup</a>
+                </>
+              )}
             </div>
           </nav>
         </div>

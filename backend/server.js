@@ -3,23 +3,27 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 require("dotenv").config();
-
+const path = require('path');
 // Import routes
 const eventsRoutes = require('./routes/Event.js');
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
-const vehicleRoutes = require('./routes/Vehicle');
+
 const packageRoutes = require('./routes/package');
 const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
 const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
 
 
 const locationAdmin = require('./routes/Locationadmin');
-
+const bodyParser = require('body-parser');
+const vehicleOwnerController = require('./controllers/VehicleOwnerController');
+const vehicleRoutes = require('./routes/vehicleRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 const sellerlog = require('./routes/sellerlog');
+
 const app = express();
 const PORT = process.env.PORT || 8081;
 
@@ -37,6 +41,7 @@ mongoose.connect(URL)
         console.error("Connection error:", error);
     });
 
+<<<<<<< HEAD
     app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
     // Default Route
 app.get('/', (req, res) => {
@@ -47,6 +52,8 @@ app.get('/', (req, res) => {
 app.use('/api/hotelOwners', hotelOwnerRoutes);
 
 
+=======
+>>>>>>> main
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
@@ -58,7 +65,27 @@ app.use('/event', eventsRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/vehicles', vehicleRoutes);
+app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', bookingRoutes);
+
+app.post('/vehicle-owner/register', vehicleOwnerController.register);
+app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+
 // Start the server
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
 });
+const checklistRoutes = require('./routes/checklist');
+app.use('/api/auth', require('./routes/auth1'));
+app.use('/api/checklists', checklistRoutes);
+app.post('/vehicle-owner/register', vehicleOwnerController.register);
+app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/vehicles', vehicleRoutes);
+app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', bookingRoutes);

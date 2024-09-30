@@ -97,6 +97,7 @@ section.home-section {
 .home-container .navbar-custom .menu-list li a {
     color: var(--white-color);
     font-weight: 500;
+    text-decoration: none;
 }
 .home-container .navbar-custom .auth-container {
     display: flex;

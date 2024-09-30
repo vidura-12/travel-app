@@ -9,9 +9,18 @@ import TourGuideLayout from './tourGuideLayOut';
 import LocationLayout from './LocationLayout';
 import Adminevent from './eventAdmin';
 import UserSupportLayOut from './UserSupportLayOut';
+<<<<<<< HEAD
 import HotelLayout from './HotelLayout';
 import HotelComp from './HotelComp';
+=======
+import SignUp from './components/Auth/SignUp';
+import Login from './components/Auth/Login';
+import Profile from './components/Auth/Profile';
+>>>>>>> main
 
+import ChecklistForm from './components/Check/ChecklistForm';
+import ChecklistDisplay from './components/Check/ChecklistDisplay';
+import ChecklistItem from './components/Check/ChecklistItem';
 
 
 
@@ -32,7 +41,7 @@ import allFeedBack from './com/allFeedBack';
 
 import Newlocation from './com/newLocation';
 
-
+import Viewl from'./components/Check/Viewl'
 import AdminHome from './admin/home';
 import AdminLogin from './admin/AdminLogin';
 import AdminProfile from './admin/Adminlprofile';
@@ -100,8 +109,20 @@ import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 
+// Vehicle Rental Components
+import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
+import VehicleOwnerPage from './vehiclerental/VehicleOwner'
+import VehicleOwnerLogin from './vehiclerental/VehicleOwnerLogin';
+import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
+import Mybookings from './vehiclerental/MyBookings';
+import VehicleBook from './vehiclerental/VehicelBook';
+import VehicleOwnerProfile from './vehiclerental/VehicleOwnerProfile';
 
-
+// Vehicle Rental Manager Components
+import VehicleAdminDashboard from './vehiclerentalManager/VehicleAdminDashboard';
+import VehicleRentalLayout from './vehiclerental/vehiclerentalLayout';
+import VehicleOwnerLayout from './vehiclerental/VehicleOwnerLayout';
+import VehicleAdminLayout from './vehiclerentalManager/VehiceAdminLayout';
 function App() {
   return (
     <Router>
@@ -197,6 +218,7 @@ function App() {
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
+        <Route path="/viewLocation" element={<UserLayout><Viewl /></UserLayout>} />
         <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
@@ -209,11 +231,33 @@ function App() {
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
        
         <Route path="/Admin/profile" element={<AdminProfile />} />
-  <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
+        <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
+     
+        <Route path="/create-checklist" element={<UserLayout><ChecklistForm /></UserLayout>} />
+        <Route path="/checklists" element={<UserLayout><ChecklistDisplay /></UserLayout>}  />
+        <Route path="/checklists/:checklistId/:checklistTitle" element={<UserLayout><ChecklistItem /></UserLayout>}  />
+ {/* Vehicle Rental Routes */}
 
+ <Route path="/VehicleRentalHome" element={<UserLayout><VehicleRentalHome /></UserLayout>} />
+        <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerLayout><VehicleOwnerPage /></VehicleOwnerLayout>} />
+        <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
+        <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
+        <Route path="/mybookings" element={<Mybookings />} />
+        <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
+        <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
+
+        {/* Vehicle Rental Manager Routes */}
+
+        <Route path="/vehicle-manager/dashboard" element={<VehicleAdminLayout><VehicleAdminDashboard /></VehicleAdminLayout>} />
+        <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
+        <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
+       
        
       </Routes>
     </Router>

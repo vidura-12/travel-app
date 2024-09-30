@@ -1,0 +1,133 @@
+/* General Container */
+.container {
+    display: flex;
+  }
+  
+  .checklistItemContainer {
+    flex: 1;
+    padding: 40px;
+    margin-left: 250px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .checklistTitle {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* Progress Bar */
+  .progressContainer {
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    height: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .progressBar {
+    height: 100%;
+    background-color: #6ecf68; /* Starts green */
+    border-radius: 15px;
+    transition: width 0.4s ease;
+  }
+  
+  .progressText {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  
+  /* Checklist Items */
+  .itemList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .itemLeft {
+    display: flex;
+    align-items: center;
+  }
+  
+  .itemCheckbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+  }
+  
+  .itemName {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 500;
+    transition: text-decoration 0.3s ease;
+  }
+  
+  .completedItem {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  
+  /* Priority Styling */
+  .priority {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 25px;
+    color: white;
+  }
+  
+  .priority.low {
+    background-color: #f5c16c; /* Yellowish for low */
+  }
+  
+  .priority.medium {
+    background-color: #f77a7a; /* Reddish for medium */
+  }
+  
+  .priority.high {
+    background-color: #e66363; /* Red for high */
+  }
+  
+  .priorityText {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  /* Mobile View */
+  @media (max-width: 768px) {
+    .checklistItemContainer {
+      margin-left: 0;
+      padding: 20px;
+    }
+  
+    .item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .priority {
+      margin-top: 10px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
