@@ -69,7 +69,7 @@ function PendingEvent() {
 
   return (
     <div className="pending-container mt-5">
-      <h2 className="pending-title">Pending Events</h2>
+      <h2 className="pending-title">Waiting for approval..</h2>
       {events.length === 0 ? (
         <p className="pending-no-events">No pending events found.</p>
       ) : (

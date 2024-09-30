@@ -166,7 +166,7 @@ const VehicleRentalHome = () => {
     const filtered = vehicles.filter(vehicle => {
       return (
         (make === '' || vehicle.make.toLowerCase().includes(make.toLowerCase())) &&
-        (model === '' || vehicle.category.toLowerCase().includes(model.toLowerCase())) &&
+        (model === '' || vehicle.model.toLowerCase().includes(model.toLowerCase())) &&
         (category === '' || vehicle.category.toLowerCase().includes(category.toLowerCase())) &&
         (location === '' || vehicle.location.toLowerCase().includes(location.toLowerCase())) &&
         (minPrice === '' || vehicle.pricePerDay >= parseFloat(minPrice)) &&

@@ -55,6 +55,15 @@
   display: block;
   margin-top: 10px;
 }
+.error-border {
+  border: 2px solid red;
+}
+
+.location-form-error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
 
 .location-form-group input,
 .location-form-group textarea {

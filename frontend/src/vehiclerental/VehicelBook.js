@@ -437,7 +437,7 @@ const VehicleBook = () => {
                 style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
               />
             </label>
-            <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> ${totalCost}</p>
+            <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> LKR {totalCost}</p>
             <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Return Date:</strong> {returnDate}</p>
             {error && <p style={{ color: 'red', marginBottom: '15px' }}>{error}</p>}
             <button
