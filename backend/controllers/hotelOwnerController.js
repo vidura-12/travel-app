@@ -112,3 +112,32 @@ exports.loginHotelOwner = async (req, res) => {
     }
 };
 
+// backend/controllers/hotelController.js
+
+// Get the profile of the authenticated hotel owner with populated hotels
+exports.getHotelOwnerProfile = async (req, res) => {
+    console.log('Fetching profile for user:', req.user);
+    try {
+        const owner = await HotelOwner.findById(req.user.userId).populate('hotels'); // Populate hotels
+        if (!owner) {
+            console.log('Hotel owner not found for userId:', req.user.userId);
+            return res.status(404).json({ message: 'Hotel owner not found' });
+        }
+        const { password, ...ownerDetails } = owner.toObject();
+        res.status(200).json({ ...ownerDetails, hotels: owner.hotels }); // Include hotels in the response
+    } catch (error) {
+        console.error('Error fetching profile:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// Get all approved hotels for the logged-in owner
+exports.getOwnerHotels = async (req, res) => {
+    try {
+        const hotels = await Hotel.find({ owner: req.user.userId, status: 'approved' }).populate('owner', 'name email phone');
+        res.json(hotels); // Return the list of approved hotels owned by the user
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        res.status(500).json({ error: 'Server error' }); // Return a 500 status for server errors
+    }
+};

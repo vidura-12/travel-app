@@ -20,7 +20,7 @@ const MyHotels = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8081/api/hotelOwners/profile', {
+                const response = await fetch('http://localhost:8081/api/hotels/owner', { // Updated endpoint
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -30,7 +30,7 @@ const MyHotels = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setHotels(data.hotels || []);
+                    setHotels(data || []); // Directly set the data since it contains hotels
                 } else {
                     const errorData = await response.json();
                     setError(`Failed to fetch your hotels: ${errorData.message}`);
