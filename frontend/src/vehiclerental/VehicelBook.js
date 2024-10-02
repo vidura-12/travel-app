@@ -167,6 +167,11 @@ const VehicleBook = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (formData.userPhoneNumber.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
+
     axios.post('http://localhost:8081/api/bookings', {
       vehicleId,
       ...formData,
@@ -196,14 +201,20 @@ const VehicleBook = () => {
   };
 
   const handleNumberOfDaysChange = (e) => {
-    if (/^[0-9]*$/.test(e.target.value)) {
+    const value = e.target.value;
+    
+    // Check if the input contains only numbers and has a maximum length of 10
+    if (/^[0-9]*$/.test(value) && value.length <= 10) {
       handleChange(e);
     }
   };
 
   const handlePhoneNumberChange = (e) => {
-    if (/^[0-9]*$/.test(e.target.value)) {
-      handleChange(e);
+    const value = e.target.value;
+  
+    // Check if value is numeric and has a maximum length of 10
+    if (/^\d{0,10}$/.test(value)) {
+      setFormData({ ...formData, userPhoneNumber: value });
     }
   };
 
@@ -232,7 +243,7 @@ const VehicleBook = () => {
             `Make and Model : ${vehicle.make} ${vehicle.model}`,
             `Color : ${vehicle.color}`,
             `Category : ${vehicle.category}`,
-            `Price per Day : $${vehicle.pricePerDay}`,
+            `Price per Day : LKR ${vehicle.pricePerDay}`,
             `Location : ${vehicle.location}`,
             `Number of Seats : ${vehicle.numberOfSeats}`
           ],
@@ -262,7 +273,7 @@ const VehicleBook = () => {
         },
         {
           ul: [
-            `Total Cost : $${totalCost}`,
+            `Total Cost : LKR ${totalCost}`,
             `Return Date : ${returnDate}`
           ],
           style: 'costList'
@@ -330,7 +341,7 @@ const VehicleBook = () => {
             alt={`${vehicle.make} ${vehicle.model}`}
             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
           />
-          <  div style={styles.priceTag}>${vehicle.pricePerDay}/day</div>
+          <  div style={styles.priceTag}>LKR {vehicle.pricePerDay}/day</div>
 
           <h2 style={{ fontSize: '1.3em', margin: '10px 0' }}>{vehicle.make} {vehicle.model}</h2>
 
@@ -362,13 +373,19 @@ const VehicleBook = () => {
         }}>
           <h1 style={{ fontSize: '1.5em', marginBottom: '20px' }}>Book Your Vehicle</h1>
           <form onSubmit={handleSubmit}>
-            <label>
+          <label>
               Name:
               <input
                 type="text"
                 name="userName"
                 value={formData.userName}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Allow only letters and spaces
+                  if (/^[A-Za-z\s]*$/.test(value)) {
+                    setFormData({ ...formData, userName: value });
+                  }
+                }}
                 style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
@@ -437,7 +454,7 @@ const VehicleBook = () => {
                 style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
               />
             </label>
-            <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> ${totalCost}</p>
+            <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> LKR {totalCost}</p>
             <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Return Date:</strong> {returnDate}</p>
             {error && <p style={{ color: 'red', marginBottom: '15px' }}>{error}</p>}
             <button

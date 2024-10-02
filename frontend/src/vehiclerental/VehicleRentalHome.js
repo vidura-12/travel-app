@@ -11,6 +11,11 @@ const styles = {
     gap: '20px',
     marginTop: '20px',
   },
+
+  content: {
+    backgroundColor: '#f9f9f9',
+  },
+  
   card: {
     position: 'relative',
     backgroundColor: '#fff',
@@ -161,7 +166,7 @@ const VehicleRentalHome = () => {
     const filtered = vehicles.filter(vehicle => {
       return (
         (make === '' || vehicle.make.toLowerCase().includes(make.toLowerCase())) &&
-        (model === '' || vehicle.category.toLowerCase().includes(model.toLowerCase())) &&
+        (model === '' || vehicle.model.toLowerCase().includes(model.toLowerCase())) &&
         (category === '' || vehicle.category.toLowerCase().includes(category.toLowerCase())) &&
         (location === '' || vehicle.location.toLowerCase().includes(location.toLowerCase())) &&
         (minPrice === '' || vehicle.pricePerDay >= parseFloat(minPrice)) &&
@@ -193,7 +198,7 @@ const VehicleRentalHome = () => {
           style={styles.buttonStyle}
           onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHoverStyle.backgroundColor}
           onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.buttonStyle.backgroundColor}
-          onClick={() => navigate('/sellersignup')}
+          onClick={() => navigate('/scheduler/sellersignin')}
         >
           List Your Property Here...
         </button>

@@ -15,6 +15,7 @@ const InfoModal = ({ message, onClose }) => (
 );
 
 const AdminVehicleManagement = () => {
+  
   const [vehicles, setVehicles] = useState([]);
   const [modalMessage, setModalMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -22,6 +23,12 @@ const AdminVehicleManagement = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+  if (!token) {
+    alert('You need to log in first.');
+    navigate('/admin/login'); // Redirect to login page
+    return;
+  }
     axios.get('http://localhost:8081/api/vehicles')
       .then(response => {
         setVehicles(response.data.data || []);
@@ -54,7 +61,7 @@ const AdminVehicleManagement = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user'); 
+    localStorage.removeItem('email'); 
     sessionStorage.clear();  
     navigate('/admin/login');  
   };
@@ -69,7 +76,7 @@ const AdminVehicleManagement = () => {
       <div className='vehicle-content'>
         <div className="vehicle-header">
         <div className="vehicle-headerButtons">
-          <button className="vehicle-button" onClick={goToHome}>Back to Vehicle Rental Home</button>
+          <button className="vehicle-button" onClick={goToHome}>Check Vehicle Rental Home</button>
           <button className="vehicle-button2" onClick={logout}>Logout</button>
         </div>
 
@@ -82,10 +89,12 @@ const AdminVehicleManagement = () => {
             <thead>
               <tr>
                 <th className="vehicle-th">Image</th>
+                <th className="vehicle-th">Owner Email</th>
                 <th className="vehicle-th">Make</th>
                 <th className="vehicle-th">Model</th>
                 <th className="vehicle-th">Color</th>
                 <th className="vehicle-th">Category</th>
+                <th className="vehicle-th">Price Per Day</th>
                 <th className="vehicle-th">Status</th>
                 <th className="vehicle-th">Actions</th>
               </tr>
@@ -100,10 +109,12 @@ const AdminVehicleManagement = () => {
                       className="vehicle-vehicleImageStyle" 
                     />
                   </td>
+                  <td className="vehicle-td">{vehicle.email}</td>
                   <td className="vehicle-td">{vehicle.make}</td>
                   <td className="vehicle-td">{vehicle.model}</td>
                   <td className="vehicle-td">{vehicle.color}</td>
                   <td className="vehicle-td">{vehicle.category}</td>
+                  <td className="vehicle-td">{vehicle.pricePerDay}</td>
                   <td className="vehicle-td">
                     {vehicle.status === 'approved' ? (
                       <button className="vehicle-approvedButton">Approved</button>

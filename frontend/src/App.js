@@ -218,7 +218,7 @@ function App() {
         <Route path="/viewLocation" element={<UserLayout><Viewl /></UserLayout>} />
         <Route path="/agency" element={<Sellerlayout><Travelagency /></Sellerlayout>} />
         <Route path="/sellersignup" element={<UserLayout><SellerSignup /></UserLayout>} />
-        <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
+        <Route path="/Sellersprofile" element={<Sellerlayout><SellersProfile /></Sellerlayout>} />
         <Route path="/packagedetails" element={<SchedulerLayout><Packagedetails /></SchedulerLayout>} />
         <Route path="/scheduladmin" element={<SchedulerLayout><Scheduladmin /></SchedulerLayout>} />
         <Route path="/scheduler/Sellersregister" element={<SchedulerLayout><SellerRegister /></SchedulerLayout>} />

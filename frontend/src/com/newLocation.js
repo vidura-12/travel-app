@@ -40,7 +40,7 @@ const Newlocation = () => {
       const regex = /^[a-zA-Z\s]*$/;
       if (!regex.test(value)) {
         valid = false;
-        errorMessage = 'Please enter valid details!';
+        errorMessage = 'Only letters and spaces are allowed!';
       }
     }
 
@@ -59,6 +59,17 @@ const Newlocation = () => {
       } catch (error) {
         console.error('Error checking location existence', error);
       }
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    const charCode = e.keyCode || e.which;
+    const charStr = String.fromCharCode(charCode);
+
+    // Allow letters (a-z, A-Z), spaces, and control keys (backspace, delete, arrow keys)
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    if (!/^[a-zA-Z\s]$/.test(charStr) && !allowedKeys.includes(e.key)) {
+      e.preventDefault(); // Prevent typing of numbers or special characters
     }
   };
 
@@ -147,11 +158,12 @@ const Newlocation = () => {
               <label htmlFor="name">Location Name</label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control ${errors.name ? 'error-border' : ''}`}
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 required
               />
               {errors.name && <div className="location-form-error">{errors.name}</div>}
@@ -162,11 +174,12 @@ const Newlocation = () => {
               <label htmlFor="city">Location City</label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control ${errors.city ? 'error-border' : ''}`}
                 id="city"
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 required
               />
               {errors.city && <div className="location-form-error">{errors.city}</div>}

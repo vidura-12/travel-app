@@ -43,20 +43,25 @@ const ChecklistItem = () => {
   const handleToggleComplete = async (itemId, completed) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/checklists/${checklistId}/items/${itemId}`,
+        `http://localhost:8081/api/checklists/${checklistId}/items/${itemId}`, // Fixed URL
         { completed: !completed },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
       const updatedItem = response.data;
+
+      // Log response to check if the correct item is returned
+      console.log('Updated item:', updatedItem);
+
+      // Update the state with the new item data
       setItems((prevItems) =>
         prevItems.map((item) =>
           item._id === updatedItem._id ? { ...item, completed: updatedItem.completed } : item
         )
       );
     } catch (error) {
-      console.error('Error updating item:', error);
+      console.error('Error updating item:', error.response ? error.response.data : error.message);
       setError('Failed to update item.');
     }
   };
@@ -100,7 +105,9 @@ const ChecklistItem = () => {
                 </span>
               </div>
               <div className={`${styles.priority} ${styles[item.priority]}`}>
-                <span className={styles.priorityText}>{item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}</span>
+                <span className={styles.priorityText}>
+                  {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}
+                </span>
               </div>
             </li>
           ))}

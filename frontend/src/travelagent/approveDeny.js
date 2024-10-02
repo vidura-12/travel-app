@@ -106,18 +106,45 @@ export default function Register() {
                   <td>{guide.experience}</td>
                   <td>{guide.language}</td>
                   <td>
-                    <button
-                      className="btn btn-success me-2"
-                      onClick={() => handleApprove(guide)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeny(guide._id)}
-                    >
-                      Deny
-                    </button>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button
+                        className="btn"
+                        style={{
+                          backgroundColor: '#28a745',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          padding: '10px 20px',
+                          border: 'none',
+                          borderRadius: '5px',
+                          marginRight: '10px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s ease',
+                        }}
+                        onClick={() => handleApprove(guide)}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'} // Darker green on hover
+                        onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'} // Original color
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn"
+                        style={{
+                          backgroundColor: '#dc3545',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          padding: '10px 20px',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s ease',
+                        }}
+                        onClick={() => handleDeny(guide._id)}
+                        onMouseEnter={(e) => e.target.style.backgroundColor = '#c82333'} // Darker red on hover
+                        onMouseLeave={(e) => e.target.style.backgroundColor = '#dc3545'} // Original color
+                      >
+                        Deny
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -22,6 +22,9 @@ body, html {
     justify-content: center;  /* Center horizontally */
     align-items: center;  /* Center vertically */
     background-color: #f9f9f9;
+    background: url('https://cdn.pixabay.com/photo/2020/02/06/10/08/sunrise-4823732_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
+   
 }
 
 /* Form Container */

@@ -1,11 +1,38 @@
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif; /* Modern font */
-    background-color: #f4f4f4; /* Light background for contrast */
+    background-color: #f4f4f400; /* Light background for contrast */
     margin: 0;
     padding: 0;
 }
-
+.viewLocationSaveBtn {
+    background-color: #28a745; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .viewLocationSaveBtn:hover {
+    background-color: #218838; /* Darker green */
+  }
+  
+  .viewLocationCancelBtn {
+    background-color: #dc3545; /* Red */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .viewLocationCancelBtn:hover {
+    background-color: #c82333; /* Darker red */
+  }
+  
 .locationImage {
     width: 50px; /* Set width as needed */
     height: 50px; /* Set height as needed */
