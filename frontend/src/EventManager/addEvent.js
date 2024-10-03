@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +18,17 @@ function AddEvent() {
 
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
+  const [minDate, setMinDate] = useState(''); // State to store minimum date
 
   const specialRegex = /^[a-zA-Z0-9\s]*$/;
+
+  // Set minimum date to two days from current date
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 2); // Add 2 days to the current date
+    const formattedDate = today.toISOString().split("T")[0]; // Get YYYY-MM-DD format
+    setMinDate(formattedDate);
+  }, []);
 
   const validateForm = () => {
     let valid = true;
@@ -228,6 +237,7 @@ function AddEvent() {
               name="date"
               value={formData.date}
               onChange={handleInputChange}
+              min={minDate} // Set the minimum selectable date
               required
             />
           </div>
@@ -275,23 +285,33 @@ function AddEvent() {
           <hr />
 
           {/* Ticket Criteria Inputs */}
-          <h4 style={styles.subHeading}>Ticket Criteria</h4>
+          <h4 style={styles.ticketHeading}>Ticket Criteria</h4>
           {formData.ticketCriteria.map((criteria, index) => (
-            <div className="form-group mb-3" key={index}>
-              <label htmlFor={`t${index + 1}`}>Ticket Criteria {index + 1}</label>
+            <div key={index} className="form-group mb-3">
+              <label>Criteria {index + 1}</label>
               <input
                 type="text"
                 className="form-control"
-                id={`t${index + 1}`}
                 placeholder={`Enter ticket criteria ${index + 1}`}
                 value={criteria}
                 onChange={(e) => handleTicketCriteriaChange(index, e.target.value)}
               />
             </div>
           ))}
-          <button type="button" className="btn btn-secondary" onClick={addTicketCriteria}>Add More Criteria</button>
 
-          <button type="submit" className="btn btn-primary mt-3">Add Event</button>
+          {/* Add Criteria Button */}
+          <button
+            type="button"
+            className="btn btn-secondary mb-3"
+            onClick={addTicketCriteria}
+            disabled={formData.ticketCriteria.length >= 7}
+          >
+            Add Criteria
+          </button>
+
+          <button type="submit" className="btn btn-primary">
+            Add Event
+          </button>
         </form>
       </div>
     </div>
@@ -322,6 +342,8 @@ const styles = {
     width: '650px', // Increased width
   },
   form: {
+    maxWidth: '600px',
+    margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -329,7 +351,8 @@ const styles = {
     textAlign: 'center',
     marginBottom: '20px',
   },
-  subHeading: {
+  ticketHeading: {
+    marginTop: '20px',
     marginBottom: '10px',
   },
 };

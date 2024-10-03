@@ -15,6 +15,7 @@ const Header = () => {
             <ul className="menu-header">
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/EventManager/Admin">DashBoard</a>
+                    <a className="nav-link-header" href="/EventManager/AdminReporte">Event Report</a>
                 </li>
             </ul>
             <div className="profile-header">
