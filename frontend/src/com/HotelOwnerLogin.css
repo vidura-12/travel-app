@@ -1,0 +1,89 @@
+.htowner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+ 
+}
+
+.htowner-login-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.htowner-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.htowner-error {
+  color: red;
+  font-size: 0.85em;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.htowner-form-group {
+  margin-bottom: 15px;
+}
+
+.htowner-label {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.htowner-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 1em;
+}
+
+.htowner-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.htowner-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.htowner-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.htowner-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Register link styling */
+.htowner-register {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.htowner-register-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.htowner-register-link:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,71 @@
+.hotels-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #cf5a5a;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotels-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.hotel-item {
+    display: flex; /* Ensure image and details are side by side */
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.hotel-image {
+    flex-shrink: 0; /* Prevent image from shrinking */
+    margin-right: 20px; /* Space between image and details */
+}
+
+.hotel-image img {
+    width: 300px; /* Fixed width for the image */
+    height: 300px; /* Fixed height for the image */
+    object-fit: cover; /* Ensure image covers the entire area */
+    border-radius: 8px; /* Rounded corners for the image */
+}
+
+.hotel-details {
+    flex-grow: 1; /* Allow details to take remaining space */
+}
+
+.hotel-name {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.hotel-description,
+.hotel-location,
+.hotel-amenities,
+.hotel-rooms-title {
+    margin: 5px 0;
+    color: #555;
+}
+
+.rooms-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.room-item {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+
+.loading-message,
+.error-message,
+.no-hotels-message {
+    text-align: center;
+    color: #999;
+}

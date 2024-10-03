@@ -12,6 +12,8 @@ import UserSupportLayOut from './UserSupportLayOut';
 import SignUp from './components/Auth/SignUp';
 import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
+import HotelLayout from './HotelLayout';
+import HotelComp from './HotelComp';
 
 import ChecklistForm from './components/Check/ChecklistForm';
 import ChecklistDisplay from './components/Check/ChecklistDisplay';
@@ -21,7 +23,7 @@ import ChecklistItem from './components/Check/ChecklistItem';
 
 import Home from './com/home';
 import Location from './com/location';
-import Hotel from './com/hotel';
+import Hotels from './com/hotels';
 import Feed from './com/feedback';
 import EventLayout from'./EventLayout';
 
@@ -60,6 +62,13 @@ import AgentRegister from './com/GuideRegister';
 
 // Location Manager Components
 import Location_Home from './locationmanager/home';
+
+// Hotel Owner Components
+
+import HotelOwnerDashboard from './com/HotelOwnerDashboard'; // Import the hotel owner dashboard component  
+import HotelOwnerRegister from './com/HotelOwnerRegister'; // Adjust the path as necessary
+import HotelOwnerLogin from './com/HotelOwnerLogin'; // Adjust the path as necessary
+
 
 import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
@@ -131,7 +140,8 @@ function App() {
         
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
-        <Route path="/hotel" element={<UserLayout><Hotel /></UserLayout>} />
+        <Route path="/hotels" element={<HotelLayout><Hotels /></HotelLayout>} />
+
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
 
         <Route path="/newLocation" element={<UserLayout><Newlocation /></UserLayout>} />
@@ -192,7 +202,12 @@ function App() {
          <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
          <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
          
-         
+         {/* Route for hotel owner*/}
+        
+          <Route path="/hotelowner/dashboard" element={<HotelComp><HotelOwnerDashboard/></HotelComp>} />
+          <Route path="/hotelowner/register" element={<UserLayout><HotelOwnerRegister /></UserLayout>} />
+          <Route path="/hotelowner/login" element={<UserLayout><HotelOwnerLogin /></UserLayout>} />
+
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
