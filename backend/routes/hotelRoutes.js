@@ -12,7 +12,8 @@ router.post('/add', authenticateToken, hotelController.addHotel);
 // Route to get all approved hotels
 router.get('/approved', hotelController.getHotels);
 
-
+// New route to get hotels of the authenticated owner
+router.get('/owner', authenticateToken, hotelController.getMyHotels);
 
 // Export the router
 module.exports = router;

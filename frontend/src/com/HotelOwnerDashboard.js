@@ -3,6 +3,7 @@ import { Tabs, Spin } from "antd"; // Import Spin
 import HotelOwnerProfile from "./HotelOwnerProfile";
 import AddHotel from "./AddHotel";
 import ApprovedHotels from "./ApprovedHotels";
+import MyHotels from "./MyHotels";
 
 function HotelOwnerDashboard({ loading }) { // Pass loading as a prop
     const items = [
@@ -14,7 +15,7 @@ function HotelOwnerDashboard({ loading }) { // Pass loading as a prop
         {
             label: 'My Hotels',
             key: '2',
-            children: <ApprovedHotels />,
+            children: <MyHotels />,
         },
         {
             label: 'Add New Hotel',

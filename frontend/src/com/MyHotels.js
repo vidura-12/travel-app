@@ -20,7 +20,7 @@ const MyHotels = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8081/api/hotels/owner', { // Updated endpoint
+                const response = await fetch('http://localhost:8081/api/hotels/owner', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -30,7 +30,7 @@ const MyHotels = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    setHotels(data || []); // Directly set the data since it contains hotels
+                    setHotels(data || []); // 'data' is an array of hotels
                 } else {
                     const errorData = await response.json();
                     setError(`Failed to fetch your hotels: ${errorData.message}`);
@@ -65,11 +65,12 @@ const MyHotels = () => {
             grid={{ gutter: 16, column: 3 }}
             dataSource={hotels}
             renderItem={hotel => (
-                <List.Item>
+                <List.Item key={hotel._id}>
                     <Card title={hotel.name}>
                         <p><strong>Location:</strong> {hotel.location}</p>
                         <p><strong>Description:</strong> {hotel.description}</p>
                         <p><strong>Amenities:</strong> {hotel.amenities.join(', ')}</p>
+                        <p><strong>Status:</strong> {hotel.status}</p>
                         <p><strong>Rooms:</strong></p>
                         <ul>
                             {hotel.rooms.map((room, index) => (

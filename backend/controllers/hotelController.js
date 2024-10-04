@@ -59,20 +59,17 @@ exports.getHotels = async (req, res) => {
     }
 };
 
-// Get the profile of the authenticated hotel owner with populated hotels
-exports.getHotelOwnerProfile = async (req, res) => {
-    console.log('Fetching profile for user:', req.user);
+// Get hotels for the authenticated owner
+exports.getMyHotels = async (req, res) => {
     try {
-        const owner = await HotelOwner.findById(req.user.userId).populate('hotels'); // Populate hotels
+        const owner = await HotelOwner.findById(req.user.userId).populate('hotels');
         if (!owner) {
-            console.log('Hotel owner not found for userId:', req.user.userId);
             return res.status(404).json({ message: 'Hotel owner not found' });
         }
-        const { password, ...ownerDetails } = owner.toObject();
-        res.status(200).json(ownerDetails);
+        res.json(owner.hotels); // Return only the hotels array
     } catch (error) {
-        console.error('Error fetching profile:', error);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error fetching owner\'s hotels:', error);
+        res.status(500).json({ message: 'Server error while fetching hotels.' });
     }
 };
 
