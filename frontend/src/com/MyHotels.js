@@ -1,5 +1,3 @@
-// frontend/src/components/MyHotels.js
-
 import React, { useEffect, useState } from "react";
 import { List, Card, Spin, message } from "antd";
 
@@ -79,9 +77,18 @@ const MyHotels = () => {
                         </ul>
                         <p><strong>Images:</strong></p>
                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                            {hotel.images.map((img, idx) => (
-                                <img key={idx} src={img} alt={`Hotel ${hotel.name}`} style={{ width: '100px', marginRight: '10px' }} />
-                            ))}
+                            {hotel.images && hotel.images.length > 0 ? (
+                                hotel.images.map((img, idx) => (
+                                    <img
+                                        key={idx}
+                                        src={`http://localhost:8081/hotel-uploads/${img}`} // Assuming images are served from /uploads
+                                        alt={`Hotel ${hotel.name}`}
+                                        style={{ width: '100px', marginRight: '10px', marginBottom: '10px' }}
+                                    />
+                                ))
+                            ) : (
+                                <p>No images available for this hotel.</p>
+                            )}
                         </div>
                     </Card>
                 </List.Item>

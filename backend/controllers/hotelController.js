@@ -1,5 +1,3 @@
-// backend/controllers/hotelController.js
-
 const Hotel = require('../models/Hotel');
 const HotelOwner = require('../models/HotelOwner');
 
@@ -12,12 +10,22 @@ exports.addHotel = async (req, res) => {
             description,
             amenities,
             rooms,
-            images,
         } = req.body;
 
         // Validate required fields
-        if (!name || !location || !rooms || !images) {
-            return res.status(400).json({ message: 'Missing required fields.' });
+        if (!name || !location || !rooms || !req.filenames || req.filenames.length === 0) {
+            return res.status(400).json({ message: 'Missing required fields or images.' });
+        }
+
+        // Parse rooms from JSON string to object
+        let parsedRooms;
+        try {
+            parsedRooms = JSON.parse(rooms);
+            if (!Array.isArray(parsedRooms) || parsedRooms.length === 0) {
+                throw new Error();
+            }
+        } catch (err) {
+            return res.status(400).json({ message: 'Invalid rooms format. Must be a JSON array.' });
         }
 
         // Create a new Hotel instance
@@ -25,9 +33,9 @@ exports.addHotel = async (req, res) => {
             name,
             location,
             description,
-            amenities,
-            rooms,
-            images,
+            amenities: amenities ? amenities.split(',').map(item => item.trim()) : [],
+            rooms: parsedRooms,
+            images: req.filenames, // Array of filenames from GridFS
             owner: req.user.userId, // Assuming userId is stored in req.user by middleware
         });
 

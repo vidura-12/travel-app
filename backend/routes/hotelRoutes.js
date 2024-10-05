@@ -5,9 +5,10 @@ const router = express.Router();
 const hotelController = require('../controllers/hotelController');
 const hotelOwnerController = require('../controllers/hotelOwnerController');
 const  authenticateToken  = require('../middleware/auth');
+const { upload, uploadToGridFS } = require('../middleware/upload'); // Import upload middleware
 
-// Route to add a new hotel
-router.post('/add', authenticateToken, hotelController.addHotel);
+// Route to add a new hotel with image uploads
+router.post('/add', authenticateToken, upload.array('images', 10), uploadToGridFS, hotelController.addHotel);
 
 // Route to get all approved hotels
 router.get('/approved', hotelController.getHotels);
