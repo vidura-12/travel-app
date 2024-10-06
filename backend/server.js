@@ -11,7 +11,7 @@ const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 const vehicleRoutes = require('./routes/Vehicle');
 const packageRoutes = require('./routes/package');
-
+const ticketRoutes = require('./routes/ticket');
 const locationAdmin = require('./routes/Locationadmin');
 
 const addRoute = require("./routes/create");
@@ -43,6 +43,7 @@ app.use('/location', locationRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/event', eventsRoutes);
+app.use('/ticket',ticketRoutes);
 app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);

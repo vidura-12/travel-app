@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+// import './UserTicketForm.css';  // Importing the CSS file
 
 function UserTicketForm() {
-  const { id } = useParams(); // Get event ID from the URL
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [event, setEvent] = useState(null);
@@ -31,6 +32,7 @@ function UserTicketForm() {
           ...prevDetails,
           tname: response.data.name,
           tcategory: response.data.category,
+          price: response.data.price,
         }));
       })
       .catch((error) => {
@@ -138,12 +140,9 @@ function UserTicketForm() {
     } catch (error) {
       console.error('Error submitting ticket:', error);
       Swal.fire({
-        title: 'Success',
-        text: 'Your ticket has been submitted, and details have been sent to your email.',
-        icon: 'success',
-        // title: 'Error',
-        // text: 'Something went wrong. Please try again later.',
-        // icon: 'error',
+        title: 'Error',
+        text: 'Something went wrong. Please try again later.',
+        icon: 'error',
       }).then(() => {
         navigate(`/eventView`);
       });
@@ -159,201 +158,111 @@ function UserTicketForm() {
   }
 
   return (
-    <div
-      className="ticket"
-      style={{
-        backgroundImage: `url(/img/${event.image || '/img/event7.jpg'})`, // Use event's background image or a default one
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        padding: '50px 20px',
-        textAlign: 'center',
-        position: 'relative',
-      }}
-    >
-      <section
-        className="ticket-hero-section"
-        style={{
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          padding: '50px 20px',
-          textAlign: 'center',
-          position: 'relative',
-        }}
-      >
-        <div className="ticket-hero-content">
-          <h2 className="ticket-hero-title">{event.name} - Book your ticket now</h2>
+    <div className="ticket-form-container" style={{ backgroundImage: `url('/path-to-user-uploaded-image')` }}>
+      <h2>Book Tickets for {event.name}</h2>
+      <form onSubmit={handleSubmit} className="ticket-form">
+
+        <div className="ticket-form-group">
+          <label htmlFor="tname">Event Name:</label>
+          <input
+            type="text"
+            className="ticket-form-control"
+            id="tname"
+            name="tname"
+            value={ticketDetails.tname}
+            onChange={handleTicketDetailChange}
+            disabled
+          />
         </div>
-      </section>
 
-      <div className="ticket-form-container">
-        <form onSubmit={handleSubmit}>
-          <div className="ticket-form-group">
-            <label htmlFor="tname">Event Name:</label>
-            <input
-              type="text"
-              className="ticket-form-control"
-              id="tname"
-              name="tname"
-              value={ticketDetails.tname}
-              onChange={handleTicketDetailChange}
-              disabled
-            />
-          </div>
+        <div className="ticket-form-group">
+          <label htmlFor="tcategory">Event Category:</label>
+          <input
+            type="text"
+            className="ticket-form-control"
+            id="tcategory"
+            name="tcategory"
+            value={ticketDetails.tcategory}
+            onChange={handleTicketDetailChange}
+            disabled
+          />
+        </div>
 
-          <div className="ticket-form-group">
-            <label htmlFor="tcategory">Event Category:</label>
-            <input
-              type="text"
-              className="ticket-form-control"
-              id="tcategory"
-              name="tcategory"
-              value={ticketDetails.tcategory}
-              onChange={handleTicketDetailChange}
-              disabled
-            />
-          </div>
+        <div className="ticket-form-group">
+          <label htmlFor="price">Event Price per Ticket:</label>
+          <input
+            type="text"
+            className="ticket-form-control"
+            id="price"
+            name="price"
+            value={event.price}
+            disabled
+          />
+        </div>
 
-          <div className="ticket-form-group">
-            <label htmlFor="phone">Phone:</label>
-            <input
-              type="text"
-              className="ticket-form-control"
-              id="phone"
-              name="phone"
-              placeholder="Enter your phone number"
-              value={ticketDetails.phone}
-              onChange={handleTicketDetailChange}
-              required
-            />
-            {errors.phone && <small className="ticket-error">{errors.phone}</small>}
-          </div>
+        <div className="form-group">
+          <label htmlFor="username">Name</label>
+          <input
+            type="text"
+            name="username"
+            value={userInputs.username || ''}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
 
-          <div className="ticket-form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              className="ticket-form-control"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={ticketDetails.email}
-              onChange={handleTicketDetailChange}
-              required
-            />
-            {errors.email && <small className="ticket-error">{errors.email}</small>}
-          </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={ticketDetails.phone}
+            onChange={handleTicketDetailChange}
+            required
+          />
+          {errors.phone && <span className="error-message">{errors.phone}</span>}
+        </div>
 
-          <div className="ticket-form-group">
-            <label htmlFor="noOfTicket">Number of Tickets:</label>
-            <input
-              type="number"
-              className="ticket-form-control"
-              id="noOfTicket"
-              name="noOfTicket"
-              placeholder="Enter number of tickets"
-              value={ticketDetails.noOfTicket}
-              onChange={handleTicketDetailChange}
-              required
-            />
-            {errors.noOfTicket && <small className="ticket-error">{errors.noOfTicket}</small>}
-          </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={ticketDetails.email}
+            onChange={handleTicketDetailChange}
+            required
+          />
+          {errors.email && <span className="error-message">{errors.email}</span>}
+        </div>
 
-          <div className="ticket-form-group">
-            <label htmlFor="totalPrice">Total Price:</label>
-            <input
-              type="text"
-              className="ticket-form-control"
-              id="totalPrice"
-              name="totalPrice"
-              value={ticketDetails.totalPrice}
-              disabled
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="noOfTicket">Number of Tickets</label>
+          <input
+            type="number"
+            name="noOfTicket"
+            value={ticketDetails.noOfTicket}
+            onChange={handleTicketDetailChange}
+            required
+          />
+          {errors.noOfTicket && (
+            <span className="error-message">{errors.noOfTicket}</span>
+          )}
+        </div>
 
-          {event.ticketCriteria &&
-            Object.keys(event.ticketCriteria).map((key, index) => {
-              const criterion = event.ticketCriteria[key];
-              if (!criterion) return null;
+        <div className="form-group">
+          <label>Total Price</label>
+          <input
+            type="text"
+            name="totalPrice"
+            value={ticketDetails.totalPrice}
+            readOnly
+          />
+        </div>
 
-              return (
-                <div className="ticket-form-group" key={index}>
-                  <label htmlFor={key}>{criterion}:</label>
-                  <input
-                    type="text"
-                    className="ticket-form-control"
-                    id={key}
-                    name={key}
-                    value={userInputs[key] || ''}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              );
-            })}
-
-          <button type="submit" className="ticket-btn-submit">
-            Submit Ticket
-          </button>
-        </form>
-      </div>
-
-      {/* Internal CSS */}
-      <style jsx>{`
-        .ticket-hero-section {
-          background-size: cover;
-          background-position: center;
-          padding: 50px 20px;
-          text-align: center;
-          position: relative;
-        }
-
-        .ticket-hero-content {
-          position: relative;
-          top: 50px;
-        }
-
-        .ticket-hero-title {
-          color: whitesmoke;
-          font-size: 48px;
-          font-weight: bold;
-        }
-
-        .ticket-form-container {
-          margin-top: 20px;
-          text-align: left;
-          background: rgba(255, 255, 255, 0.8);
-          padding: 20px;
-          border-radius: 10px;
-          max-width: 600px;
-          margin: auto;
-        }
-
-        .ticket-form-group {
-          margin-bottom: 20px;
-        }
-
-        .ticket-form-control {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-
-        .ticket-btn-submit {
-          padding: 10px 20px;
-          background-color: green;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-
-        .ticket-error {
-          color: red;
-          font-size: 12px;
-        }
-      `}</style>
+        <button type="submit" className="submit-btn">
+          Submit
+        </button>
+      </form>
     </div>
   );
 }

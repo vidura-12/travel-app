@@ -179,7 +179,7 @@ router.get('/', async (req, res) => {
   });
 
 
-  app.get('/event/approved', async (req, res) => {
+  router.get('/event/approved', async (req, res) => {
     try {
       const approvedEvents = await Event.find({ isApproved: true });
       res.status(200).json(approvedEvents);
