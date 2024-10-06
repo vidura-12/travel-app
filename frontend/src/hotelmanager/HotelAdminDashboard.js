@@ -76,7 +76,7 @@ const AdminHotelManagement = () => {
             hotel._id === hotelId ? { ...hotel, status } : hotel
           )
         );
-        setModalMessage(`Hotel has been ${status} successfully`);
+        setModalMessage(`Hotel has been ${status}d successfully.`);
         setShowModal(true);
       } else {
         setModalMessage(`Failed to ${status} the hotel. Please try again.`);
@@ -105,7 +105,7 @@ const AdminHotelManagement = () => {
       });
       if (response.status === 200) {
         setHotels(prevHotels => prevHotels.filter(hotel => hotel._id !== hotelId));
-        setModalMessage('Hotel has been deleted successfully');
+        setModalMessage('Hotel has been deleted successfully.');
         setShowModal(true);
         setDeleteHotelId(null);
       } else {
@@ -134,9 +134,7 @@ const AdminHotelManagement = () => {
     <div>
       <div className='hotel-content'>
         <div className="hotel-header">
-          <div className="hotel-headerButtons">
-            
-          </div>
+          
 
           <h1>Admin Hotel Management</h1>
 
@@ -168,14 +166,37 @@ const AdminHotelManagement = () => {
                     <td className="hotel-td">{hotel.name}</td>
                     <td className="hotel-td">{hotel.location}</td>
                     <td className="hotel-td">{hotel.owner?.email || 'N/A'}</td>
-                    <td className="hotel-td">{hotel.rooms?.length || 0} types</td>
+                    <td className="hotel-td">
+                      {hotel.rooms && hotel.rooms.length > 0 ? (
+                        <table className="hotel-roomsTable">
+                          <thead>
+                            <tr>
+                              <th>Room Type</th>
+                              <th>Number of Rooms</th>
+                              <th>Price LKR</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {hotel.rooms.map((room, index) => (
+                              <tr key={index}>
+                                <td>{room.roomType}</td>
+                                <td>{room.availableRooms}</td>
+                                <td>{room.price.toFixed(2)}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        <span>No rooms available</span>
+                      )}
+                    </td>
                     <td className="hotel-td">
                       {hotel.status === 'approved' ? (
                         <button className="hotel-approvedButton">Approved</button>
                       ) : hotel.status === 'rejected' ? (
                         <button className="hotel-rejectedButton">Rejected</button>
                       ) : (
-                        <span>{hotel.status}</span>
+                        <span>{hotel.status.charAt(0).toUpperCase() + hotel.status.slice(1)}</span>
                       )}
                     </td>
                     <td className="hotel-td">
