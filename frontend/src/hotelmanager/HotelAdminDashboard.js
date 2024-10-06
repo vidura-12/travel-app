@@ -135,8 +135,7 @@ const AdminHotelManagement = () => {
       <div className='hotel-content'>
         <div className="hotel-header">
           <div className="hotel-headerButtons">
-            <button className="hotel-button" onClick={goToHome}>Check Hotel Booking Home</button>
-            <button className="hotel-button2" onClick={logout}>Logout</button>
+            
           </div>
 
           <h1>Admin Hotel Management</h1>

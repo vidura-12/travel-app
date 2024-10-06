@@ -1,11 +1,11 @@
 import React from "react";
 import Header from '../admin/hotelAdminHeader';
 
-const VehicleAdminLayout = ({ children }) => (
+const HotelAdminLayout = ({ children }) => (
     <div>
         <Header />
         {children}
     </div>
 );
 
-export default VehicleAdminLayout;
+export default HotelAdminLayout;
