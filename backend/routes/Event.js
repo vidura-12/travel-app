@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { Events, upload } = require('../models/Event');
 const nodemailer = require('nodemailer');
+const path = require('path');
+
 
 
 // Add event

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const multer = require('multer');
+const path = require('path');
 
 
 
@@ -34,14 +35,7 @@ function checkFileType(file, cb) {
     }
 }
 
-const ticketSchema = new mongoose.Schema({
-    tname: { type: String, required: true },
-    phone: { type: String, required: true },
-    email: { type: String, required: true },
-    noOfTicket: { type: Number, required: true },
-    totalPrice: { type: Number, required: true },
-    tcategory: { type: String, required: true }
-  });
+
 
 // Mongoose schema and model
 const eventSchema = new mongoose.Schema({
@@ -83,7 +77,7 @@ const eventSchema = new mongoose.Schema({
         t4: String,
         t5: String,
     },
-    userTickets: [ticketSchema],
+    
 
     isApproved: { type: Boolean, default: false }  // Event approval
 });

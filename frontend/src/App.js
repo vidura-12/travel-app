@@ -80,7 +80,7 @@ import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';
 import EditEvent from './EventManager/updateEvent';
-import UserTicketForm from './com/ticket';
+import TicketForm from './com/ticket';
 import TicketReport from './EventManager/report';
 import AdminEventApproval from './EventManager/Admin';
 import Dashboard from './EventManager/Dashbord';
@@ -126,7 +126,7 @@ function App() {
         <Route path="/EventManager/updateEvent/:id" element={<EventLayout><EditEvent/></EventLayout>} />
         <Route path="/EventManager/report" element={<EventLayout><TicketReport/></EventLayout>} />
         <Route path="/eventView" element={<UserLayout><EventView/></UserLayout>} /> 
-        <Route path="/ticket/:id" element={<UserLayout><UserTicketForm/></UserLayout>} />
+        <Route path="/ticket/:id" element={<UserLayout><TicketForm/></UserLayout>} />
         <Route path="/EventManager/Admin" element={<Adminevent><AdminEventApproval/></Adminevent>} />
         <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
         <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />

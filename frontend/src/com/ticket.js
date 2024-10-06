@@ -1,56 +1,59 @@
+// TicketForm.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
-// import './UserTicketForm.css';  // Importing the CSS file
+import { useLocation } from 'react-router-dom';
+// import './ticketForm.css';
 
-function UserTicketForm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const [event, setEvent] = useState(null);
-  const [userInputs, setUserInputs] = useState({});
-  const [ticketDetails, setTicketDetails] = useState({
+const TicketForm = () => {
+  const [formData, setFormData] = useState({
     tname: '',
     tcategory: '',
+    username: '',
     phone: '',
     email: '',
+    price: '',
     noOfTicket: '',
-    totalPrice: 0,
+    total: ''
   });
+
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [ticketCriteria, setTicketCriteria] = useState({});
+  const [userInputs, setUserInputs] = useState({});
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const ticketName = queryParams.get('name');
+  const ticketCategory = queryParams.get('category');
+  const ticketPrice = queryParams.get('price');
+  const ticketImage = queryParams.get('image');
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8081/event/${id}`)
-      .then((response) => {
-        setEvent(response.data);
-        setLoading(false);
-
-        setTicketDetails((prevDetails) => ({
-          ...prevDetails,
-          tname: response.data.name,
-          tcategory: response.data.category,
-          price: response.data.price,
-        }));
-      })
-      .catch((error) => {
-        console.error('Error fetching event:', error);
-        setLoading(false);
-      });
-  }, [id]);
-
-  const handleTicketDetailChange = (e) => {
-    const { name, value } = e.target;
-    const updatedDetails = { ...ticketDetails, [name]: value };
-
-    if (name === 'noOfTicket' && event && event.price) {
-      updatedDetails.totalPrice = value * event.price;
+    // Initialize form fields based on passed query params
+    if (ticketName && ticketCategory && ticketPrice) {
+      setFormData(prevState => ({
+        ...prevState,
+        tname: ticketName,
+        tcategory: ticketCategory,
+        price: ticketPrice
+      }));
     }
 
-    setTicketDetails(updatedDetails);
-    validateInput(name, value);
+    // Fetch event data to retrieve additional ticket criteria dynamically
+    const eventId = location.pathname.split('/')[2];
+    fetchEventDetails(eventId);
+  }, [ticketName, ticketCategory, ticketPrice]);
+
+  // Fetch specific event details based on ID to get dynamic ticket criteria
+  const fetchEventDetails = async (eventId) => {
+    try {
+      const response = await axios.get(`http://localhost:8081/event/${eventId}`);
+      const eventData = response.data;
+      if (eventData.ticketCriteria) {
+        setTicketCriteria(eventData.ticketCriteria);
+      }
+    } catch (error) {
+      console.error('Error fetching event details:', error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -58,213 +61,154 @@ function UserTicketForm() {
     setUserInputs({ ...userInputs, [name]: value });
   };
 
-  const validateInput = (name, value) => {
-    let error = '';
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
 
-    if (name === 'phone') {
-      const phoneRegex = /^[0-9]{10}$/;
-      if (!phoneRegex.test(value)) {
-        error = 'Phone number must be a valid 10-digit number';
-      }
+    // Calculate total if number of tickets changes
+    if (name === "noOfTicket") {
+      const numberOfTickets = parseInt(value, 10) || 0; 
+      const ticketPrice = parseFloat(formData.price) || 0; 
+      setFormData(prevState => ({
+        ...prevState,
+        total: (numberOfTickets * ticketPrice).toFixed(2) 
+      }));
     }
-
-    if (name === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        error = 'Please enter a valid email address';
-      }
-    }
-
-    if (name === 'noOfTicket') {
-      const ticketNumber = parseInt(value, 10);
-      if (isNaN(ticketNumber) || ticketNumber <= 0) {
-        error = 'Number of tickets must be a positive number';
-      }
-    }
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: error,
-    }));
   };
 
   const validateForm = () => {
     const newErrors = {};
 
-    if (!ticketDetails.phone || errors.phone) {
-      newErrors.phone = 'Please provide a valid phone number';
+    if (!formData.tname) newErrors.tname = 'Ticket name is required.';
+    if (!formData.tcategory) newErrors.tcategory = 'Category is required.';
+    if (!formData.username) {
+      newErrors.username = 'Username is required.';
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.username)) {
+      newErrors.username = 'Username should contain only letters.';
     }
-
-    if (!ticketDetails.email || errors.email) {
-      newErrors.email = 'Please provide a valid email address';
+    if (!formData.phone) {
+      newErrors.phone = 'Phone number is required.';
+    } else if (!/^[0-9]+$/.test(formData.phone)) {
+      newErrors.phone = 'Phone number should contain only digits.';
     }
-
-    if (!ticketDetails.noOfTicket || errors.noOfTicket) {
-      newErrors.noOfTicket = 'Please provide a valid number of tickets';
+    if (!formData.email) newErrors.email = 'Email is required.';
+    if (!formData.price) newErrors.price = 'Price is required.';
+    if (!formData.noOfTicket) {
+      newErrors.noOfTicket = 'Number of tickets is required.';
+    } else if (formData.noOfTicket <= 0) {
+      newErrors.noOfTicket = 'Number of tickets should be a positive number.';
     }
+    if (!formData.total) newErrors.total = 'Total is required.';
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm();
 
-    if (!validateForm()) {
-      Swal.fire({
-        title: 'Error',
-        text: 'Please fix the errors in the form before submitting.',
-        icon: 'error',
-      });
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
     try {
-      await axios.post(`http://localhost:8081/event/${id}/tickets`, {
-        tname: ticketDetails.tname,
-        tcategory: ticketDetails.tcategory,
-        phone: ticketDetails.phone,
-        email: ticketDetails.email,
-        noOfTicket: ticketDetails.noOfTicket,
-        totalPrice: ticketDetails.totalPrice,
-        otherFields: userInputs,
-      });
+      // Combine standard form data with dynamic ticket criteria
+      const ticketData = { ...formData, ...userInputs };
+      const response = await axios.post('http://localhost:8081/ticket/create', ticketData);
+      console.log('Ticket created:', response.data);
 
-      Swal.fire({
-        title: 'Success',
-        text: 'Your ticket has been submitted, and details have been sent to your email.',
-        icon: 'success',
-      }).then(() => {
-        navigate(`/eventView`);
+      setFormData({
+        tname: '',
+        tcategory: '',
+        username: '',
+        phone: '',
+        email: '',
+        price: '',
+        noOfTicket: '',
+        total: ''
       });
+      setErrors({});
+      setUserInputs({});
     } catch (error) {
-      console.error('Error submitting ticket:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'Something went wrong. Please try again later.',
-        icon: 'error',
-      }).then(() => {
-        navigate(`/eventView`);
-      });
+      console.error('Error creating ticket:', error);
+      setErrors({ server: 'Error creating ticket. Please try again later.' });
     }
   };
 
-  if (loading) {
-    return <div>Loading event details...</div>;
-  }
-
-  if (!event) {
-    return <div>No event found</div>;
-  }
-
   return (
-    <div className="ticket-form-container" style={{ backgroundImage: `url('/path-to-user-uploaded-image')` }}>
-      <h2>Book Tickets for {event.name}</h2>
-      <form onSubmit={handleSubmit} className="ticket-form">
-
-        <div className="ticket-form-group">
-          <label htmlFor="tname">Event Name:</label>
-          <input
-            type="text"
-            className="ticket-form-control"
-            id="tname"
-            name="tname"
-            value={ticketDetails.tname}
-            onChange={handleTicketDetailChange}
-            disabled
-          />
+    <div className="ticket-form" style={{ backgroundImage: `url(/img/${ticketImage})` }}>
+      <h2>Create Ticket</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Ticket Name:</label>
+          <input type="text" name="tname" value={formData.tname} onChange={handleChange} />
+          {errors.tname && <span className="error">{errors.tname}</span>}
+        </div>
+        <div>
+          <label>Category:</label>
+          <input type="text" name="tcategory" value={formData.tcategory} onChange={handleChange} />
+          {errors.tcategory && <span className="error">{errors.tcategory}</span>}
+        </div>
+        <div>
+          <label>Username:</label>
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          {errors.username && <span className="error">{errors.username}</span>}
+        </div>
+        <div>
+          <label>Phone:</label>
+          <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
+          {errors.phone && <span className="error">{errors.phone}</span>}
+        </div>
+        <div>
+          <label>Email:</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </div>
+        <div>
+          <label>Price:</label>
+          <input type="number" name="price" value={formData.price} onChange={handleChange} readOnly />
+          {errors.price && <span className="error">{errors.price}</span>}
+        </div>
+        <div>
+          <label>Number of Tickets:</label>
+          <input type="number" name="noOfTicket" value={formData.noOfTicket} onChange={handleChange} />
+          {errors.noOfTicket && <span className="error">{errors.noOfTicket}</span>}
         </div>
 
-        <div className="ticket-form-group">
-          <label htmlFor="tcategory">Event Category:</label>
-          <input
-            type="text"
-            className="ticket-form-control"
-            id="tcategory"
-            name="tcategory"
-            value={ticketDetails.tcategory}
-            onChange={handleTicketDetailChange}
-            disabled
-          />
+        {/* Dynamically render ticket criteria */}
+        {ticketCriteria &&
+          Object.keys(ticketCriteria).map((key, index) => {
+            const criterion = ticketCriteria[key];
+            if (!criterion) return null;
+
+            return (
+              <div className="ticket-form-group" key={index}>
+                <label htmlFor={key}>{criterion}:</label>
+                <input
+                  type="text"
+                  className="ticket-form-control"
+                  id={key}
+                  name={key}
+                  value={userInputs[key] || ''}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            );
+          })}
+
+        <div>
+          <label>Total:</label>
+          <input type="text" name="total" value={formData.total} onChange={handleChange} readOnly />
+          {errors.total && <span className="error">{errors.total}</span>}
         </div>
 
-        <div className="ticket-form-group">
-          <label htmlFor="price">Event Price per Ticket:</label>
-          <input
-            type="text"
-            className="ticket-form-control"
-            id="price"
-            name="price"
-            value={event.price}
-            disabled
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="username">Name</label>
-          <input
-            type="text"
-            name="username"
-            value={userInputs.username || ''}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="phone">Phone</label>
-          <input
-            type="text"
-            name="phone"
-            value={ticketDetails.phone}
-            onChange={handleTicketDetailChange}
-            required
-          />
-          {errors.phone && <span className="error-message">{errors.phone}</span>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={ticketDetails.email}
-            onChange={handleTicketDetailChange}
-            required
-          />
-          {errors.email && <span className="error-message">{errors.email}</span>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="noOfTicket">Number of Tickets</label>
-          <input
-            type="number"
-            name="noOfTicket"
-            value={ticketDetails.noOfTicket}
-            onChange={handleTicketDetailChange}
-            required
-          />
-          {errors.noOfTicket && (
-            <span className="error-message">{errors.noOfTicket}</span>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label>Total Price</label>
-          <input
-            type="text"
-            name="totalPrice"
-            value={ticketDetails.totalPrice}
-            readOnly
-          />
-        </div>
-
-        <button type="submit" className="submit-btn">
-          Submit
-        </button>
+        <button type="submit">Create Ticket</button>
+        {errors.server && <span className="error">{errors.server}</span>}
       </form>
     </div>
   );
-}
+};
 
-export default UserTicketForm;
+export default TicketForm;
