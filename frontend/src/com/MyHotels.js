@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { List, Card, Spin, message, Button, Modal, Form, Input, Select, InputNumber, Upload } from "antd";
+import { List, Card, Spin, message, Button, Modal, Form, Input, Upload, Checkbox } from "antd";
 import axios from 'axios';
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 
-const { Option } = Select;
+// Define available amenities
+const amenitiesList = [
+    'Wi-Fi',
+    'Air Conditioning',
+    'TV/Streaming',
+    'Toiletries',
+    'Housekeeping',
+    'Restaurant',
+    'Room Service',
+    '24-hour Front Desk',
+    'Parking',
+    'Safe',
+];
 
 const MyHotels = () => {
     const [hotels, setHotels] = useState([]);
@@ -58,11 +70,9 @@ const MyHotels = () => {
             name: hotel.name,
             location: hotel.location,
             description: hotel.description,
-            amenities: hotel.amenities.join(', '),
-            // Rooms can be handled separately
+            amenities: hotel.amenities, // Directly use the amenities array
         });
-        // Load existing images into fileList if needed
-        setFileList([]);
+        setFileList([]); // Load existing images into fileList if needed
         setIsUpdateModalVisible(true);
     };
 
@@ -117,8 +127,7 @@ const MyHotels = () => {
             formData.append('name', values.name);
             formData.append('location', values.location);
             formData.append('description', values.description);
-            formData.append('amenities', values.amenities);
-            // Handle rooms if included
+            formData.append('amenities', values.amenities); // Update with selected amenities
 
             // Append new images
             fileList.forEach((file) => {
@@ -153,6 +162,10 @@ const MyHotels = () => {
 
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
+    };
+
+    const handleAmenitiesChange = (checkedValues) => {
+        form.setFieldsValue({ amenities: checkedValues });
     };
 
     if (loading) {
@@ -246,10 +259,13 @@ const MyHotels = () => {
                         <Input.TextArea rows={4} />
                     </Form.Item>
                     <Form.Item
-                        label="Amenities (comma separated)"
+                        label="Amenities"
                         name="amenities"
                     >
-                        <Input />
+                        <Checkbox.Group
+                            options={amenitiesList}
+                            onChange={handleAmenitiesChange}
+                        />
                     </Form.Item>
                     {/* Optionally, handle rooms here */}
 
@@ -266,11 +282,10 @@ const MyHotels = () => {
                     >
                         <Upload
                             listType="picture"
-                            beforeUpload={() => false} // Prevent automatic upload
+                            beforeUpload={() => false} // Prevent auto upload
                             onChange={handleUploadChange}
-                            multiple
                         >
-                            <Button icon={<UploadOutlined />}>Upload Images</Button>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
                         </Upload>
                     </Form.Item>
 
@@ -283,7 +298,6 @@ const MyHotels = () => {
             </Modal>
         </div>
     );
-
 };
 
 export default MyHotels;

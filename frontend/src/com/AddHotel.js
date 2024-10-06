@@ -13,19 +13,35 @@ const AddHotel = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
+  // Predefined Amenities List
+  const predefinedAmenities = [
+    'Wi-Fi',
+    'Air Conditioning',
+    'TV/Streaming',
+    'Toiletries',
+    'Housekeeping',
+    'Restaurant',
+    'Room Service',
+    '24-hour Front Desk',
+    'Parking',
+    'Safe',
+  ];
+
   // Handle text inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setHotelDetails(prevDetails => ({ ...prevDetails, [name]: value }));
   };
 
-  // Handle amenities input
-  const handleAmenitiesChange = (e) => {
-    const { value } = e.target;
-    setHotelDetails(prevDetails => ({
-      ...prevDetails,
-      amenities: value.split(',').map(item => item.trim())
-    }));
+  // Handle amenities selection
+  const handleAmenityChange = (e) => {
+    const { value, checked } = e.target;
+    setHotelDetails(prevDetails => {
+      const newAmenities = checked
+        ? [...prevDetails.amenities, value]
+        : prevDetails.amenities.filter(amenity => amenity !== value);
+      return { ...prevDetails, amenities: newAmenities };
+    });
   };
 
   // Add a new room
@@ -91,7 +107,7 @@ const AddHotel = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const ownerId = localStorage.getItem('ownerId'); // Ensure ownerId is being used if necessary
+      
 
       if (!token) {
         setStatus({ type: 'error', message: 'No token found. Please log in.' });
@@ -117,6 +133,10 @@ const AddHotel = () => {
           rooms: [],
         });
         setImages([]); // Clear selected images
+
+        // Reset all file inputs
+        const imageInputs = document.querySelectorAll('input[type="file"]');
+        imageInputs.forEach(input => input.value = null);
       } else {
         const errorData = await response.json();
         setStatus({ type: 'error', message: `Failed to add hotel: ${errorData.message || "Unknown error"}` });
@@ -164,14 +184,26 @@ const AddHotel = () => {
           rows={4}
           className="form-textarea"
         />
-        <input
-          type="text"
-          placeholder="Amenities (comma separated)"
-          value={hotelDetails.amenities.join(', ')}
-          onChange={handleAmenitiesChange}
-          className="form-input"
-        />
-        
+
+        {/* Amenities Section with Checkboxes */}
+        <div className="form-section">
+          <h3>Amenities</h3>
+          <div className="amenities-checkboxes">
+            {predefinedAmenities.map((amenity, index) => (
+              <label key={index} className="amenity-label">
+                <input
+                  type="checkbox"
+                  value={amenity}
+                  checked={hotelDetails.amenities.includes(amenity)}
+                  onChange={handleAmenityChange}
+                  className="amenity-checkbox"
+                />
+                {amenity}
+              </label>
+            ))}
+          </div>
+        </div>
+
         <div className="form-section">
           <h3>Rooms</h3>
           {hotelDetails.rooms.map((room, index) => (
@@ -181,6 +213,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 name="roomType"
                 className="form-select"
+                required
               >
                 <option value="">Select Room Type</option>
                 <option value="Single Room">Single Room</option>
@@ -197,6 +230,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
+                min="0"
               />
               <input
                 type="number"
@@ -206,6 +240,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
+                min="0"
               />
               <button type="button" onClick={() => removeRoom(index)} className="remove-button">
                 Remove
@@ -216,7 +251,7 @@ const AddHotel = () => {
             Add Room
           </button>
         </div>
-        
+
         <div className="form-section">
           <h3>Images</h3>
           {images.map((image, index) => (
@@ -238,7 +273,7 @@ const AddHotel = () => {
             Add Image
           </button>
         </div>
-        
+
         <button type="submit" disabled={loading} className="submit-button">
           {loading ? "Adding..." : "Add Hotel"}
         </button>
