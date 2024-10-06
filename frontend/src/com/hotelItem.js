@@ -29,7 +29,7 @@ function HotelItem({ hotel }) {
                 <ul className="rooms-list">
                     {hotel.rooms.map((room) => (
                         <li className="room-item" key={room._id}>
-                            {room.roomType} - ${room.price} (Available: {room.availableRooms})
+                            {room.roomType} - LKR {room.price} (Available: {room.availableRooms})
                         </li>
                     ))}
                 </ul>

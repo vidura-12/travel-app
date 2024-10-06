@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './HotelAdminDashboard.css';
+import { generateHotelReport } from './HotelReportGenerator';
 
 // Modal component for notifications and confirmations
 const InfoModal = ({ message, onClose }) => (
@@ -19,6 +20,7 @@ const AdminHotelManagement = () => {
   const [modalMessage, setModalMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [deleteHotelId, setDeleteHotelId] = useState(null);
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -119,6 +121,28 @@ const AdminHotelManagement = () => {
     }
   };
 
+  const handleGenerateReport = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You need to log in first.');
+      navigate('/admin/login');
+      return;
+    }
+
+    setIsGeneratingReport(true);
+    try {
+      generateHotelReport(hotels);
+      setModalMessage('Report generated successfully!');
+      setShowModal(true);
+    } catch (error) {
+      console.error('Error generating report:', error);
+      setModalMessage('Failed to generate report. Please try again.');
+      setShowModal(true);
+    } finally {
+      setIsGeneratingReport(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
@@ -126,17 +150,20 @@ const AdminHotelManagement = () => {
     navigate('/admin/login');
   };
 
-  const goToHome = () => {
-    navigate('/HotelBookingHome');
-  };
-
   return (
     <div>
       <div className='hotel-content'>
         <div className="hotel-header">
-          
-
-          <h1>Admin Hotel Management</h1>
+          <div className="hotel-header-content">
+            <h1>Admin Hotel Management</h1>
+            <button 
+              className="hotel-generateReport-button"
+              onClick={handleGenerateReport}
+              disabled={isGeneratingReport || hotels.length === 0}
+            >
+              {isGeneratingReport ? 'Generating...' : 'Generate Report'}
+            </button>
+          </div>
 
           {hotels.length === 0 ? (
             <div className="hotel-noHotels">No hotels available</div>
