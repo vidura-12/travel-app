@@ -69,6 +69,12 @@ import HotelOwnerDashboard from './com/HotelOwnerDashboard'; // Import the hotel
 import HotelOwnerRegister from './com/HotelOwnerRegister'; // Adjust the path as necessary
 import HotelOwnerLogin from './com/HotelOwnerLogin'; // Adjust the path as necessary
 
+// hotel manager components
+
+import HotelManagerDashboard from './hotelmanager/HotelAdminDashboard'; // Import the hotel manager dashboard component
+import HotelAdminLayout from './hotelmanager/HotelAdminLayout'; // Import the hotel manager layout component
+
+
 
 import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
@@ -211,6 +217,9 @@ function App() {
         {/* Location Manager Routes */}
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
+
+        {/* Hotel Manager Routes */}
+        <Route path="/hotelmanager/dashboard" element={<HotelAdminLayout><HotelManagerDashboard /></HotelAdminLayout>} />
 
 
         {/* Scheduler Layout Routes */}

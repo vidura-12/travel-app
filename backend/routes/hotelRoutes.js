@@ -20,4 +20,20 @@ router.put('/:id', authenticateToken, upload.array('images', 10), uploadToGridFS
 // Route to delete a hotel
 router.delete('/:id', authenticateToken, hotelController.deleteHotel);
 
+// Route to get all hotels (Admin Only)
+router.get('/all', authenticateToken, hotelController.getAllHotels);
+
+
+
+
+
+// Route to approve a hotel
+router.patch('/:id/approve', authenticateToken, hotelController.approveHotel);
+
+// Route to reject a hotel
+router.patch('/:id/reject', authenticateToken, hotelController.rejectHotel);
+
+// Route to delete a hotel
+router.delete('/:id', authenticateToken, hotelController.deleteHotel);
+
 module.exports = router;

@@ -150,4 +150,98 @@ exports.deleteHotel = async (req, res) => {
         console.error('Error deleting hotel:', error);
         res.status(500).json({ message: 'Server error while deleting hotel.' });
     }
+    
+};
+
+// Get all hotels (Admin Only)
+exports.getAllHotels = async (req, res) => {
+    try {
+        const hotels = await Hotel.find().populate('owner', 'name email phone');
+        res.json(hotels);
+    } catch (error) {
+        console.error('Error fetching all hotels:', error);
+        res.status(500).json({ message: 'Server error while fetching hotels.' });
+    }
+};
+
+
+
+
+
+
+// Approve a hotel
+exports.approveHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.id;
+
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) {
+            return res.status(404).json({ message: 'Hotel not found.' });
+        }
+
+        if (hotel.owner.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Unauthorized to approve this hotel.' });
+        }
+
+        hotel.status = 'approved';
+        await hotel.save();
+
+        res.status(200).json({ message: 'Hotel approved successfully.' });
+    } catch (error) {
+        console.error('Error approving hotel:', error);
+        res.status(500).json({ message: 'Server error while approving hotel.' });
+    }
+};
+
+// Reject a hotel
+exports.rejectHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.id;
+
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) {
+            return res.status(404).json({ message: 'Hotel not found.' });
+        }
+
+        if (hotel.owner.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Unauthorized to reject this hotel.' });
+        }
+
+        hotel.status = 'rejected';
+        await hotel.save();
+
+        res.status(200).json({ message: 'Hotel rejected successfully.' });
+    } catch (error) {
+        console.error('Error rejecting hotel:', error);
+        res.status(500).json({ message: 'Server error while rejecting hotel.' });
+    }
+};
+
+// Delete a hotel
+exports.deleteHotel = async (req, res) => {
+    try {
+        const hotelId = req.params.id;
+
+        const hotel = await Hotel.findById(hotelId);
+        if (!hotel) {
+            return res.status(404).json({ message: 'Hotel not found.' });
+        }
+
+        if (hotel.owner.toString() !== req.user.userId) {
+            return res.status(403).json({ message: 'Unauthorized to delete this hotel.' });
+        }
+
+        await Hotel.findByIdAndDelete(hotelId);
+
+        await HotelOwner.findByIdAndUpdate(
+            req.user.userId,
+            { $pull: { hotels: hotelId } },
+            { new: true }
+        );
+
+        res.status(200).json({ message: 'Hotel deleted successfully.' });
+    } catch (error) {
+        console.error('Error deleting hotel:', error);
+        res.status(500).json({ message: 'Server error while deleting hotel.' });
+    }
 };
