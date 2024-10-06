@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs, Spin } from "antd"; // Import Spin
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import HotelOwnerProfile from "./HotelOwnerProfile";
 import AddHotel from "./AddHotel";
-import ApprovedHotels from "./ApprovedHotels";
 import MyHotels from "./MyHotels";
 
-function HotelOwnerDashboard({ loading }) { // Pass loading as a prop
+function HotelOwnerDashboard({ loading }) { 
+    const navigate = useNavigate(); // Initialize navigate
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        
+        // If no token is found, redirect to the login page
+        if (!token) {
+            navigate('/hotelowner/login');
+        }
+    }, [navigate]);
+
     const items = [
         {
             label: 'My Profile',
@@ -25,7 +36,7 @@ function HotelOwnerDashboard({ loading }) { // Pass loading as a prop
         {
             label: 'Bookings',
             key: '4',
-            children: <h1>Bookings</h1>, // You can add booking-related data here
+            children: <h1>Bookings</h1>, 
         },
     ];
 
@@ -34,7 +45,7 @@ function HotelOwnerDashboard({ loading }) { // Pass loading as a prop
             <h1 className="text-center">
                 <b>Hotel Owner Dashboard</b>
             </h1>
-            {loading ? ( // Show Spin if loading is true
+            {loading ? ( 
                 <Spin tip="Loading..." />
             ) : (
                 <Tabs defaultActiveKey="1" items={items} />
