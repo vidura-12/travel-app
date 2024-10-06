@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require('nodemailer');
+
+
 const Ticket = require('../models/ticket');  // Import Ticket model
 
 router.post('/create', async (req, res) => {
@@ -65,5 +68,19 @@ router.get('/tickets/:id', async (req, res) => {
         res.status(500).json({ message: 'Error fetching ticket', error });
     }
 });
+
+router.delete('/tickets/:id', async (req, res) => {
+    try {
+        const ticket = await Ticket.findByIdAndDelete(req.params.id);
+        if (!ticket) {
+            return res.status(404).json({ message: 'Ticket not found' });
+        }
+        res.json({ message: 'Ticket deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting ticket', error });
+    }
+});
+
+
 
 module.exports = router;

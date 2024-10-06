@@ -16,6 +16,7 @@ const Header = () => {
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/EventManager/Admin">DashBoard</a>
                     <a className="nav-link-header" href="/EventManager/AdminReporte">Event Report</a>
+                    {/* <a className="nav-link-header" href="/EventManager/AdminBooking">Booking Report</a> */}
                 </li>
             </ul>
             <div className="profile-header">

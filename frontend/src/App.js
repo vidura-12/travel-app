@@ -131,8 +131,8 @@ function App() {
         <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
         <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
         <Route path="/EventManager/AdminReporte" element={<Adminevent><AdminReport/></Adminevent>} />
-        
-        
+   
+       
        
         <Route path="/Schedulerdashboard" element={<UserLayout><SchedulerDashboard /></UserLayout>} />
         <Route path="/Sellersprofile" element={<UserLayout><SellersProfile /></UserLayout>} />
