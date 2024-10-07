@@ -95,7 +95,7 @@ const Hotels = () => {
 
                 <div className="dropdown">
                     <button className="dropdown-button">
-                        Room Types
+                    <b>Room Types</b>
                     </button>
                     <div className="dropdown-content">
                         {roomTypesList.map(roomType => (
@@ -113,7 +113,7 @@ const Hotels = () => {
 
                 <div className="dropdown">
                     <button className="dropdown-button">
-                        Amenities
+                        <b>Amenities</b>
                     </button>
                     <div className="dropdown-content">
                         {amenitiesList.map(amenity => (
@@ -130,7 +130,7 @@ const Hotels = () => {
                 </div>
 
                 <button onClick={clearFilters} className="clear-filters-button">
-                    Clear Filters
+                <b>Clear Filters</b>
                 </button>
             </div>
 
