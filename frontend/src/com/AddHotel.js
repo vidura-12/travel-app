@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AddHotel.css'; // Make sure to create this CSS file
+import './AddHotel.css'; // Ensure this CSS file includes the necessary styles
 
 const AddHotel = () => {
   const [hotelDetails, setHotelDetails] = useState({
@@ -75,6 +75,10 @@ const AddHotel = () => {
 
   // Add a new image input
   const addImageInput = () => {
+    if (images.length >= 10) {
+      setStatus({ type: 'error', message: 'You can only add up to 10 images.' });
+      return;
+    }
     setImages(prevImages => [...prevImages, null]); // Add a placeholder for new image
   };
 
@@ -107,7 +111,6 @@ const AddHotel = () => {
 
     try {
       const token = localStorage.getItem('token');
-      
 
       if (!token) {
         setStatus({ type: 'error', message: 'No token found. Please log in.' });
@@ -152,11 +155,13 @@ const AddHotel = () => {
   return (
     <div className="add-hotel-container">
       <h2 className="add-hotel-title">Add New Hotel</h2>
+
       {status.message && (
         <div className={`status-message ${status.type}`}>
           {status.message}
         </div>
       )}
+
       <form onSubmit={onFinish} className="add-hotel-form">
         <input
           type="text"
@@ -230,7 +235,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
-                min="0"
+                min="2000"
               />
               <input
                 type="number"
@@ -250,6 +255,11 @@ const AddHotel = () => {
           <button type="button" onClick={addRoom} className="add-button">
             Add Room
           </button>
+ {hotelDetails.rooms.some(room => room.price < 2000) && (
+            <div className="status-message error">
+              Minimum price for a room must be 2000.
+            </div>
+          )}
         </div>
 
         <div className="form-section">
@@ -261,7 +271,7 @@ const AddHotel = () => {
                 id={`image-${index}`} // Unique ID for each input
                 onChange={(e) => handleImageChange(index, e)}
                 accept="image/*"
-                required
+                required={index === 0} // Require at least one image
                 className="form-input"
               />
               <button type="button" onClick={() => removeImageInput(index)} className="remove-button">
@@ -269,9 +279,18 @@ const AddHotel = () => {
               </button>
             </div>
           ))}
-          <button type="button" onClick={addImageInput} className="add-button">
-            Add Image
-          </button>
+          {/* Show "Add Image" button only if images are less than 10 */}
+          {images.length < 10 && (
+            <button type="button" onClick={addImageInput} className="add-button">
+              Add Image
+            </button>
+          )}
+          {/* Optionally, display a message when the limit is reached */}
+          {images.length >= 10 && (
+            <div className="image-limit-message">
+              Maximum of 10 images reached.
+            </div>
+          )}
         </div>
 
         <button type="submit" disabled={loading} className="submit-button">

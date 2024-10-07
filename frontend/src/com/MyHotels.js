@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { List, Card, Spin, message, Button, Modal, Form, Input, Upload, Checkbox } from "antd";
+import { List, Card, Spin, message, Button, Modal, Form, Input, Upload, Checkbox, Space, InputNumber } from "antd";
 import axios from 'axios';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
 // Define available amenities
 const amenitiesList = [
@@ -15,6 +15,15 @@ const amenitiesList = [
     '24-hour Front Desk',
     'Parking',
     'Safe',
+];
+
+// Define room types
+const roomTypesList = [
+    "Single Room",
+    "Double Room",
+    "Twin Room",
+    "Triple Room",
+    "Suite"
 ];
 
 const MyHotels = () => {
@@ -70,9 +79,10 @@ const MyHotels = () => {
             name: hotel.name,
             location: hotel.location,
             description: hotel.description,
-            amenities: hotel.amenities, // Directly use the amenities array
+            amenities: hotel.amenities,
+            rooms: hotel.rooms,
         });
-        setFileList([]); // Load existing images into fileList if needed
+        setFileList([]);
         setIsUpdateModalVisible(true);
     };
 
@@ -122,14 +132,13 @@ const MyHotels = () => {
         setUploading(true);
 
         try {
-            // Prepare form data
             const formData = new FormData();
             formData.append('name', values.name);
             formData.append('location', values.location);
             formData.append('description', values.description);
-            formData.append('amenities', values.amenities); // Update with selected amenities
+            formData.append('amenities', values.amenities);
+            formData.append('rooms', JSON.stringify(values.rooms || []));
 
-            // Append new images
             fileList.forEach((file) => {
                 formData.append('images', file.originFileObj);
             });
@@ -143,8 +152,9 @@ const MyHotels = () => {
 
             if (response.status === 200) {
                 message.success('Hotel updated successfully.');
-                // Update the hotel in the local state
-                setHotels(prevHotels => prevHotels.map(hotel => hotel._id === currentHotel._id ? response.data : hotel));
+                setHotels(prevHotels => prevHotels.map(hotel => 
+                    hotel._id === currentHotel._id ? response.data : hotel
+                ));
                 setIsUpdateModalVisible(false);
                 setCurrentHotel(null);
                 form.resetFields();
@@ -162,10 +172,6 @@ const MyHotels = () => {
 
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
-    };
-
-    const handleAmenitiesChange = (checkedValues) => {
-        form.setFieldsValue({ amenities: checkedValues });
     };
 
     if (loading) {
@@ -198,7 +204,7 @@ const MyHotels = () => {
                         >
                             <p><strong>Location:</strong> {hotel.location}</p>
                             <p><strong>Description:</strong> {hotel.description}</p>
-                            <p><strong>Amenities:</strong> {hotel.amenities.join(', ')}</p>
+                            <p><strong>Amenities:</strong> {Array.isArray(hotel.amenities) ? hotel.amenities.join(', ') : ''}</p>
                             <p><strong>Status:</strong> {hotel.status}</p>
                             <p><strong>Rooms:</strong></p>
                             <ul>
@@ -212,7 +218,7 @@ const MyHotels = () => {
                                     hotel.images.map((img, idx) => (
                                         <img
                                             key={idx}
-                                            src={`http://localhost:8081/hotel-uploads/${img}`} // Adjust if necessary
+                                            src={`http://localhost:8081/hotel-uploads/${img}`}
                                             alt={`Hotel ${hotel.name}`}
                                             style={{ width: '100px', marginRight: '10px', marginBottom: '10px' }}
                                         />
@@ -226,12 +232,12 @@ const MyHotels = () => {
                 )}
             />
 
-            {/* Update Hotel Modal */}
             <Modal
                 title="Update Hotel"
                 visible={isUpdateModalVisible}
                 onCancel={handleUpdateCancel}
                 footer={null}
+                width={800}
             >
                 <Form
                     form={form}
@@ -262,33 +268,64 @@ const MyHotels = () => {
                         label="Amenities"
                         name="amenities"
                     >
-                        <Checkbox.Group
-                            options={amenitiesList}
-                            onChange={handleAmenitiesChange}
-                        />
+                        <Checkbox.Group options={amenitiesList} />
                     </Form.Item>
-                    {/* Optionally, handle rooms here */}
 
-                    <Form.Item
-                        label="Add Images"
-                        name="images"
-                        valuePropName="fileList"
-                        getValueFromEvent={(e) => {
-                            if (Array.isArray(e)) {
-                                return e;
-                            }
-                            return e && e.fileList;
-                        }}
-                    >
+                    {/* Room management section */}
+                    <Form.List name="rooms">
+                        {(fields, { add, remove }) => (
+                            <>
+                                {fields.map(({ key, name, ...restField }) => (
+                                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                        <Form.Item
+                                            {...restField}
+                                            name={[name, 'roomType']}
+                                            rules={[{ required: true, message: 'Missing room type' }]}
+                                        >
+                                            {/* Basic CSS dropdown for room types */}
+                                            <select style={{ width: '100%', padding: '8px' }}>
+                                                {roomTypesList.map((type, index) => (
+                                                    <option key={index} value={type}>{type}</option>
+                                                ))}
+                                            </select>
+                                        </Form.Item>
+                                        <Form.Item
+                                            {...restField}
+                                            name={[name, 'price']}
+                                            rules={[{ required: true, message: 'Missing price' }]}
+                                        >
+                                            <InputNumber placeholder="Price" min={0} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            {...restField}
+                                            name={[name, 'availableRooms']}
+                                            rules={[{ required: true, message: 'Missing available rooms' }]}
+                                        >
+                                            <InputNumber placeholder="Available Rooms" min={0} />
+                                        </Form.Item>
+                                        <MinusCircleOutlined onClick={() => remove(name)} />
+                                    </Space>
+                                ))}
+                                <Form.Item>
+                                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                        Add Room
+                                    </Button>
+                                </Form.Item>
+                            </>
+                        )}
+                    </Form.List>
+
+                    <Form.Item label="Upload Images">
                         <Upload
                             listType="picture"
-                            beforeUpload={() => false} // Prevent auto upload
+                            fileList={fileList}
                             onChange={handleUploadChange}
+                            beforeUpload={() => false}
+                            multiple
                         >
-                            <Button icon={<UploadOutlined />}>Upload</Button>
+                            <Button icon={<UploadOutlined />}>Select File</Button>
                         </Upload>
                     </Form.Item>
-
                     <Form.Item>
                         <Button type="primary" htmlType="submit" loading={uploading}>
                             Update Hotel
@@ -299,5 +336,7 @@ const MyHotels = () => {
         </div>
     );
 };
+
+
 
 export default MyHotels;
