@@ -155,13 +155,13 @@ const AddHotel = () => {
   return (
     <div className="add-hotel-container">
       <h2 className="add-hotel-title">Add New Hotel</h2>
-      
+
       {status.message && (
         <div className={`status-message ${status.type}`}>
           {status.message}
         </div>
       )}
-      
+
       <form onSubmit={onFinish} className="add-hotel-form">
         <input
           type="text"
@@ -235,7 +235,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
-                min="0"
+                min="2000"
               />
               <input
                 type="number"
@@ -255,6 +255,11 @@ const AddHotel = () => {
           <button type="button" onClick={addRoom} className="add-button">
             Add Room
           </button>
+ {hotelDetails.rooms.some(room => room.price < 2000) && (
+            <div className="status-message error">
+              Minimum price for a room must be 2000.
+            </div>
+          )}
         </div>
 
         <div className="form-section">
