@@ -113,3 +113,37 @@
 .amenity-checkbox {
   transform: scale(1.2);
 }
+
+
+/* Status Messages */
+.status-message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.status-message.error {
+  color: #dc3545; /* Red */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.status-message.success {
+  color: #28a745; /* Green */
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+/* Image Limit Message */
+.image-limit-message {
+  color: #dc3545; /* Red */
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Disabled Add Button Styling (Optional) */
+.add-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

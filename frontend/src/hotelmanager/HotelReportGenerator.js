@@ -17,7 +17,7 @@ export const generateHotelReport = async (hotels) => {
   const margin = 15;
   let currentY = margin;
 
-  // Function to add header to each page
+  // Function to add header to the first page
   const addHeader = async () => {
     // Load and add logo
     const logo = new Image();
@@ -47,13 +47,13 @@ export const generateHotelReport = async (hotels) => {
   const checkPageBreak = (requiredSpace) => {
     if (currentY + requiredSpace > pageHeight - margin) {
       doc.addPage();
-      currentY = addHeader();
+      currentY = margin; // Reset currentY for new page
       return true;
     }
     return false;
   };
 
-  // Add initial header
+  // Add initial header (only on the first page)
   currentY = await addHeader();
 
   // Hotel Summary Section
@@ -159,9 +159,10 @@ export const generateHotelReport = async (hotels) => {
   const signatureWidth = 40;
   const signatureHeight = (signature.height / signature.width) * signatureWidth;
   
+  // Check if current position exceeds page height
   if (currentY + signatureHeight + 20 > pageHeight - margin) {
     doc.addPage();
-    currentY = margin;
+    currentY = margin; // Reset currentY for the new page
   }
 
   doc.addImage(signature, 'PNG', margin, currentY, signatureWidth, signatureHeight);
