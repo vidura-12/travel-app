@@ -1,71 +1,160 @@
-.hotels-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #cf5a5a;
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+}
+
+.search-input {
+    min-width: 200px;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: width 0.3s ease;
+    margin-right: auto;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.dropdown-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.dropdown::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    pointer-events: none;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.checkbox-label:hover {
+    background-color: #f5f5f5;
+}
+
+.checkbox-label input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.checkbox-label span {
+    margin-left: 0;
+}
+
+.checkbox-label input:checked + span {
+    font-weight: 500;
+    color: #0066cc;
+}
+
+.clear-filters-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .hotels-list {
-    list-style-type: none;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.hotel-item {
-    display: flex; /* Ensure image and details are side by side */
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.hotel-image {
-    flex-shrink: 0; /* Prevent image from shrinking */
-    margin-right: 20px; /* Space between image and details */
-}
-
-.hotel-image img {
-    width: 300px; /* Fixed width for the image */
-    height: 300px; /* Fixed height for the image */
-    object-fit: cover; /* Ensure image covers the entire area */
-    border-radius: 8px; /* Rounded corners for the image */
-}
-
-.hotel-details {
-    flex-grow: 1; /* Allow details to take remaining space */
-}
-
-.hotel-name {
-    font-size: 1.5em;
-    margin: 0;
-}
-
-.hotel-description,
-.hotel-location,
-.hotel-amenities,
-.hotel-rooms-title {
-    margin: 5px 0;
-    color: #555;
-}
-
-.rooms-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.room-item {
-    margin: 5px 0;
-    padding: 5px;
-    border: 1px solid #eee;
-    border-radius: 4px;
-    background-color: #f2f2f2;
+.hotel-item-wrapper {
+    width: 100%;
 }
 
 .loading-message,
 .error-message,
 .no-hotels-message {
     text-align: center;
-    color: #999;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.error-message {
+    color: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: none;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-button {
+        width: 100%;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
 }

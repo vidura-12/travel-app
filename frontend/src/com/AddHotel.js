@@ -8,24 +8,43 @@ const AddHotel = () => {
     description: '',
     amenities: [],
     rooms: [],
-    images: []
   });
+  const [images, setImages] = useState([]); // Handle files
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
+  // Predefined Amenities List
+  const predefinedAmenities = [
+    'Wi-Fi',
+    'Air Conditioning',
+    'TV/Streaming',
+    'Toiletries',
+    'Housekeeping',
+    'Restaurant',
+    'Room Service',
+    '24-hour Front Desk',
+    'Parking',
+    'Safe',
+  ];
+
+  // Handle text inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setHotelDetails(prevDetails => ({ ...prevDetails, [name]: value }));
   };
 
-  const handleAmenitiesChange = (e) => {
-    const { value } = e.target;
-    setHotelDetails(prevDetails => ({
-      ...prevDetails,
-      amenities: value.split(',').map(item => item.trim())
-    }));
+  // Handle amenities selection
+  const handleAmenityChange = (e) => {
+    const { value, checked } = e.target;
+    setHotelDetails(prevDetails => {
+      const newAmenities = checked
+        ? [...prevDetails.amenities, value]
+        : prevDetails.amenities.filter(amenity => amenity !== value);
+      return { ...prevDetails, amenities: newAmenities };
+    });
   };
 
+  // Add a new room
   const addRoom = () => {
     setHotelDetails(prevDetails => ({
       ...prevDetails,
@@ -33,6 +52,7 @@ const AddHotel = () => {
     }));
   };
 
+  // Handle room changes
   const handleRoomChange = (index, e) => {
     const { name, value } = e.target;
     const updatedRooms = [...hotelDetails.rooms];
@@ -40,53 +60,67 @@ const AddHotel = () => {
     setHotelDetails(prevDetails => ({ ...prevDetails, rooms: updatedRooms }));
   };
 
+  // Remove a room
   const removeRoom = (index) => {
     const updatedRooms = hotelDetails.rooms.filter((_, i) => i !== index);
     setHotelDetails(prevDetails => ({ ...prevDetails, rooms: updatedRooms }));
   };
 
-  const addImage = () => {
-    setHotelDetails(prevDetails => ({ ...prevDetails, images: [...prevDetails.images, ''] }));
-  };
-
+  // Handle image input changes
   const handleImageChange = (index, e) => {
-    const { value } = e.target;
-    const updatedImages = [...hotelDetails.images];
-    updatedImages[index] = value;
-    setHotelDetails(prevDetails => ({ ...prevDetails, images: updatedImages }));
+    const updatedImages = [...images];
+    updatedImages[index] = e.target.files[0]; // Store only the first selected image
+    setImages(updatedImages);
   };
 
-  const removeImage = (index) => {
-    const updatedImages = hotelDetails.images.filter((_, i) => i !== index);
-    setHotelDetails(prevDetails => ({ ...prevDetails, images: updatedImages }));
+  // Add a new image input
+  const addImageInput = () => {
+    setImages(prevImages => [...prevImages, null]); // Add a placeholder for new image
   };
 
+  // Remove an image input
+  const removeImageInput = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
+  };
+
+  // Handle form submission
   const onFinish = async (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus({ type: '', message: '' });
 
+    // Create FormData to handle file uploads
+    const formData = new FormData();
+    formData.append('name', hotelDetails.name);
+    formData.append('location', hotelDetails.location);
+    formData.append('description', hotelDetails.description);
+    formData.append('amenities', hotelDetails.amenities.join(',')); // Convert amenities array to comma-separated string
+    formData.append('rooms', JSON.stringify(hotelDetails.rooms)); // Convert rooms array to JSON string
+
+    // Append each image file to FormData
+    images.forEach((image) => {
+      if (image) {
+        formData.append('images', image); // 'images' should match the field name expected by backend
+      }
+    });
+
     try {
       const token = localStorage.getItem('token');
-      const ownerId = localStorage.getItem('ownerId');
+      
 
       if (!token) {
         setStatus({ type: 'error', message: 'No token found. Please log in.' });
         return;
       }
 
-      const hotelData = {
-        ...hotelDetails,
-        ownerId: ownerId,
-      };
-
       const response = await fetch('http://localhost:8081/api/hotels/add', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
+          // Do NOT set 'Content-Type' to 'multipart/form-data' manually; let the browser set it
         },
-        body: JSON.stringify(hotelData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -97,8 +131,12 @@ const AddHotel = () => {
           description: '',
           amenities: [],
           rooms: [],
-          images: []
         });
+        setImages([]); // Clear selected images
+
+        // Reset all file inputs
+        const imageInputs = document.querySelectorAll('input[type="file"]');
+        imageInputs.forEach(input => input.value = null);
       } else {
         const errorData = await response.json();
         setStatus({ type: 'error', message: `Failed to add hotel: ${errorData.message || "Unknown error"}` });
@@ -146,14 +184,26 @@ const AddHotel = () => {
           rows={4}
           className="form-textarea"
         />
-        <input
-          type="text"
-          placeholder="Amenities (comma separated)"
-          value={hotelDetails.amenities.join(', ')}
-          onChange={handleAmenitiesChange}
-          className="form-input"
-        />
-        
+
+        {/* Amenities Section with Checkboxes */}
+        <div className="form-section">
+          <h3>Amenities</h3>
+          <div className="amenities-checkboxes">
+            {predefinedAmenities.map((amenity, index) => (
+              <label key={index} className="amenity-label">
+                <input
+                  type="checkbox"
+                  value={amenity}
+                  checked={hotelDetails.amenities.includes(amenity)}
+                  onChange={handleAmenityChange}
+                  className="amenity-checkbox"
+                />
+                {amenity}
+              </label>
+            ))}
+          </div>
+        </div>
+
         <div className="form-section">
           <h3>Rooms</h3>
           {hotelDetails.rooms.map((room, index) => (
@@ -163,6 +213,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 name="roomType"
                 className="form-select"
+                required
               >
                 <option value="">Select Room Type</option>
                 <option value="Single Room">Single Room</option>
@@ -179,6 +230,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
+                min="0"
               />
               <input
                 type="number"
@@ -188,6 +240,7 @@ const AddHotel = () => {
                 onChange={(e) => handleRoomChange(index, e)}
                 required
                 className="form-input"
+                min="0"
               />
               <button type="button" onClick={() => removeRoom(index)} className="remove-button">
                 Remove
@@ -198,29 +251,29 @@ const AddHotel = () => {
             Add Room
           </button>
         </div>
-        
+
         <div className="form-section">
           <h3>Images</h3>
-          {hotelDetails.images.map((image, index) => (
+          {images.map((image, index) => (
             <div key={index} className="image-inputs">
               <input
-                type="text"
-                placeholder="Image URL"
-                value={image}
+                type="file"
+                id={`image-${index}`} // Unique ID for each input
                 onChange={(e) => handleImageChange(index, e)}
+                accept="image/*"
                 required
                 className="form-input"
               />
-              <button type="button" onClick={() => removeImage(index)} className="remove-button">
+              <button type="button" onClick={() => removeImageInput(index)} className="remove-button">
                 Remove
               </button>
             </div>
           ))}
-          <button type="button" onClick={addImage} className="add-button">
+          <button type="button" onClick={addImageInput} className="add-button">
             Add Image
           </button>
         </div>
-        
+
         <button type="submit" disabled={loading} className="submit-button">
           {loading ? "Adding..." : "Add Hotel"}
         </button>

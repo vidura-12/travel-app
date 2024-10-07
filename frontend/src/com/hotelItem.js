@@ -14,7 +14,7 @@ function HotelItem({ hotel }) {
                 {hotel.images && hotel.images.length > 0 ? (
                     <img
                         className="smallimg"
-                        src={hotel.images[0]}
+                        src={`http://localhost:8081/hotel-uploads/${hotel.images[0]}`} // URL updated to point to uploads
                         alt={`Image of ${hotel.name}`}
                     />
                 ) : (
@@ -29,7 +29,7 @@ function HotelItem({ hotel }) {
                 <ul className="rooms-list">
                     {hotel.rooms.map((room) => (
                         <li className="room-item" key={room._id}>
-                            {room.roomType} - ${room.price} (Available: {room.availableRooms})
+                            {room.roomType} - LKR {room.price} (Available: {room.availableRooms})
                         </li>
                     ))}
                 </ul>
@@ -48,7 +48,7 @@ function HotelItem({ hotel }) {
                             <Carousel.Item key={index}>
                                 <img
                                     className="d-block w-100 bigImg"
-                                    src={img}
+                                    src={`http://localhost:8081/uploads/${img}`} // URL updated to point to uploads
                                     alt={`Slide ${index + 1} for ${hotel.name}`}
                                 />
                             </Carousel.Item>

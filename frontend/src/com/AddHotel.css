@@ -95,3 +95,21 @@
   background-color: #f2dede;
   color: #a94442;
 }
+
+/* Amenities Checkboxes */
+.amenities-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.amenity-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+}
+
+.amenity-checkbox {
+  transform: scale(1.2);
+}
