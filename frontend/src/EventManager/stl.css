@@ -111,7 +111,8 @@ section.home-section1 {
 }
 .home-container1 .navbar-custom1 .auth-container1 a:hover {
     color: var(--green-color);
-    background: var(--white-color);
+    /* background: var(--white-color);
+    color: 'black' */
 }
 
 .home-container1 .content {
