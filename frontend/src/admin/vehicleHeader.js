@@ -1,15 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css'; 
+import Swal from 'sweetalert2';
 
 const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('email'); 
-        sessionStorage.clear();  
-        navigate('/admin/login');  
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will be logged out and redirected to the login page.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, logout',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with logout
+                localStorage.removeItem('token');
+                localStorage.removeItem('email'); 
+                sessionStorage.clear();  
+                navigate('/admin/login');  
+            }
+        }); 
     };
 
     return (
