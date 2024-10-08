@@ -1,0 +1,40 @@
+.smallimg {
+    height: 200px;
+    width: 100% !important; /* No space between ! and important */
+    border-radius: 5px !important;
+}
+
+.hotel-description,
+.hotel-location,
+.hotel-amenities,
+.hotel-rooms-title {
+    margin: 5px 0;
+    color: #555;
+}
+
+.rooms-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.room-item {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+
+.hotelitembs {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px !important;
+    border-radius: 5px !important;
+    padding: 20px !important;
+}
+
+.bigImg {
+    width: 400px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}

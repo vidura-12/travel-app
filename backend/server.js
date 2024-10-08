@@ -11,6 +11,9 @@ const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
 
 const packageRoutes = require('./routes/package');
+const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
+const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
+
 
 const locationAdmin = require('./routes/Locationadmin');
 const bodyParser = require('body-parser');
@@ -58,6 +61,19 @@ app.use('/api', bookingRoutes);
 
 app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+
+app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
+// Serve static files from the uploads directory (optional, if you want to serve images)
+app.use('/hotel-uploads', express.static(path.join(__dirname, 'uploads')));
+
+    // Default Route
+app.get('/', (req, res) => {
+    res.send('Welcome to the Hotel Management API');
+});
+
+// Use the hotel owner routes
+app.use('/api/hotelOwners', hotelOwnerRoutes);
+
 
 // Start the server
 const server = app.listen(PORT, () => {
