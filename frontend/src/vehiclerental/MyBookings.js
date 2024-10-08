@@ -62,7 +62,7 @@ function VehicleOwner() {
   useEffect(() => {
     const email = localStorage.getItem('email'); // Fetch plain string
     const token = localStorage.getItem('token'); // Fetch auth token
-
+    
     if (email && token) {
       setEmail(email);
       fetchBookings(token); // Pass token for authentication
@@ -73,7 +73,7 @@ function VehicleOwner() {
 
   const fetchBookings = async (token) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/bookings/owner', {
+      const response = await axios.get('http://localhost:8081/api/bookings/owner', {
         headers: {
           'Authorization': `Bearer ${token}`, // Include token for auth
         },

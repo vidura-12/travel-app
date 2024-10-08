@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import Swal from 'sweetalert2';
 
 Modal.setAppElement('#root');
 
@@ -32,12 +33,23 @@ function VehicleOwnerCreatePost() {
   
   const email = localStorage.getItem('email');
   useEffect(() => {
+    
     // Check if the email exists in localStorage
     if (email) {
       fetchVehicles(email);
     } else {
-      // If no email, navigate to login
-      navigate('/scheduler/sellersignin');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You need to log in first.',
+        confirmButtonText: 'OK',
+        customClass: {
+          icon: 'vehicle-red-icon',  // Apply custom class for the icon
+      }
+      }).then(() => {
+        navigate('/scheduler/sellersignin'); // Redirect to login page after closing the alert
+        });
+      return;// If no email, navigate to login
     }
   }, [email, navigate]); // Trigger fetching when the email is set
   
@@ -126,6 +138,16 @@ function VehicleOwnerCreatePost() {
         }
       });
 
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        html: `
+            Vehicle posted successfully!<br>
+            <span style="color: red;">Your vehicle will be available for rent after admin approval</span>
+        `,
+        confirmButtonText: 'OK'
+    });
+
       setSuccess('Vehicle posted successfully!');
       setMake('');
       setModel('');
@@ -149,9 +171,22 @@ function VehicleOwnerCreatePost() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    navigate('/scheduler/sellersignin'); // Redirect to the login page
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out and redirected to the login page.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          // Proceed with logout
+          localStorage.removeItem('token');
+          localStorage.removeItem('email'); 
+          sessionStorage.clear();  
+          navigate('/scheduler/sellersignin');  // Redirect to the login page
+      }
+    });  
   };
 
   const handleMyBookingsClick = () => {
@@ -159,6 +194,7 @@ function VehicleOwnerCreatePost() {
   };
 
   const openModal = () => {
+    //navigate('/Vehicle-Owner/Add-Vehicle')
     setModalIsOpen(true);
   };
 
@@ -250,55 +286,110 @@ function VehicleOwnerCreatePost() {
 
     const { _id, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = editingVehicle;
 
-    try {
-      const token = localStorage.getItem('token');
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to update this vehicle?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'Cancel'
+    });
 
-      await axios.put(`http://localhost:8081/api/vehicles/${_id}`, {
-        make,
-        model,
-        numberOfSeats,
-        pricePerDay,
-        color,
-        category,
-        contact,
-        ac,
-        vnumber,
-        location
-        
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+    if (result.isConfirmed) {
+
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await axios.put(`http://localhost:8081/api/vehicles/${_id}`, {
+          make,
+          model,
+          numberOfSeats,
+          pricePerDay,
+          color,
+          category,
+          contact,
+          ac,
+          vnumber,
+          location
+          
+        }, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        // Check if the response indicates success
+        if (response.status === 200) {
+          // Show SweetAlert for successful update
+          Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'Vehicle updated successfully!',
+              confirmButtonText: 'OK'
+          });
+
+          setSuccess('Vehicle updated successfully!');
         }
-      });
+        
+        setError('');
+        closeEditModal();
 
-      setSuccess('Vehicle updated successfully!');
-      setError('');
-      closeEditModal();
-
-      fetchVehicles(email);
-    } catch (err) {
-      setError(`Failed to update vehicle post: ${err.response?.data?.message || err.message}`);
-    }
+        fetchVehicles(email);
+      } catch (err) {
+        setError(`Failed to update vehicle post: ${err.response?.data?.message || err.message}`);
+      }
+    };
   };
 
   const handleDelete = async (vehicleId) => {
-    try {
-      const token = localStorage.getItem('token');
+    
+    Swal.fire({
+      title: 'Confirm Deletion?',
+      html: `
+          <span style="color: red;">This action cannot be undone!</span><br>
+          Are you sure you want to delete this vehicle ?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        icon: 'vehicle-red-icon', // Custom class for the icon
+        confirmButton: 'vehicle-btn-danger', // Red color for the Yes button
+        cancelButton: 'vehicle-btn-success'   // Green color for the Cancel button
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try{
+          const token = localStorage.getItem('token');
 
-      await axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+          await axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }); 
+
+          // Show success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: 'Vehicle has been deleted successfully.',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'vehicle-btn-OK' // Green color for the OK button
+            }
+          });
+              
+          setSuccess('Vehicle deleted successfully!');
+          setError('');
+          setDeleteVehicleId(null);
+
+          fetchVehicles(email);
+        }catch (err) {
+          setError(`Failed to delete vehicle post: ${err.response?.data?.message || err.message}`);
         }
-      });
+      }
 
-      setSuccess('Vehicle deleted successfully!');
-      setError('');
-      setDeleteVehicleId(null);
-
-      fetchVehicles(email);
-    } catch (err) {
-      setError(`Failed to delete vehicle post: ${err.response?.data?.message || err.message}`);
-    }
+    }); 
   };
 
   return (
@@ -348,7 +439,7 @@ function VehicleOwnerCreatePost() {
           
           <td>
             <button onClick={() => openEditModal(vehicle)} style={editButtonStyle}>Update</button>
-            <button onClick={() => setDeleteVehicleId(vehicle._id)} style={deleteButtonStyle}>Delete</button>
+            <button onClick={() => handleDelete(vehicle._id)} style={deleteButtonStyle}>Delete</button>
           </td>
         </tr>
       ))
@@ -680,6 +771,14 @@ function VehicleOwnerCreatePost() {
 }
 
 // Styles
+const style = document.createElement('style');
+style.innerHTML = `
+    .vehicle-red-icon {
+        color: red !important;
+    }
+`;
+document.head.appendChild(style);
+
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -752,6 +851,7 @@ const radioLabelStyle = {
   marginLeft: '10px',
   marginRight: '20px',
   fontSize: '16px',
+  textAlign: 'center',
 };
 
 const successStyle = {
@@ -888,7 +988,7 @@ const inputStyle = {
   padding: '10px',
   border: '1px solid #ddd',
   borderRadius: '5px',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   marginBottom: '10px',
 };
 
@@ -909,14 +1009,15 @@ const formGroupStyle = {
 
 const modalStyles = {
   content: {
+    backgroundColor: 'F5F5F7',
     width: '90%',
     maxWidth: '900px',
     margin: 'auto',
     padding: '20px',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-    height: '500px',
-    marginBottom: '20px',
+    height: '650px',
+    marginBottom: '50px',
   }, 
 };
 

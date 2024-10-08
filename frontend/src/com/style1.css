@@ -196,6 +196,13 @@ section.home-section {
 .home-container .content .search-bar {
     transform: translate(0, 100px);
 }
+.content {
+    padding: 2rem 1rem;
+    margin-top: 120px; 
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+    margin-bottom: 120px; 
+}
 
 @media (max-width: 1080px) {
     html {
