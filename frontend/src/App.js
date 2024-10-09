@@ -120,6 +120,7 @@ import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
 import Mybookings from './vehiclerental/MyBookings';
 import VehicleBook from './vehiclerental/VehicelBook';
 import VehicleOwnerProfile from './vehiclerental/VehicleOwnerProfile';
+import NewVehicle from './vehiclerental/NewVehicle';
 
 // Vehicle Rental Manager Components
 import VehicleAdminDashboard from './vehiclerentalManager/VehicleAdminDashboard';
@@ -257,6 +258,7 @@ function App() {
         <Route path="/mybookings" element={<Mybookings />} />
         <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
         <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
+        <Route path="/Vehicle-Owner/Add-Vehicle" element= {<NewVehicle />} />
 
         {/* Vehicle Rental Manager Routes */}
 

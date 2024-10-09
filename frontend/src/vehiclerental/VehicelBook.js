@@ -221,6 +221,8 @@ const VehicleBook = () => {
   const generatePDF = () => {
     const docDefinition = {
       content: [
+
+        
         {
           text: 'Travel Mate',
           style: 'companyName',
