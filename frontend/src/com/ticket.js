@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const TicketForm = () => {
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     tname: '',
     tcategory: '',
@@ -26,7 +30,6 @@ const TicketForm = () => {
   const ticketImage = queryParams.get('image');
 
   useEffect(() => {
-    // Initialize form fields based on passed query params
     if (ticketName && ticketCategory && ticketPrice) {
       setFormData(prevState => ({
         ...prevState,
@@ -36,7 +39,6 @@ const TicketForm = () => {
       }));
     }
 
-    // Fetch event data to retrieve additional ticket criteria dynamically
     const eventId = location.pathname.split('/')[2];
     fetchEventDetails(eventId);
   }, [ticketName, ticketCategory, ticketPrice]);
@@ -62,7 +64,6 @@ const TicketForm = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // Calculate total if number of tickets changes
     if (name === "noOfTicket") {
       const numberOfTickets = parseInt(value, 10) || 0;
       const ticketPrice = parseFloat(formData.price) || 0;
@@ -83,11 +84,11 @@ const TicketForm = () => {
       newErrors.username = 'Username should contain only letters.';
     }
 
-    // Phone number validation: only positive digits
+    // Phone number validation: only digits, max 10 characters
     if (!formData.phone) {
       newErrors.phone = 'Phone number is required.';
-    } else if (!/^[0-9]+$/.test(formData.phone)) {
-      newErrors.phone = 'Phone number should contain only digits.';
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = 'Phone number must be exactly 10 digits.';
     }
 
     // Price validation
@@ -95,11 +96,11 @@ const TicketForm = () => {
       newErrors.price = 'Price is required.';
     }
 
-    // Number of tickets validation: only positive numbers
+    // Number of tickets validation: positive integers only
     if (!formData.noOfTicket) {
       newErrors.noOfTicket = 'Number of tickets is required.';
-    } else if (parseInt(formData.noOfTicket, 10) <= 0) {
-      newErrors.noOfTicket = 'Number of tickets should be a positive number.';
+    } else if (!/^\d+$/.test(formData.noOfTicket)) {
+      newErrors.noOfTicket = 'Number of tickets must be a positive integer.';
     }
 
     // Total validation
@@ -120,10 +121,21 @@ const TicketForm = () => {
     }
 
     try {
-      // Combine standard form data with dynamic ticket criteria
       const ticketData = { ...formData, ...userInputs };
       const response = await axios.post('http://localhost:8081/ticket/create', ticketData);
       console.log('Ticket created:', response.data);
+
+
+       // Show SweetAlert notification
+       Swal.fire({
+        title: 'Success!',
+        text: 'Ticket Booked successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+       }).then(() => {
+        // Navigate to the event view page after clicking OK
+        navigate('/eventView'); // Ensure this path matches your routing
+      });
 
       setFormData({
         tname: '',
@@ -140,6 +152,54 @@ const TicketForm = () => {
     } catch (error) {
       console.error('Error creating ticket:', error);
       setErrors({ server: 'Error creating ticket. Please try again later.' });
+    }
+  };
+
+  // Handle key press to restrict input for phone number
+  const handlePhoneKeyDown = (e) => {
+    const allowedKeys = [
+      'Backspace', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'Delete'
+    ];
+
+    // Allow only digits (0-9)
+    if ((e.key >= '0' && e.key <= '9') || allowedKeys.includes(e.key)) {
+      if (formData.phone.length < 10 || allowedKeys.includes(e.key)) {
+        return;
+      } else {
+        e.preventDefault(); // Restrict input to max 10 digits
+      }
+    } else {
+      e.preventDefault(); // Prevent non-digit input
+    }
+  };
+
+  // Handle key press to restrict input for number of tickets
+  const handleNoOfTicketKeyDown = (e) => {
+    const allowedKeys = [
+      'Backspace', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'Delete'
+    ];
+
+    // Allow only positive digits (0-9)
+    if ((e.key >= '0' && e.key <= '9') || allowedKeys.includes(e.key)) {
+      return;
+    } else {
+      e.preventDefault(); // Prevent non-digit input
+    }
+  };
+
+  // Handle key press to restrict input for username
+  const handleUsernameKeyDown = (e) => {
+    const allowedKeys = [
+      'Backspace', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', ' ', // Allow control keys and space
+    ];
+
+    // Allow A-Z and a-z characters
+    if (
+      (e.key >= 'A' && e.key <= 'Z') || (e.key >= 'a' && e.key <= 'z') || allowedKeys.includes(e.key)
+    ) {
+      return;
+    } else {
+      e.preventDefault(); // Prevent default for other characters
     }
   };
 
@@ -190,26 +250,28 @@ const TicketForm = () => {
           </div>
 
           <div>
-            <label>Enter your Name :</label>
+            <label>Enter your Name:</label>
             <input
               type="text"
               className="ticket-form-control"
               name="username"
               value={formData.username}
               onChange={handleChange}
+              onKeyDown={handleUsernameKeyDown} // Restrict typing to letters
               required
             />
             {errors.username && <small className="ticket-error">{errors.username}</small>}
           </div>
 
           <div>
-            <label>PhoneNumber :</label>
+            <label>PhoneNumber:</label>
             <input
               type="text"
               className="ticket-form-control"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              onKeyDown={handlePhoneKeyDown} // Restrict typing to digits only
               required
             />
             {errors.phone && <span className="ticket-error">{errors.phone}</span>}
@@ -236,7 +298,6 @@ const TicketForm = () => {
               name="price"
               value={formData.price}
               onChange={handleChange}
-              readOnly
               required
             />
             {errors.price && <span className="ticket-error">{errors.price}</span>}
@@ -245,57 +306,57 @@ const TicketForm = () => {
           <div>
             <label>Number of Tickets:</label>
             <input
-              type="number"
+              type="text"
               className="ticket-form-control"
               name="noOfTicket"
               value={formData.noOfTicket}
               onChange={handleChange}
+              onKeyDown={handleNoOfTicketKeyDown} // Restrict to positive integers only
               required
             />
             {errors.noOfTicket && <span className="ticket-error">{errors.noOfTicket}</span>}
           </div>
 
-          {/* Dynamically render ticket criteria */}
-          {ticketCriteria &&
-            Object.keys(ticketCriteria).map((key, index) => {
-              const criterion = ticketCriteria[key];
-              if (!criterion) return null;
-
-              return (
-                <div className="ticket-form-group" key={index}>
-                  <label htmlFor={key}>{criterion}:</label>
-                  <input
-                    type="text"
-                    className="ticket-form-control"
-                    id={key}
-                    name={key}
-                    value={userInputs[key] || ''}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              );
-            })}
+          {Object.keys(ticketCriteria).map((key) => {
+            return (
+              <div key={key}>
+                <label>{ticketCriteria[key]}</label>
+                <input
+                  type="text"
+                  className="ticket-form-control"
+                  name={key}
+                  value={userInputs[key] || ''}
+                  onChange={handleInputChange}
+                  required
+                />
+                {errors[key] && <span className="ticket-error">{errors[key]}</span>}
+              </div>
+            );
+          })}
 
           <div>
             <label>Total:</label>
             <input
-              type="text"
+              type="number"
               className="ticket-form-control"
               name="total"
               value={formData.total}
               onChange={handleChange}
               readOnly
+              required
             />
             {errors.total && <span className="ticket-error">{errors.total}</span>}
           </div>
-          <br />
-
-          <button type="submit" className="ticket-btn-submit">Book Now</button>
+          <br></br>
+          
+         
+          <button type="submit" className="ticket-btn-submit">Submit</button>
           {errors.server && <span className="ticket-error">{errors.server}</span>}
+        
         </form>
       </div>
 
+         {/* Internal CSS */}
       <style jsx>{`
         .ticket-hero-section {
           background-size: cover;
@@ -305,53 +366,56 @@ const TicketForm = () => {
           position: relative;
         }
 
+        .ticket-hero-content {
+          position: relative;
+          top: 50px;
+        }
+
         .ticket-hero-title {
-          color: white;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+          color: whitesmoke;
+          font-size: 48px;
+          font-weight: bold;
         }
 
         .ticket-form-container {
-          background-color: rgba(255, 255, 255, 0.8);
-          padding: 50px;
-          max-width: 500px;
-          margin: 0 auto;
-          border-radius: 8px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          margin-top: 20px;
+          text-align: left;
+          background: rgba(255, 255, 255, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          max-width: 600px;
+          margin: auto;
         }
 
         .ticket-form-group {
-          margin-bottom: 15px;
+          margin-bottom: 20px;
         }
 
         .ticket-form-control {
           width: 100%;
           padding: 10px;
-          margin-top: 5px;
           border: 1px solid #ccc;
-          border-radius: 5px;
+          border-radius: 4px;
+          box-sizing: border-box;
         }
 
         .ticket-btn-submit {
-          background-color: #007BFF;
+          padding: 10px 20px;
+          background-color: green;
           color: white;
-          padding: 10px 15px;
           border: none;
-          border-radius: 5px;
+          border-radius: 4px;
           cursor: pointer;
-          font-size: 16px;
-        }
-
-        .ticket-btn-submit:hover {
-          background-color: #0056b3;
         }
 
         .ticket-error {
           color: red;
           font-size: 12px;
-          margin-top: 5px;
         }
       `}</style>
     </div>
+
+    
   );
 };
 

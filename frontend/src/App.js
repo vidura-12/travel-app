@@ -88,6 +88,7 @@ import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 import AdminReport from './EventManager/AdminReporte';
+import EventManagerProfile from './EventManager/EventOProfile';
 
 
 
@@ -131,6 +132,7 @@ function App() {
         <Route path="/EventManager/Dashboard" element={<EventLayout><Dashboard/></EventLayout>} />
         <Route path="/EventManager/PendingEvent" element={<EventLayout><PendingEvent/></EventLayout>} />
         <Route path="/EventManager/AdminReporte" element={<Adminevent><AdminReport/></Adminevent>} />
+        <Route path="/EventManager/EventOProfile" element={<EventLayout><EventManagerProfile/></EventLayout>} />
    
        
        

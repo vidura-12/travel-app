@@ -35,7 +35,7 @@ function Header2() {
               </a>
               <a 
                 className="event-auth-btn1" 
-                href="#" 
+                href="/EventManager/EventOProfile" 
                 style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Profile button
               >
                 Profile
