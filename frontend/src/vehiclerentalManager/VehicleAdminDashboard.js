@@ -3,6 +3,7 @@ import axios from 'axios';
 //import Header from '../com/AdminHeader'; 
 import { useNavigate } from 'react-router-dom';
 import './Vehicle_Admin_Home.css'; // Import the CSS file
+import Swal from 'sweetalert2';
 
 const InfoModal = ({ message, onClose }) => (
   <div>
@@ -24,11 +25,20 @@ const AdminVehicleManagement = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-  if (!token) {
-    alert('You need to log in first.');
-    navigate('/admin/login'); // Redirect to login page
-    return;
-  }
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+          text: 'You need to log in first.',
+        confirmButtonText: 'OK',
+        customClass: {
+          icon: 'vehicle-red-icon', // Custom class for the icon
+        }
+      }).then(() => {
+        navigate('/admin/login'); // Redirect to login page after closing the alert
+        });
+      return;
+    }
     axios.get('http://localhost:8081/api/vehicles')
       .then(response => {
         setVehicles(response.data.data || []);
@@ -37,33 +47,123 @@ const AdminVehicleManagement = () => {
   }, []);
 
   const handleStatusChange = (vehicleId, status) => {
-    axios.patch(`http://localhost:8081/api/vehicles/${vehicleId}/status`, { status })
-      .then(response => {
-        setVehicles(vehicles.map(vehicle =>
-          vehicle._id === vehicleId ? { ...vehicle, status } : vehicle
-        ));
-        setModalMessage(`Vehicle has been ${status} successfully`);
-        setShowModal(true);
-      })
-      .catch(error => console.error('Error updating vehicle status:', error));
+
+    // Determine button classes based on status
+    const confirmButtonClass = status === 'approved' ? 'vehicle-btn-success' : 'vehicle-btn-danger'; 
+    // Determine color for the status text
+    const statusColor = status === 'approved' ? 'green' : 'red'; 
+    const additionalMessage = status === 'rejected' ? '<span style="color: red;">This action cannot be undone!</span>' : '';
+
+    // Show confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        html: `${additionalMessage}<br>
+        Do you want to <span style="color: ${statusColor}; font-weight: bold;">${status}</span> this vehicle?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: `Yes, ${status} it!`,
+        cancelButtonText: 'Cancel',
+        customClass: {
+          confirmButton: confirmButtonClass, // Apply the determined class
+          cancelButton: 'vehicle-btn-cancel' //Optional: style for the cancel button
+        }
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const response = await axios.patch(`http://localhost:8081/api/vehicles/${vehicleId}/status`, { status });
+                
+                // Update the vehicle status in state
+                setVehicles(vehicles.map(vehicle =>
+                    vehicle._id === vehicleId ? { ...vehicle, status } : vehicle
+                ));
+                
+                // Show success message
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: `Vehicle has been ${status} successfully`,
+                  confirmButtonText: 'OK',
+                  customClass: {
+                    confirmButton: 'vehicle-btn-OK' // Green color for the OK button
+                  }
+                });
+            } catch (error) {
+                console.error('Error updating vehicle status:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to update vehicle status.',
+                });
+            }
+        }
+    });
   };
 
   const handleDeleteVehicle = (vehicleId) => {
-    axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`)
-      .then(response => {
-        setVehicles(vehicles.filter(vehicle => vehicle._id !== vehicleId));
-        setModalMessage('Vehicle has been deleted successfully');
-        setShowModal(true);
-        setDeleteVehicleId(null);
-      })
-      .catch(error => console.error('Error deleting vehicle:', error));
+    // Show confirmation dialog
+    Swal.fire({
+        title: 'Confirm Deletion?',
+        html: `
+            <span style="color: red;">This action cannot be undone!</span><br>
+            Are you sure you want to delete this vehicle ?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        customClass: {
+          icon: 'vehicle-red-icon', // Custom class for the icon
+          confirmButton: 'vehicle-btn-danger', // Red color for the Yes button
+          cancelButton: 'vehicle-btn-success'   // Green color for the Cancel button
+        }
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                await axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`);
+                
+                // Update the vehicle list
+                setVehicles(vehicles.filter(vehicle => vehicle._id !== vehicleId));
+
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Deleted!',
+                    text: 'Vehicle has been deleted successfully.',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                      confirmButton: 'vehicle-btn-OK' // Green color for the OK button
+                    }
+                });
+
+                setDeleteVehicleId(null);
+            } catch (error) {
+                console.error('Error deleting vehicle:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to delete vehicle.',
+                });
+            }
+        }
+    });
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email'); 
-    sessionStorage.clear();  
-    navigate('/admin/login');  
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will be logged out and redirected to the login page.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          // Proceed with logout
+          localStorage.removeItem('token');
+          localStorage.removeItem('email'); 
+          sessionStorage.clear();  
+          navigate('/admin/login');  
+      }
+  }); 
   };
 
   const goToHome = () => {
@@ -143,7 +243,8 @@ const AdminVehicleManagement = () => {
                     ) : (
                       <button
                         className="vehicle-actionButton vehicle-deleteButton"
-                        onClick={() => setDeleteVehicleId(vehicle._id)}
+                        //onClick={() => setDeleteVehicleId(vehicle._id)}
+                        onClick={() => handleDeleteVehicle(vehicle._id)} // Call handleDeleteVehicle directly
                       >
                         Delete
                       </button>

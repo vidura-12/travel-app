@@ -6,6 +6,30 @@
   /* Adjust if overlapping with navbar */
 }
 
+.vehicle-red-icon {
+  color: red !important;  /* Set the icon color to red */
+  border-color: red !important;
+}
+.vehicle-green-icon {
+  color: #28a745 !important;  /* Set the icon color to green */
+  border-color: green !important;
+}
+
+.vehicle-btn-danger {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.vehicle-btn-success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.vehicle-btn-OK {
+  background-color: #28a745 !important;
+  color: white !important;
+  width: 150px;
+}
 .vehicle-header {
 
     margin-top: 70px;

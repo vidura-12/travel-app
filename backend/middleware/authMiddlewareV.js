@@ -14,7 +14,6 @@ const authMiddleware = (req, res, next) => {
   try {
     // Verify the token
     const decoded = jwt.verify(token, secret);
-
     console.log('Decoded JWT:', decoded);  // Log the decoded token for debugging
 
     // Ensure the token contains the required fields, like email
@@ -24,7 +23,7 @@ const authMiddleware = (req, res, next) => {
     }
 
     // Attach user information from the token to the request object
-    req.user = decoded;  
+    req.user = { email: decoded.email };  // Attach user object
     next(); // Continue to the next middleware or route handler
   } catch (err) {
     console.log('JWT verification failed:', err.message);

@@ -63,6 +63,9 @@ app.post('/vehicle-owner/register', vehicleOwnerController.register);
 app.post('/scheduler/sellersignin', vehicleOwnerController.login);
 
 app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
+// Serve static files from the uploads directory (optional, if you want to serve images)
+app.use('/hotel-uploads', express.static(path.join(__dirname, 'uploads')));
+
     // Default Route
 app.get('/', (req, res) => {
     res.send('Welcome to the Hotel Management API');

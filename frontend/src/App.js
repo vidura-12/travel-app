@@ -69,6 +69,12 @@ import HotelOwnerDashboard from './com/HotelOwnerDashboard'; // Import the hotel
 import HotelOwnerRegister from './com/HotelOwnerRegister'; // Adjust the path as necessary
 import HotelOwnerLogin from './com/HotelOwnerLogin'; // Adjust the path as necessary
 
+// hotel manager components
+
+import HotelManagerDashboard from './hotelmanager/HotelAdminDashboard'; // Import the hotel manager dashboard component
+import HotelAdminLayout from './hotelmanager/HotelAdminLayout'; // Import the hotel manager layout component
+
+
 
 import UserSupportHome from './com/UserSupportHome'; // New component
 import Chatbox from './com/Chatbox';
@@ -114,6 +120,7 @@ import VehicleOwnerRegister from './vehiclerental/VehicleOwnerRegister';
 import Mybookings from './vehiclerental/MyBookings';
 import VehicleBook from './vehiclerental/VehicelBook';
 import VehicleOwnerProfile from './vehiclerental/VehicleOwnerProfile';
+import NewVehicle from './vehiclerental/NewVehicle';
 
 // Vehicle Rental Manager Components
 import VehicleAdminDashboard from './vehiclerentalManager/VehicleAdminDashboard';
@@ -212,6 +219,9 @@ function App() {
         <Route path="/LocationAdmin/home" element={<LocationLayout><Location_Home /></LocationLayout>} />
         <Route path="/LocationAdmin/LocationsSummary" element={<LocationLayout><LocationsSummary /></LocationLayout>} />
 
+        {/* Hotel Manager Routes */}
+        <Route path="/hotelmanager/dashboard" element={<HotelAdminLayout><HotelManagerDashboard /></HotelAdminLayout>} />
+
 
         {/* Scheduler Layout Routes */}
         <Route path="/tours" element={<UserLayout><Tour /></UserLayout>} />
@@ -248,6 +258,7 @@ function App() {
         <Route path="/mybookings" element={<Mybookings />} />
         <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
         <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
+        <Route path="/Vehicle-Owner/Add-Vehicle" element= {<NewVehicle />} />
 
         {/* Vehicle Rental Manager Routes */}
 
