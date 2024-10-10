@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import './chatbot.css'; // Import the updated CSS file
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import Font Awesome icons
-import { faComments, faTimes } from '@fortawesome/free-solid-svg-icons'; // Import specific icons
+import './chatbot.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComments, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const TravelChatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [isOpen, setIsOpen] = useState(true); // Open chatbot automatically on first load
+  const [isOpen, setIsOpen] = useState(true);
+  const [isCityInputVisible, setIsCityInputVisible] = useState(false);
+  const [city, setCity] = useState('');
 
   useEffect(() => {
-    // Initial bot message
     setMessages(prevMessages => [
       ...prevMessages,
-      { text: 'Hello! Do You Want To Know About Wheather Of the Places?', sender: 'bot' },
+      { text: 'Hello! Do You Want To Know About Weather Of the Places?', sender: 'bot' },
     ]);
   }, []);
 
   const fetchWeather = async (city) => {
     try {
-      // Fetch weather data from your Node.js server
       const response = await fetch(`http://localhost:8081/apiwe/weather/${city}`);
+      if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       
-      // Assuming your server returns data in a specific format
       if (data.weather) {
         return `The weather in ${city} is currently ${data.weather[0].description} with a temperature of ${Math.round(data.main.temp)}°C.`;
       } else {
@@ -38,12 +38,8 @@ const TravelChatbot = () => {
     const lowerInput = input.toLowerCase();
 
     if (lowerInput.includes("weather")) {
-      const city = prompt("Please enter the city you want the weather for:");
-      if (city) {
-        const weatherResponse = await fetchWeather(city);
-        return weatherResponse;
-      }
-      return "Please provide a valid city name.";
+      setIsCityInputVisible(true);
+      return "Please enter the city you want the weather for:";
     } else if (lowerInput.includes("book") || lowerInput.includes("reservation")) {
       return "I can help you with booking. What would you like to book: flights, hotels, or activities?";
     } else if (lowerInput.includes("destination")) {
@@ -57,20 +53,15 @@ const TravelChatbot = () => {
 
   const handleSend = async () => {
     if (input.trim()) {
-      // Add user message
       setMessages(prevMessages => [
         ...prevMessages,
         { text: input, sender: 'user' },
       ]);
-      
-      // Clear input field
       const userMessage = input;
       setInput('');
 
-      // Generate bot response
       const botResponse = await handleResponse(userMessage);
       
-      // Simulate bot response
       setTimeout(() => {
         setMessages(prevMessages => [
           ...prevMessages,
@@ -80,8 +71,21 @@ const TravelChatbot = () => {
     }
   };
 
+  const handleCitySubmit = async () => {
+    if (city.trim()) {
+      const weatherResponse = await fetchWeather(city);
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: weatherResponse, sender: 'bot' },
+      ]);
+
+      setCity('');
+      setIsCityInputVisible(false);
+    }
+  };
+
   const toggleChatbot = () => {
-    setIsOpen(prev => !prev); // Toggle the chatbot visibility
+    setIsOpen(prev => !prev);
   };
 
   return (
@@ -98,15 +102,32 @@ const TravelChatbot = () => {
         )}
         {isOpen && (
           <div className="unique-chatbot-input">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Type your message..."
-              className="unique-input"
-            />
-            <button onClick={handleSend} className="unique-send-button">Send</button>
+            {isCityInputVisible ? (
+              <div className="unique-city-input">
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Enter city name..."
+                  className="unique-input"
+                />
+                <button onClick={handleCitySubmit} className="unique-send-button">
+                  Get Weather
+                </button>
+              </div>
+            ) : (
+              <div>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="Type your message..."
+                  className="unique-input"
+                />
+                <button onClick={handleSend} className="unique-send-button">Send</button>
+              </div>
+            )}
           </div>
         )}
         <button className="unique-chatbot-toggle" onClick={toggleChatbot}>

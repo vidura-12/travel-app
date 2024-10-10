@@ -140,7 +140,7 @@ function App() {
         
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
-        <Route path="/hotels" element={<HotelLayout><Hotels /></HotelLayout>} />
+        <Route path="/hotels" element={<UserLayout><Hotels /></UserLayout>} />
 
         <Route path="/feed" element={<UserLayout><Feed /></UserLayout>} />
 
