@@ -1,75 +1,124 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const EventManagerProfile = () => {
-    const [managerData, setManagerData] = useState(null);
-    const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const managerId = "123"; // Replace with the actual manager ID or retrieve from authentication context
+const EventOrganizerProfile = () => {
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // Fetch manager details
-        const fetchManagerData = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8081/manager/${managerId}`);
-                setManagerData(response.data);
-            } catch (error) {
-                console.error('Error fetching manager data:', error);
-            }
-        };
+  const organizerProfile = {
+    name: 'John Doe',
+    age: 30,
+    location: 'New York City',
+    email: 'johndoe@example.com',
+    phoneNumber: '123-456-7890',
+    agencyName: 'Doe Events',
+    eventsManaged: 15,
+  };
 
-        // Fetch events managed by this manager
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8081/events?managerId=${managerId}`);
-                setEvents(response.data);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
+  const handleManageEventsClick = () => {
+    // Navigate to the ManageEvents component
+    navigate('/manage-events');
+  };
 
-        fetchManagerData();
-        fetchEvents();
-        setLoading(false);
-    }, [managerId]);
+  const handleEditProfileClick = () => {
+    // Navigate to the EditProfile component
+    navigate('/edit-profile');
+  };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+  return (
+    <div>
+      <style>
+        {`
+          .profile-container {
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 20px auto;
+          }
 
-    if (!managerData) {
-        return <div>Manager not found.</div>;
-    }
+          .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+          }
 
-    return (
-        <div className="manager-profile">
-            <h2>Event Manager Profile</h2>
-            <div className="profile-info">
-                <h3>{managerData.name}</h3>
-                <p><strong>Email:</strong> {managerData.email}</p>
-                <p><strong>Phone:</strong> {managerData.phone}</p>
-                <p><strong>Location:</strong> {managerData.location}</p>
-            </div>
-            <div className="events-list">
-                <h3>Managed Events</h3>
-                {events.length === 0 ? (
-                    <p>No events managed by this manager.</p>
-                ) : (
-                    <ul>
-                        {events.map((event) => (
-                            <li key={event.id}>
-                                <h4>{event.name}</h4>
-                                <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-                                <p><strong>Location:</strong> {event.location}</p>
-                                <p><strong>Price:</strong> ${event.price}</p>
-                                <p><strong>Status:</strong> {event.status}</p>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+          .profile-header h2 {
+            color: #333;
+            margin: 10px 0;
+          }
+
+          .profile-info {
+            margin-bottom: 20px;
+          }
+
+          .profile-info p {
+            color: #555;
+            margin: 5px 0;
+          }
+
+          .profile-actions {
+            text-align: center;
+          }
+
+          .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          }
+
+          .btn-manage-events {
+            background-color: #3498db;
+            color: white;
+          }
+
+          .btn-manage-events:hover {
+            background-color: #2980b9;
+          }
+
+          .btn-edit-profile {
+            background-color: #2ecc71;
+            color: white;
+          }
+
+          .btn-edit-profile:hover {
+            background-color: #27ae60;
+          }
+        `}
+      </style>
+
+      <div className="profile-container">
+        <div className="profile-header">
+          <h2>{organizerProfile.name}, {organizerProfile.age}</h2>
+          <p>{organizerProfile.location}</p>
         </div>
-    );
+
+        <div className="profile-info">
+          <p>Email: {organizerProfile.email}</p>
+          <p>Phone: {organizerProfile.phoneNumber}</p>
+          <p>Agency: {organizerProfile.agencyName}</p>
+          <p>Events Managed: {organizerProfile.eventsManaged}</p>
+        </div>
+
+        <div className="profile-actions">
+          <button
+            className="btn btn-manage-events"
+            onClick={handleManageEventsClick}
+          >
+            Manage Events
+          </button>
+          <button
+            className="btn btn-edit-profile"
+            onClick={handleEditProfileClick}
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default EventManagerProfile;
+export default EventOrganizerProfile;
