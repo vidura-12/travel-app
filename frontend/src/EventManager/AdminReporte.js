@@ -30,8 +30,8 @@ function AdminReport() {
     const signatureImg = '/img/sig.jpeg'; // Path to your signature image
     const margin = 10; // Margin from the right edge
     const logoWidth = 50; // Logo width
-    const logoHeight = 15; // Logo height
-
+    const logoHeight = 20; // Logo height
+  
     // Calculate x position to align the logo to the right
     const xPosition = doc.internal.pageSize.getWidth() - logoWidth - margin;
     doc.addImage(logoImg, 'JPEG', xPosition, 10, logoWidth, logoHeight); // Logo position and size
@@ -47,29 +47,39 @@ function AdminReport() {
       event.time,
       event.price,
     ]);
-
+  
     // Add table to the PDF
     autoTable(doc, {
       startY: 50, // Adjust startY to avoid overlapping with images
       head: [['Event Name', 'Category', 'Description', 'Location', 'Date', 'Time', 'Price']],
       body: tableData,
     });
-
+  
     // Add a border around the PDF page
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     doc.rect(5, 5, pageWidth - 10, pageHeight - 10); // Adjust for margin
-
+  
     // Add signature below the table
-    doc.addImage(signatureImg, 'JPEG', 10, doc.autoTable.previous.finalY + 10, 50, 15); // Signature position and size
-    
+    const signatureYPosition = doc.autoTable.previous.finalY + 10;
+    doc.addImage(signatureImg, 'JPEG', 10, signatureYPosition, 50, 15); // Signature position and size
+  
     // Add "Admin Signature" text below the signature
     doc.setFontSize(10); // Decrease font size for "Admin Signature"
-    doc.text('Admin Signature', 10, doc.autoTable.previous.finalY + 30); // Adjust position for the text
-
+    const signatureTextYPosition = signatureYPosition + 20;
+    doc.text('Admin Signature', 10, signatureTextYPosition); // Adjust position for the text
+  
+    // Add current date and time below the signature
+    const currentDate = new Date();
+    const formattedDateTime = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+    const dateTimeYPosition = signatureTextYPosition + 10; // Positioning the date and time under the signature
+    doc.text(formattedDateTime, 10, dateTimeYPosition); // Align to the left under the signature
+  
     // Save the PDF
     doc.save('approved_events_report.pdf');
   };
+  
+  
 
   return (
     <div className='AdminBack'>
