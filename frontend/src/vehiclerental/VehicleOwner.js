@@ -447,7 +447,7 @@ function VehicleOwnerCreatePost() {
       <tr>
         <td colSpan="8" style={tableCellStyle}>No vehicles found</td>
       </tr>
-    )}
+      )}
   </tbody>
 
 </table>
