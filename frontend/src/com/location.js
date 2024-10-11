@@ -13,6 +13,7 @@ function Location() {
   const [visibleDescriptions, setVisibleDescriptions] = useState({});
   const destinationRef = useRef(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchLikedLocations = async () => {
       try {
@@ -36,39 +37,48 @@ function Location() {
     fetchLikedLocations();
   }, []);
 
-const handleSearch = async () => {
-  try {
-    const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
-    const data = await response.json();
-
-    console.log(data); // Log the response data
-
-    if (response.ok) {
-      if (Array.isArray(data) && data.length === 0) {
-        setError('No locations found with that name.');
-        setResults([]);
-      } else {
+  // Auto search when the user types
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (searchTerm.trim() === '') {
+        setResults([]); // Clear results when input is empty
         setError('');
-        setResults(Array.isArray(data) ? data : [data]);
-        setVisibleComments({});
-        setVisibleDescriptions({});
-
-        if (destinationRef.current) {
-          destinationRef.current.classList.add('scroll-to-middle');
-          destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        return;
       }
-    } else {
-      setError(data.error || 'No locations found with that name.');
-      setResults([]);
-    }
-  } catch (error) {
-    setError('Error fetching search results.');
-    console.error('Error fetching search results:', error);
-    setResults([]);
-  }
-};
 
+      try {
+        const response = await fetch(`http://localhost:8081/Location/search?city=${searchTerm}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          if (Array.isArray(data) && data.length === 0) {
+            setError('No locations found with that name.');
+            setResults([]);
+          } else {
+            setError('');
+            setResults(Array.isArray(data) ? data : [data]);
+            setVisibleComments({});
+            setVisibleDescriptions({});
+
+            if (destinationRef.current) {
+              destinationRef.current.classList.add('scroll-to-middle');
+              destinationRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+        } else {
+          setError(data.error || 'No locations found with that name.');
+          setResults([]);
+        }
+      } catch (error) {
+        setError('Error fetching search results.');
+        console.error('Error fetching search results:', error);
+        setResults([]);
+      }
+    };
+
+    const timeoutId = setTimeout(fetchSearchResults, 500); // Debounce the search by 500ms
+    return () => clearTimeout(timeoutId); // Cleanup function to cancel previous search on new input
+  }, [searchTerm]);
 
   const handleLike = async (locationId) => {
     try {
@@ -150,26 +160,26 @@ const handleSearch = async () => {
       [locationId]: false,
     }));
   };
+
   const handleAddLocation = () => {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      // Show SweetAlert and navigate to login
       Swal.fire({
         title: 'Authentication Required',
         text: 'Please login to add a new location.',
         icon: 'warning',
-        confirmButtonText: 'Go to Login'
+        confirmButtonText: 'Go to Login',
       }).then((result) => {
         if (result.isConfirmed) {
           navigate('/login');
         }
       });
     } else {
-      // Navigate to new location page if token exists
       navigate('/newLocation');
     }
   };
+
   return (
     <div>
       <section className="home">
@@ -184,7 +194,6 @@ const handleSearch = async () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button onClick={handleSearch}>Search</button>
             </div>
             {error && <p className="error-message">{error}</p>}
           </div>
@@ -199,11 +208,13 @@ const handleSearch = async () => {
                 <img src={`img/${location.picture}`} alt={location.name} />
               </div>
               <div className="container-box">
-                <h2 className="heading">{location.name} - {location.city}</h2>
+                <h2 className="heading">
+                  {location.name} - {location.city}
+                </h2>
                 <div className="content">
                   <p>
-                    {visibleDescriptions[location._id] 
-                      ? location.description 
+                    {visibleDescriptions[location._id]
+                      ? location.description
                       : `${location.description.substring(0, 100)}...`}
                   </p>
                   {location.description.length > 100 && (
@@ -225,7 +236,7 @@ const handleSearch = async () => {
                     >
                       <img src="./img/like.png" alt="Like" />
                     </button>
-                    <span className="like-count">{location.likes || 0} HelpFul</span>
+                    <span className="like-count">{location.likes || 0} Helpful</span>
                   </div>
                   <div className="comments-section">
                     <h3>Comments</h3>
@@ -253,7 +264,6 @@ const handleSearch = async () => {
                       Comment
                     </button>
                   </div>
-                 
                 </div>
               </div>
             </div>
@@ -264,7 +274,9 @@ const handleSearch = async () => {
       <section>
         <div className="containe">
           <h1 className="title">Are you a Traveller? Share your experience with us</h1>
-          <button className="buttonadd" onClick={handleAddLocation}>Click Here ...</button>
+          <button className="buttonadd" onClick={handleAddLocation}>
+            Click Here ...
+          </button>
         </div>
       </section>
     </div>
