@@ -58,45 +58,7 @@ router.post('/add',
     }
   }
 );
-
-
-
-//add ticket details
-router.post('/event/:id/tickets', async (req, res) => {
-  const { id } = req.params;
-  const { tname, tcategory, phone, email, noOfTicket, totalPrice, otherFields } = req.body;
-
-  try {
-    // Find the event by its ID
-    const event = await Events.findById(id);
-    if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
-
-    // Add the new ticket details to the userTickets array
-    event.userTickets.push({
-      tname,
-      phone,
-      email,
-      noOfTicket,
-      totalPrice,
-      tcategory,
-      ...otherFields // Spread additional fields here
-    });
-
-    // Save the updated event
-    await event.save();
-
-    res.status(201).json({ message: 'Ticket added successfully' });
-  } catch (error) {
-    console.error('Error adding ticket:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-
-
-  
+ 
 
 // Get all events
 router.get("/", async (req, res) => {
@@ -123,33 +85,6 @@ router.get("/:id", async (req, res) => {
 
 
 
-//get ticket booking etails
-router.get('/tickets', async (req, res) => {
-  try {
-      const events = await Events.find({ "userTickets.0": { $exists: true } });
-      const tickets = events.flatMap(event => event.userTickets.map(ticket => ({
-          tname: ticket.tname,
-          tcategory: ticket.tcategory,
-          phone: ticket.phone,
-          email: ticket.email,
-          noOfTicket: ticket.noOfTicket,
-          totalPrice: ticket.totalPrice
-      })));
-
-      console.log("Fetched tickets:", tickets);  // Add this line for debugging
-      res.status(200).json(tickets);
-  } catch (error) {
-      console.error('Error retrieving tickets:', error);  // Add error logging
-      res.status(500).json({ error: 'Error retrieving tickets' });
-  }
-});
-
-
-
-
-
-
- //--------------------------------------------------
 
  // Approve event
 router.put('/approve/:id', async (req, res) => {
@@ -241,62 +176,6 @@ router.delete("/delete/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-
-
-
-
-// send a email--------------------------------------------------------
-
-router.post('/:eventId/tickets', async (req, res) => {
-    const { tname, tcategory, phone, email, noOfTicket, totalPrice, otherFields } = req.body;
-  
-    try {
-      // Set up nodemailer transporter (using Gmail in this example)
-      let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'youremail@gmail.com', // Your email
-          pass: 'yourpassword' // Your email password (use environment variables for security)
-        }
-      });
-  
-      // Compose the email content
-      const mailOptions = {
-        from: 'youremail@gmail.com',
-        to: email,
-        subject: `Your Ticket for ${tname}`,
-        text: `Dear customer,
-  
-        Thank you for booking tickets for the event "${tname}" (${tcategory}).
-        Here are your ticket details:
-        
-        - Name: ${tname}
-        - Category: ${tcategory}
-        - Phone: ${phone}
-        - Email: ${email}
-        - Number of Tickets: ${noOfTicket}
-        - Total Price: $${totalPrice}
-  
-        Additional Information: ${Object.entries(otherFields).map(([key, value]) => `\n- ${key}: ${value}`)}
-  
-        We look forward to seeing you at the event.
-  
-        Regards,
-        Event Management Team`
-      };
-  
-      // Send the email
-      let info = await transporter.sendMail(mailOptions);
-      console.log('Email sent: ' + info.response);
-  
-      res.status(200).json({ message: 'Ticket submitted successfully and email sent.' });
-    } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ message: 'Error submitting ticket and sending email.' });
-    }
-  });
-
 
 
 module.exports = router;
