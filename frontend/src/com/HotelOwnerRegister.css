@@ -23,20 +23,20 @@
     flex-direction: column;
 }
 
-/* Form input field grouping */
-.form-group {
+/* htForm input field grouping */
+.htform-group {
     margin-bottom: 15px;
 }
 
-/* Labels for input fields */
-.form-group label {
+/* htLabels for input fields */
+.htform-group label {
     display: block;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-/* Input fields styling */
-.form-group input {
+/* htInput fields styling */
+.htform-group input {
     width: 100%;
     padding: 10px;
     font-size: 14px;
