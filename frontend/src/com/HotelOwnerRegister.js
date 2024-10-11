@@ -147,7 +147,7 @@ const HotelOwnerRegister = () => {
         <div className="htowner-register-container">
             <h2 className="htowner-register-title">Hotel Owner Registration</h2>
             <form onSubmit={handleSubmit} className="htowner-register-form">
-                <div className="form-group">
+                <div className="htform-group">
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
@@ -157,7 +157,7 @@ const HotelOwnerRegister = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
+                <div className="htform-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
@@ -168,7 +168,7 @@ const HotelOwnerRegister = () => {
                     />
                     {errors.email && <span className="error-message">{errors.email}</span>}
                 </div>
-                <div className="form-group">
+                <div className="htform-group">
                     <label htmlFor="password">Password:</label>
                     <input
                         type="password"
@@ -179,7 +179,7 @@ const HotelOwnerRegister = () => {
                     />
                     {errors.password && <span className="error-message">{errors.password}</span>}
                 </div>
-                <div className="form-group">
+                <div className="htform-group">
                     <label htmlFor="confirmPassword">Confirm Password:</label>
                     <input
                         type="password"
@@ -190,7 +190,7 @@ const HotelOwnerRegister = () => {
                     />
                     {errors.password && <span className="error-message">{errors.password}</span>}
                 </div>
-                <div className="form-group">
+                <div className="htform-group">
                     <label htmlFor="phone">Phone:</label>
                     <input
                         type="tel"
