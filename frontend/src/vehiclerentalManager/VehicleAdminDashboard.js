@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Vehicle_Admin_Home.css'; // Import the CSS file
 import Swal from 'sweetalert2';
+import { generateVehicleReport } from './VehicleAdminReport';
 
 const InfoModal = ({ message, onClose }) => (
   <div>
@@ -147,6 +148,10 @@ const AdminVehicleManagement = () => {
     });
   };
 
+  const VehicleReport = () => {
+    generateVehicleReport(vehicles);
+  };
+
   const logout = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -175,12 +180,11 @@ const AdminVehicleManagement = () => {
       
       <div className='vehicle-content'>
         <div className="vehicle-header">
-        <div className="vehicle-headerButtons">
-          <button className="vehicle-button" onClick={goToHome}>Check Vehicle Rental Home</button>
-          <button className="vehicle-button2" onClick={logout}>Logout</button>
-        </div>
-
-        <h1>Admin Vehicle Management</h1>
+          <h1>Admin Vehicle Management</h1>
+          <div className="vehicle-headerButtons">
+            <button className="vehicle-button" onClick={goToHome}>Check Vehicle Rental Home</button>
+             <button className="vehicle-button2" onClick={VehicleReport}>Generate Report</button>
+            </div>
 
         {vehicles.length === 0 ? (
           <div className="vehicle-noVehicles">No vehicles available</div>
