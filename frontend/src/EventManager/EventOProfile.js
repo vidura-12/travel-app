@@ -7,16 +7,14 @@ const EventOrganizerProfile = () => {
   const organizerProfile = {
     name: 'John Doe',
     age: 30,
-    location: 'New York City',
     email: 'johndoe@example.com',
     phoneNumber: '123-456-7890',
-    agencyName: 'Doe Events',
     eventsManaged: 15,
   };
 
   const handleManageEventsClick = () => {
     // Navigate to the ManageEvents component
-    navigate('/manage-events');
+    navigate('/EventManager/EventList');
   };
 
   const handleEditProfileClick = () => {
@@ -25,16 +23,27 @@ const EventOrganizerProfile = () => {
   };
 
   return (
-    <div>
+    <div className='profile'>
       <style>
         {`
+          .profile{
+            background-image: url('/img/profile4.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            padding: 120px;
+          }
+
           .profile-container {
             background-color: #f2f2f2;
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             margin: 20px auto;
+            margin-top: 200px;
           }
 
           .profile-header {
@@ -44,7 +53,8 @@ const EventOrganizerProfile = () => {
 
           .profile-header h2 {
             color: #333;
-            margin: 10px 0;
+            margin: 10px 150px;
+            aligin:center;
           }
 
           .profile-info {
@@ -91,14 +101,15 @@ const EventOrganizerProfile = () => {
 
       <div className="profile-container">
         <div className="profile-header">
-          <h2>{organizerProfile.name}, {organizerProfile.age}</h2>
+          <center><h2>{organizerProfile.name}</h2></center>
           <p>{organizerProfile.location}</p>
         </div>
 
         <div className="profile-info">
+        <p>age: {organizerProfile.age}</p>
           <p>Email: {organizerProfile.email}</p>
           <p>Phone: {organizerProfile.phoneNumber}</p>
-          <p>Agency: {organizerProfile.agencyName}</p>
+          
           <p>Events Managed: {organizerProfile.eventsManaged}</p>
         </div>
 
@@ -109,12 +120,12 @@ const EventOrganizerProfile = () => {
           >
             Manage Events
           </button>
-          <button
+          {/* <button
             className="btn btn-edit-profile"
             onClick={handleEditProfileClick}
           >
             Edit Profile
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

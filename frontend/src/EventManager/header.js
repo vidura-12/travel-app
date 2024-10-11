@@ -28,7 +28,7 @@ function Header2() {
             >
               <a 
                 className="event-auth-btn1" 
-                href="#" 
+                href="/scheduler/sellersignin" 
                 style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Log out button
               >
                 Log out
