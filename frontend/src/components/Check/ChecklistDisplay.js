@@ -46,7 +46,7 @@ const ChecklistDisplay = () => {
   doc.setFontSize(16);
   doc.text('Checklist Report', 105, 20, { align: 'center' });
   doc.rect(5, 5, 200, 285);
-  doc.addImage('/trlmate.jpg', 'PNG', 160, 10, 30, 30);
+  doc.addImage('/ll.jpg', 'PNG', 160, 10, 30, 30);
   
     doc.autoTable({
       startY: 50,
@@ -65,7 +65,7 @@ const ChecklistDisplay = () => {
   doc.text('Signature:', 10, finalY + 20); // Position the text slightly below the table
 
   // Add signature image under the "Signature" label
-  doc.addImage('/signatureimage.jpg', 'PNG', 10, finalY + 25, 50, 20);
+  doc.addImage('/sig.jpg', 'PNG', 10, finalY + 25, 50, 20);
 
     doc.save('Checklist_Report.pdf');
   };
