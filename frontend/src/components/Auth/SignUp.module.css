@@ -96,7 +96,7 @@ label {
 }
 
 /* Button Styles */
-.submitBtn {
+.submitButton {
     width: 100%;
     padding: 0.75rem;
     background-color: #2e8b57;
@@ -108,7 +108,8 @@ label {
     transition: all 0.3s ease;
 }
 
-.submitBtn:hover {
+.submitButton:hover {
     background-color: #3ca678;
     transform: translateY(-2px);
 }
+
