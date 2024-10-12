@@ -1,0 +1,315 @@
+/* General Layout */
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  overflow-y: auto; /* Scrollable sidebar */
+}
+
+.checklistContainer {
+  flex: 1;
+  padding: 40px;
+  margin-left: 250px;
+  background: url('https://cdn.pixabay.com/photo/2018/03/07/23/14/the-art-of-3207416_1280.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  overflow-y: auto; /* Scrollable checklist container */
+}
+
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Search, Category Filter, and Report Button Container */
+.searchCategoryReportContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.searchInput, .categorySelect {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.searchInput {
+  width: 40%;
+}
+
+.categorySelect {
+  width: 25%;
+}
+
+.searchInput:focus, .categorySelect:focus {
+  outline: none;
+  border-color: #6ecf68;
+}
+
+.pdfButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pdfButton:hover {
+  background-color: #0056b3;
+}
+
+/* Checklist List */
+.checklistList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklistItem {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.checklistItem:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.checklistContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.checklistContent h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.checklistContent p {
+  margin: 5px 0 0;
+  color: #888;
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.viewBtn, .editBtn, .deleteBtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewBtn {
+  background-color: #6ecf68;
+  color: white;
+  text-decoration: none;
+}
+
+.viewBtn:hover {
+  background-color: #5bb859;
+}
+
+.editBtn {
+  background-color: #f5c16c;
+  color: white;
+}
+
+.editBtn:hover {
+  background-color: #e0a654;
+}
+
+.deleteBtn {
+  background-color: #f77a7a;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background-color: #e66363;
+}
+
+/* Modal Styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 450px;
+  max-height: 90vh; /* Modal won't exceed 90% of viewport height */
+  overflow-y: auto; /* Scrollable modal content */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.modalContent h3 {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
+}
+
+.modalInput:focus {
+  border-color: #6ecf68;
+  outline: none;
+}
+
+/* Item Group */
+.itemGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.itemGroup input[type="text"] {
+  width: 65%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.itemGroup select {
+  width: 30%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Buttons in the modal */
+.saveBtn, .cancelBtn {
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.saveBtn {
+  background-color: #6ecf68;
+  color: white;
+}
+
+.saveBtn:hover {
+  background-color: #5bb859;
+  transform: translateY(-2px);
+}
+
+.cancelBtn {
+  background-color: #f77a7a;
+  color: white;
+  margin-left: 15px;
+}
+
+.cancelBtn:hover {
+  background-color: #e66363;
+  transform: translateY(-2px);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checklistContent {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .buttonGroup {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+  }
+
+  .viewBtn, .editBtn, .deleteBtn {
+      width: 100%;
+      text-align: center;
+  }
+
+  /* Sidebar collapse on smaller screens */
+  .sidebar {
+      width: 60px;
+  }
+
+  .checklistContainer {
+      margin-left: 60px;
+  }
+
+  /* Stack search input vertically on smaller screens */
+  .searchCategoryReportContainer {
+      flex-direction: column;
+  }
+
+  .searchInput, .categorySelect, .pdfButton {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+}

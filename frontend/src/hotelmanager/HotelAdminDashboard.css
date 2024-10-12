@@ -1,0 +1,227 @@
+.hotel-content {
+  padding: 70px;
+  background-color: #f4f4f4;
+  min-height: calc(100vh - 100px);
+  font-family: Arial, sans-serif;
+}
+
+.hotel-header {
+  margin-top: 70px;
+}
+
+.hotel-headerButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.hotel-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hotel-button2 {
+  padding: 10px 15px;
+  background-color: #de6e05;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.hotel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.hotel-th {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.hotel-td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.hotel-actionButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.hotel-approveButton {
+  background-color: #28a745;
+}
+
+.hotel-rejectButton {
+  background-color: #dc3545;
+}
+
+.hotel-deleteButton {
+  background-color: #dc3545;
+}
+
+.hotel-approvedButton,
+.hotel-rejectedButton {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: default;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.hotel-approvedButton {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.hotel-rejectedButton {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.hotel-noHotels {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.hotel-hotelImageStyle {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+
+.hotel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.hotel-confirmText {
+  margin: 20px 0;
+}
+
+.hotel-actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hotel-AmodalButton,
+.hotel-CmodalButton,
+.hotel-AfterClosemodalButton {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+}
+
+.hotel-AmodalButton {
+  background-color: #dc3545;
+}
+
+.hotel-CmodalButton {
+  background-color: #28a745;
+}
+
+.hotel-AfterClosemodalButton {
+  background-color: #007bff;
+  margin-top: 10px;
+}
+
+/* Styles for the nested rooms table */
+.hotel-roomsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hotel-roomsTable th,
+.hotel-roomsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.hotel-roomsTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.hotel-roomsTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.hotel-roomsTable tr:hover {
+  background-color: #ddd;
+}
+
+
+
+/* Add these to your existing CSS file */
+
+.hotel-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hotel-generateReport-button {
+  background-color: #2980b9;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.hotel-generateReport-button:hover {
+  background-color: #2471a3;
+}
+
+.hotel-generateReport-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}

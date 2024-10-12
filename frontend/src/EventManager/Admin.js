@@ -199,13 +199,15 @@ function AdminEventApproval() {
             background-repeat: no-repeat;
             background-position: center;
             min-height: 100vh;
-            padding: 20px;
+            
+            padding: 120px;
             color: white; /* Adjust text color for better visibility */
           }
 
           .event-dashboard-container {
             background-color: rgba(255, 255, 255, 0.8); /* Set the transparency level here */
             padding: 20px; /* Optional padding */
+            margin-top: 50px;
             border-radius: 8px; /* Optional border radius for aesthetics */
           }
         `}</style>
