@@ -24,19 +24,24 @@ export default function Register() {
     let newValue = value;
 
     switch (name) {
-      case 'name':
+      case 'name': 
+        // Allow only alphabet characters and spaces
         newValue = value.replace(/[^a-zA-Z\s]/g, ''); 
+        // Capitalize first letter 
         if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
           newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
         }
         break;
 
-      case 'email':
-        newValue = value.replace(/[^a-z0-9._%+-@]/g, '');
+      case 'email': 
+        // Allow valid email characters
+        newValue = value.replace(/[^a-z0-9._%+-@]/g, ''); // Lowercase letters, digits, and valid email characters
         break;
 
       case 'address':
-        newValue = value.replace(/[^a-zA-Z0-9\s.,-]/g, '');
+        // Allow alphanumeric characters, spaces, and some punctuation
+        newValue = value.replace(/[^a-zA-Z0-9\s.,-]/g, ''); // Alphanumeric, spaces, periods, commas, hyphens
+        // Capitalize first letter 
         if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
           newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
         }
@@ -49,16 +54,20 @@ export default function Register() {
         }
         break;
 
-      case 'experience':
-        newValue = value.replace(/\D/g, '');
+      case 'experience': 
+        // Allow only numbers (for years of experience)
+        newValue = value.replace(/\D/g, ''); // Remove non-digit characters
         break;
 
       case 'username':
-        newValue = value.replace(/[^a-zA-Z0-9._]/g, '');
+        // Allow alphanumeric characters, underscores, and periods
+        newValue = value.replace(/[^a-zA-Z0-9._]/g, ''); // Alphanumeric, underscores, and periods
         break;
 
       case 'password':
-        newValue = value.replace(/[^a-zA-Z0-9!@#$%^&*]/g, '');
+        // Allow alphanumeric characters and special characters
+        newValue = value.replace(/[^a-zA-Z0-9!@#$%^&*]/g, ''); // Customize as needed
+ 
         break;
 
       default:
@@ -70,6 +79,7 @@ export default function Register() {
       [name]: newValue,
     });
   };
+
 
   const guideSubmit = async (e) => {
     e.preventDefault();

@@ -33,14 +33,13 @@
 .home .content1 h4 {
     font-size: 1.5rem;
     font-weight: 600;
- 
     margin-bottom: 2rem;
     color: rgba(255, 255, 255, 0.9);
 }
 
 .home .content1 h1 {
     font-size: 3.5rem;
-    max-width: 500rem;
+    max-width: 1800px; /* Adjusted to be more reasonable */
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem;
@@ -56,16 +55,17 @@
 }
 
 /* Travel Section */
-.travel .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.travel1 .container1 {
+    display: flex;
+    flex-wrap: wrap; /* Added to allow wrapping */
     gap: 2rem;
     padding: 4rem 0;
+    margin: auto;
     align-items: start;
     justify-content: center;
 }
 
-.travel .box {
+.travel1 .box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,28 +75,30 @@
     border-radius: 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px; /* Adjusted for card width */
+    width: 100%; /* Makes the card responsive */
 }
 
-.travel .box:hover {
+.travel1 .box:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.travel .box img {
-    width: 100px;
-    height: 100px;
+.travel1 .box img {
+    width: 80px; /* Reduced size for images */
+    height: 80px; /* Fixed size for images */
     object-fit: contain;
     margin-bottom: 1rem;
 }
 
-.travel .box h4 {
+.travel1 .box h4 {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: #333;
 }
 
-.travel .box p {
+.travel1 .box p {
     font-size: 1rem;
     font-weight: 400;
     color: #666;
@@ -135,8 +137,8 @@
 }
 
 .location-card-img {
-    width: 100%;
-    height: 200px;
+    width: 100%; /* Ensures full width */
+    height: 200px; /* Fixed height for consistency */
     object-fit: cover;
 }
 
@@ -145,6 +147,45 @@
     font-size: 1.2rem;
     font-weight: 600;
     color: #333;
+}
+
+/* Package Gallery */
+.package-gallery {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.package-gallery h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.package-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    padding: 1rem; /* Added padding for card */
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.package-card-img {
+    width: 100%; /* Ensures full width */
+    height: 150px; /* Adjusted for a smaller card view */
+    object-fit: cover;
 }
 
 /* Media Queries */
@@ -189,21 +230,22 @@
     .home .home-container1 .content {
         padding: 2rem;
     }
-    .travel .container {
-        row-gap: 3rem;
-        flex-direction: column;
+    .travel1 .container1 {
+        flex-direction: column; /* Stack on small screens */
+        align-items: center; /* Center items */
     }
-    .travel .container .box img {
-        width: 8rem;
+    .travel1 .box img {
+        width: 60px; /* Adjusted for smaller screens */
     }
 }
+
 .location-description {
     padding: 15px;
     font-size: 1rem;
     color: #666;
     transition: all 0.3s ease;
-  }
-  
+}
+
 @media (max-width: 600px) {
     .home .home-container .content h1 {
         font-size: 2.5rem;

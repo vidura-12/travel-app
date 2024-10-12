@@ -40,15 +40,7 @@ const Sellersprofile = () => {
           <p>Southern Province, Matara</p>
           <p>Travel agency owner</p>
 
-          <div className="profile-actions">
-            <button className="btn-profilebtn">Profile</button>
-            <button
-              className="btn-travelpackagebtn"
-              onClick={handlePackageClick} // Call the function on click
-            >
-              Package
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>

@@ -8,6 +8,8 @@
 
 frontend/public/img/videoplayback.webm
 
+frontend/src/com/img/Sri Lanka.mp4
+
 
 /node_modules
 .env
@@ -20,4 +22,57 @@ backend/.env
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
+<<<<<<< HEAD
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules/.bin
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules/.cache
+/frontend/node_modules
+/frontend/node_modules
+frontend/node_modules/.cache/default-development/3.pack
+frontend/node_modules/.cache/default-development/1.pack
+frontend/node_modules/.cache/default-development/2.pack
+frontend/node_modules/.cache/default-development/4.pack
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+/frontend/node_modules
+=======
 /frontend/package.json
+>>>>>>> Final
+/frontend/node_modules

@@ -8,7 +8,7 @@
   .event-btn-report {
     margin-top: 10px;
     margin-left: 500px;
-    background-color: #4CAF50; /* Green background */
+    background-color: #000000; /* Green background */
     color: white; /* White text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Rounded corners */
@@ -33,7 +33,9 @@
     margin: 0 auto;
     background: white;
     border-radius: 15px;
-    padding: 2rem;
+    margin-top: 50;
+    padding: 200rem;
+    padding: 10px 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   

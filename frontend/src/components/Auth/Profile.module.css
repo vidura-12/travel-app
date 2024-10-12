@@ -1,0 +1,129 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    background-color: #f0f4f8;
+    color: #2d3748;
+}
+
+/* Profile Page Layout */
+.profileContainer {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Profile Content */
+.profileContent {
+    flex-grow: 1;  /* Take up remaining space */
+    padding: 40px;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    background: url('https://cdn.pixabay.com/photo/2020/02/06/10/08/sunrise-4823732_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Form Container */
+.formContainer {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgb(228, 227, 226);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(56, 41, 41, 0.1);
+}
+
+/* Form Title */
+.formTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1b1d1c;
+}
+
+/* Form Group */
+.formGroup {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
+    color: #4a5568;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    border-color: #2e8b57;
+}
+
+.inputError {
+    border-color: #e53e3e;
+}
+
+.errorMessage {
+    color: #e53e3e;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.formRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formRow .formGroup {
+    flex: 0 0 48%;
+}
+
+/* Submit Button */
+.submitButton {
+    background-color: #151cd5;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+    background-color: #276749;
+}
+
+/* Success Message */
+.successMessage {
+    color: #48bb78;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Disabled Input */
+.disabledInput {
+    background-color: #e2e8f0;
+    color: #718096;
+    cursor: not-allowed;
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+}

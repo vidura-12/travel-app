@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Change this to useNavigate
+import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
 import './sellersignin.css';
 
 const SellerSignIn = () => {
@@ -30,22 +30,23 @@ const SellerSignIn = () => {
       // Save token and user email in local storage
       localStorage.setItem('token', token);
       localStorage.setItem('email', email);
-
-      // Redirect based on role
+        // Redirect based on role
       switch (role) {
         case 'Hotel Owner':
-          navigate('/admin-dashboard'); // Admin dashboard route
+          navigate('/hotelowner/dashboard'); // Admin dashboard route
           break;
-          case 'Tour Guide':
-            navigate('/travelagent/dashGuide'); // Admin dashboard route
-            break;
+        case 'Tour Guide':
+          navigate('/travelagent/dashGuide'); // Admin dashboard route
+          break;
         case 'Travel Agency':
-          navigate('/scheduler/Sellersregister'); // Event Manager dashboard route
+          navigate('/Sellersprofile'); // Event Manager dashboard route
           break;
         case 'Event Manager':
           navigate('/EventManager/Dashboard'); // Vehicle Owner dashboard route
           break;
         case 'Vehicle Owner':
+          navigate('/vehicle-owner-dashboard');
+          break;
         default:
           navigate('/package-seller-dashboard'); // Default to package seller dashboard
           break;
@@ -89,6 +90,9 @@ const SellerSignIn = () => {
               </div>
               <button type="submit" className="btn btn-success">Sign In</button>
             </form>
+            <div className="mt-3">
+              <p>Don't have an account? <Link to="/sellersignup">Sign up here</Link></p> {/* Link to sign-up page */}
+            </div>
           </center>
         </div>
       </div>

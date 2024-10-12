@@ -53,9 +53,10 @@ const UserSupportHome = () => {
                 <div className="row justify-content-center">
                     {[
                         { name: 'Add Feedback', path: '/feedbackForm', img: 'feedback1' },
-                        { name: 'Contact Us', path: '/contactus', img: 'contact' },
-                        { name: 'Chatbox', path: '/AFAQ', img: 'chatbox' },
-                        { name: 'Add Review', path: '/AddRating', img: 'review1' },
+                        { name: 'Contact Us', path: '/contactus', img: 'contact' }, 
+                        { name: 'Chatbox', path: '/chatbox', img: 'chatbox' },
+                        { name: 'Add Review', path: '/review', img: 'review1' },
+ 
                         { name: 'FAQs', path: '/FAQ', img: 'faq1' }
                     ].map((item, index) => (
                         <div key={index} className="col-md-2 col-sm-6 mb-4 d-flex justify-content-center">

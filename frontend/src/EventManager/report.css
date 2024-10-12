@@ -1,20 +1,232 @@
-.report-container {
-  padding: 20px;
+/* Adding specific class prefix for the ticket report page to avoid conflicts */
+
+.ticketReport-dashboard-body {
+  margin-top: 40px;
+  background-color: #f4f7fc;
+  padding: 8rem;
 }
 
-.report-table {
+.ticketReport-btn-report {
+  margin-top: 10px;
+  margin-left: 500px;
+  background-color: #000000; /* Black background */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 20px; /* Top/bottom and left/right padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition effects */
+}
+
+.ticketReport-btn-report:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+.ticketReport-btn-report:active {
+  background-color: #3e8e41; /* Even darker green when clicked */
+  transform: translateY(0); /* Reset lift effect */
+}
+
+.ticketReport-dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  margin-top: 50;
+  padding: 200rem;
+  padding: 10px 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ticketReport-dashboard-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ticketReport-dashboard-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.report-table th,
-.report-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
   text-align: left;
 }
 
-.report-table th {
-  background-color: #f2f2f2;
+.ticketReport-dashboard-table th,
+.ticketReport-dashboard-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
 }
+
+.ticketReport-dashboard-table th {
+  background-color: #687786;
+  color: white;
+  font-weight: bold;
+}
+
+.ticketReport-dashboard-table tbody tr:hover {
+  background-color: #f2f4f8;
+}
+
+.ticketReport-table-img {
+  max-width: 80px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.ticketReport-table-img:hover {
+  transform: scale(1.1);
+}
+
+.ticketReport-status-approved {
+  color: green;
+  font-weight: bold;
+}
+
+.ticketReport-status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.ticketReport-status-rejected {
+  color: red;
+  font-weight: bold;
+}
+
+.ticketReport-action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.ticketReport-btn-approve {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ticketReport-btn-approve:hover {
+  background-color: #218838;
+}
+
+.ticketReport-btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ticketReport-btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Modal styles */
+.ticketReport-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.ticketReport-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 80%;
+  max-height: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ticketReport-modal-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.ticketReport-download-report-btn {
+  background-color: #16a085;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.ticketReport-download-report-btn:hover {
+  background-color: #1abc9c;
+}
+
+
+.ticketReport-btn-view {
+  margin-top: 20px; /* Space above the button */
+  padding: 10px 20px; /* Padding for the button */
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+}
+
+.ticketReport-btn-view:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+
+
+
+
+/* report.css */
+.ticketReport-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ticketReport-dashboard-table th,
+.ticketReport-dashboard-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.ticketReport-dashboard-table th {
+  background-color: #687786;
+}
+
+.ticketReport-btn-delete {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.ticketReport-btn-generate {
+  margin-bottom: 10px; /* Space between button and table */
+  background-color: #020406; /* Adjust color as needed */
+  color: white;
+  padding: 9px 100px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ticketReport-btn-generate:hover {
+  background-color: #4a4959; /* Darker shade on hover */
+}
+
+

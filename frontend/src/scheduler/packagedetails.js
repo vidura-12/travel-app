@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './packagedetails.css';
+import Swal from 'sweetalert2';
 
 const Dashboard = () => {
   const [packages, setPackages] = useState([]);
@@ -47,13 +48,24 @@ const Dashboard = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to deny this package?');
-    if (confirmDelete) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, deny it!'
+    });
+
+    if (result.isConfirmed) {
       try {
         await axios.delete(`http://localhost:8081/packages/${id}`);
         setPackages(packages.filter((pkg) => pkg._id !== id));
+        Swal.fire('Denied!', 'The package has been denied.', 'success');
       } catch (err) {
         setError(err.message);
+        Swal.fire('Error!', err.message, 'error');
       }
     }
   };
@@ -72,6 +84,7 @@ const Dashboard = () => {
       });
 
       setPackages(updatedPackages);
+      Swal.fire('Approved!', 'The package has been approved.', 'success');
     } catch (error) {
       console.error('Error approving package:', error.response?.data || error.message);
       if (error.response && error.response.status === 401) {
@@ -79,7 +92,7 @@ const Dashboard = () => {
         localStorage.removeItem('token');
         navigate('/admin/login');
       } else {
-        alert('An error occurred while approving the package.');
+        Swal.fire('Error!', 'An error occurred while approving the package.', 'error');
       }
     }
   };
@@ -160,9 +173,13 @@ const Dashboard = () => {
 
   return (
     <div className='dash location-dashboard-body'>
-      <div className="dashboard1 location-dashboard-container">
+      <div className="">
         <h1 className='title1 location-dashboard-title'>Travel Package Details</h1>
+        <div className='cen'>
+        <center>
         <button className="btn btn-primary" onClick={generatePDF}>Download PDF</button>
+        </center>
+        </div>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>
         ) : (
@@ -184,27 +201,50 @@ const Dashboard = () => {
             <tbody>
               {packages.map((pkg) => (
                 <tr key={pkg._id}>
-                  <td>{pkg.agencyName}</td>
-                  <td>{pkg.phoneNumber}</td>
-                  <td>{pkg.email}</td>
-                  <td>{pkg.location}</td>
-                  <td>{pkg.places.join(', ')}</td>
-                  <td>{pkg.maxPeople}</td>
-                  <td>{pkg.price}</td>
-                  <td>
-                    <img
-                      src={`/img/${pkg.image}`}
-                      alt={pkg.agencyName}
-                      width="100"
-                      onClick={() => handleImageClick(`/img/${pkg.image}`)}
-                      className="location-table-img"
-                    />
-                  </td>
-                  <td>{pkg.status}</td>
-                  <td className="location-action-buttons">
-                    <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
-                    <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
-                  </td>
+                  {editId === pkg._id ? (
+                    <>
+                      <td><input type="text" name="agencyName" value={editedPackage.agencyName} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="phoneNumber" value={editedPackage.phoneNumber} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="email" value={editedPackage.email} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="location" value={editedPackage.location} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="places" value={editedPackage.places} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="maxPeople" value={editedPackage.maxPeople} onChange={handleEditChange} /></td>
+                      <td><input type="text" name="price" value={editedPackage.price} onChange={handleEditChange} /></td>
+                      <td>
+                        <input type="file" name="image" onChange={(e) => setEditedPackage({ ...editedPackage, imageFile: e.target.files[0] })} />
+                      </td>
+                      <td>{pkg.status}</td>
+                      <td>
+                        <button  className="location-btn-approve" onClick={() => handleSave(pkg._id)}>Save</button>
+                        <button className="location-btn-delete" onClick={() => setEditId(null)}>Cancel</button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{pkg.agencyName}</td>
+                      <td>{pkg.phoneNumber}</td>
+                      <td>{pkg.email}</td>
+                      <td>{pkg.location}</td>
+                      <td>{pkg.places.join(', ')}</td>
+                      <td>{pkg.maxPeople}</td>
+                      <td>{pkg.price}</td>
+                      <td>
+                        <img
+                          src={`/img/${pkg.image}`}
+                          alt={pkg.agencyName}
+                          width="100"
+                          onClick={() => handleImageClick(`/img/${pkg.image}`)}
+                          className="location-table-img"
+                        />
+                      </td>
+                      <td>{pkg.status}</td>
+                      <td className="location-action-buttons">
+                        <button className="location-btn-approve" onClick={() => handleApprove(pkg._id)}>Approve</button>
+                        <button className="location-btn-delete" onClick={() => handleDelete(pkg._id)}>Deny</button>
+                        <button className="location-btn-approve" onClick={() => handleEditClick(pkg)}>Edit</button>
+                      </td>
+                    </>
+                  )}
                 </tr>
               ))}
             </tbody>

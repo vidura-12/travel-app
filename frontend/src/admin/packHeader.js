@@ -17,12 +17,14 @@ const Header = () => {
                     <a className="nav-link-header" href="/scheduladmin">DashBoard</a>
                 </li>
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="#">Report</a>
-                    <a className="nav-link-header" href="#">Package sellers</a>
-                    <a className="nav-link-header" href="/packagedetails">Travel packages</a>
-
                     
+                    <a className="nav-link-header" href="/scheduler/Sellersregister">Package sellers</a>
+                    </li>
+                <li className="menu-item-header">    
+                    <a className="nav-link-header" href="/packagedetails">Travel packages</a>
                 </li>
+                    
+                
             </ul>
             <div className="profile-header">
                 <button className="nav-link-profile-header" onClick={() => navigate('/Admin/profile')}>Profile</button>
