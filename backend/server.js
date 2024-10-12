@@ -2,13 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+ 
 require("dotenv").config();
-const path = require('path');
+const path = require('path'); 
 // Import routes
 const eventsRoutes = require('./routes/Event.js');
 const authRoutes = require('./routes/auth');
-const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
+ cationAdmin = require('./routes/Locationadmin');
+ 
 const ticketRoutes = require('./routes/ticket');
 const packageRoutes = require('./routes/package');
 const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
@@ -19,7 +21,7 @@ const locationAdmin = require('./routes/Locationadmin');
 const bodyParser = require('body-parser');
 const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const vehicleRoutes = require('./routes/vehicleRoutes');
-const bookingRoutes = require('./routes/bookingRoutes');
+const bookingRoutes = require('./routes/bookingRoutes'); 
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
 const sellerlog = require('./routes/sellerlog');
@@ -40,12 +42,10 @@ mongoose.connect(URL)
     .catch((error) => {
         console.error("Connection error:", error);
     });
-
+ 
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);
-// Uncomment the line below if needed
-// app.use('/vehicle', vehicleRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/packages', packageRoutes);
 app.use('/event', eventsRoutes);
@@ -53,6 +53,7 @@ app.use('/locationAdmin', locationAdmin);
 app.use('/FeedBack', addRoute1); // Feedback route
 app.use('/sellerlog', sellerlog);
 
+ 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/vehicles', vehicleRoutes);
@@ -73,8 +74,7 @@ app.get('/', (req, res) => {
 
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
-
-
+ 
 // Start the server
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);

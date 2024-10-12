@@ -148,7 +148,8 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.error(err);
         res.status(500).jso({err: "Server Err"})
-    }
+}
 });
-
+ 
 module.exports = router;
+ 

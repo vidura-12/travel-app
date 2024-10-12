@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Profile() {
   const navigate = useNavigate();
-  const { id } = useParams(); 
-  const loggedInUserId = localStorage.getItem('loggedInGuideId'); // Fetch the correct key
+  const { id } = useParams();   
   const userId = id || loggedInUserId; 
 
   const [isEditing, setIsEditing] = useState(false);

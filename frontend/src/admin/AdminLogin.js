@@ -59,7 +59,10 @@ const AdminLogin = () => {
           navigate('/dvbxbjkds');
           break;
           case 'tourGuide_manager':
-          navigate('/travelagent/approveDeny');
+ 
+           navigate('/travelagent/approveDeny');
+ 
+          navigate('/travelagent/approveDeny'); 
           break;
           case 'support_manager':
             navigate('/usersupporter/dashboard');

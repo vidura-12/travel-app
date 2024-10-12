@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap is imported
 import { FaStar } from 'react-icons/fa';
-import axios from 'axios'; // Import axios for API calls
 
-const Review = () => {
+const AddRating = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [error, setError] = useState(''); // State for error message
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [totalReviews, setTotalReviews] = useState(25); // State to track the total number of reviews
 
   // Dummy data for current rating
@@ -21,33 +19,18 @@ const Review = () => {
     setError(''); // Clear error message when rating is selected
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (rating === 0) {
       setError('Please select a rating before submitting.'); // Set error if no rating
       return; // Stop further execution
     }
 
-    try {
-      // Submit review to backend (mock API for now)
-      const response = await axios.post('http://localhost:8081/reviews/add', {
-        rating,
-        percentage,
-      });
-
-      if (response.status === 200) {
-        setSubmitted(true);
-        setError(''); // Clear error message if submission is successful
-        setShowModal(true); // Show the modal popup
-        setTotalReviews(prevCount => prevCount + 1); // Increment the review count
-      }
-    } catch (err) {
-      // Handle errors
-      setError('Error submitting review. Please try again later.');
-    }
+    setSubmitted(true);
+    setError(''); // Clear error message if submission is successful
+    setTotalReviews(prevCount => prevCount + 1); // Increment the review count
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false); // Close modal after clicking OK
+  const handleClose = () => {
     setSubmitted(false); // Reset submitted to allow for further submissions
     setRating(0); // Reset rating
     setPercentage(0); // Reset percentage
@@ -154,45 +137,13 @@ const Review = () => {
           {submitted && (
             <div className="alert alert-success mt-3 text-center" role="alert">
               Thank you for your review!
+              <button className="btn btn-secondary mt-2" onClick={handleClose}>Close</button>
             </div>
           )}
         </div>
       </div>
-
-      {/* Bootstrap Modal */}
-      {showModal && (
-        <div
-          className="modal show d-block"
-          tabIndex="-1"
-          role="dialog"
-          style={{ background: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Review Submitted</h5>
-                <button type="button" className="close" onClick={handleCloseModal}>
-                  <span>&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <p>Your review has been submitted successfully!</p>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleCloseModal}
-                >
-                  OK
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default Review;
+export default AddRating;
