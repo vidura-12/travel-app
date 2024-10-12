@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
- 
 import axios from "axios"; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,14 +22,13 @@ export default function GuideLog() {
  
       if (response && response.data.status === "ok") {
         alert("Login Success");
- 
+
         // Store the guide ID in localStorage
         localStorage.setItem('loggedInGuideId', response.data.guideId);
         
         // Navigate to the profile page with the ID as a parameter
         navigate(`/profileGuide/${response.data.guideId}`);
       } else if (response.data.error) {
- 
         alert(response.data.error); // User not found
       } else if (response.data.err) {
         alert(response.data.err); // Incorrect password
@@ -69,20 +67,15 @@ export default function GuideLog() {
         borderRadius: '15px',
         padding: '30px',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
- 
         width: '90%', // Adjusted width for mobile responsiveness
         maxWidth: '600px',
- 
-        width: '600px', 
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         zIndex: 2
       }}>
-        <h2 className="text-center mb-4" style={{ fontWeight: 'bold', color: 'black' }}>Login Tour Guide</h2> 
+        <h2 className="text-center mb-4" style={{ fontWeight: 'bold', color: 'black' }}>Login Tour Guide</h2>
         <div className="form-group-Guide mb-3" style={{ width: '100%' }}>
- 
-        <div className="form-group-Guide"> 
           <label>Email:</label>
           <input
             type="email"
@@ -92,10 +85,8 @@ export default function GuideLog() {
             onChange={handleChange}
             required
           />
-        </div> 
+        </div>
         <div className="form-group-Guide mb-3" style={{ width: '100%' }}>
-
-        <div className="form-group-Guide"> 
           <label>Password:</label>
           <input
             type="password"
