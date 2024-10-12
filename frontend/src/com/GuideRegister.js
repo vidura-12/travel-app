@@ -25,18 +25,25 @@ export default function Register() {
 
     switch (name) {
       case 'name':
-        // Only allow alphabet characters and ensure the first letter is capital
-        newValue = value.replace(/[^a-zA-Z\s]/g, ''); // Remove non-alphabet characters
+        // Allow only alphabet characters and spaces
+        newValue = value.replace(/[^a-zA-Z\s]/g, ''); 
+        // Capitalize first letter
         if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
           newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
         }
         break;
 
       case 'email':
-        // Ensure email starts with lowercase and allow valid email characters
-        newValue = value.replace(/[^a-zA-Z0-9@._-]/g, ''); // Remove invalid email characters
-        if (newValue && newValue[0] !== newValue[0].toLowerCase()) {
-          newValue = newValue.charAt(0).toLowerCase() + newValue.slice(1);
+        // Allow valid email characters
+        newValue = value.replace(/[^a-z0-9._%+-@]/g, ''); // Lowercase letters, digits, and valid email characters
+        break;
+
+      case 'address':
+        // Allow alphanumeric characters, spaces, and some punctuation
+        newValue = value.replace(/[^a-zA-Z0-9\s.,-]/g, ''); // Alphanumeric, spaces, periods, commas, hyphens
+        // Capitalize first letter
+        if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
+          newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
         }
         break;
 
@@ -48,17 +55,19 @@ export default function Register() {
         }
         break;
 
-      case 'password':
-        // Only allow numbers and ensure at least 4 digits
+      case 'experience':
+        // Allow only numbers (for years of experience)
         newValue = value.replace(/\D/g, ''); // Remove non-digit characters
         break;
 
-      case 'address':
-        // Ensure address starts with a capital letter
-        newValue = value.replace(/[^a-zA-Z0-9\s]/g, ''); // Remove non-alphanumeric characters
-        if (newValue && newValue[0] !== newValue[0].toUpperCase()) {
-          newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-        }
+      case 'username':
+        // Allow alphanumeric characters, underscores, and periods
+        newValue = value.replace(/[^a-zA-Z0-9._]/g, ''); // Alphanumeric, underscores, and periods
+        break;
+
+      case 'password':
+        // Allow alphanumeric characters and special characters
+        newValue = value.replace(/[^a-zA-Z0-9!@#$%^&*]/g, ''); // Customize as needed
         break;
 
       default:
@@ -71,6 +80,7 @@ export default function Register() {
     });
   };
 
+
   const guideSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -80,7 +90,7 @@ export default function Register() {
         },
       });
 
-      navigate('/profileGuide', { state: formData });
+      navigate('/guideLog', { state: formData });
 
       setFormData({
         name: '',

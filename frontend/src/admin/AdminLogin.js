@@ -56,17 +56,14 @@ const AdminLogin = () => {
           navigate('/EventManager/Admin');
           break;
         case 'vehicle_manager':
-          navigate('/vehicle-manager/dashboard');
+          navigate('/dvbxbjkds');
           break;
-        case 'tourGuide_manager':
-          navigate('/travelagent/dashboard');
+          case 'tourGuide_manager':
+          navigate('/travelagent/approveDeny');
           break;
-        case 'hotel_manager':
-          navigate('/hotelmanager/dashboard');
-          break;  
-        case 'support_manager':
-          navigate('/usersupporter/dashboard');
-          break;
+          case 'support_manager':
+            navigate('/usersupporter/dashboard');
+            break;
           
         default:
           setError('Unknown role');

@@ -1,8 +1,16 @@
 import React from 'react';
 import './stl.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 
 function Header2() {
+  const navigate = useNavigate(); // Move useNavigate inside the component
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedInUserId'); // Remove logged-in user data from localStorage
+    alert('You have been logged out successfully!');
+    navigate('/guideLog'); // Redirect to the login page
+  };
+
   return (
     <div>
       <section className="home-section">
@@ -15,15 +23,12 @@ function Header2() {
               <h3>TravelMate</h3>
             </div>
             <div className="menu-container">
-             
               <ul className="menu-list">
                 <li><Link to="/travelagent/dashGuide">Dashboard</Link></li> 
-                 
               </ul>
             </div>
             <div className="auth-container">
-              <a href="#">LogIn</a>
-              <a href="#">SignUp</a>
+              <a className="nav-link-profile-logout-header1" onClick={handleLogout}>LogOut</a>
             </div>
           </nav>
         </div>
