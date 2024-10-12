@@ -18,7 +18,7 @@ const ChecklistDisplay = () => {
   useEffect(() => {
     const fetchChecklists = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/checklists', {
+        const response = await axios.get('http://localhost:8081/api/checklists', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setChecklists(response.data);
