@@ -14,7 +14,6 @@ export default function Register() {
   useEffect(() => {
     const fetchTourGuides = async () => {
       try {
-        // Fetch all tour guides and filter out the already approved ones
         const response = await axios.get('http://localhost:8081/TourGuide/all');
         const unapprovedGuides = response.data.filter(
           guide => !approvedGuides.some(approved => approved._id === guide._id)
@@ -30,20 +29,15 @@ export default function Register() {
 
   const handleApprove = (guide) => {
     if (window.confirm('Are you sure you want to approve this tour guide?')) {
-      // Add the approved guide to local storage
       const updatedApprovedGuides = [...approvedGuides, guide];
       localStorage.setItem('approvedGuides', JSON.stringify(updatedApprovedGuides));
       setApprovedGuides(updatedApprovedGuides);
-
-      // Remove the approved guide from the frontend display
       setTourGuides(tourGuides.filter(g => g._id !== guide._id));
-      
       alert('Tour guide approved successfully!');
     }
   };
 
   const handleViewBookings = () => {
-    // Navigate to the BookTourist page where the approved guides will be displayed
     navigate('/booktourist');
   };
 
@@ -82,7 +76,7 @@ export default function Register() {
         marginTop: '50px'
       }}>
         <h2 className="text-center mb-4">Tour Guides</h2>
-         
+        
         <div style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
             <thead className="thead-dark">
@@ -121,8 +115,6 @@ export default function Register() {
                           transition: 'background-color 0.3s ease',
                         }}
                         onClick={() => handleApprove(guide)}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'} // Darker green on hover
-                        onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'} // Original color
                       >
                         Approve
                       </button>
@@ -139,8 +131,6 @@ export default function Register() {
                           transition: 'background-color 0.3s ease',
                         }}
                         onClick={() => handleDeny(guide._id)}
-                        onMouseEnter={(e) => e.target.style.backgroundColor = '#c82333'} // Darker red on hover
-                        onMouseLeave={(e) => e.target.style.backgroundColor = '#dc3545'} // Original color
                       >
                         Deny
                       </button>

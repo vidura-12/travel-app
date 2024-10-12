@@ -43,22 +43,25 @@ import AgentApproveDeny from './travelagent/approveDeny';
 import AgentBooked from './travelagent/booktourist'; 
 import AgentGuideDash from './travelagent/dashGuide';
 import AgentGuideHeader from './travelagent/guideHeader';
+import AgentLog from './com/guideLog';
 import AgentTouristBooked from './travelagent/touristBooked';
+import AgentproGuide from './com/profileGuide';
 
 import AgentAll from './com/allGuides';
 import AgentBGuide from './com/bookGuide';
-import AgentGuide from './com/guide';
-import AgentproGuide from './com/profileGuide';
+import AgentGuide from './com/guide'; 
 import AgentRegister from './com/GuideRegister'; 
+import AgentReport from './travelagent/Guidereport';
 
 
 // Location Manager Components
 import Location_Home from './locationmanager/home';
 
 import UserSupportHome from './com/UserSupportHome'; // New component
-import Chatbox from './com/Chatbox';
 import FAQ from './com/FAQ';
+import FAQChatApp from './com/FAQChatApp'; // New FAQ and chatbox component
 import ContactUs from './com/ContactUs';
+import AddRating from './com/AddRating';
 
 import LocationsSummary from './locationmanager/LocationsSummary';
 
@@ -75,7 +78,6 @@ import SellerRegister from './scheduler/Sellerregister';
 
 import SellerSignIn from './scheduler/sellersignin';
 
-import AdminChatDashboard from './usersupporter/AdminChatDashboard';
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';
@@ -87,6 +89,8 @@ import Dashboard from './EventManager/Dashbord';
 import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
+import Rating from './usersupporter/AdminRating';
+
 
 
 
@@ -95,18 +99,19 @@ function App() {
     <Router>
       <Routes>
         {/* Public Routes */}
+        <Route path='/usersupporter/AdminRating' element={<UserSupportLayOut><Rating/></UserSupportLayOut>} />
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
-        <Route path="/admin/chat-dashboard" element={<AdminLayout><AdminChatDashboard /></AdminLayout>} />
         <Route path="/admin/dash" element={<AdminLayout><FeedDash /></AdminLayout>} />
         <Route path="/UserSupportHome" element={<UserLayout><UserSupportHome /></UserLayout>} />
         <Route path="/review" element={<UserLayout><Review /></UserLayout>} />
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
         <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
         <Route path="/allFeedBack" element={<UserLayout><allFeedBack /></UserLayout>} />
-        <Route path="/Chatbox" element={<UserLayout><Chatbox /></UserLayout>} />
         <Route path="/FAQ" element={<UserLayout><FAQ /></UserLayout>} />
+        <Route path="/AFAQ" element={<UserLayout><FAQChatApp /></UserLayout>} />
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
+        <Route path="/AddRating" element={<UserLayout><AddRating /></UserLayout>} />
         
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
@@ -119,6 +124,7 @@ function App() {
         <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
         <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
+        <Route path="/guideLog" element={<UserLayout><AgentLog/></UserLayout>} /> 
 
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
         <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
@@ -141,7 +147,6 @@ function App() {
         <Route path="/feedRite" element={<UserLayout><FeedbackList /></UserLayout>} />
         <Route path="/feedbackForm" element={<UserLayout><FeedbackForm /></UserLayout>} />
         <Route path="/allFeedBack" element={<UserLayout><allFeedBack /></UserLayout>} />
-        <Route path="/Chatbox" element={<UserLayout><Chatbox /></UserLayout>} />
         <Route path="/FAQ" element={<UserLayout><FAQ /></UserLayout>} />
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
 
@@ -170,8 +175,9 @@ function App() {
          <Route path="/travelagent/approveDeny" element={<TravelAgentLayout><AgentApproveDeny /></TravelAgentLayout>} />
          <Route path="/travelagent/dashGuide" element={<TourGuideLayout><AgentGuideDash /></TourGuideLayout>} />
          <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
-         <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
-         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+         <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} /> 
+         <Route path="/travelagent/Guidereport" element={<TravelAgentLayout><AgentReport /></TravelAgentLayout>} />
+         <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} />
          
          
         {/* Location Manager Routes */}
@@ -194,7 +200,7 @@ function App() {
 
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
-
+        <Route path='/usersupporter/AdminRating' element={<UserSupportLayOut><Review/></UserSupportLayOut>} />
        
       </Routes>
     </Router>
