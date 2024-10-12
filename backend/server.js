@@ -9,7 +9,7 @@ const eventsRoutes = require('./routes/Event.js');
 const authRoutes = require('./routes/auth');
 const middle = require('./middleware/auth');
 const locationRoutes = require('./routes/Location');
-
+const ticketRoutes = require('./routes/ticket');
 const packageRoutes = require('./routes/package');
 const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
 const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
@@ -91,3 +91,4 @@ app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')
 app.use('/api', bookingRoutes);
 const weatherRoutes = require('./routes/weatherRoutes');
 app.use('/apiwe', weatherRoutes); // Add this line to use the new weather routes
+app.use('/ticket',ticketRoutes);
