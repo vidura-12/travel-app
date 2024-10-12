@@ -92,7 +92,8 @@ function EventView() {
                   <p className="card-text">
                     <strong>Price:</strong> RS.{event.price}
                   </p>
-                  <Link to={`/ticket/${event._id}`}>
+                  <Link 
+                    to={`/ticket/${event._id}?name=${encodeURIComponent(event.name)}&category=${encodeURIComponent(event.category)}&price=${event.price}&image=${encodeURIComponent(event.image)}&ticketCriteria=${encodeURIComponent(JSON.stringify(event.ticketCriteria || {}))}`}>
                     <button className="btn btn-primary">
                       Join Now
                     </button>
