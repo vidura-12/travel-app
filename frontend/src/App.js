@@ -14,7 +14,7 @@ import Login from './components/Auth/Login';
 import Profile from './components/Auth/Profile';
 import HotelLayout from './HotelLayout';
 import HotelComp from './HotelComp';
-
+import AddRating from './com/AddRating'
 import ChecklistForm from './components/Check/ChecklistForm';
 import ChecklistDisplay from './components/Check/ChecklistDisplay';
 import ChecklistItem from './components/Check/ChecklistItem';
@@ -56,15 +56,12 @@ import AgentLog from './com/guideLog';
 import AgentTouristBooked from './travelagent/touristBooked';
  
 import AgentReport from './travelagent/Guidereport';
- 
-import AgentReport from './travelagent/Guidereport'
 
 import AgentAll from './com/allGuides';
 import AgentBGuide from './com/bookGuide';
 import AgentGuide from './com/guide';
 import AgentproGuide from './com/profileGuide';
 import AgentRegister from './com/GuideRegister';
-import AgentLog from './com/guideLog';  
 
 
 // Location Manager Components
@@ -107,8 +104,6 @@ import Approveseller from './scheduler/approvedPackages';
 
  
 
-import Approvepack from './scheduler/approvedPackages'
-import AdminChatDashboard from './usersupporter/AdminChatDashboard'; 
 import AddEvent from './EventManager/addEvent'
 import EventList from './EventManager/EventList';
 import EventView from './com/eventView';

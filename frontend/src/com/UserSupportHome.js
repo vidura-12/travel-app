@@ -54,7 +54,7 @@ const UserSupportHome = () => {
                     {[
                         { name: 'Add Feedback', path: '/feedbackForm', img: 'feedback1' },
                         { name: 'Contact Us', path: '/contactus', img: 'contact' }, 
-                        { name: 'Chatbox', path: '/chatbox', img: 'chatbox' },
+                        { name: 'Chatbox', path: '/AFAQ', img: 'chatbox' },
                         { name: 'Add Review', path: '/review', img: 'review1' },
  
                         { name: 'FAQs', path: '/FAQ', img: 'faq1' }
