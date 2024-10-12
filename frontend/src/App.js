@@ -44,12 +44,14 @@ import AgentBooked from './travelagent/booktourist';
 import AgentGuideDash from './travelagent/dashGuide';
 import AgentGuideHeader from './travelagent/guideHeader';
 import AgentTouristBooked from './travelagent/touristBooked';
+import AgentReport from './travelagent/Guidereport'
 
 import AgentAll from './com/allGuides';
 import AgentBGuide from './com/bookGuide';
 import AgentGuide from './com/guide';
 import AgentproGuide from './com/profileGuide';
-import AgentRegister from './com/GuideRegister'; 
+import AgentRegister from './com/GuideRegister';
+import AgentLog from './com/guideLog'; 
 
 
 // Location Manager Components
@@ -119,6 +121,8 @@ function App() {
         <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
         <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
+        <Route path="/guideLog" element={<UserLayout><AgentLog /></UserLayout>} /> 
+        <Route path="/profileGuide/:id" element={<AgentproGuide />} />
 
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
         <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
@@ -172,6 +176,7 @@ function App() {
          <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
          <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
          <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+         <Route path="/travelagent/Guidereport" element={<TravelAgentLayout><AgentReport /></TravelAgentLayout>} />
          
          
         {/* Location Manager Routes */}
