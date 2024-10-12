@@ -18,7 +18,8 @@ import HotelComp from './HotelComp';
 import ChecklistForm from './components/Check/ChecklistForm';
 import ChecklistDisplay from './components/Check/ChecklistDisplay';
 import ChecklistItem from './components/Check/ChecklistItem';
-
+import AdminReport from './EventManager/AdminReporte';
+import EventManagerProfile from './EventManager/EventOProfile';
 
 
 import Home from './com/home';
@@ -52,12 +53,14 @@ import AgentBooked from './travelagent/booktourist';
 import AgentGuideDash from './travelagent/dashGuide';
 import AgentGuideHeader from './travelagent/guideHeader';
 import AgentTouristBooked from './travelagent/touristBooked';
+import AgentReport from './travelagent/Guidereport'
 
 import AgentAll from './com/allGuides';
 import AgentBGuide from './com/bookGuide';
 import AgentGuide from './com/guide';
 import AgentproGuide from './com/profileGuide';
-import AgentRegister from './com/GuideRegister'; 
+import AgentRegister from './com/GuideRegister';
+import AgentLog from './com/guideLog'; 
 
 
 // Location Manager Components
@@ -157,6 +160,8 @@ function App() {
         <Route path="/bookGuide" element={<UserLayout><AgentBGuide /></UserLayout>} />
         <Route path="/guide" element={<UserLayout><AgentGuide /></UserLayout>} />
         <Route path="/guideRegister" element={<UserLayout><AgentRegister /></UserLayout>} /> 
+        <Route path="/guideLog" element={<UserLayout><AgentLog /></UserLayout>} /> 
+        <Route path="/profileGuide/:id" element={<AgentproGuide />} />
 
         <Route path="/EventManager/addEvent" element={<EventLayout><AddEvent/></EventLayout>} />
         <Route path="/EventManager/EventList" element={<EventLayout><EventList/></EventLayout>} />
@@ -208,6 +213,7 @@ function App() {
          <Route path="/travelagent/touristBooked" element={<TourGuideLayout><AgentTouristBooked /></TourGuideLayout>} />
          <Route path="/travelagent/guideHeader" element={<TourGuideLayout><AgentGuideHeader /></TourGuideLayout>} />
          <Route path="/profileGuide" element={<TourGuideLayout><AgentproGuide /></TourGuideLayout>} /> 
+         <Route path="/travelagent/Guidereport" element={<TravelAgentLayout><AgentReport /></TravelAgentLayout>} />
          
          {/* Route for hotel owner*/}
         
@@ -265,7 +271,9 @@ function App() {
         <Route path="/vehicle-manager/dashboard" element={<VehicleAdminLayout><VehicleAdminDashboard /></VehicleAdminLayout>} />
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
-       
+        <Route path="/EventManager/AdminReporte" element={<Adminevent><AdminReport/></Adminevent>} />
+        <Route path="/EventManager/EventOProfile" element={<EventLayout><EventManagerProfile/></EventLayout>} />
+
        
       </Routes>
     </Router>
