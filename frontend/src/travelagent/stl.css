@@ -6,7 +6,7 @@
     box-sizing: border-box;
     font-family: Poppins;
     text-decoration: none;
-    text-transform: capitalize;
+ 
     transition: .5s ease;
 }
 :root {

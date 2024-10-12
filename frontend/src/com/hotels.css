@@ -1,0 +1,161 @@
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background-color: #8b8b8b;
+    border-radius: 8px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    
+}
+
+.search-input {
+    min-width: 200px;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: width 0.3s ease;
+    margin-right: auto;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.dropdown-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #20c997;
+    cursor: pointer;
+    font-size: 14px;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.dropdown::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    pointer-events: none;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.checkbox-label:hover {
+    background-color: #f5f5f5;
+}
+
+.checkbox-label input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    margin-right: 10px;
+}
+
+.checkbox-label span {
+    margin-left: 0;
+}
+
+.checkbox-label input:checked + span {
+    font-weight: 500;
+    color: #0066cc;
+}
+
+.clear-filters-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0(255, 0, 0);
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.hotels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hotel-item-wrapper {
+    width: 100%;
+}
+
+.loading-message,
+.error-message,
+.no-hotels-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.error-message {
+    color: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: none;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-button {
+        width: 100%;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
+}

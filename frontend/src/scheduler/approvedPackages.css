@@ -1,0 +1,136 @@
+.body65 {
+    background-image: url('./sheduler image/p1.jpg'); /* Correct the image path */
+    background-size: cover;
+    background-position: center;
+    padding: 130px 0; 
+    position: relative;
+    height: 900px;
+}
+
+.seller-packages77 {
+    position: static;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.h2 {
+    text-align: center;
+    color: #444;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.loading, .error, .no-packages {
+    text-align: center;
+    font-size: 18px;
+    color: #ff4d4d; /* Use a red tone for errors or alerts */
+}
+
+.no-packages {
+    color: #555;
+}
+
+/* Table Styling */
+.packages-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.packages-table th,
+.packages-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.packages-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.packages-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.packages-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.package-image {
+    width: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .seller-packages77 {
+        padding: 10px;
+    }
+
+    .packages-table th, .packages-table td {
+        padding: 10px 8px;
+    }
+
+    .package-image {
+        width: 80px;
+    }
+}
+
+.popup-container {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Colorful gradient background */
+    padding: 20px;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Max width */
+    position: relative; /* Position for elements inside */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.popup-overlay {
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    right: 0; /* Align to right */
+    bottom: 0; /* Align to bottom */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* On top of other elements */
+  }
+  
+  .popup-container {
+    background-color: #d3d3d3; /* Ash color */
+    padding: 20px; /* Padding for container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    width: 400px; /* Set width */
+    max-width: 100%; /* Responsive max width */
+  }
+  
+  /* Styles for the form buttons */
+  button[type="submit"],
+  button[type="button"] {
+    margin-top: 10px; /* Space between buttons */
+  }
+  
+  /* Additional styling for inputs */
+  input {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for inputs */
+    margin: 10px 0; /* Space between inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  input:focus {
+    border-color: #4caf50; /* Border color on focus */
+    outline: none; /* Remove outline */
+  }

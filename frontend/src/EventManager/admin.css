@@ -33,7 +33,9 @@
     margin: 0 auto;
     background: white;
     border-radius: 15px;
-    padding: 2rem;
+    padding: 200rem;
+    padding:10px 20px;
+    margin-top:50px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   

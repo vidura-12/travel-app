@@ -110,13 +110,7 @@ const styles = `
     transform: scale(1.05);
 }
 
-button {
-    transition: background-color 0.3s ease;
-}
 
-button:hover {
-    background-color: #0056b3;
-}
 
 .animate__animated {
     animation-duration: 1s;
