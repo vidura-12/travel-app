@@ -18,7 +18,8 @@ import HotelComp from './HotelComp';
 import ChecklistForm from './components/Check/ChecklistForm';
 import ChecklistDisplay from './components/Check/ChecklistDisplay';
 import ChecklistItem from './components/Check/ChecklistItem';
-
+import AdminReport from './EventManager/AdminReporte';
+import EventManagerProfile from './EventManager/EventOProfile';
 
 
 import Home from './com/home';
@@ -270,7 +271,9 @@ function App() {
         <Route path="/vehicle-manager/dashboard" element={<VehicleAdminLayout><VehicleAdminDashboard /></VehicleAdminLayout>} />
         <Route path='/usersupporter/feedbackRetrive' element={<UserSupportLayOut><FeedRitrive /></UserSupportLayOut>} />
         <Route path= '/usersupporter/dashboard' element={<UserSupportLayOut><FeedDash /></UserSupportLayOut>} />
-       
+        <Route path="/EventManager/AdminReporte" element={<Adminevent><AdminReport/></Adminevent>} />
+        <Route path="/EventManager/EventOProfile" element={<EventLayout><EventManagerProfile/></EventLayout>} />
+
        
       </Routes>
     </Router>
