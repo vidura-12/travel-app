@@ -3,13 +3,19 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
+  vehicle_mybooking_content_Image:{
+    backgroundImage: 'url(/img/Vehicle_Owne_p.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '100vh',
+  },
   content: {
     marginTop: '100px',
   },
   title: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#333',
+    color: '#dedcdc',
     textAlign: 'center',
     margin: '20px 0',
   },
@@ -88,40 +94,42 @@ function VehicleOwner() {
   };
 
   return (
-    <div className='vehicle-mybooking-content'>
-      <div style={styles.content}>
-        <div style={styles.title}>My Bookings</div>
-        {error && <p style={styles.error}>{error}</p>}
-        <table style={styles.table}>
-          <thead style={styles.thead}>
-            <tr>
-              <th style={styles.th}>Vehicle</th>
-              <th style={styles.th}>Booked By</th>
-              <th style={styles.th}>Start Date</th>
-              <th style={styles.th}>End Date</th>
-              <th style={styles.th}>Price</th>
-              <th style={styles.th}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.length > 0 ? (
-              bookings.map((booking, index) => (
-                <tr key={booking._id} style={index % 2 === 0 ? styles.trEven : styles.trOdd}>
-                  <td style={styles.td}>{booking.vehicleId.make} {booking.vehicleId.model}</td>
-                  <td style={styles.td}>{booking.userName}</td>
-                  <td style={styles.td}>{new Date(booking.startDate).toLocaleDateString()}</td>
-                  <td style={styles.td}>{new Date(booking.returnDate).toLocaleDateString()}</td>
-                  <td style={styles.td}>LKR {booking.totalCost}</td>
-                  <td style={styles.td}>{booking.status}</td>
-                </tr>
-              ))
-            ) : (
+    <div style={styles.vehicle_mybooking_content_Image}>
+      <div className='vehicle-mybooking-content'>
+        <div style={styles.content}>
+          <div style={styles.title}>My Bookings</div>
+          {error && <p style={styles.error}>{error}</p>}
+          <table style={styles.table}>
+            <thead style={styles.thead}>
               <tr>
-                <td colSpan="6" style={styles.noBookings}>No bookings found</td>
+                <th style={styles.th}>Vehicle</th>
+                <th style={styles.th}>Booked By</th>
+                <th style={styles.th}>Start Date</th>
+                <th style={styles.th}>End Date</th>
+                <th style={styles.th}>Price</th>
+                <th style={styles.th}>Status</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bookings.length > 0 ? (
+                bookings.map((booking, index) => (
+                  <tr key={booking._id} style={index % 2 === 0 ? styles.trEven : styles.trOdd}>
+                    <td style={styles.td}>{booking.vehicleId.make} {booking.vehicleId.model}</td>
+                    <td style={styles.td}>{booking.userName}</td>
+                    <td style={styles.td}>{new Date(booking.startDate).toLocaleDateString()}</td>
+                    <td style={styles.td}>{new Date(booking.returnDate).toLocaleDateString()}</td>
+                    <td style={styles.td}>LKR {booking.totalCost}</td>
+                    <td style={styles.td}>{booking.status}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" style={styles.noBookings}>No bookings found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

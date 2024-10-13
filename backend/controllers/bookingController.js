@@ -3,8 +3,29 @@ const Vehicle = require('../models/Vehicle');
 
 exports.createBooking = async (req, res) => {
     const { vehicleId, userName, userEmail, userPhoneNumber, numberOfDays, additionalNotes, licenseId, startDate, totalCost } = req.body;
+    const userId = req.user.userId;
+
+    console.log('Create Booking Request:', {
+        userId,
+        vehicleId,
+        userName,
+        userEmail,
+        userPhoneNumber,
+        numberOfDays,
+        licenseId,
+        startDate,
+        totalCost,
+        additionalNotes,
+    });
 
     try {
+        
+        //const isBooked = await Booking.isVehicleBooked(vehicleId, startDate, req.body.returnDate);
+
+        // if (isBooked) {
+        //     return res.status(400).json({ msg: 'Vehicle is already booked for the specified dates' });
+        // }
+
         // Validate required fields
         if (!vehicleId || !userName || !userEmail || !userPhoneNumber || !numberOfDays || !licenseId || !startDate || !totalCost) {
             return res.status(400).json({ message: 'All fields are required' });
@@ -12,17 +33,25 @@ exports.createBooking = async (req, res) => {
 
         // Parse startDate to Date object
         const parsedStartDate = new Date(startDate);
-        const returnDate = new Date(parsedStartDate);
-        returnDate.setDate(returnDate.getDate() + parseInt(numberOfDays, 10));
+        const bookingReturnDate = new Date(parsedStartDate);
+        bookingReturnDate.setDate(bookingReturnDate.getDate() + parseInt(numberOfDays, 10));
+
+        const isBooked = await Booking.isVehicleBooked(vehicleId, parsedStartDate, bookingReturnDate);
+
+        if (isBooked) {
+            return res.status(400).json({ msg: 'Vehicle is already booked for the specified dates' });
+        }
+        bookingReturnDate.setDate(bookingReturnDate.getDate() + parseInt(numberOfDays, 10));
 
         const booking = new Booking({
             vehicleId,
+            userId,
             userName,
             userEmail,
             userPhoneNumber,
             numberOfDays,
             startDate: parsedStartDate,
-            returnDate: returnDate,
+            returnDate: bookingReturnDate,
             totalCost,
             additionalNotes,
             licenseId
@@ -52,7 +81,7 @@ exports.getBookingsForOwner = async (req, res) => {
         const { email } = req.user; // Extract email from req.user
         console.log('Extracted email from JWT:', email);
 
-        const vehicles = await Vehicle.find({ email });
+        const vehicles = await Vehicle.find({ ownerEmail: email });
         console.log('Found vehicles for the owner:', vehicles);
 
         if (vehicles.length === 0) {
@@ -65,6 +94,29 @@ exports.getBookingsForOwner = async (req, res) => {
 
         const bookings = await Booking.find({ vehicleId: { $in: vehicleIds } }).populate('vehicleId');
         console.log('Found bookings for the owner:', bookings);
+
+        res.json({ success: true, data: bookings });
+    } catch (error) {
+        console.error('Error fetching bookings:', error.message);
+        res.status(500).json({ success: false, message: 'Failed to fetch bookings', error: error.stack });
+    }
+};
+
+exports.getBookingsForUser = async (req, res) => {
+    try {
+        console.log('Received request to get bookings for user');
+
+        // Check for user and email
+        if (!req.user || !req.user.email) {
+            console.error('No email found in JWT payload');
+            return res.status(400).json({ success: false, message: 'No email found' });
+        }
+
+        const { id } = req.user; // Extract email from req.user
+        console.log('Extracted email from JWT:', id);
+
+        const bookings = await Booking.find({ userId: id }).populate('vehicleId');
+        console.log('Found bookings for the user:', bookings);
 
         res.json({ success: true, data: bookings });
     } catch (error) {

@@ -96,8 +96,8 @@ const styles = {
   },
   buttonStyle: {
     display: 'inline-block',
-    padding: '10px 20px',
-    backgroundColor: '#0056b3',
+    padding: '12px 22px',
+    backgroundColor: '#076ede',
     color: '#fff',
     border: 'none',
     borderRadius: '10px',

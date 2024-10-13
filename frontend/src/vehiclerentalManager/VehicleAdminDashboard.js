@@ -213,7 +213,7 @@ const AdminVehicleManagement = () => {
                       className="vehicle-vehicleImageStyle" 
                     />
                   </td>
-                  <td className="vehicle-td">{vehicle.email}</td>
+                  <td className="vehicle-td">{vehicle.ownerEmail}</td>
                   <td className="vehicle-td">{vehicle.make}</td>
                   <td className="vehicle-td">{vehicle.model}</td>
                   <td className="vehicle-td">{vehicle.color}</td>
