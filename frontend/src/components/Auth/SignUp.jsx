@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importing useNavigate
-import styles from './SignUp.module.css'; // Importing the CSS module
+import { useNavigate } from 'react-router-dom';
+import styles from './SignUp.module.css';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -9,23 +9,28 @@ function SignUp() {
   });
 
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     let error = '';
 
-    // Validation based on input field
+    // Validation logic based on input field
     if (name === 'name' && !/^[A-Za-z\s]*$/.test(value)) {
       error = 'Enter only letters';
     }
 
-    if (name === 'NIC' && (!/^\d*$/.test(value) || value.length > 12)) {
-      error = value.length > 12 ? 'Enter only 12 numbers' : 'NIC should contain only numbers';
-    }
-
     if (name === 'contact' && (!/^\d*$/.test(value) || value.length > 10)) {
       error = value.length > 10 ? 'Contact number should be 10 digits' : 'Contact should contain only numbers';
+    }
+
+    if (name === 'NIC') {
+      const dobYear = new Date(formData.dob).getFullYear();
+      if (dobYear <= 1999 && (!/^\d{8}[vV]?$/.test(value))) {
+        error = 'NIC should be 8 numbers followed by "v" for birth year 1999 or earlier';
+      } else if (dobYear >= 2000 && (!/^\d{12}$/.test(value))) {
+        error = 'NIC should be exactly 12 digits for birth year 2000 or later';
+      }
     }
 
     setFormData({ ...formData, [name]: value });
@@ -33,7 +38,6 @@ function SignUp() {
   };
 
   const handleKeyDown = (e, fieldName) => {
-    // Prevent numbers and special characters in full name field
     if (fieldName === 'name') {
       if (!/^[a-zA-Z\s]+$/.test(e.key) && e.key !== 'Backspace') {
         e.preventDefault();
@@ -42,16 +46,14 @@ function SignUp() {
         setErrors({ ...errors, name: '' });
       }
     }
-    // Prevent letters and special characters in NIC field
     if (fieldName === 'NIC') {
-      if (!/^\d+$/.test(e.key) && e.key !== 'Backspace') {
+      if (!/^[\dVv]+$/.test(e.key) && e.key !== 'Backspace') {
         e.preventDefault();
-        setErrors({ ...errors, NIC: 'Only numbers are allowed' });
+        setErrors({ ...errors, NIC: 'Only numbers and "v" are allowed' });
       } else {
         setErrors({ ...errors, NIC: '' });
       }
     }
-    // Prevent letters and special characters in contact field
     if (fieldName === 'contact') {
       if (!/^\d+$/.test(e.key) && e.key !== 'Backspace') {
         e.preventDefault();
@@ -71,23 +73,22 @@ function SignUp() {
     }
     if (!formData.name) newErrors.name = 'Full Name is required';
 
-    // NIC Validation: exactly 12 digits
-    if (!/^\d{12}$/.test(formData.NIC)) {
-      if (formData.NIC.length < 12) {
-        newErrors.NIC = 'Enter 12 numbers';
-      } else if (formData.NIC.length > 12) {
-        newErrors.NIC = 'NIC should be exactly 12 numbers';
+    // NIC Validation based on DOB
+    const dobYear = new Date(formData.dob).getFullYear();
+    if (dobYear <= 1999) {
+      if (!/^\d{8}[vV]$/.test(formData.NIC)) {
+        newErrors.NIC = 'Enter 8 numbers followed by "v" for birth year 1999 or earlier';
+      }
+    } else if (dobYear >= 2000) {
+      if (!/^\d{12}$/.test(formData.NIC)) {
+        newErrors.NIC = 'Enter exactly 12 digits for birth year 2000 or later';
       }
     }
     if (!formData.NIC) newErrors.NIC = 'NIC is required';
 
     // Contact number Validation: exactly 10 digits
     if (!/^\d{10}$/.test(formData.contact)) {
-      if (formData.contact.length < 10) {
-        newErrors.contact = 'Enter 10 numbers';
-      } else if (formData.contact.length > 10) {
-        newErrors.contact = 'Contact should be exactly 10 numbers';
-      }
+      newErrors.contact = 'Contact should be exactly 10 numbers';
     }
     if (!formData.contact) newErrors.contact = 'Contact Number is required';
 
@@ -110,7 +111,7 @@ function SignUp() {
     try {
       await axios.post('http://localhost:8081/api/auth/register', formData);
       alert('Registration successful');
-      navigate('/login'); // Navigate to login page upon successful registration
+      navigate('/login');
     } catch (error) {
       console.error('There was an error registering!', error);
       alert('Registration failed. Please try again.');
@@ -200,7 +201,7 @@ function SignUp() {
                   type="number"
                   name="age"
                   id="age"
-                  min="0" // Ensuring age cannot be less than 0
+                  min="0"
                   placeholder="Enter your age"
                   value={formData.age}
                   onChange={handleChange}
@@ -259,8 +260,12 @@ function SignUp() {
               {errors.password && <p className={styles.errorMessage}>{errors.password}</p>}
             </div>
 
-            {/* Sign Up Button */}
-            <button type="submit" className={styles.submitBtn}>Sign Up</button>
+            {/* Submit Button */}
+            <div className={styles.formGroup}>
+              <button type="submit" className={styles.submitButton}>
+                Sign Up
+              </button>
+            </div>
           </form>
         </div>
       </div>

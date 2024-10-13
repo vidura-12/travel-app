@@ -70,12 +70,24 @@ function Profile() {
       error = 'Enter only letters';
     }
 
-    // Validation for NIC: Only numbers allowed and limit to 12 digits
+    // Validation for NIC based on DOB year
     if (name === 'NIC') {
-      if (!/^\d*$/.test(value)) {
-        error = 'Only numbers are allowed';
-      } else if (value.length > 12) {
-        error = 'Enter only 12 numbers';
+      const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;
+
+      if (birthYear) {
+        if (birthYear <= 1999) {
+          // NIC for 1999 or earlier: 8 digits + 'v'
+          if (!/^\d{8}v?$/.test(value)) {
+            error = 'NIC must be 8 digits followed by "v" for birth years 1999 or earlier';
+          }
+        } else {
+          // NIC for 2000 or later: 12 digits
+          if (!/^\d{12}$/.test(value)) {
+            error = 'NIC must be 12 digits for birth years 2000 or later';
+          }
+        }
+      } else {
+        error = 'Please select a valid Date of Birth before entering NIC';
       }
     }
 
@@ -93,13 +105,30 @@ function Profile() {
   };
 
   const handleKeyDown = (e, fieldName) => {
-    // Prevent entering letters and special characters in NIC field
+    const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;
+  
+    // Prevent non-digit characters except 'v' for the NIC field
     if (fieldName === 'NIC') {
-      if (!/^[\d]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+      if (birthYear && birthYear <= 1999) {
+        // For 1999 or earlier, allow digits and 'v'
+        if (!/^[\d]$/.test(e.key) && e.key.toLowerCase() !== 'v' && e.key !== 'Backspace' && e.key !== 'Tab') {
+          e.preventDefault();
+        }
+      } else {
+        // For 2000 or later, allow only digits
+        if (!/^[\d]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
+          e.preventDefault();
+        }
+      }
+    }
+  
+    // Prevent entering anything other than letters and spaces in Name field
+    if (fieldName === 'name') {
+      if (!/^[A-Za-z\s]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
         e.preventDefault();
       }
     }
-
+  
     // Prevent entering letters and special characters in Contact field
     if (fieldName === 'contact') {
       if (!/^[\d]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
@@ -107,6 +136,7 @@ function Profile() {
       }
     }
   };
+  
 
   const validate = () => {
     const newErrors = {};
@@ -170,6 +200,7 @@ function Profile() {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
+                onKeyDown={(e) => handleKeyDown(e, 'name')} // Prevent non-letter characters
                 className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
                 required
                 placeholder="Enter your name"
@@ -239,7 +270,7 @@ function Profile() {
                   onKeyDown={(e) => handleKeyDown(e, 'NIC')} // Prevent non-numeric characters
                   className={`${styles.input} ${errors.NIC ? styles.inputError : ''}`}
                   required
-                  placeholder="Enter your NIC"
+                  placeholder="Enter NIC"
                 />
                 {errors.NIC && <p className={styles.errorMessage}>{errors.NIC}</p>}
               </div>
@@ -247,7 +278,7 @@ function Profile() {
               <div className={styles.formGroup}>
                 <label htmlFor="contact">Contact</label>
                 <input
-                  type="tel"
+                  type="text"
                   name="contact"
                   id="contact"
                   value={formData.contact}
@@ -261,19 +292,9 @@ function Profile() {
               </div>
             </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email (unchangeable)</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={user.email}
-                disabled
-                className={`${styles.input} ${styles.disabledInput}`}
-              />
-            </div>
-
-            <button type="submit" className={styles.submitBtn}>Update Profile</button>
+            <button type="submit" className={styles.submitButton}>
+              Update Profile
+            </button>
           </form>
         </div>
       </div>
