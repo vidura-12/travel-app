@@ -6,6 +6,11 @@ const bookingSchema = new mongoose.Schema({
         ref: 'Vehicle',
         required: true,
     },
+    userId: {  
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     userName: {
         type: String,
         required: true,

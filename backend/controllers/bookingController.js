@@ -3,6 +3,20 @@ const Vehicle = require('../models/Vehicle');
 
 exports.createBooking = async (req, res) => {
     const { vehicleId, userName, userEmail, userPhoneNumber, numberOfDays, additionalNotes, licenseId, startDate, totalCost } = req.body;
+    const userId = req.user.userId;
+
+    console.log('Create Booking Request:', {
+        userId,
+        vehicleId,
+        userName,
+        userEmail,
+        userPhoneNumber,
+        numberOfDays,
+        licenseId,
+        startDate,
+        totalCost,
+        additionalNotes
+    });
 
     try {
         // Validate required fields
@@ -17,6 +31,7 @@ exports.createBooking = async (req, res) => {
 
         const booking = new Booking({
             vehicleId,
+            userId,
             userName,
             userEmail,
             userPhoneNumber,

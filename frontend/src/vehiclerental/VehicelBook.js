@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
-// import pdfMake from 'pdfmake/build/pdfmake';
-// import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags } from 'react-icons/fa';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { jwtDecode } from 'jwt-decode';
 
 
 const styles = {
@@ -135,8 +134,20 @@ const VehicleBook = () => {
   const [totalCost, setTotalCost] = useState(0);
   const [returnDate, setReturnDate] = useState('');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUserId(decoded.userId); // Ensure your JWT payload contains 'userId'
+      } catch (err) {
+        console.error("Invalid token:", err);
+      }
+    }
+
     axios.get(`http://localhost:8081/api/vehicles/${vehicleId}`)
       .then(response => setVehicle(response.data.data))
       .catch(error => console.error('Error fetching vehicle details:', error));
@@ -179,12 +190,21 @@ const VehicleBook = () => {
       return;
     }
 
+    if(!userId) { 
+      alert("You must be logged in to make a booking.");
+      return;
+    }
+
     axios.post('http://localhost:8081/api/bookings', {
       vehicleId,
       ...formData,
       startDate: formData.startDate,
       returnDate,
       totalCost
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
     .then(() => {
       setSuccessModalOpen(true);
