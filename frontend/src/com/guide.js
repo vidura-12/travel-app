@@ -68,7 +68,7 @@ export default function Guide() {
             background: '#164B60',
             color: 'white',
             position: 'relative',
-            right: '8%',
+            right: '40%',
             bottom: '50px',
             borderRadius: '25px',
             padding: '10px 20px',
@@ -79,7 +79,7 @@ export default function Guide() {
           onMouseEnter={(e) => (e.target.style.backgroundColor = '#164B60')}
           onMouseLeave={(e) => (e.target.style.backgroundColor = '#1B6B93')}
         >
-          View Booking Tourist
+          All Tour Guides
         </button>
       </a>
 

@@ -33,6 +33,19 @@ function SignUp() {
       }
     }
 
+       // Check Date of Birth for invalid entries (today's date or younger than 18)
+       if (name === 'dob') {
+        const selectedDate = new Date(value);
+        const today = new Date();
+        const minAgeDate = new Date(today.setFullYear(today.getFullYear() - 18));
+  
+        if (selectedDate >= new Date()) {
+          error = 'Date of birth cannot be today or a future date.';
+        } else if (selectedDate > minAgeDate) {
+          error = 'You must be at least 18 years old.';
+        }
+      } 
+
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: error });
   };
@@ -64,6 +77,8 @@ function SignUp() {
     }
   };
 
+
+  
   const validate = () => {
     const newErrors = {};
 
@@ -72,6 +87,16 @@ function SignUp() {
       newErrors.name = 'Enter only letters';
     }
     if (!formData.name) newErrors.name = 'Full Name is required';
+
+    // Date of Birth Validation (no future date, at least 18 years old)
+    const dobDate = new Date(formData.dob);
+  const today = new Date();
+  const minAgeDate = new Date(today.setFullYear(today.getFullYear() - 18));  // Define minAgeDate here
+    if (dobDate >= new Date()) {
+      newErrors.dob = 'Date of birth cannot be today or a future date.';
+    } else if (dobDate > minAgeDate) {
+      newErrors.dob = 'You must be at least 18 years old.';
+    }
 
     // NIC Validation based on DOB
     const dobYear = new Date(formData.dob).getFullYear();
