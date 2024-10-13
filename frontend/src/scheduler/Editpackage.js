@@ -1,150 +1,153 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './editpackage.css'; // Assuming you have some custom styles for the form
 
-const Editpackage = () => {
-  const { id } = useParams(); // Get the package ID from the URL
-  const navigate = useNavigate(); // Use navigate to redirect after successful update
-  const [packageDetails, setPackageDetails] = useState({
+const EditPackage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const packageId = location.state?.id; // Get the package ID from the location state
+
+  const [packageData, setPackageData] = useState({
     agencyName: '',
     phoneNumber: '',
+    email: '',
     location: '',
-    places: '',
+    places: [],
     maxPeople: '',
     price: '',
-    image: '',
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    // Fetch the package details using the ID
-    axios.get(`http://localhost:8081/packages/${id}`)
-      .then((response) => {
-        setPackageDetails(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError('Failed to fetch package details');
-        setLoading(false);
-      });
-  }, [id]);
+    const fetchPackage = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8081/packages/${packageId}`);
+        setPackageData(response.data);
+      } catch (error) {
+        console.error('Error fetching package data:', error);
+      }
+    };
 
-  const handleInputChange = (e) => {
+    if (packageId) {
+      fetchPackage();
+    } else {
+     // Redirect if package ID is not available
+    }
+  }, [packageId, navigate]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setPackageDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    if (name === 'places') {
+      setPackageData({ ...packageData, [name]: value.split(',').map(place => place.trim()) });
+    } else {
+      setPackageData({ ...packageData, [name]: value });
+    }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Update package details in the backend
-    axios.put(`http://localhost:8081/packages/${id}`, packageDetails)
-      .then(() => {
-        alert('Package updated successfully!');
-        navigate('/seller-packages'); // Redirect to seller packages list after successful update
-      })
-      .catch((err) => {
-        setError('Failed to update package');
-      });
+    try {
+      await axios.put(`http://localhost:8081/packages/update/${packageId}`, packageData);
+      alert('Package updated successfully');
+      navigate('/dashboard'); // Redirect to dashboard after update
+    } catch (error) {
+      console.error('Error updating package:', error);
+    }
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
-    <div>
-      <h2>Edit Package: {packageDetails.agencyName}</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label>Agency Name</label>
+    <div className="container mt-5">
+      <h1>Edit Package</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group mb-3">
+          <label htmlFor="agencyName">Agency Name</label>
           <input
             type="text"
+            className="form-control"
+            id="agencyName"
             name="agencyName"
-            value={packageDetails.agencyName}
-            onChange={handleInputChange}
+            value={packageData.agencyName}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Phone Number</label>
+        <div className="form-group mb-3">
+          <label htmlFor="phoneNumber">Phone Number</label>
           <input
             type="text"
+            className="form-control"
+            id="phoneNumber"
             name="phoneNumber"
-            value={packageDetails.phoneNumber}
-            onChange={handleInputChange}
+            value={packageData.phoneNumber}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Location</label>
+        <div className="form-group mb-3">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            name="email"
+            value={packageData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group mb-3">
+          <label htmlFor="location">Location</label>
           <input
             type="text"
+            className="form-control"
+            id="location"
             name="location"
-            value={packageDetails.location}
-            onChange={handleInputChange}
+            value={packageData.location}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Places to Visit</label>
+        <div className="form-group mb-3">
+          <label htmlFor="places">Places (comma-separated)</label>
           <input
             type="text"
+            className="form-control"
+            id="places"
             name="places"
-            value={packageDetails.places}
-            onChange={handleInputChange}
+            value={packageData.places.join(', ')}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Max People</label>
+        <div className="form-group mb-3">
+          <label htmlFor="maxPeople">Max People</label>
           <input
             type="number"
+            className="form-control"
+            id="maxPeople"
             name="maxPeople"
-            value={packageDetails.maxPeople}
-            onChange={handleInputChange}
+            value={packageData.maxPeople}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Price</label>
+        <div className="form-group mb-3">
+          <label htmlFor="price">Price</label>
           <input
             type="number"
+            className="form-control"
+            id="price"
             name="price"
-            value={packageDetails.price}
-            onChange={handleInputChange}
+            value={packageData.price}
+            onChange={handleChange}
             required
           />
         </div>
-
-        <div>
-          <label>Image URL</label>
-          <input
-            type="text"
-            name="image"
-            value={packageDetails.image}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <button type="submit">Save Changes</button>
+        <button type="submit" className="btn btn-primary">Update Package</button>
       </form>
     </div>
   );
 };
 
-export default Editpackage;
+export default EditPackage;

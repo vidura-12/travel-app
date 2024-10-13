@@ -5,8 +5,6 @@ import './Sellersprofile.css';
 const Sellersprofile = () => {
   const navigate = useNavigate();
 
-  
-
   const selectedPackage = {
     _id: '12345', // Sample package ID
     agencyName: 'Uthara Travels',
@@ -38,10 +36,11 @@ const Sellersprofile = () => {
         </div>
 
         <div className="profile-info">
-          <h2>uthara sonadi</h2>
+          <h2>Uthara Sonadi, 22</h2>
           <p>Southern Province, Matara</p>
           <p>Travel agency owner</p>
 
+          
         </div>
       </div>
     </div>

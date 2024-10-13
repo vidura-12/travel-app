@@ -18,7 +18,7 @@
 
   .profile1{
     background: url('./sheduler image/profile.jpeg') no-repeat;
-    height:900px;
+    height:1000px;
      display:flex;
      flex-direction: column;
      align-items: center;
