@@ -8,7 +8,7 @@ const secret = process.env.JWT_SECRET || 'your_jwt_secret'; // Use environment v
 // Register vehicle owner
 exports.register = async (req, res) => {
   try {
-    const { firstname, phoneno, username, email, password } = req.body;
+    const { fullName, phoneno, username, email, password } = req.body;
 
     // Check if vehicle owner already exists
     let vehicleOwner = await VehicleOwner.findOne({ email });
@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
 
     // Create a new vehicle owner
     vehicleOwner = new VehicleOwner({
-      firstname,
+      fullName,
       phoneno,
       username,
       email,

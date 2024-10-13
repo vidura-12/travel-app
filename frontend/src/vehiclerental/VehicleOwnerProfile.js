@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './VehicleOwnerProfile.css';
 import Swal from 'sweetalert2';
+import ProfileEditModal from './ProfileEditModel.js';
 
 function VehicleOwnerProfile() {
   const [ownerData, setOwnerData] = useState(null);
@@ -10,6 +11,7 @@ function VehicleOwnerProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -88,13 +90,22 @@ function VehicleOwnerProfile() {
         <h2 className='vehicle-profile-container-h2'>Vehicle Owner Profile</h2>
         {ownerData ? (
           <>
-            <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Full Name:</strong> {ownerData.firstname}</p>
+            <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Full Name:</strong> {ownerData.fullName}</p>
             <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Username:</strong> {ownerData.username}</p>
             <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Phone Number:</strong> {ownerData.phoneno}</p>
             <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Email:</strong> {ownerData.email}</p>
             <p className='vehicle-profile-container-p'><strong className='vehicle-profile-container-strong'>Role:</strong> {ownerData.role}</p>
             <button className="vehicle-profile-logout" onClick={handleLogout}>LogOut</button>
-            <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
+            <button className="vehicle-profile-edit" onClick={() => setShowModal(true)}>
+            Edit Profile
+            </button>
+            {showModal && (
+              <ProfileEditModal
+                ownerData={ownerData}
+                handleLogout={handleLogout}
+                setShowModal={setShowModal}
+              />
+            )}
           </>
         ) : (
           <p>Profile data not available.</p>

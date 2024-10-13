@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function VehicleOwnerRegister() {
-  const [firstname, setFirstname] = useState('');
+  const [fullName, setFirstname] = useState('');
   // const [secondname, setSecondname] = useState('');
   const [phoneno, setPhoneNo] = useState('');
   const [username, setUsername] = useState('');
@@ -70,8 +70,7 @@ function VehicleOwnerRegister() {
     
     try {
       const response = await axios.post('http://localhost:8081/api/vehicle-owner/register', {
-        firstname,
-        // secondname,
+        fullName,
         phoneno,
         username,
         email,
@@ -196,11 +195,11 @@ function VehicleOwnerRegister() {
         {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>} {/* Display error message */}
         <form onSubmit={handleSubmit}>
            <div style={inputGroupStyle}>
-            <label htmlFor="firstname" style={labelStyle}> Full name:</label>
+            <label htmlFor="fullName" style={labelStyle}> Full name:</label>
             <input
               type="text"
-              id="name"
-              value={firstname}
+              id="fullName"
+              value={fullName}
               onChange={handleNameChange(setFirstname)}
               required
               style={inputStyle}
