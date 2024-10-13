@@ -44,7 +44,7 @@ const AdminLogin = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.username.trim());
       const role = response.data.role.trim();
-
+      
       switch (role) {
         case 'location_manager':
           navigate('/LocationAdmin/home');
@@ -58,15 +58,15 @@ const AdminLogin = () => {
         case 'vehicle_manager':
           navigate('/vehicle-manager/dashboard');
           break;
-        case 'tourGuide_manager':
-          navigate('/travelagent/dashboard');
+          case 'tourGuide_manager':
+ 
+           navigate('/travelagent/approveDeny');
+ 
+          navigate('/travelagent/approveDeny'); 
           break;
-        case 'hotel_manager':
-          navigate('/hotelmanager/dashboard');
-          break;  
-        case 'support_manager':
-          navigate('/usersupporter/dashboard');
-          break;
+          case 'support_manager':
+            navigate('/usersupporter/dashboard');
+            break;
           
         default:
           setError('Unknown role');
