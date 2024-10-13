@@ -44,7 +44,7 @@ function VehicleOwnerLogin() {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)', 
+    backgroundImage: 'url(/img/Vehicle_Log_Back.jpeg)', 
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };

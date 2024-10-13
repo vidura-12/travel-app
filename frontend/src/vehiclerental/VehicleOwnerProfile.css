@@ -1,0 +1,64 @@
+.vehicle-profile-container-2 {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 120px;
+  }
+  
+  
+  
+  .vehicle-profile-container-2 {
+    padding: 30px;
+  }
+  
+  .vehicle-profile-container-h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .vehicle-profile-container-p {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .vehicle-profile-container-strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .vehicle-profile-edit {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 120px;
+  }
+  
+  .vehicle-profile-edit:hover {
+    background-color: #3e8e41;
+  }
+  
+  .vehicle-profile-logout {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .vehicle-profile-logout:hover {
+    background-color: #c0392b;
+  }

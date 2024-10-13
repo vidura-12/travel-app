@@ -72,3 +72,17 @@
 .nav-link-profile-logout-header {
     margin-left: 1rem;
 }
+.content {
+    padding: 2rem 1rem;
+    margin-top: 90px; 
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+    margin-bottom: 120px; 
+}
+.vehicle-mybooking-content {
+    padding: 2rem 1rem;
+    margin-top: 0px; 
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+    margin-bottom: 200px; 
+}

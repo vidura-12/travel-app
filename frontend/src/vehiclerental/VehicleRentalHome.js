@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags, FaDollarSign } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const styles = {
   cardContainer: {
@@ -193,7 +194,22 @@ const VehicleRentalHome = () => {
   };
 
   const handleVehicleBook = (vehicleId) => {
-    navigate(`/vehiclebook/${vehicleId}`); 
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Swal.fire({
+        title: 'Authentication Required',
+        text: 'Please login to Book vehicle.',
+        icon: 'warning',
+        confirmButtonText: 'Go to Login',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    } else {
+      navigate(`/vehiclebook/${vehicleId}`);
+    }
   };
 
   return (
