@@ -14,7 +14,6 @@ export default function Register() {
   useEffect(() => {
     const fetchTourGuides = async () => {
       try {
-        // Fetch all tour guides and filter out the already approved ones
         const response = await axios.get('http://localhost:8081/TourGuide/all');
         const unapprovedGuides = response.data.filter(
           guide => !approvedGuides.some(approved => approved._id === guide._id)
@@ -30,20 +29,15 @@ export default function Register() {
 
   const handleApprove = (guide) => {
     if (window.confirm('Are you sure you want to approve this tour guide?')) {
-      // Add the approved guide to local storage
       const updatedApprovedGuides = [...approvedGuides, guide];
       localStorage.setItem('approvedGuides', JSON.stringify(updatedApprovedGuides));
       setApprovedGuides(updatedApprovedGuides);
-
-      // Remove the approved guide from the frontend display
       setTourGuides(tourGuides.filter(g => g._id !== guide._id));
-      
       alert('Tour guide approved successfully!');
     }
   };
 
   const handleViewBookings = () => {
-    // Navigate to the BookTourist page where the approved guides will be displayed
     navigate('/booktourist');
   };
 
@@ -82,7 +76,7 @@ export default function Register() {
         marginTop: '50px'
       }}>
         <h2 className="text-center mb-4">Tour Guides</h2>
-         
+        
         <div style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
             <thead className="thead-dark">
@@ -106,18 +100,41 @@ export default function Register() {
                   <td>{guide.experience}</td>
                   <td>{guide.language}</td>
                   <td>
-                    <button
-                      className="btn btn-success me-2"
-                      onClick={() => handleApprove(guide)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeny(guide._id)}
-                    >
-                      Deny
-                    </button>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button
+                        className="btn"
+                        style={{
+                          backgroundColor: '#28a745',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          padding: '10px 20px',
+                          border: 'none',
+                          borderRadius: '5px',
+                          marginRight: '10px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s ease',
+                        }}
+                        onClick={() => handleApprove(guide)}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn"
+                        style={{
+                          backgroundColor: '#dc3545',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          padding: '10px 20px',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          transition: 'background-color 0.3s ease',
+                        }}
+                        onClick={() => handleDeny(guide._id)}
+                      >
+                        Deny
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

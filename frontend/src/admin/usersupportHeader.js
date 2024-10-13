@@ -19,11 +19,9 @@ const Header = () => {
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/usersupporter/feedbackRetrive">View All Feedbacks</a>
                 </li>
+              
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/usersupporter/AdminChatDashboard">Chatbox</a>
-                </li>
-                <li className="menu-item-header">
-                    <a className="nav-link-header" href="/usersupporter/AdminReviewsDashboard">Reviews</a>
+                    <a className="nav-link-header" href="/usersupporter/AdminRating">Reviews</a>
                 </li>
             </ul>
             <div className="profile-header">

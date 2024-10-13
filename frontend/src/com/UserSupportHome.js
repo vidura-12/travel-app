@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
@@ -52,10 +52,11 @@ const UserSupportHome = () => {
 
                 <div className="row justify-content-center">
                     {[
-                        { name: 'Chatbox', path: '/chatbox', img: 'chatbox' },
-                        { name: 'Contact Us', path: '/contactus', img: 'contact' },
                         { name: 'Add Feedback', path: '/feedbackForm', img: 'feedback1' },
-                        { name: 'Add Review', path: '/review', img: 'review1' },
+                        { name: 'Contact Us', path: '/contactus', img: 'contact' }, 
+                        { name: 'Chatbox', path: '/AFAQ', img: 'chatbox' },
+                        { name: 'Add Review', path: '/AddRating', img: 'review1' },
+ 
                         { name: 'FAQs', path: '/FAQ', img: 'faq1' }
                     ].map((item, index) => (
                         <div key={index} className="col-md-2 col-sm-6 mb-4 d-flex justify-content-center">
@@ -65,10 +66,10 @@ const UserSupportHome = () => {
                                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                                     height: hoverIndex === index ? '280px' : '250px', // Increase height when hovered
                                     width: hoverIndex === index ? '220px' : '200px', // Increase width when hovered
-                                    //display: 'flex',
+                                    display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
+                                    justifyContent: 'center', // Center content vertically
                                     cursor: 'pointer', // Cursor indicates clickable
                                     transition: 'all 0.3s ease-in-out' // Smooth transition
                                 }}
@@ -82,7 +83,7 @@ const UserSupportHome = () => {
                                     className="img-fluid mb-2"
                                     style={{ maxHeight: '100px', objectFit: 'contain' }} // Image styling
                                 />
-                                <h5 style={{ color: 'black' }}>{item.name}</h5>
+                                <h5 style={{ color: 'black', textAlign: 'center' }}>{item.name}</h5> {/* Center align the text */}
                             </div>
                         </div>
                     ))}

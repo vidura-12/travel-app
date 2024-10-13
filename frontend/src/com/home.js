@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './home.css';
+import Chatbot from './Chatbot';
 
 function Home() {
   const [locations, setLocations] = useState([]);
+  const [packages, setPackages] = useState([]); // State to store travel packages
   const [visibleDescription, setVisibleDescription] = useState({});
   localStorage.setItem('email', "viduranirmal@gmail.com");
+
   useEffect(() => {
     // Fetch locations from the API
     const fetchLocations = async () => {
@@ -17,11 +20,25 @@ function Home() {
       }
     };
 
+    // Fetch travel packages from the API
+    const fetchPackages = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/packageS/get');
+        setPackages(response.data); // Store the fetched packages
+      } catch (error) {
+        console.error('Error fetching packages:', error);
+      }
+    };
+
     fetchLocations();
+    fetchPackages(); // Fetch packages when the component loads
   }, []);
 
-  // Function to toggle the description visibility
-
+  // Filter to show only locations with status 'approved'
+  const approvedLocations = locations.filter(location => location.status === "approved");
+  
+  // Filter to show only packages with status 'approved'
+  const approvedPackages = packages.filter(pkg => pkg.status === "approved");
 
   return (
     <div>
@@ -47,8 +64,8 @@ function Home() {
         </div>
       </section>
 
-      <section className="travel">
-        <div className="container">
+      <section className="travel1">
+        <div className="container1">
           <div className="box">
             <img
               src={`${process.env.PUBLIC_URL}/img/tool/planning.png`}
@@ -89,24 +106,19 @@ function Home() {
         </div>
       </section>
 
-      {/* Add a new section to display the locations */}
+      {/* Location Section */}
       <section className="location-gallery">
         <div className="container">
           <h2>Featured Locations</h2>
           <div className="location-grid">
-            {locations.map((location) => (
-              <div
-                className="location-card"
-                key={location._id}
-              
-              >
+            {approvedLocations.map((location) => (
+              <div className="location-card" key={location._id}>
                 <img
                   src={`/img/${location.picture}`}
                   alt={location.name}
                   className="location-card-img"
                 />
                 <h3>{location.name}</h3>
-                {/* Conditionally render the description based on visibility */}
                 {visibleDescription[location._id] && (
                   <p className="location-description">{location.description}</p>
                 )}
@@ -115,6 +127,32 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Travel Packages Section */}
+      <section className="package-gallery">
+        <div className="container">
+          <h2>Available Travel Packages</h2>
+          <div className="package-grid">
+            {approvedPackages.map((pkg) => (
+              <div className="package-card" key={pkg._id}>
+                <img
+                  src={`/img/${pkg.image}`}
+                  alt={pkg.agencyName}
+                  className="package-card-img"
+                />
+                <h3>{pkg.agencyName}</h3>
+                <p><strong>Location:</strong> {pkg.location}</p>
+                <p><strong>Places:</strong> {pkg.places.join(', ')}</p>
+                <p><strong>Max People:</strong> {pkg.maxPeople}</p>
+                <p><strong>Price:</strong> ${pkg.price}</p>
+                <p><strong>Contact:</strong> {pkg.phoneNumber}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Chatbot />
     </div>
   );
 }
