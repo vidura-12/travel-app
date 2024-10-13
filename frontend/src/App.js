@@ -268,7 +268,7 @@ function App() {
         <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerLayout><VehicleOwnerPage /></VehicleOwnerLayout>} />
         <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
         <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
-        <Route path="/mybookings" element={<VehicleOwnerLayout><Mybookings /></VehicleOwnerLayout>} />
+        <Route path="/vehicle-owner/mybookings" element={<VehicleOwnerLayout><Mybookings /></VehicleOwnerLayout>} />
         <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
         <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
         <Route path="/Vehicle-Owner/Add-Vehicle" element= {<NewVehicle />} />

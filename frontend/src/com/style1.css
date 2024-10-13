@@ -203,6 +203,13 @@ section.home-section {
     margin-right: 2rem; 
     margin-bottom: 200px; 
 }
+.vehicle-profile-container{
+    padding: 2rem 1rem;
+    margin-top: 0px; 
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+    margin-bottom: 200px;    
+}
 
 @media (max-width: 1080px) {
     html {

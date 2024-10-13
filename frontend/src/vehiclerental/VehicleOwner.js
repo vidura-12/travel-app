@@ -192,7 +192,7 @@ function VehicleOwnerCreatePost() {
   };
 
   const handleMyBookingsClick = () => {
-    navigate('/mybookings');
+    navigate('/vehicle-owner/mybookings');
   };
 
   const openModal = () => {

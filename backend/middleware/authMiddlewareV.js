@@ -16,14 +16,14 @@ const authMiddleware = (req, res, next) => {
     const decoded = jwt.verify(token, secret);
     console.log('Decoded JWT:', decoded);  // Log the decoded token for debugging
 
-    // Ensure the token contains the required fields, like email
-    if (!decoded.email) {
-      console.log('JWT does not contain an email');
-      return res.status(401).json({ msg: 'Invalid token: Email missing in token payload' });
+    // Ensure the token contains the required fields, like userId and email
+    if (!decoded.userId || !decoded.email) {
+      console.log('JWT does not contain userId or email');
+      return res.status(401).json({ msg: 'Invalid token: Required fields missing in token payload' });
     }
 
     // Attach user information from the token to the request object
-    req.user = { email: decoded.email };  // Attach user object
+    req.user = { userId: decoded.userId, email: decoded.email };  // Attach both userId and email
     next(); // Continue to the next middleware or route handler
   } catch (err) {
     console.log('JWT verification failed:', err.message);
