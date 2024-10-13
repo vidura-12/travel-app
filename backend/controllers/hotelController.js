@@ -179,7 +179,8 @@ exports.approveHotel = async (req, res) => {
             return res.status(404).json({ message: 'Hotel not found.' });
         }
 
-        if (hotel.owner.toString() !== req.user.userId) {
+        // Check if the authenticated user is the hotel owner or a hotel manager
+        if (hotel.owner.toString() !== req.user.userId && req.user.role !== 'hotel_manager') {
             return res.status(403).json({ message: 'Unauthorized to approve this hotel.' });
         }
 
@@ -203,7 +204,8 @@ exports.rejectHotel = async (req, res) => {
             return res.status(404).json({ message: 'Hotel not found.' });
         }
 
-        if (hotel.owner.toString() !== req.user.userId) {
+        // Check if the authenticated user is the hotel owner or a hotel manager
+        if (hotel.owner.toString() !== req.user.userId && req.user.role !== 'hotel_manager') {
             return res.status(403).json({ message: 'Unauthorized to reject this hotel.' });
         }
 
@@ -227,7 +229,8 @@ exports.deleteHotel = async (req, res) => {
             return res.status(404).json({ message: 'Hotel not found.' });
         }
 
-        if (hotel.owner.toString() !== req.user.userId) {
+        // Check if the authenticated user is the hotel owner or a hotel manager
+        if (hotel.owner.toString() !== req.user.userId && req.user.role !== 'hotel_manager') {
             return res.status(403).json({ message: 'Unauthorized to delete this hotel.' });
         }
 

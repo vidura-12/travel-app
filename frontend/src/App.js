@@ -118,7 +118,7 @@ import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 import Rating from './usersupporter/AdminRating';
-
+import AgentRegSucc from './com/regSuccess';
 
 // Vehicle Rental Components
 import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
@@ -153,7 +153,7 @@ function App() {
         <Route path="/AFAQ" element={<UserLayout><FAQChatApp /></UserLayout>} />
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
         <Route path="/AddRating" element={<UserLayout><AddRating /></UserLayout>} />
-        
+        <Route path="/regSuccess" element={<UserLayout><AgentRegSucc /></UserLayout>} />
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotels" element={<UserLayout><Hotels /></UserLayout>} />
@@ -272,7 +272,7 @@ function App() {
         <Route path="/vehicle-owner-dashboard" element={<VehicleOwnerLayout><VehicleOwnerPage /></VehicleOwnerLayout>} />
         <Route path="/vehicle-owner/login" element={<VehicleRentalLayout><VehicleOwnerLogin /></VehicleRentalLayout>} />
         <Route path="/vehicle-owner/register" element={<VehicleOwnerRegister />} />
-        <Route path="/mybookings" element={<VehicleOwnerLayout><Mybookings /></VehicleOwnerLayout>} />
+        <Route path="/vehicle-owner/mybookings" element={<VehicleOwnerLayout><Mybookings /></VehicleOwnerLayout>} />
         <Route path="/vehiclebook/:vehicleId" element={<UserLayout><VehicleBook /></UserLayout>} />
         <Route path="/vehicle-owner/profile" element={<VehicleOwnerLayout><VehicleOwnerProfile /></VehicleOwnerLayout>} />
         <Route path="/Vehicle-Owner/Add-Vehicle" element= {<NewVehicle />} />

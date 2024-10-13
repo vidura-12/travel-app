@@ -33,6 +33,7 @@ const Header = () => {
                 </li>
             </ul>
             <div className="profile-header">
+                <button className="nav-link-profile-header" onClick={() => navigate('/Vehicle-Owner/mybookings')}>My Bookings</button>
                 <button className="nav-link-profile-header" onClick={() => navigate('/Vehicle-Owner/profile')}>Profile</button>
                 <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
             </div>

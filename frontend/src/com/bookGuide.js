@@ -11,9 +11,10 @@ export default function BookGuide() {
   const { selectedGuideId, name, address, number } = state || {};
 
   const handleSubmit = async () => {
-    // Handle the submit logic here (like saving booking details)
+    alert('Booking Confirmed Successfully!'); // Display the alert message
     navigate('/guide', { state: { name, address, number, selectedGuideId } });
   };
+  
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
@@ -74,19 +75,24 @@ export default function BookGuide() {
         {/* Confirm Booking Button */}
         <button
           style={{
+            height: '60px',
             backgroundColor: '#28a745', // Bootstrap success color
             color: 'white',
             padding: '12px 24px',
-            borderRadius: '5px',
+            border: 'none', // Use quotes for non-numeric values
+            outline: 'none',
+            cursor: 'pointer', // Replace semicolon with a comma
+            marginBottom: '30px', // Use camelCase for properties
+            borderRadius: '50px',
+            padding: '12px 24px',
             marginTop: '20px',
-            border: 'none',
-            cursor: 'pointer',
+            marginLeft: '10px', // Add some spacing between buttons
             fontSize: '1rem',
             transition: 'background-color 0.3s ease',
           }}
           onClick={handleSubmit}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'} // Darker green on hover
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'} // Original color
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#28a745'} // Darker green on hover
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#6EC207'} // Original color
         >
           Confirm Booking
         </button>
@@ -94,20 +100,23 @@ export default function BookGuide() {
         {/* Download PDF Button */}
         <button
           style={{
-            backgroundColor: '#007bff', // Bootstrap primary color
-            color: 'white',
+            height: '60px',
+            background: 'var(--green-color)', // Wrap CSS variables in quotes
+            color: 'var(--white-color)', // Wrap CSS variables in quotes
+            border: 'none', // Use quotes for non-numeric values
+            outline: 'none',
+            cursor: 'pointer', // Replace semicolon with a comma
+            marginBottom: '30px', // Use camelCase for properties
+            borderRadius: '50px',
             padding: '12px 24px',
-            borderRadius: '5px',
             marginTop: '20px',
             marginLeft: '10px', // Add some spacing between buttons
-            border: 'none',
-            cursor: 'pointer',
             fontSize: '1rem',
             transition: 'background-color 0.3s ease',
           }}
           onClick={handleDownloadPDF}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'} // Darker blue on hover
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'} // Original color
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#257180'} // Darker blue on hover
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#387478'} // Original color
         >
           Download PDF
         </button>
