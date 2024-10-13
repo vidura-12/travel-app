@@ -4,7 +4,7 @@ const Vehicle = require('../models/Vehicle');
 exports.createVehicle = async (req, res) => {
     const { email, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = req.body;
     const image = req.file ? req.file.filename : ''; // Use filename here
-  
+    console.log(email, make, model, numberOfSeats, pricePerDay, color, category, image, contact, ac, vnumber, location);
     try {
       if (!email || !make || !model || !numberOfSeats || !pricePerDay || !color || !category || !image || !contact || !ac || !vnumber || !location) {
         return res.status(400).json({ message: 'All fields are required' });
