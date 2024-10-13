@@ -33,7 +33,11 @@ const vehicleOwnerSchema = new mongoose.Schema({
     role: { 
         type: String, 
         default: 'vehicle-owner' 
-    }  // Default role for vehicle owners
+    },  // Default role for vehicle owners
+    vehicles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vehicle', // Reference to the Vehicle model
+    }],
   });
   
 const VehicleOwner = mongoose.model('VehicleOwner', vehicleOwnerSchema);

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const vehicleSchema = new mongoose.Schema({
-    email: {
+    ownerEmail: {
         type: String,
         required: true,
     },

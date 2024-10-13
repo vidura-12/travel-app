@@ -65,7 +65,7 @@ function VehicleOwnerCreatePost() {
           'Authorization': `Bearer ${token}`
         }
       });
-      const userVehicles = response.data.data.filter(vehicle => vehicle.email === email);
+      const userVehicles = response.data.data.filter(vehicle => vehicle.ownerEmail === email);
       setVehicles(userVehicles);
     } catch (err) {
       // Handle session expiration
@@ -115,7 +115,7 @@ function VehicleOwnerCreatePost() {
     }
 
     const formData = new FormData();
-    formData.append('email', email);
+    formData.append('ownerEmail', email);
     formData.append('make', make);
     formData.append('model', model);
     formData.append('numberOfSeats', numberOfSeats);
