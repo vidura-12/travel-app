@@ -15,6 +15,8 @@ const ticketRoutes = require('./routes/ticket');
 const packageRoutes = require('./routes/package');
 const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
 const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
+const hotelBookingRoutes = require('./routes/hotelBookingRoutes'); // Import hotel booking routes
+
 
 
 const locationAdmin = require('./routes/Locationadmin');
