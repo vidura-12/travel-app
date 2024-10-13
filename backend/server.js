@@ -76,6 +76,8 @@ app.get('/', (req, res) => {
 
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
+// Use the hotel booking routes
+app.use('/api/hotelBookings', hotelBookingRoutes);
  
 // Start the server
 const server = app.listen(PORT, () => {
