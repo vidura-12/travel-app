@@ -81,13 +81,6 @@ section.home-section {
     margin: 0 1.5rem;
     cursor: pointer;
 }
-.content {
-    padding: 2rem 1rem;
-    margin-top: 120px; 
-    margin-left: 2rem; 
-    margin-right: 2rem; 
-    margin-bottom: 120px;
-}
 .home-container .navbar-custom .menu-list li::before {
     position: absolute;
     bottom: -3px;
@@ -198,10 +191,17 @@ section.home-section {
 }
 .content {
     padding: 2rem 1rem;
-    margin-top: 120px; 
+    margin-top: 90px; 
     margin-left: 2rem; 
     margin-right: 2rem; 
     margin-bottom: 120px; 
+}
+.vehicle-mybooking-content {
+    padding: 2rem 1rem;
+    margin-top: 0px; 
+    margin-left: 2rem; 
+    margin-right: 2rem; 
+    margin-bottom: 200px; 
 }
 
 @media (max-width: 1080px) {

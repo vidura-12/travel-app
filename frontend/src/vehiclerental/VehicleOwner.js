@@ -27,16 +27,18 @@ function VehicleOwnerCreatePost() {
   const [vehicles, setVehicles] = useState([]);
   //const [editingVehicle, setEditingVehicle] = useState(null);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
-  // const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   
-  const email = localStorage.getItem('email');
+  //const email = localStorage.getItem('email');
   useEffect(() => {
-    
+
+    const user = JSON.parse(localStorage.getItem('vehicleOwner'));
     // Check if the email exists in localStorage
-    if (email) {
-      fetchVehicles(email);
+    if (user && user.email) {
+      setEmail(user.email);
+      fetchVehicles(user.email);
     } else {
       Swal.fire({
         icon: 'warning',
@@ -47,7 +49,7 @@ function VehicleOwnerCreatePost() {
           icon: 'vehicle-red-icon',  // Apply custom class for the icon
       }
       }).then(() => {
-        navigate('/scheduler/sellersignin'); // Redirect to login page after closing the alert
+        navigate('/vehicle-owner/login'); // Redirect to login page after closing the alert
         });
       return;// If no email, navigate to login
     }
@@ -71,7 +73,7 @@ function VehicleOwnerCreatePost() {
         alert('Session expired. Please log in again.');
         localStorage.removeItem('vehicleOwner'); // Clear user data
         localStorage.removeItem('token'); // Clear token
-        navigate('/scheduler/sellersignin'); // Redirect to login
+        navigate('/vehicle-owner/login'); // Redirect to login
       } else {
         setError(`Failed to fetch vehicles: ${err.response?.data?.message || err.message}`);
       }
@@ -182,9 +184,9 @@ function VehicleOwnerCreatePost() {
       if (result.isConfirmed) {
           // Proceed with logout
           localStorage.removeItem('token');
-          localStorage.removeItem('email'); 
+          localStorage.removeItem('vehicleOwner');
           sessionStorage.clear();  
-          navigate('/scheduler/sellersignin');  // Redirect to the login page
+          navigate('/vehicle-owner/login');  // Redirect to the login page
       }
     });  
   };
@@ -447,7 +449,7 @@ function VehicleOwnerCreatePost() {
       <tr>
         <td colSpan="8" style={tableCellStyle}>No vehicles found</td>
       </tr>
-    )}
+      )}
   </tbody>
 
 </table>

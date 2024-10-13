@@ -51,6 +51,23 @@
 
 
 
+"@ant-design/icons": "^5.5.1",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
 "@fortawesome/free-solid-svg-icons": "^6.6.0",
   
 
@@ -528,6 +545,23 @@
 
 
 "remixicon": "^4.3.0",
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+"some-library": "^1.0.0",
   
 
 
