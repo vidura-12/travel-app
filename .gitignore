@@ -13,7 +13,7 @@ frontend/src/com/img/Sri Lanka.mp4
 
 /node_modules
 .env
-/backend/.env
+./backend/.env
 backend/.env
 backend/.env
 

@@ -16,11 +16,13 @@ function LocationsSummary() {
     }
 
     const fetchLocationsSummary = async () => {
+      const token = localStorage.getItem('token');
+      
       try {
         const response = await fetch('http://localhost:8081/locationAdmin/locations-summary', {
           method: 'GET',
           headers: {
-            authorization: token
+            authorization: `Bearer ${token}`, 
           },
         });
         if (response.ok) {
@@ -68,7 +70,7 @@ function LocationsSummary() {
         const response = await fetch(`http://localhost:8081/locationAdmin/locations/${locationId}/comments/${commentId}`, {
           method: 'DELETE',
           headers: {
-            authorization: token
+            authorization: `Bearer ${token}`, 
           },
         });
 

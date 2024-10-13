@@ -44,7 +44,7 @@ const AdminLogin = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', response.data.username.trim());
       const role = response.data.role.trim();
-
+      
       switch (role) {
         case 'location_manager':
           navigate('/LocationAdmin/home');
@@ -56,7 +56,7 @@ const AdminLogin = () => {
           navigate('/EventManager/Admin');
           break;
         case 'vehicle_manager':
-          navigate('/dvbxbjkds');
+          navigate('/vehicle-manager/dashboard');
           break;
           case 'tourGuide_manager':
  
