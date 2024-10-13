@@ -13,6 +13,8 @@ const locationRoutes = require('./routes/Location');
 const packageRoutes = require('./routes/package');
 const hotelRoutes = require('./routes/hotelRoutes'); // New hotel routes
 const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes'); // Import hotel owner routes
+const hotelBookingRoutes = require('./routes/hotelBookingRoutes'); // Import hotel booking routes
+
 
 
 const locationAdmin = require('./routes/Locationadmin');
@@ -73,6 +75,7 @@ app.get('/', (req, res) => {
 
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
+app.use('/api/hotelBookings', hotelBookingRoutes); // Mount the hotel booking routes
 
 
 // Start the server
