@@ -103,6 +103,7 @@ import EditPackage from './scheduler/Editpackage';
 import Approveseller from './scheduler/approvedPackages';
 import SellerProfile from './scheduler/Sellerprofile';
 
+
  
 
 import AddEvent from './EventManager/addEvent'
@@ -250,6 +251,7 @@ function App() {
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
         <Route path="/scheduler/Sellerprofile" element={<Sellerlayout><SellerProfile/></Sellerlayout>} />
+       
        
         <Route path="/Admin/profile" element={<AdminProfile />} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />

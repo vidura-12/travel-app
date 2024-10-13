@@ -104,6 +104,8 @@ function Profile() {
     setErrors({ ...errors, [name]: error });
   };
 
+  
+
   const handleKeyDown = (e, fieldName) => {
     const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;
   

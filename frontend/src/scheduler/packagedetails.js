@@ -227,6 +227,7 @@ const Dashboard = () => {
         <div className="summary">
           <p>Total Packages: {totalPackages}</p>
           <p>Average Price: ${averagePrice}</p>
+
         </div>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>

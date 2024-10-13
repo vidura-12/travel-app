@@ -40,6 +40,8 @@ const Tours = () => {
     navigate('/sellersignup');
   };
 
+  
+
   return (
     <div>
       <div className="tourpic">
@@ -107,6 +109,7 @@ const Tours = () => {
                 <p className="card-text"><strong>Places to Visit:</strong> {pkg.places.join(', ')}</p>
                 <p className="card-text"><strong>Max People:</strong> {pkg.maxPeople}</p>
                 <p className="card-text"><strong>Price:</strong> ${pkg.price}</p>
+               
               </div>
             </div>
           ))
