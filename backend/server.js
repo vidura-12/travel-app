@@ -21,8 +21,8 @@ const hotelBookingRoutes = require('./routes/hotelBookingRoutes'); // Import hot
 
 const locationAdmin = require('./routes/Locationadmin');
 const bodyParser = require('body-parser');
-const vehicleOwnerController = require('./controllers/VehicleOwnerController');
 const vehicleRoutes = require('./routes/vehicleRoutes');
+const vehicleOwnerRoutes = require('./routes/vehicleOwnerRoutes');
 const bookingRoutes = require('./routes/bookingRoutes'); 
 const addRoute = require("./routes/create");
 const addRoute1 = require("./routes/feedback");
@@ -61,9 +61,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', bookingRoutes);
-
-app.post('/vehicle-owner/register', vehicleOwnerController.register);
-app.post('/scheduler/sellersignin', vehicleOwnerController.login);
+app.use('/api/vehicle-owner', vehicleOwnerRoutes);
 
 app.use('/api/hotels', hotelRoutes); // Mount the hotel routes
 // Serve static files from the uploads directory (optional, if you want to serve images)
@@ -86,13 +84,6 @@ const server = app.listen(PORT, () => {
 const checklistRoutes = require('./routes/checklist');
 app.use('/api/auth', require('./routes/auth1'));
 app.use('/api/checklists', checklistRoutes);
-app.post('/vehicle-owner/register', vehicleOwnerController.register);
-app.post('/scheduler/sellersignin', vehicleOwnerController.login);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api/vehicles', vehicleRoutes);
-app.use('/uploads-vehicle-owner', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', bookingRoutes);
 const weatherRoutes = require('./routes/weatherRoutes');
 app.use('/apiwe', weatherRoutes); // Add this line to use the new weather routes
 app.use('/ticket',ticketRoutes);

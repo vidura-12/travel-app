@@ -12,10 +12,11 @@ const AdminProfile = () => {
   useEffect(() => {
     const fetchAdmin = async () => {
       const username = localStorage.getItem('username');
+      const token = localStorage.getItem('token');
       try {
         const response = await axios.get(`http://localhost:8081/auth/profile/${username}`, {
           headers: {
-            authorization: localStorage.getItem('token'),
+            'Authorization': `Bearer ${token}`,
           },
         });
         setAdmin(response.data);

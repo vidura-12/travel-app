@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/authMiddlewareV');
 
 router.post('/bookings', createBooking);
 
-router.get('/bookings/owner',  getBookingsForOwner);
+router.get('/bookings/owner', authMiddleware, getBookingsForOwner);
 
 router.get('/bookings/owner', authMiddleware, bookingController.getBookingsForOwner);
 
