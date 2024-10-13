@@ -29,7 +29,7 @@ function VehicleOwnerCreatePost() {
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-
+  const [isHovered, setIsHovered] = useState(false);
   
   //const email = localStorage.getItem('email');
   useEffect(() => {
@@ -80,6 +80,13 @@ function VehicleOwnerCreatePost() {
     }
   };
     
+  const handleMouseOver = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -604,8 +611,20 @@ function VehicleOwnerCreatePost() {
                
               </div>
             </div>
-            <button type="submit" style={submitButtonStyle}>Submit</button>
-            <button onClick={closeModal} style={closeButtonStyle}>Close</button>
+            <button
+              type="submit"
+              style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              Submit
+            </button>
+            <button
+              onClick={closeModal}
+              style={isHovered ? { ...closeButtonStyle, ...closeButtonStyleHover } : closeButtonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              Close
+            </button>
           </form>
         
         </Modal>
@@ -753,8 +772,20 @@ function VehicleOwnerCreatePost() {
             </div>
           </div>
         </div>
-        <button type="submit" style={submitButtonStyle}>Save Changes</button>
-        <button onClick={closeEditModal} style={closeButtonStyle}>Close</button>
+        <button
+              type="submit"
+              style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              Save Changes
+            </button>
+        <button
+          onClick={closeModal}
+          style={isHovered ? { ...closeButtonStyle, ...closeButtonStyleHover } : closeButtonStyle}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+          Close
+        </button>
       </form>
     </Modal>
         )}
@@ -845,7 +876,7 @@ const radioContainerStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#f0f0f0',
-  padding: '10px',
+  padding: '0px',
   borderRadius: '15px',
 };
 
@@ -971,6 +1002,10 @@ const submitButtonStyle = {
   
 };
 
+const submitButtonStyleHover = {
+  backgroundColor: '#45a049',
+};
+
 const closeButtonStyle = {
   backgroundColor: '#ccc',
   color: 'black',
@@ -983,6 +1018,10 @@ const closeButtonStyle = {
   margin: '0 5px',
   cursor: 'pointer',
   borderRadius: '5px',
+};
+
+const closeButtonStyleHover = {
+  backgroundColor: '#bbb',
 };
 
 const inputStyle = {
