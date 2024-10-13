@@ -4,7 +4,6 @@ body, html {
     padding: 0;
     font-family: 'Arial', sans-serif;
     box-sizing: border-box;
-    background: #f0f4f8;
 }
 
 /* Container Styles */
@@ -14,7 +13,7 @@ body, html {
     align-items: center;
     height: 100vh;
     background: url('https://cdn.pixabay.com/photo/2020/12/29/23/13/nine-arches-bridge-5871855_1280.jpg') no-repeat center center fixed;
-background-size: cover
+    background-size: cover;
 }
 
 .formContainer {

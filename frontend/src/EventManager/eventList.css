@@ -44,6 +44,7 @@
 .card {
   transition: transform 0.3s ease;
   padding-top: 0%;
+  padding-bottom: 10%;
 }
 
 .card:hover {

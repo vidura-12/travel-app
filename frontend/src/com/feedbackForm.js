@@ -19,9 +19,12 @@ export default function FeedbackForm() {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // If the input is for contact, perform special validation
-        if (name === 'contact') {
-            // Allow only digits and limit the length to 10 digits
+        if (name === 'name') {
+            // Allow only letters and spaces for the name
+            const lettersOnly = value.replace(/[^A-Za-z\s]/g, ''); // Remove anything that is not a letter or space
+            setFormData({ ...formData, name: lettersOnly });
+        } else if (name === 'contact') {
+            // Allow only digits and limit the length to 10 digits for contact
             const digitsOnly = value.replace(/\D/g, ''); // Remove non-digit characters
             if (digitsOnly.length <= 10) {
                 setFormData({ ...formData, contact: digitsOnly });

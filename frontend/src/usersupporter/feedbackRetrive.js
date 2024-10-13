@@ -84,14 +84,24 @@ export default function FeedbackRetrieve() {
         loadImageAsBase64(signatureUrl)
       ]);
 
+      // Add logo and frame
       doc.addImage(logoBase64, 'JPEG', 120, 10, 70, 30); 
       doc.setDrawColor(0, 0, 0);
       doc.setLineWidth(2);
       doc.rect(10, 10, 190, 250);
 
+      // Underlined title
       doc.setFontSize(16);
       doc.text('All Feedbacks', 20, 60);
+      doc.setLineWidth(0.5);
+      doc.line(20, 62, 70, 62); // Underline
 
+      // Add current date and time inside the frame
+      const currentDateTime = new Date().toLocaleString();
+      doc.setFontSize(12);
+      doc.text(`Date & Time: ${currentDateTime}`, 20, 68); // Added just below the heading inside the frame
+
+      // Table of feedbacks
       const tableData = filteredFeedbacks.map(feedback => [
         feedback.name,
         feedback.email,
@@ -99,27 +109,19 @@ export default function FeedbackRetrieve() {
         feedback.feedbackCategory,
         feedback.comment,
       ]);
-
       const columns = ['Name', 'Email', 'Contact', 'Category', 'Feedback'];
 
-      // Calculate table width
-      const tableWidth = doc.internal.pageSize.getWidth() - 20; // 10 margin on both sides
-      const columnWidths = columns.map(col => doc.getTextWidth(col) + 10); // Adding padding
-      const totalColumnWidth = columnWidths.reduce((acc, width) => acc + width, 0);
-
-      // Centering the table
-      const marginLeft = (tableWidth - totalColumnWidth) / 2;
-
-      // Add the table to the PDF with adjusted starting Y position and margin
       doc.autoTable({
         head: [columns],
         body: tableData,
-        startY: 70,
-        margin: { left: 20, right: 20 }, // Adjust left margin for centering
+        startY: 75, // Adjusted for date & time placement
+        margin: { left: 20, right: 20 },
       });
 
+      // Add signature
       doc.addImage(signatureBase64, 'JPEG', 20, doc.lastAutoTable.finalY + 10, 50, 15);
       doc.text('\n Signature \n Customer Affairs Admin', 20, doc.lastAutoTable.finalY + 25);
+
       doc.save('feedbacks.pdf');
     } catch (error) {
       console.error('Error loading images:', error);
