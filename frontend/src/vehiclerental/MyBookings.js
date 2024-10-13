@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const styles = {
+  content: {
+    marginTop: '100px',
+  },
   title: {
     fontSize: '24px',
     fontWeight: 'bold',
@@ -60,14 +63,13 @@ function VehicleOwner() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const email = localStorage.getItem('email'); // Fetch plain string
+    const email = localStorage.getItem('vehicleOwner'); // Fetch plain string
     const token = localStorage.getItem('token'); // Fetch auth token
-    
     if (email && token) {
       setEmail(email);
       fetchBookings(token); // Pass token for authentication
     } else {
-      navigate('/scheduler/sellersignin'); // Redirect if no email or token found
+      navigate('/vehicle-owner/login'); // Redirect if no email or token found
     }
   }, [navigate]);
 
@@ -86,8 +88,8 @@ function VehicleOwner() {
   };
 
   return (
-    <div>
-      <div className='content'>
+    <div className='vehicle-mybooking-content'>
+      <div style={styles.content}>
         <div style={styles.title}>My Bookings</div>
         {error && <p style={styles.error}>{error}</p>}
         <table style={styles.table}>
