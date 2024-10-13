@@ -88,10 +88,10 @@ function EventList() {
                     <strong>Price:</strong> RS.{event.price}
                   </p>
                   <Link to={`/EventManager/updateEvent/${event._id}`}>
-                    <button className="btn btn-primary" style={{ marginRight: '10px' }}>Edit</button>
+                    <button className="btn btn-primary event-button" style={{ marginRight: '10px' }}>Edit</button>
                   </Link>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger event-button"
                     onClick={() => handleDelete(event._id)}
                   >
                     Delete

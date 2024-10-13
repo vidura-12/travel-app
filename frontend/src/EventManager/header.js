@@ -1,15 +1,8 @@
 import React from 'react';
 import './stl.css';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function Header2() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-      localStorage.removeItem('token');
-      navigate('/scheduler/sellersignin');
-  };
   return (
     <div>
       <section className="home-section1">
@@ -22,21 +15,31 @@ function Header2() {
               <h3>TravelMate</h3>
             </div>
             <div className="menu-container1">
-             
               <ul className="menu-list1">
-                
                 <li><a href="/EventManager/Dashboard">Dashboard</a></li>
                 <li><a href="/EventManager/addEvent">Add Event</a></li>
-                
                 <li><a href="/EventManager/EventList">View Event</a></li>
-                {/* <li><Link to="/EventManager/report">Report</Link></li> */}
-                
-                 
+                <li><Link to="/EventManager/report">Report</Link></li>
               </ul>
             </div>
-            <div className="profile-header">
-              
-                <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
+            <div 
+              className="auth-container1"
+              style={{ display: 'flex', gap: '10px' }} // Inline styles for the auth container
+            >
+              <a 
+                className="event-auth-btn1" 
+                href="/scheduler/sellersignin" 
+                style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Log out button
+              >
+                Log out
+              </a>
+              <a 
+                className="event-auth-btn1" 
+                href="/EventManager/EventOProfile" 
+                style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Profile button
+              >
+                Profile
+              </a>
             </div>
           </nav>
         </div>
