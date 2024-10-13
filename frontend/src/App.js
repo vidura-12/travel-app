@@ -102,6 +102,7 @@ import EditRegister from './scheduler/editregister';
 import EditPackage from './scheduler/Editpackage';
 import Approveseller from './scheduler/approvedPackages';
 import SellerProfile from './scheduler/Sellerprofile';
+import Approvepack from './scheduler/approvedPackages';
 
  
 
