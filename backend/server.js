@@ -76,13 +76,7 @@ app.get('/', (req, res) => {
 
 // Use the hotel owner routes
 app.use('/api/hotelOwners', hotelOwnerRoutes);
-<<<<<<< HEAD
-app.use('/api/hotelBookings', hotelBookingRoutes); // Mount the hotel booking routes
-
-
-=======
  
->>>>>>> main
 // Start the server
 const server = app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
