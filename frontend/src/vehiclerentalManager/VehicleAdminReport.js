@@ -1,29 +1,9 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-<<<<<<< HEAD
-import axios from 'axios';
-
-export const generateVehicleReport = async () => {
-  const doc = new jsPDF();
-
-  const response = await axios.get('http://localhost:8081/api/vehicles');
-  console.log('API Response:', response.data);
-  
-
-  const vehicles = Array.isArray(response.data) ? response.data : []
-
-  // Proceed only if vehicles is an array
-  if (!vehicles.length) {
-    alert('No vehicles found in the response.');
-    return;
-  }
-
-=======
 
 export const generateVehicleReport = async (vehicles) => {
   const doc = new jsPDF();
 
->>>>>>> buwa123
   const logo = await import('../vehiclerental/Vehicle_Images/logo.png');
   const signature = await import('../vehiclerental/Vehicle_Images/signature.jpg');
 
@@ -58,31 +38,6 @@ export const generateVehicleReport = async (vehicles) => {
     doc.setTextColor(22, 160, 133);
     doc.text('Summary', margin, margin + 52);
 
-<<<<<<< HEAD
-    // Vehicle Summary Section
-    const totalVehicles = vehicles.length || 0;
-    const approvedVehicles = vehicles.filter(v => v.status === 'approved').length || 0;
-    const pendingVehicles = vehicles.filter(v => v.status === 'pending').length || 0;
-    const rejectedVehicles = vehicles.filter(v => v.status === 'rejected').length || 0;
-    const deletedVehicles = vehicles.filter(v => v.status === 'deleted').length || 0;
-
-    const vehicleSummary = [
-      ['Total Vehicles', totalVehicles.toString()],
-      ['Approved Vehicles', approvedVehicles.toString()],
-      ['Pending Vehicles', pendingVehicles.toString()],
-      ['Rejected Vehicles', rejectedVehicles.toString()],
-      ['Deleted Vehicles', deletedVehicles.toString()]
-    ];
-    doc.autoTable({
-        head: [['Summary', 'Count']],
-        body: vehicleSummary,
-        startY: margin + 48, // Adjust Y position of the table
-        theme: 'grid',
-        headStyles: { fillColor: [22, 160, 133] }, // Custom header color
-        margin: { left: 10, right: 10 },
-        startY: currentY + 10
-    });
-=======
     
     //Vehicle Summary Section
     // const vehicleSummary = [
@@ -101,7 +56,6 @@ export const generateVehicleReport = async (vehicles) => {
     //     margin: { left: 10, right: 10 },
     //     startY: currentY + 10
     // });
->>>>>>> buwa123
 
     //Add a table with vehicle details
     doc.autoTable({
