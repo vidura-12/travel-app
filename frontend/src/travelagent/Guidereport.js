@@ -20,44 +20,78 @@ export default function Report() {
     fetchApprovedTourGuides();
   }, []);
 
-  const generatePDFReport = () => {
+  // Function to load an image and convert it to Base64
+  const loadImageAsBase64 = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.crossOrigin = 'Anonymous'; // Handle cross-origin images
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/jpeg');
+        resolve(dataURL);
+      };
+      img.onerror = reject;
+    });
+  };
+
+  const generatePDFReport = async () => {
     const doc = new jsPDF();
+
+    const logoUrl = '/img/logo.jpeg';
+    const signatureUrl = '/img/sig.jpeg';
 
     // Add a frame (rectangle) to the PDF
     doc.setLineWidth(1); // Set the thickness of the frame
     doc.rect(10, 10, 190, 277); // Draw the rectangle (x, y, width, height)
 
-    // Add the logo
-    //doc.addImage(logo, 'JPEG', 20, 20, 50, 20); // Adjust the coordinates and size as needed
+    try {
+      const [logoBase64, signatureBase64] = await Promise.all([
+        loadImageAsBase64(logoUrl),
+        loadImageAsBase64(signatureUrl)
+      ]);
 
-    // Title
-    doc.setFontSize(18);
-    doc.text('Approved Tour Guides Report', 14, 50); // Adjust Y position to prevent overlap
+      // Add the logo
+      doc.addImage(logoBase64, 'JPEG', 120, 10, 70, 30);
+      doc.setDrawColor(0, 0, 0);
+      doc.setLineWidth(2);
+      // Removed the duplicate rectangle here
+      doc.setFontSize(18);
+      doc.text('Approved Tour Guides Report', 14, 50); // Adjust Y position to prevent overlap
 
-    // Table Column
-    const tableColumn = ["Name", "Email", "Address", "Number", "Experience", "Language"];
-    const tableRows = [];
+      // Table Column
+      const tableColumn = ["Name", "Email", "Address", "Number", "Experience", "Language"];
+      const tableRows = [];
 
-    // Add data to the rows
-    tourGuides.forEach(guide => {
-      const guideData = [
-        guide.name,
-        guide.email,
-        guide.address,
-        guide.number,
-        guide.experience,
-        guide.language,
-      ];
-      tableRows.push(guideData);
-    });
+      // Add data to the rows
+      tourGuides.forEach(guide => {
+        const guideData = [
+          guide.name,
+          guide.email,
+          guide.address,
+          guide.number,
+          guide.experience,
+          guide.language,
+        ];
+        tableRows.push(guideData);
+      });
 
-    // Add the admin's signature
-   // doc.addImage(signature, 'JPEG', 20, 130, 50, 20); // Adjust the coordinates and size as needed
-    //doc.text('Admin Signature', 20, 155); // Optionally add a label for the signature
+      // Create a table in the PDF
+      doc.autoTable(tableColumn, tableRows, { startY: 70 }); // Adjust startY to prevent overlap with title and images
 
-    // Create a table in the PDF
-    doc.autoTable(tableColumn, tableRows, { startY: 70 }); // Adjust startY to prevent overlap with title and images
-    doc.save('tour_guides_report.pdf'); // Save the PDF
+      // Add signature
+      doc.addImage(signatureBase64, 'JPEG', 20, 180, 50, 15);
+      doc.text('Signature \n Tour Guide Admin', 20, 200);
+
+      // Save the PDF
+      doc.save('tour_guides_report.pdf'); // Save the PDF
+    } catch (error) {
+      console.error('Error loading images:', error);
+    }
   };
 
   return (
@@ -87,7 +121,7 @@ export default function Report() {
         </button>
         <div style={{ overflowX: 'auto' }}>
           <table className="table table-striped table-bordered" style={{ margin: '0 auto', width: '100%', minWidth: '800px' }}>
-            <thead className="thead-dark">
+            <thead className="thead-dark" style={{ backgroundColor: '#687786', color: '#ffffff' }}>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -113,4 +147,5 @@ export default function Report() {
         </div>
       </div>
     </div>
-  )};
+  );
+}

@@ -90,7 +90,7 @@ export default function Register() {
         },
       });
 
-      navigate('/guideLog', { state: formData });
+      navigate('/regSuccess', { state: formData });
 
       setFormData({
         name: '',
@@ -183,8 +183,17 @@ export default function Register() {
         <button
           className="btn btn-primary w-100"
           type="submit"
-          style={{ padding: '12px', fontSize: '18px', borderRadius: '30px', fontWeight: '600' }}
-        >
+          style={{ padding: '12px', fontSize: '18px', borderRadius: '30px', fontWeight: '600' ,
+              background: '#164B60',
+              color: 'white', 
+              transition: 'background-color 0.3s, transform 0.3s',
+              fontSize: '1rem',
+              border: 'none',
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = '#164B60')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = '#1B6B93')}
+          >
+       
           Register
         </button>
       </form>

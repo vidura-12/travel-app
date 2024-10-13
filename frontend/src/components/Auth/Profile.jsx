@@ -70,6 +70,27 @@ function Profile() {
       error = 'Enter only letters';
     }
 
+    // Validation for Date of Birth (DOB)
+    if (name === 'dob') {
+      const today = new Date();
+      const birthDate = new Date(value);
+      const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+      // Prevent selecting today or any future date
+      if (birthDate > today) {
+        error = 'Date of birth cannot be in the future';
+      } 
+      // Ensure user is at least 18 years old
+      else if (birthDate > minAgeDate) {
+        error = 'You must be at least 18 years old to create an account';
+      }
+
+      const age = today.getFullYear() - birthDate.getFullYear();
+      setFormData({ ...formData, dob: value, age });
+      setErrors({ ...errors, dob: error });
+      return;
+    }
+
     // Validation for NIC based on DOB year
     if (name === 'NIC') {
       const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;
@@ -103,6 +124,8 @@ function Profile() {
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: error });
   };
+
+  
 
   const handleKeyDown = (e, fieldName) => {
     const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;

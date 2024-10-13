@@ -21,8 +21,8 @@ const Header = () => {
                 </li>
             </ul>
             <div className="profile-header">
-                <button className="nav-link-profile-header" onClick={() => navigate('/Admin/profile')}>Profile</button>
-                <button className="nav-link-profile-logout-header" onClick={handleLogout}>LogOut</button>
+                <button className="nav-link-profile-header" onClick={() => navigate('/scheduler/Sellerprofile')}>Profile</button>
+                <button className="nav-link-profile-logout-header" onClick={() => navigate('/scheduler/sellersignin')}>LogOut</button>
             </div>
         </div>
     );

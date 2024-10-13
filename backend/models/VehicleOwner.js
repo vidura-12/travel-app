@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const vehicleOwnerSchema = new mongoose.Schema({
 
-    firstname: {    
+    fullName: {    
         type: String, 
         required: true 
     },

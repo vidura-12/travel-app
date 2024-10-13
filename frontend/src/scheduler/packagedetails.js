@@ -7,6 +7,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './packagedetails.css';
 import Swal from 'sweetalert2';
+import logo from './sheduler image/logo.jpeg'; // Add your logo image path
+import signature from './sheduler image/sig.jpeg'; 
 
 const Dashboard = () => {
   const [packages, setPackages] = useState([]);
@@ -73,7 +75,7 @@ const Dashboard = () => {
   const handleApprove = async (id) => {
     try {
       await axios.put(`http://localhost:8081/packages/update/${id}`, { status: 'approved' }, {
-        headers: { authorization: token }
+        headers: { authorization: `Bearer ${token}` }
       });
 
       const updatedPackages = packages.map(pkg => {
@@ -141,9 +143,28 @@ const Dashboard = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    const tableColumn = ['Agency Name', 'Phone Number', 'Email', 'Location', 'Places', 'Max People', 'Price', 'Status'];
+  
+    // Draw border for aesthetic purposes
+    doc.setLineWidth(1);
+    doc.rect(10, 10, 190, 277);
+  
+    // Add the logo at the top left with adjusted size for clarity
+    doc.addImage(logo, 'JPEG', 20, 15, 60, 25); // Increased width and height for clarity
+  
+    // Add report title
+    doc.setFontSize(18);
+    doc.text('Travel Package Details', 80, 30); // Centered under the logo
+  
+    // Get current date
+   // Position the date on the top right
+  
+    // Define table columns and prepare rows from package data
+    const tableColumn = [
+      'Agency Name', 'Phone Number', 'Email', 'Location', 
+      'Places', 'Max People', 'Price', 'Status'
+    ];
     const tableRows = [];
-
+  
     packages.forEach(pkg => {
       const packageData = [
         pkg.agencyName,
@@ -157,11 +178,34 @@ const Dashboard = () => {
       ];
       tableRows.push(packageData);
     });
-
-    doc.autoTable(tableColumn, tableRows, { startY: 20 });
-    doc.text('Travel Package Details', 14, 15);
+  
+    // Insert the table below the header (startY ensures proper positioning)
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 50, // Ensure it starts after the title and logo
+      theme: 'striped',
+    });
+  
+    // Add the signature at the bottom left with reduced size
+    doc.addImage(signature, 'JPEG', 20, 260, 40, 15); // Adjusted size for the signature image
+    doc.setFontSize(10); // Reduced font size for the signature text
+    doc.text('Scheduler Signature', 20, 280); 
+    const currentDate = new Date().toLocaleDateString(); // Format the date
+  
+    // Add current date to the PDF
+    doc.setFontSize(12); // Set font size for the date
+    doc.text(`Date: ${currentDate}`, 160, 30);
+    // Signature text below the image
+  
+    // Save the PDF
     doc.save('travel_packages_report.pdf');
   };
+  
+  const totalPackages = packages.length;
+  const totalPrice = packages.reduce((sum, pkg) => sum + (pkg.price || 0), 0);
+  const averagePrice = totalPackages > 0 ? (totalPrice / totalPackages).toFixed(2) : 0;
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -179,6 +223,11 @@ const Dashboard = () => {
         <center>
         <button className="btn btn-primary" onClick={generatePDF}>Download PDF</button>
         </center>
+        </div>
+        <div className="summary">
+          <p>Total Packages: {totalPackages}</p>
+          <p>Average Price: ${averagePrice}</p>
+
         </div>
         {packages.length === 0 ? (
           <p className='d'>No travel packages found.</p>

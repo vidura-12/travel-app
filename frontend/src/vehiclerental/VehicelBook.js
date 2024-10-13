@@ -391,7 +391,7 @@ const VehicleBook = () => {
 
 
         <div style={{
-          width: '40%',
+          width: '34%',
           marginRight: '20px',
           borderRadius: '8px',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.15)',
@@ -399,7 +399,7 @@ const VehicleBook = () => {
           padding: '15px',
           boxSizing: 'border-box'
         }}>
-          <h1 style={{ fontSize: '1.5em', marginBottom: '20px' }}>Book Your Vehicle</h1>
+          <h1 style={{ marginBottom: '20px', fontSize: '26px', fontWeight: 'bold', textAlign: 'center' }}>Book Your Vehicle</h1>
           <form onSubmit={handleSubmit}>
           <label>
               Name:
@@ -414,7 +414,7 @@ const VehicleBook = () => {
                     setFormData({ ...formData, userName: value });
                   }
                 }}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '234%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
             </label>
@@ -426,7 +426,7 @@ const VehicleBook = () => {
                 name="userEmail"
                 value={formData.userEmail}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '237%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
             </label><br/>
@@ -437,7 +437,7 @@ const VehicleBook = () => {
                 name="userPhoneNumber"
                 value={formData.userPhoneNumber}
                 onChange={handlePhoneNumberChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '185%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
             </label><br/>
@@ -448,7 +448,7 @@ const VehicleBook = () => {
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '244%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
             </label><br/>
@@ -459,10 +459,10 @@ const VehicleBook = () => {
                 name="numberOfDays"
                 value={formData.numberOfDays}
                 onChange={handleNumberOfDaysChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '181%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               License ID:
               <input
@@ -470,17 +470,17 @@ const VehicleBook = () => {
                 name="licenseId"
                 value={formData.licenseId}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '211%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               Additional Notes:
               <textarea
                 name="additionalNotes"
                 value={formData.additionalNotes}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '191%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
               />
             </label>
             <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> LKR {totalCost}</p>
