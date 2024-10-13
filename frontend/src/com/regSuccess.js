@@ -9,7 +9,7 @@ export default function RegSucc() {
   useEffect(() => {
     // Automatically navigate to login or another page after a delay.
     const timer = setTimeout(() => {
-      navigate('/login'); // Redirect to login or any other page you want
+      navigate('/guide'); // Redirect to login or any other page you want
     }, 5000); // 5-second delay
 
     return () => clearTimeout(timer); // Cleanup the timer on component unmount
