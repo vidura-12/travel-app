@@ -116,7 +116,7 @@ import PendingEvent from './EventManager/PendingEvent';
 import FeedRitrive from './usersupporter/feedbackRetrive';
 import FeedDash from './usersupporter/dashboard';
 import Rating from './usersupporter/AdminRating';
-
+import AgentRegSucc from './com/regSuccess';
 
 // Vehicle Rental Components
 import VehicleRentalHome from './vehiclerental/VehicleRentalHome';
@@ -151,7 +151,7 @@ function App() {
         <Route path="/AFAQ" element={<UserLayout><FAQChatApp /></UserLayout>} />
         <Route path="/ContactUs" element={<UserLayout><ContactUs /></UserLayout>} />
         <Route path="/AddRating" element={<UserLayout><AddRating /></UserLayout>} />
-        
+        <Route path="/regSuccess" element={<UserLayout><AgentRegSucc /></UserLayout>} />
         <Route path="/home" element={<UserLayout><Home /></UserLayout>} />
         <Route path="/location" element={<UserLayout><Location /></UserLayout>} />
         <Route path="/hotels" element={<UserLayout><Hotels /></UserLayout>} />
