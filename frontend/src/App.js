@@ -193,8 +193,8 @@ function App() {
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
         <Route path="/scheduler/approvedPackages" element={<Sellerlayout><Approvepack/></Sellerlayout>} />
-        <Route path="/scheduler/Sellersprofile" element={<Sellerlayout><SellerProfile/></Sellerlayout>} />
-        <Route path="/scheduler/Editpackage" element={<Sellerlayout><EditPackage/></Sellerlayout>} />
+        <Route path="/scheduler/Sellerprofile" element={<Sellerlayout><SellerProfile/></Sellerlayout>} />
+        <Route path="/editpackage" element={<Sellerlayout><EditPackage/></Sellerlayout>} />
 
         <Route path="/Admin/profile" element={<AdminProfile />} />
   <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />

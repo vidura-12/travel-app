@@ -81,3 +81,56 @@
         width: 80px;
     }
 }
+
+.popup-container {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Colorful gradient background */
+    padding: 20px;
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Max width */
+    position: relative; /* Position for elements inside */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.popup-overlay {
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    right: 0; /* Align to right */
+    bottom: 0; /* Align to bottom */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* On top of other elements */
+  }
+  
+  .popup-container {
+    background-color: #d3d3d3; /* Ash color */
+    padding: 20px; /* Padding for container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    width: 400px; /* Set width */
+    max-width: 100%; /* Responsive max width */
+  }
+  
+  /* Styles for the form buttons */
+  button[type="submit"],
+  button[type="button"] {
+    margin-top: 10px; /* Space between buttons */
+  }
+  
+  /* Additional styling for inputs */
+  input {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for inputs */
+    margin: 10px 0; /* Space between inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  input:focus {
+    border-color: #4caf50; /* Border color on focus */
+    outline: none; /* Remove outline */
+  }

@@ -117,5 +117,17 @@ router.get('/sellerlog/:email', async (req, res) => {
   }
 });
 
+router.get('/seller/profile/:email', (req, res) => {
+  const email = req.params.email;
+
+  // Find seller by email and return the seller data
+  Seller.findOne({ email }, (err, seller) => {
+    if (err || !seller) {
+      return res.status(404).json({ error: 'Seller not found' });
+    }
+    res.json(seller);
+  });
+});
+
 
 module.exports = router;

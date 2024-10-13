@@ -10,7 +10,7 @@ const Tours = () => {
   const [packages, setPackages] = useState([]); // State to store fetched package data
   const [filteredPackages, setFilteredPackages] = useState([]); // State for filtered packages
   const [location, setLocation] = useState(''); // State for location input
-  const [maxPeople, setMaxPeople] = useState(''); // State for max people input
+  const [place, setPlace] = useState(''); // State for place input
 
   // Fetch all packages when the component mounts
   useEffect(() => {
@@ -28,8 +28,10 @@ const Tours = () => {
   const handleSearch = () => {
     const filtered = packages.filter(pkg => {
       const matchesLocation = location ? pkg.location.toLowerCase().includes(location.toLowerCase()) : true;
-      const matchesMaxPeople = maxPeople ? pkg.maxPeople >= parseInt(maxPeople) : true;
-      return matchesLocation && matchesMaxPeople;
+      const matchesPlace = place
+        ? pkg.places.some(p => p.toLowerCase().includes(place.toLowerCase())) 
+        : true; // Check if any place in the array matches
+      return matchesLocation && matchesPlace;
     });
     setFilteredPackages(filtered);
   };
@@ -42,15 +44,14 @@ const Tours = () => {
     <div>
       <div className="tourpic">
         <div className='ourtour'>
-        <center>
-        <h1 className='our'>Our Tours</h1>
-        </center>
-        <p className="description">
-        Welcome to TravelMate! Explore our diverse tours, offering unforgettable experiences from adventure to relaxation. Create lasting memories and start your journey with us today!
-        </p>
+          <center>
+            <h1 className='our'>Our Tours</h1>
+          </center>
+          <p className="description">
+            Welcome to TravelMate! Explore our diverse tours, offering unforgettable experiences from adventure to relaxation. Create lasting memories and start your journey with us today!
+          </p>
         </div>
 
-       
         <div className="searc">
           <div className="search_bar">
             <Form className="d-flex align-items-center gap-4 justify-content-center">
@@ -67,14 +68,14 @@ const Tours = () => {
                 </div>
               </FormGroup>
               <FormGroup className="d-flex gap-3 form_group">
-                <span><i className="ri-group-line"></i></span>
+                <span><i className="ri-map-pin-line"></i></span>
                 <div>
-                  <h6>Max People</h6>
+                  <h6>Place</h6>
                   <input 
-                    type="number" 
-                    placeholder="Travelers" 
-                    value={maxPeople} 
-                    onChange={(e) => setMaxPeople(e.target.value)} 
+                    type="text" 
+                    placeholder="Place to visit" 
+                    value={place} 
+                    onChange={(e) => setPlace(e.target.value)} 
                   />
                 </div>
               </FormGroup>
@@ -82,18 +83,12 @@ const Tours = () => {
                 <i className="ri-search-line"></i> 
               </Button>
             </Form>
-
           </div>
-        
-            
-
-          
         </div>
       </div>
+      
       <center>
-      <p className="destinations-title">
-        Explore Stays in Trending Destinations
-      </p>
+      <p className="destinations-title">Explore Stays in Trending Destinations</p>
       </center>
 
       {/* Display filtered packages */}
@@ -120,26 +115,21 @@ const Tours = () => {
         )}
       </div>
 
-    
-
       <div className='enjoy2'>
-      <div className="enjoy-life-section">
-       
-        <div className='app'>
-          <center>
-        <h3>Welcome Travel Agencies!</h3>
-        <p>Register on our website and review our partnership agreement. 
-          Use our tools to design tailored travel packages, list them, and utilize our marketing resources. 
-          Respond to inquiries, manage bookings, and use analytics to track performance and update packages.<h5>Join us today!</h5></p></center>
-          <div className='enjoybtn'>
-           <button className="agency" onClick={handleCreatePackageClick}>Travel Agency</button>
-           </div> 
-        </div> 
-       
+        <div className="enjoy-life-section">
+          <div className='app'>
+            <center>
+              <h3>Welcome Travel Agencies!</h3>
+              <p>Register on our website and review our partnership agreement. 
+                Use our tools to design tailored travel packages, list them, and utilize our marketing resources. 
+                Respond to inquiries, manage bookings, and use analytics to track performance and update packages.<h5>Join us today!</h5></p>
+            </center>
+            <div className='enjoybtn'>
+              <button className="agency" onClick={handleCreatePackageClick}>Travel Agency</button>
+            </div> 
+          </div> 
+        </div>
       </div>
-      </div>
-
-      
     </div>
   );
 };

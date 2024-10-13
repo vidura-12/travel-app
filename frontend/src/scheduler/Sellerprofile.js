@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Sellerprofile.css';
 
 const Sellerprofile = () => {
   const [sellerData, setSellerData] = useState({});
-  const token = localStorage.getItem('token'); // Retrieve token
 
   useEffect(() => {
-    const fetchSellerData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8081/seller/profile', {
-          headers: {
-            Authorization: `Bearer ${token}` // Send token in request headers
-          }
-        });
-        setSellerData(response.data);
-      } catch (error) {
-        console.error('Error fetching seller data:', error);
-      }
-    };
-
-    if (token) {
-      fetchSellerData(); // Fetch seller data only if token exists
+    // Retrieve seller data from localStorage
+    const storedSellerData = JSON.parse(localStorage.getItem('sellerData'));
+    if (storedSellerData) {
+      setSellerData(storedSellerData);
     }
-  }, [token]);
+  }, []);
 
   return (
     <div className="seller-profile">
       <h2>Seller Profile</h2>
-      <div className="profile-details">
+      <div className="sprofile-details">
         <p><strong>Name:</strong> {sellerData.name}</p>
         <p><strong>Email:</strong> {sellerData.email}</p>
         <p><strong>Phone:</strong> {sellerData.phone}</p>

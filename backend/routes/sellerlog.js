@@ -55,6 +55,9 @@ router.post('/signup', async (req, res) => {
       res.status(500).json({ message: 'Error logging in', error });
     }
   });
+
+  
+  
   
   
   module.exports = router;

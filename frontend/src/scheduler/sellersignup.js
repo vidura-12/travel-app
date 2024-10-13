@@ -34,43 +34,27 @@ const Sellersignup = () => {
     return errors;
   };
 
-  // Handle name input (only letters allowed)
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(value)) {
-      setName(value);
-    }
-  };
-
-  // Handle phone input (only 10 digits allowed)
-  const handlePhoneChange = (e) => {
-    const value = e.target.value;
-    if (/^\d{0,10}$/.test(value)) {
-      setPhone(value);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
-
+  
     if (Object.keys(validationErrors).length === 0) {
       const userData = { name, email, password, phone, address, role };
-
+  
       try {
-        // Make POST request to the server (Optional)
         const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
         console.log('Response:', response.data);
-
-        // Save seller data to localStorage
-        const savedSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
-        localStorage.setItem('sellersData', JSON.stringify([...savedSellers, userData]));
-
-        // Show alert on successful registration
+  
+        // Save email as token
+        localStorage.setItem('token', email);
+  
+        // Save the entire user data in localStorage for profile usage
+        localStorage.setItem('sellerData', JSON.stringify(userData));
+  
         alert('Registration successful! Please log in.');
-
-        // Navigate to login page
+  
+        // Navigate to profile page with the seller's data
         navigate('/scheduler/sellersignin');
       } catch (error) {
         console.error('Error submitting form:', error);
@@ -78,6 +62,7 @@ const Sellersignup = () => {
       }
     }
   };
+  
 
   return (
     <div className='sellers'>
@@ -92,7 +77,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={name}
-                onChange={handleNameChange}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Enter Name"
                 className="form-control"
               />
@@ -137,7 +122,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={phone}
-                onChange={handlePhoneChange}
+                onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter Phone Number"
                 className="form-control"
               />
@@ -174,10 +159,8 @@ const Sellersignup = () => {
               {errors.role && <span className="text-danger">{errors.role}</span>}
             </div>
 
-            <div className='s'>
-              <div className='text-center'>
-                <button type="submit" className="btn btn-primary">Register</button>
-              </div>
+            <div className='text-center'>
+              <button type="submit" className="btn btn-primary">Register</button>
             </div>
             <p className="text-center mt-3">Already Have an Account?</p>
             <div className='text-center'>
