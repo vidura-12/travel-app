@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'; // For navigation
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Swal from 'sweetalert2'; // Import SweetAlert2
-const token = localStorage.getItem('token');
+
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
   const [modal, setModal] = useState(false);
@@ -14,7 +14,7 @@ const LocationTable = () => {
 
   useEffect(() => {
     const fetchLocations = async () => {
-     
+      const token = localStorage.getItem('token');
       if (!token) {
         alert('You need to log in first.');
         navigate('/admin/login'); // Redirect to login page
@@ -66,7 +66,7 @@ const LocationTable = () => {
         status: 'approved',
       }, {
         headers: {
-          authorization: token
+          authorization: `Bearer ${token}`, 
         }
       });
       const updatedLocations = locations.map(location => {
@@ -110,7 +110,7 @@ const LocationTable = () => {
     try {
       await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
         headers: {
-          authorization: token // Include the token in the request header
+          authorization: `Bearer ${token}`, // Include the token in the request header
         }
       });
       const updatedLocations = locations.filter(location => location._id !== locationId);
@@ -135,34 +135,29 @@ const LocationTable = () => {
 
   const downloadReport = async () => {
     const doc = new jsPDF();
-  
+    
     // Load the logo and signature images
     const logo = await import('./img/ll.png'); // Adjust the path if necessary
     const sign = await import('./img/sign.jpg'); // Path to the admin's signature image
-  
+    
     const logoImg = new Image();
     const signImg = new Image();
-  
+    
     // Load and add logo image
     logoImg.src = logo.default;
     logoImg.onload = () => {
-      // Add logo in the top-right corner
-      doc.addImage(logoImg, 'PNG', 150, 10, 50, 20); // Adjust position and size as needed
-  
-      // Add a border frame
-      doc.rect(5, 5, 200, 287, 'S'); // Adjust size and position for the border
-  
-      // Add watermark
-      doc.setFontSize(60);
-      doc.setTextColor(200, 200, 200); // Light grey color for watermark
-      doc.text('SL HOLIDAYS', 105, 150, { align: 'center', angle: 45 }); // Centered and rotated watermark
-  
+      // Add logo in the top-right corner with increased height
+      doc.addImage(logoImg, 'PNG', 150, 10, 50, 35); // Adjust width and height
+      
+      // Add a border on every page
+      doc.rect(5, 5, 200, 287, 'S'); // Border for the first page
+      
       doc.setFontSize(20);
       doc.setTextColor(0, 0, 0); // Black color for the title
       doc.text('Location Report', 10, 40);
       doc.setFontSize(12);
       doc.setTextColor(0, 0, 0); // Reset text color to black for normal text
-  
+      
       // Define table headers and data (without Picture column)
       const headers = ['Name', 'City', 'Description', 'Added By', 'Status'];
       const data = locations.map(location => [
@@ -172,7 +167,7 @@ const LocationTable = () => {
         location.addedBy || 'Unknown',
         location.status
       ]);
-  
+      
       // Generate table with adjusted column widths
       doc.autoTable({
         head: [headers],
@@ -184,8 +179,12 @@ const LocationTable = () => {
         columnStyles: {
           2: { cellWidth: 60 }, // Increase width for the 'Description' column
         },
+        didDrawPage: (data) => {
+          // Draw border on every page
+          doc.rect(5, 5, 200, 287, 'S');
+        }
       });
-  
+      
       // Load and add signature image after the table
       signImg.src = sign.default;
       signImg.onload = () => {
@@ -218,6 +217,7 @@ const LocationTable = () => {
       doc.save('Location_Report.pdf');
     };
   };
+  
   
   
 
@@ -274,9 +274,10 @@ const LocationTable = () => {
             </div>
           </div>
         )}
+        
         <button className="location-btn-report" onClick={downloadReport}>
           Download Report
-        </button>
+        </button>       
       </div>
       
     </div>
