@@ -101,4 +101,52 @@ router.post('/comment/:id', async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+// Route to get locations added by a specific user
+router.get('/user-locations', async (req, res) => {
+  const { email } = req.query; // Get the email from the query parameter
+
+  try {
+    const userLocations = await Location.find({ addedBy: email });
+
+    if (!userLocations || userLocations.length === 0) {
+      return res.status(404).json({ error: 'No locations found for this user.' });
+    }
+
+    res.status(200).json(userLocations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put('/:id', upload.single('picture'), async (req, res) => {
+  const locationId = req.params.id;
+
+  try {
+    // Find the location by ID
+    const location = await Location.findById(locationId);
+    if (!location) {
+      return res.status(404).json({ error: 'Location not found' });
+    }
+
+    // Update the fields; if a new image is uploaded, update the picture field
+    location.city = req.body.city || location.city;
+    location.description = req.body.description || location.description;
+    location.status = "not approved";
+    
+    // If a new image URL is provided, update the picture field
+    if (req.body.picture) {
+      location.picture = req.body.picture;
+    }
+    
+    location.addedBy = req.body.addedBy || location.addedBy;
+
+    // Save the updated location
+    await location.save();
+    res.status(200).json(location);
+  } catch (err) {
+    console.error('Error updating location:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

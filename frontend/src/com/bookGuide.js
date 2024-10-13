@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import jsPDF from 'jspdf';
+import logo from './img/logo.jpeg'; // Add your logo image path
+import signature from './img/sig.jpeg'; // Add your signature image path
 
 export default function BookGuide() {
   const navigate = useNavigate();
@@ -16,13 +18,24 @@ export default function BookGuide() {
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
+    // Add a frame (rectangle) to the PDF
+    doc.setLineWidth(1); // Set the thickness of the frame
+    doc.rect(10, 10, 190, 277); // Draw the rectangle (x, y, width, height)
+
+    // Add the logo (adjust for JPEG format)
+    doc.addImage(logo, 'JPEG', 20, 20, 50, 20); // Adjust the coordinates (x, y) and size (width, height) as needed
+
     // Add the content to the PDF
     doc.setFontSize(18);
-    doc.text('Tour Guide Booking Confirmation', 20, 20);
+    doc.text('Tour Guide Booking Confirmation', 20, 50);
     doc.setFontSize(12);
-    doc.text(`Name: ${name}`, 20, 40);
-    doc.text(`Address: ${address}`, 20, 50);
-    doc.text(`Number: ${number}`, 20, 60);
+    doc.text(`Name: ${name}`, 20, 70);
+    doc.text(`Address: ${address}`, 20, 80);
+    doc.text(`Number: ${number}`, 20, 90);
+
+    // Add the admin's signature (adjust for JPEG format)
+    doc.addImage(signature, 'JPEG', 20, 130, 50, 20); // Adjust the coordinates (x, y) and size (width, height) as needed
+    doc.text('Admin Signature', 20, 155); // Optionally add a label for the signature
 
     // Save the PDF
     doc.save('booking-details.pdf');

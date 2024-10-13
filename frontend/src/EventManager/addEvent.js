@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -18,8 +18,17 @@ function AddEvent() {
 
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
+  const [minDate, setMinDate] = useState(''); // State to store minimum date
 
   const specialRegex = /^[a-zA-Z0-9\s]*$/;
+
+  // Set minimum date to two days from current date
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate() + 2); // Add 2 days to the current date
+    const formattedDate = today.toISOString().split("T")[0]; // Get YYYY-MM-DD format
+    setMinDate(formattedDate);
+  }, []);
 
   const validateForm = () => {
     let valid = true;
@@ -64,7 +73,21 @@ function AddEvent() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    // Validate input according to its name
+    if (name === 'name' || name === 'location') {
+      // Prevent invalid characters for name and location
+      if (specialRegex.test(value) || value === "") {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else if (name === 'price') {
+      // Allow only non-negative numbers for price
+      if (!isNaN(value) && value >= 0) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -214,6 +237,7 @@ function AddEvent() {
               name="date"
               value={formData.date}
               onChange={handleInputChange}
+              min={minDate} // Set the minimum selectable date
               required
             />
           </div>
@@ -261,14 +285,13 @@ function AddEvent() {
           <hr />
 
           {/* Ticket Criteria Inputs */}
-          <h4 style={styles.subHeading}>Ticket Criteria</h4>
+          <h4 style={styles.ticketHeading}>Ticket Criteria</h4>
           {formData.ticketCriteria.map((criteria, index) => (
-            <div className="form-group mb-3" key={index}>
-              <label htmlFor={`t${index + 1}`}>Ticket Criteria {index + 1}</label>
+            <div key={index} className="form-group mb-3">
+              <label>Criteria {index + 1}</label>
               <input
                 type="text"
                 className="form-control"
-                id={`t${index + 1}`}
                 placeholder={`Enter ticket criteria ${index + 1}`}
                 value={criteria}
                 onChange={(e) => handleTicketCriteriaChange(index, e.target.value)}
@@ -276,15 +299,19 @@ function AddEvent() {
             </div>
           ))}
 
-          <div className="text-center mb-3">
-            <button type="button" className="btn btn-secondary" onClick={addTicketCriteria} disabled={formData.ticketCriteria.length >= 7}>
-              Add Ticket Criteria
-            </button>
-          </div>
+          {/* Add Criteria Button */}
+          <button
+            type="button"
+            className="btn btn-secondary mb-3"
+            onClick={addTicketCriteria}
+            disabled={formData.ticketCriteria.length >= 7}
+          >
+            Add Criteria
+          </button>
 
-          <div className="text-center">
-            <button type="submit" className="btn btn-primary" style={styles.button}>Submit</button>
-          </div>
+          <button type="submit" className="btn btn-primary">
+            Add Event
+          </button>
         </form>
       </div>
     </div>
@@ -293,39 +320,40 @@ function AddEvent() {
 
 const styles = {
   backgroundevent: {
-    backgroundImage: "url(/img/event3.jpg)",
+    backgroundImage: "url(/img/event19.jpg)",
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
     padding: '100px 0',
+    display: 'flex',
     minHeight: '100vh',
   },
   container: {
     width: '650px',
     maxWidth: '600px',
     margin: 'auto',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: '8px',
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
     margintop: '50px',
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     padding: '30px',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '650px', // Increased width
   },
   form: {
-   
+    maxWidth: '600px',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
   heading: {
     textAlign: 'center',
     marginBottom: '20px',
   },
-  subHeading: {
+  ticketHeading: {
     marginTop: '20px',
-  },
-  button: {
-    marginTop: '20px',
+    marginBottom: '10px',
   },
 };
 

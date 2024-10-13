@@ -1,0 +1,66 @@
+.edit-container {
+    background-image: url('/public/img/event6.jpg');
+    background-size: cover;
+    padding: 30px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .edit-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 50px; /* Move form down */
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .edit-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .edit-form-group {
+    margin-bottom: 15px;
+  }
+  
+  .edit-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .edit-error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .edit-event-image {
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 200px;
+    height: auto;
+    
+  }
+  
+  .edit-submit-btn {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .edit-submit-btn:hover {
+    background-color: #218838;
+  }
+  

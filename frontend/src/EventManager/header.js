@@ -15,21 +15,31 @@ function Header2() {
               <h3>TravelMate</h3>
             </div>
             <div className="menu-container1">
-             
               <ul className="menu-list1">
-                
                 <li><a href="/EventManager/Dashboard">Dashboard</a></li>
                 <li><a href="/EventManager/addEvent">Add Event</a></li>
-                
                 <li><a href="/EventManager/EventList">View Event</a></li>
-                {/* <li><Link to="/EventManager/report">Report</Link></li> */}
-                
-                 
+                <li><Link to="/EventManager/report">Report</Link></li>
               </ul>
             </div>
-            <div className="auth-container1">
-              
-              <a href="#">Log out</a>
+            <div 
+              className="auth-container1"
+              style={{ display: 'flex', gap: '10px' }} // Inline styles for the auth container
+            >
+              <a 
+                className="event-auth-btn1" 
+                href="/scheduler/sellersignin" 
+                style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Log out button
+              >
+                Log out
+              </a>
+              <a 
+                className="event-auth-btn1" 
+                href="/EventManager/EventOProfile" 
+                style={{ textDecoration: 'none', padding: '10px', color: 'white' }} // Inline styles for the Profile button
+              >
+                Profile
+              </a>
             </div>
           </nav>
         </div>

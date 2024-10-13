@@ -116,6 +116,9 @@ const FeedRite = () => {
         const doc = new jsPDF();
         const logoUrl = '/img/logo.jpeg';
         const signatureUrl = '/img/sig.jpeg';
+        
+        // Get the current date and time
+        const currentDateTime = new Date().toLocaleString();
 
         try {
             const [logoBase64, signatureBase64] = await Promise.all([
@@ -123,11 +126,13 @@ const FeedRite = () => {
                 loadImageAsBase64(signatureUrl)
             ]);
 
+            // Add logo to PDF
             doc.addImage(logoBase64, 'JPEG', 120, 10, 70, 30);
             doc.setDrawColor(0, 0, 0);
             doc.setLineWidth(2);
             doc.rect(10, 10, 190, 250);
 
+            // Add feedback information
             doc.setFontSize(16);
             doc.text('Feedback Summary', 20, 50);
 
@@ -138,8 +143,15 @@ const FeedRite = () => {
             doc.text(`Category: ${formData.feedbackCategory || "N/A"}`, 20, 100);
             doc.text(`Feedback: ${formData.comment || "N/A"}`, 20, 110);
 
+            // Add signature
             doc.addImage(signatureBase64, 'JPEG', 20, 180, 50, 15);
-            doc.text(' Signature \n Customer Affairs Admin', 20, 200);
+            doc.text('Signature \n Customer Affairs Admin', 20, 200);
+
+            // Add date and time inside the frame at the bottom-right corner
+            doc.setFontSize(10);
+            doc.text(currentDateTime, 180, 250, { align: 'right' });
+
+            // Save the PDF
             doc.save('feedback-summary.pdf');
         } catch (error) {
             console.error('Error loading images:', error);

@@ -69,7 +69,7 @@ function PendingEvent() {
 
   return (
     <div className="pending-container mt-5">
-      <h2 className="pending-title">Pending Events</h2>
+      <h2 className="pending-title">WAiting for Approval...</h2>
       {events.length === 0 ? (
         <p className="pending-no-events">No pending events found.</p>
       ) : (
@@ -104,14 +104,14 @@ function PendingEvent() {
                   >
                     <FaTrash className="pending-trash-icon" />
                   </button>
-                  <button
+                  {/* <button
                     className="pending-btn-approve"
                     onClick={() => handleApproveEvent(event._id)}
                     title="Approve"
                     style={{ marginLeft: '10px', backgroundColor: '#28a745', color: 'white' }}
                   >
                     Approve
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             ))}

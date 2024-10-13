@@ -8,6 +8,8 @@
 
 frontend/public/img/videoplayback.webm
 
+frontend/src/com/img/Sri Lanka.mp4
+
 
 /node_modules
 .env
@@ -20,4 +22,4 @@ backend/.env
 /frontend/node_modules
 /frontend/node_modules/.cache
 *.webm
-/frontend/package.json
+/frontend/node_modules

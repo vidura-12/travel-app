@@ -31,6 +31,7 @@
     width: 100%;
     z-index: 1; /* Make sure the card is above the background overlay */
     backdrop-filter: blur(10px); /* Optional: Blur the card itself slightly */
+    animation: fadeIn 0.6s ease-out; /* Add animation to the card */
 }
 
 .feedrite-title {
@@ -109,40 +110,50 @@
 }
 
 /* Specific button styles */
-.feedrite-btn-save {
-    background-color: #28a745;
+/* Save and Update buttons - Dark Green */
+.feedrite-btn-save, .feedrite-btn-update {
+    background-color: #006400; /* Dark green */
     color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.feedrite-btn-save:hover {
-    background-color: #218838;
+.feedrite-btn-save:hover, .feedrite-btn-update:hover {
+    background-color: #004b23; /* Darker green for hover */
 }
 
-.feedrite-btn-update {
-    background-color: #17a2b8;
-    color: white;
-}
-
-feedrite-btn-update:hover {
-    background-color: #138496;
-}
-
+/* Delete button */
 .feedrite-btn-delete {
-    background-color: #dc3545;
+    background-color: #d9534f; /* Red (default bootstrap danger color) */
     color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .feedrite-btn-delete:hover {
-    background-color: #c82333;
+    background-color: #c9302c; /* Darker red for hover */
 }
 
+/* Download PDF button - Greyish Blue */
 .feedrite-btn-pdf {
-    background-color: #ffc107;
-    color: #212529;
+    background-color: #4c6a92; /* Greyish blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Add some margin on top to move it down */
 }
 
 .feedrite-btn-pdf:hover {
-    background-color: #e0a800;
+    background-color: #3a5470; /* Darker greyish blue for hover */
 }
 
 /* Animations */
@@ -155,8 +166,4 @@ feedrite-btn-update:hover {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.feedrite-card {
-    animation: fadeIn 0.6s ease-out; /* Add animation to the card */
 }

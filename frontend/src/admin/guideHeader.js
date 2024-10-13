@@ -14,10 +14,13 @@ const Header = () => {
         <div className="navbar-custom-header">
             <ul className="menu-header">
                 <li className="menu-item-header">
-                    <a className="nav-link-header" href="/travelagent/dashboard">DashBoard</a>
+                    <a className="nav-link-header" href="/travelagent/booktourist">Registered Tourist</a>
                 </li>
                 <li className="menu-item-header">
                     <a className="nav-link-header" href="/travelagent/approveDeny">Requests</a>
+                </li>
+                <li className="menu-item-header">
+                    <a className="nav-link-header" href="/travelagent/Guidereport">Report</a>
                 </li>
             </ul>
             <div className="profile-header">
