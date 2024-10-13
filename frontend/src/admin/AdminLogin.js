@@ -66,7 +66,11 @@ const AdminLogin = () => {
           break;
           case 'support_manager':
             navigate('/usersupporter/dashboard');
+
+          case 'hotel_manager':
+            navigate('/hotelmanager/dashboard');  
             break;
+
           
         default:
           setError('Unknown role');
