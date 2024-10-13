@@ -67,7 +67,7 @@ exports.getBookingsForOwner = async (req, res) => {
         const { email } = req.user; // Extract email from req.user
         console.log('Extracted email from JWT:', email);
 
-        const vehicles = await Vehicle.find({ email });
+        const vehicles = await Vehicle.find({ ownerEmail: email });
         console.log('Found vehicles for the owner:', vehicles);
 
         if (vehicles.length === 0) {
