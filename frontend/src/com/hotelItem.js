@@ -123,7 +123,7 @@ function HotelItem({ hotel }) {
                 </ul>
                 <div style={{ float: 'right' }}>
                     <Button className="btn btn-primary" onClick={handleShowDetails}>View Details</Button>
-                    <Button className="btn btn-success" onClick={handleShowBooking}>Book Now</Button>
+                    <Button className="btn btn-primary" onClick={handleShowBooking}>Book Now</Button>
                 </div>
             </div>
 

@@ -101,6 +101,8 @@ import SellerSignIn from './scheduler/sellersignin';
 import EditRegister from './scheduler/editregister';
 import EditPackage from './scheduler/Editpackage';
 import Approveseller from './scheduler/approvedPackages';
+import SellerProfile from './scheduler/Sellerprofile';
+
 
  
 
@@ -248,6 +250,8 @@ function App() {
         <Route path="/scheduler/editregister" element={<UserLayout><EditRegister /></UserLayout>} />
         <Route path="/scheduler/Editpackage" element={<UserLayout><EditPackage /></UserLayout>} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
+        <Route path="/scheduler/Sellerprofile" element={<Sellerlayout><SellerProfile/></Sellerlayout>} />
+       
        
         <Route path="/Admin/profile" element={<AdminProfile />} />
         <Route path="/scheduler/approveseller" element={<Sellerlayout><Approveseller/></Sellerlayout>} />
