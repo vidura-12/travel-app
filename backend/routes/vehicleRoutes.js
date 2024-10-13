@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const vehicleController = require('../controllers/vehicleController');
-
+const authMiddleware = require('../middleware/authMiddlewareV');
 const { upload, uploadToGridFS } = require('../middleware/upload');
 const { GridFSBucket } = require('mongodb');
 const mongoose = require('mongoose');
@@ -21,7 +21,7 @@ router.get('/image/:filename', (req, res) => {
 });
 
 
-router.post('/add', upload.single('image'), uploadToGridFS, vehicleController.createVehicle);
+router.post('/add', authMiddleware, upload.single('image'), uploadToGridFS, vehicleController.createVehicle);
 router.get('/', vehicleController.getVehicles);
 router.get('/:vehicleId', vehicleController.getVehicleById);
 router.put('/:vehicleId', upload.single('image'), vehicleController.updateVehicle);

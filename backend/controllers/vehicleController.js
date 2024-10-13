@@ -1,4 +1,5 @@
 const Vehicle = require('../models/Vehicle');
+const VehicleOwner = require('../models/VehicleOwner');
 
 // Create a new vehicle post
 exports.createVehicle = async (req, res) => {
@@ -11,6 +12,7 @@ exports.createVehicle = async (req, res) => {
       }
   
       const vehicle = new Vehicle({
+        ownerId: req.user.userId,
         ownerEmail,
         make,
         model,
@@ -24,8 +26,15 @@ exports.createVehicle = async (req, res) => {
         vnumber,
         location 
       });
-  
-      await vehicle.save();
+      const savedVehicle = await vehicle.save();
+
+      // Update the HotelOwner's hotels array
+      await VehicleOwner.findByIdAndUpdate(
+        req.user.userId,
+        { $push: { vehicles: savedVehicle._id } },
+        { new: true }
+      );
+
       res.status(201).json({ message: 'Vehicle created successfully' });
     } catch (error) {
       console.error('Error creating vehicle:', error);
