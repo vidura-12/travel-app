@@ -405,7 +405,7 @@ function VehicleOwnerCreatePost() {
     <div  style={body1Style}>
       
       <div className="content" style={contentStyle}>
-        <h2>My Vehicles</h2>
+        <h2 style={vehicle_h2_main}>My Vehicles</h2>
         <button onClick={openModal} style={addButtonStyle}>Add Vehicle</button>
         <button onClick={handleMyBookingsClick} style={myBookingButtonStyle}>My Bookings</button>
         {error && <p style={errorStyle}>{error}</p>}
@@ -464,7 +464,7 @@ function VehicleOwnerCreatePost() {
         </div>
 
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyles}>
-          <h2>Add Your Vehicle</h2>
+          <h2 style={vehicle_model_h2}>Add Your Vehicle</h2>
           {error && <p style={errorStyle}>{error}</p>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div style={formGroupStyle}>
@@ -631,7 +631,7 @@ function VehicleOwnerCreatePost() {
 
         {editingVehicle && (
           <Modal isOpen={editModalIsOpen} onRequestClose={closeEditModal} style={modalStyles}>
-      <h2>Edit Vehicle</h2>
+      <h2 style={vehicle_model_h2}>Edit Vehicle</h2>
       <form onSubmit={handleEditSubmit}>
         <div style={formGroupStyle}>
           <div style={inputRowStyle}>
@@ -812,6 +812,12 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+const vehicle_h2_main = {
+  fontSize: '30px', 
+  fontWeight: 'bold', 
+  textAlign: 'center' 
+};
+
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -823,7 +829,7 @@ const containerStyle = {
 
 const contentStyle = {
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: '1300px',
   margin: '120px 120px 20px 120px',
   background: '#fff',
   padding: '20px',
@@ -860,7 +866,7 @@ const myBookingButtonStyle = {
   margin: '10px 0',
   cursor: 'pointer',
   borderRadius: '5px',
-  marginLeft: '850px',
+  marginLeft: '960px',
 };
 
 
@@ -871,6 +877,11 @@ const errorStyle = {
   
 };
 
+const vehicle_model_h2 = {
+  fontSize: '26px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+};
 const radioContainerStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -902,7 +913,7 @@ const tableContainerStyle = {
   marginTop: '20px',
   marginBottom: '20px',
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: '1300px',
   margin: '0 auto',
   padding: '20px',
   background: '#f0f0f0',
