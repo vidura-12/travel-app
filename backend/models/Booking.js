@@ -52,6 +52,19 @@ const bookingSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+bookingSchema.statics.isVehicleBooked = async function(vehicleId, startDate, returnDate) {
+    const existingBooking = await this.findOne({
+      vehicleId,
+      $or: [
+        { startDate: { $lte: startDate }, returnDate: { $gte: startDate } },
+        { startDate: { $lte: returnDate }, returnDate: { $gte: returnDate } },
+        { startDate: { $gte: startDate }, returnDate: { $lte: returnDate } }
+      ]
+    });
+  
+    return existingBooking !== null;
+  };
+
 const Booking = mongoose.model('Booking', bookingSchema);
 
 module.exports = Booking;
