@@ -36,7 +36,7 @@ export const generateVehicleReport = async (vehicles) => {
 
     doc.setFontSize(16);
     doc.setTextColor(22, 160, 133);
-    doc.text('Summary', margin, margin + 52);
+    doc.text('Summary', margin, margin + 55);
 
     
     //Vehicle Summary Section
@@ -61,7 +61,7 @@ export const generateVehicleReport = async (vehicles) => {
     doc.autoTable({
         head: [['Owner Email', 'Make', 'Model', 'Color', 'Category', 'Price Per Day (LKR)', 'Status']],
         body: vehicles.map(vehicle => [
-        vehicle.email,
+        vehicle.ownerEmail,
         vehicle.make,
         vehicle.model,
         vehicle.color,
@@ -69,13 +69,36 @@ export const generateVehicleReport = async (vehicles) => {
         `LKR ${vehicle.pricePerDay}`,
         vehicle.status
         ]),
-        startY: margin + 55,  // Adjust Y position of the table
+        startY: margin + 62,  // Adjust Y position of the table
         theme: 'grid',
         headStyles: { fillColor: [22, 160, 133] },  // Custom header color
         margin: { left: 10, right: 10 },
     });
 
-    // Save the PDF
-    doc.save('Vehicle_Report.pdf');
+    // Signature
+    signatureImg.src = signature.default;
+    signatureImg.onload = () => {
+      doc.addImage(signatureImg, 'JPG', 25, 245, 50, 20); // Position the signature image 
+
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Vehicle Manager: Buwaneka Wijesinghe', 15,275, null, null);
+
+      // Save the PDF
+      doc.save('Vehicle_Manage_Report.pdf');
+    };
+
+    signatureImg.onerror = () => {
+      console.error('Failed to load the signature image.');
+      // You can proceed without the signature or handle the error as needed
+      doc.save('Vehicle_Manage_Report.pdf');
+    }
+  
+  }
+  logoImg.onerror = () => {
+    console.error('Failed to load the logo image.');
+    // You can proceed without the logo or handle the error as needed
+    doc.text('Travel Mate', 105, 50, null, null, 'center');
+    doc.save('Vehicle_Manage_Report.pdf');
   }
 };

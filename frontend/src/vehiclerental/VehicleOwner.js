@@ -773,14 +773,14 @@ function VehicleOwnerCreatePost() {
           </div>
         </div>
         <button
-              type="submit"
-              style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}>
-              Save Changes
-            </button>
+          type="submit"
+          style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
+          onMouseOver={handleMouseOver}
+          nMouseOut={handleMouseOut}>
+          Save Changes
+        </button>
         <button
-          onClick={closeModal}
+          onClick={closeEditModal}
           style={isHovered ? { ...closeButtonStyle, ...closeButtonStyleHover } : closeButtonStyle}
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}>
