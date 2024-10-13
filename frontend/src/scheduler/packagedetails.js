@@ -75,7 +75,7 @@ const Dashboard = () => {
   const handleApprove = async (id) => {
     try {
       await axios.put(`http://localhost:8081/packages/update/${id}`, { status: 'approved' }, {
-        headers: { authorization: token }
+        headers: { authorization: `Bearer ${token}` }
       });
 
       const updatedPackages = packages.map(pkg => {
