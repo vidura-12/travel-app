@@ -87,3 +87,26 @@ exports.getBookingsForOwner = async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to fetch bookings', error: error.stack });
     }
 };
+
+exports.getBookingsForUser = async (req, res) => {
+    try {
+        console.log('Received request to get bookings for user');
+
+        // Check for user and email
+        if (!req.user || !req.user.email) {
+            console.error('No email found in JWT payload');
+            return res.status(400).json({ success: false, message: 'No email found' });
+        }
+
+        const { id } = req.user; // Extract email from req.user
+        console.log('Extracted email from JWT:', id);
+
+        const bookings = await Booking.find({ userId: id }).populate('vehicleId');
+        console.log('Found bookings for the user:', bookings);
+
+        res.json({ success: true, data: bookings });
+    } catch (error) {
+        console.error('Error fetching bookings:', error.message);
+        res.status(500).json({ success: false, message: 'Failed to fetch bookings', error: error.stack });
+    }
+};
