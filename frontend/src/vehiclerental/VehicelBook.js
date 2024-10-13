@@ -227,8 +227,20 @@ const VehicleBook = () => {
       setReturnDate('');
     })
     .catch(error => {
-      console.error('Error submitting booking:', error);
-      setError('An error occurred while submitting the booking.');
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error submitting booking:', error.response.data);
+        setError(error.response.data.msg);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.error('Error submitting booking:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error submitting booking:', error.message);
+      }
     });
   };
 
@@ -302,22 +314,22 @@ const VehicleBook = () => {
       // Customer Details Section
       doc.setFontSize(16);
       doc.setTextColor(22, 160, 133);
-      doc.text('Customer Details', 10, 120);
+      doc.text('Customer Details', 10, 115);
     
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       doc.setTextColor(0, 0, 0);
-      doc.text(`Name: ${formData.userName}`, 10, 130);
-      doc.text(`Email: ${formData.userEmail}`, 10, 140);
-      doc.text(`Phone Number: ${formData.userPhoneNumber}`, 10, 150);
-      doc.text(`Start Date: ${formData.startDate}`, 10, 160);
-      doc.text(`Number of Days: ${formData.numberOfDays}`, 10, 170);
-      doc.text(`License ID: ${formData.licenseId}`, 10, 180);
-      doc.text(`Additional Notes: ${formData.additionalNotes || 'N/A'}`, 10, 190);
+      doc.text(`Name: ${formData.userName}`, 10, 125);
+      doc.text(`Email: ${formData.userEmail}`, 10, 132);
+      doc.text(`Phone Number: ${formData.userPhoneNumber}`, 10, 139);
+      doc.text(`Start Date: ${formData.startDate}`, 10, 146);
+      doc.text(`Number of Days: ${formData.numberOfDays}`, 10, 153);
+      doc.text(`License ID: ${formData.licenseId}`, 10, 160);
+      doc.text(`Additional Notes: ${formData.additionalNotes || 'N/A'}`, 10, 167);
     
       // Cost Calculation Section
       doc.setFontSize(16);
       doc.setTextColor(22, 160, 133);
-      doc.text('Cost Calculation', 10, 210);
+      doc.text('Cost Calculation', 10, 180);
     
       doc.autoTable({
         head: [['Vehicle', 'Price per Day', 'Start Date', 'Return Date','Number of rent Days', 'Total Cost (LKR)']],
@@ -329,7 +341,7 @@ const VehicleBook = () => {
           formData.numberOfDays,
           `LKR ${totalCost}/=`,
         ]],
-        startY: 217, // Position the table below the previous text
+        startY: 187, // Position the table below the previous text
         theme: 'grid',
         headStyles: { fillColor: [22, 160, 133] }, // Color for table headers
         margin: { left: 10, right: 10 },
@@ -338,17 +350,17 @@ const VehicleBook = () => {
       // Thank You Note
       doc.setFontSize(16);
       doc.setTextColor(39, 174, 96); // Color #27ae60
-      doc.text('Thank you for booking with us!', 105, doc.lastAutoTable.finalY + 10, null, null, 'center'); // Display below the table
+      doc.text('Thank you for booking with us!', 105, doc.lastAutoTable.finalY + 20, null, null, 'center'); // Display below the table
     
       // Signature
       signatureImg.src = signature.default;
       signatureImg.onload = () => {
-        doc.addImage(signatureImg, 'JPG', 25, doc.lastAutoTable.finalY + 20, 50, 20); // Position the signature image 
+        doc.addImage(signatureImg, 'JPG', 25, doc.lastAutoTable.finalY + 50, 50, 20); // Position the signature image 
 
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
-        doc.text('Vehicle Manager: Buwaneka Wijesinghe', 15,doc.lastAutoTable.finalY + 45, null, null);
-        doc.text('Customer Signature', 135,doc.lastAutoTable.finalY + 45, null, null);
+        doc.text('Vehicle Manager: Buwaneka Wijesinghe', 15,doc.lastAutoTable.finalY + 75, null, null);
+        doc.text('Customer Signature', 139,doc.lastAutoTable.finalY + 75, null, null);
 
         // Save the PDF
         doc.save('Booking_Confirmation.pdf');
@@ -434,7 +446,7 @@ const VehicleBook = () => {
                     setFormData({ ...formData, userName: value });
                   }
                 }}
-                style={{ width: '234%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label>
@@ -446,7 +458,7 @@ const VehicleBook = () => {
                 name="userEmail"
                 value={formData.userEmail}
                 onChange={handleChange}
-                style={{ width: '237%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label><br/>
@@ -457,7 +469,7 @@ const VehicleBook = () => {
                 name="userPhoneNumber"
                 value={formData.userPhoneNumber}
                 onChange={handlePhoneNumberChange}
-                style={{ width: '185%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label><br/>
@@ -468,7 +480,7 @@ const VehicleBook = () => {
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                style={{ width: '244%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label><br/>
@@ -479,7 +491,7 @@ const VehicleBook = () => {
                 name="numberOfDays"
                 value={formData.numberOfDays}
                 onChange={handleNumberOfDaysChange}
-                style={{ width: '181%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label><br/>
@@ -490,7 +502,7 @@ const VehicleBook = () => {
                 name="licenseId"
                 value={formData.licenseId}
                 onChange={handleChange}
-                style={{ width: '211%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label><br/>
@@ -500,7 +512,7 @@ const VehicleBook = () => {
                 name="additionalNotes"
                 value={formData.additionalNotes}
                 onChange={handleChange}
-                style={{ width: '191%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
               />
             </label>
             <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> LKR {totalCost}</p>

@@ -15,10 +15,17 @@ exports.createBooking = async (req, res) => {
         licenseId,
         startDate,
         totalCost,
-        additionalNotes
+        additionalNotes,
     });
 
     try {
+        
+        //const isBooked = await Booking.isVehicleBooked(vehicleId, startDate, req.body.returnDate);
+
+        // if (isBooked) {
+        //     return res.status(400).json({ msg: 'Vehicle is already booked for the specified dates' });
+        // }
+
         // Validate required fields
         if (!vehicleId || !userName || !userEmail || !userPhoneNumber || !numberOfDays || !licenseId || !startDate || !totalCost) {
             return res.status(400).json({ message: 'All fields are required' });
@@ -26,8 +33,15 @@ exports.createBooking = async (req, res) => {
 
         // Parse startDate to Date object
         const parsedStartDate = new Date(startDate);
-        const returnDate = new Date(parsedStartDate);
-        returnDate.setDate(returnDate.getDate() + parseInt(numberOfDays, 10));
+        const bookingReturnDate = new Date(parsedStartDate);
+        bookingReturnDate.setDate(bookingReturnDate.getDate() + parseInt(numberOfDays, 10));
+
+        const isBooked = await Booking.isVehicleBooked(vehicleId, parsedStartDate, bookingReturnDate);
+
+        if (isBooked) {
+            return res.status(400).json({ msg: 'Vehicle is already booked for the specified dates' });
+        }
+        bookingReturnDate.setDate(bookingReturnDate.getDate() + parseInt(numberOfDays, 10));
 
         const booking = new Booking({
             vehicleId,
@@ -37,7 +51,7 @@ exports.createBooking = async (req, res) => {
             userPhoneNumber,
             numberOfDays,
             startDate: parsedStartDate,
-            returnDate: returnDate,
+            returnDate: bookingReturnDate,
             totalCost,
             additionalNotes,
             licenseId
