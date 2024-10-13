@@ -1071,7 +1071,7 @@ const body1Style = {
   flexDirection: 'column',
   alignItems: 'center',
   padding: '20px',
-  backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)',
+  backgroundImage: 'url(/img/Vehicle_Owne_p.jpg)',
   backgroundSize: 'cover',
   minHeight: '100vh',
   width: '100%',
