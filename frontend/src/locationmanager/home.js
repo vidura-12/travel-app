@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'; // For navigation
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Swal from 'sweetalert2'; // Import SweetAlert2
-const token = localStorage.getItem('token');
+
 const LocationTable = () => {
   const [locations, setLocations] = useState([]);
   const [modal, setModal] = useState(false);
@@ -14,7 +14,7 @@ const LocationTable = () => {
 
   useEffect(() => {
     const fetchLocations = async () => {
-     
+      const token = localStorage.getItem('token');
       if (!token) {
         alert('You need to log in first.');
         navigate('/admin/login'); // Redirect to login page
