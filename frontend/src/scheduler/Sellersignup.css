@@ -65,7 +65,14 @@ h2 {
 .btn-link {
     color: #007bff; /* Default link color */
 }
-.s button{
-     background-color: #28a745;
-     border: #28a745;
-}
+.btn-success {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
