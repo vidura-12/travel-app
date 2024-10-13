@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+<<<<<<< HEAD
 import axios from 'axios';
 
 export const generateVehicleReport = async () => {
@@ -17,6 +18,12 @@ export const generateVehicleReport = async () => {
     return;
   }
 
+=======
+
+export const generateVehicleReport = async (vehicles) => {
+  const doc = new jsPDF();
+
+>>>>>>> buwa123
   const logo = await import('../vehiclerental/Vehicle_Images/logo.png');
   const signature = await import('../vehiclerental/Vehicle_Images/signature.jpg');
 
@@ -51,6 +58,7 @@ export const generateVehicleReport = async () => {
     doc.setTextColor(22, 160, 133);
     doc.text('Summary', margin, margin + 52);
 
+<<<<<<< HEAD
     // Vehicle Summary Section
     const totalVehicles = vehicles.length || 0;
     const approvedVehicles = vehicles.filter(v => v.status === 'approved').length || 0;
@@ -74,6 +82,26 @@ export const generateVehicleReport = async () => {
         margin: { left: 10, right: 10 },
         startY: currentY + 10
     });
+=======
+    
+    //Vehicle Summary Section
+    // const vehicleSummary = [
+    //     ['Total Vehicles', Vehicles.length.toString()],
+    //     ['Approved Vehicles', Vehicles.filter(h => h.status === 'approved').length.toString()],
+    //     ['Pending Vehicles', Vehicles.filter(h => h.status === 'pending').length.toString()],
+    //     ['Rejected Vehicles', Vehicles.filter(h => h.status === 'rejected').length.toString()]
+    //   ];
+
+    // doc.autoTable({
+    //     head: [['Summary', 'Count']],
+    //     body: vehicleSummary,
+    //     startY: margin + 48, // Adjust Y position of the table
+    //     theme: 'grid',
+    //     headStyles: { fillColor: [22, 160, 133] }, // Custom header color
+    //     margin: { left: 10, right: 10 },
+    //     startY: currentY + 10
+    // });
+>>>>>>> buwa123
 
     //Add a table with vehicle details
     doc.autoTable({
