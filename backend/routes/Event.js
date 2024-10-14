@@ -9,7 +9,7 @@ const path = require('path');
 // Add event
 const { body, validationResult } = require('express-validator');
 
-// Add event with validation
+
 router.post('/add', 
   upload.single('image'), 
   [
@@ -25,8 +25,6 @@ router.post('/add',
     body('t3').optional().isLength({ max: 100 }),
     body('t4').optional().isLength({ max: 100 }),
     body('t5').optional().isLength({ max: 100 }),
-    body('t6').optional().isLength({ max: 100 }),
-    body('t7').optional().isLength({ max: 100 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -34,7 +32,7 @@ router.post('/add',
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Continue with your existing logic
+    
     const { name, category, description, location, date, time, price, t1, t2, t3, t4, t5, t6, t7 } = req.body;
     const image = req.file ? req.file.originalname : null;
 
@@ -48,7 +46,7 @@ router.post('/add',
         time,
         price,
         image,
-        ticketCriteria: { t1, t2, t3, t4, t5, t6, t7 }
+        ticketCriteria: { t1, t2, t3, t4, t5 }
       });
 
       await newEvent.save();
@@ -69,6 +67,8 @@ router.get("/", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
 
 // Get one event
 router.get("/:id", async (req, res) => {

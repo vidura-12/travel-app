@@ -69,6 +69,8 @@ router.get('/tickets/:id', async (req, res) => {
     }
 });
 
+
+//Delete 
 router.delete('/tickets/:id', async (req, res) => {
     try {
         const ticket = await Ticket.findByIdAndDelete(req.params.id);
