@@ -6,7 +6,8 @@ import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags } from 'react-icons/f
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { jwtDecode } from 'jwt-decode';
-
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const styles = {
 
@@ -135,6 +136,7 @@ const VehicleBook = () => {
   const [returnDate, setReturnDate] = useState('');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -191,7 +193,17 @@ const VehicleBook = () => {
     }
 
     if(!userId) { 
-      alert("You must be logged in to make a booking.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You need to log in first.',
+        confirmButtonText: 'OK',
+        customClass: {
+          icon: 'vehicle-red-icon',  // Apply custom class for the icon
+      }
+      }).then(() => {
+        navigate('/login'); // Redirect to login page after closing the alert
+        });
       return;
     }
 
@@ -487,6 +499,7 @@ const VehicleBook = () => {
                 value={formData.startDate}
                 onChange={handleChange}
                 style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
+                min={new Date().toISOString().split('T')[0]} // Sets the minimum date to today
                 required
               />
             </label><br/>

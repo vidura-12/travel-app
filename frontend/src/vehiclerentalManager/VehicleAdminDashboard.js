@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import './Vehicle_Admin_Home.css'; // Import the CSS file
 import Swal from 'sweetalert2';
 import { generateVehicleReport } from './VehicleAdminReport';
+import { Pie } from 'react-chartjs-2'; // Import Pie chart
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'; // Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const InfoModal = ({ message, onClose }) => (
   <div>
@@ -23,6 +26,7 @@ const AdminVehicleManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null); 
   const navigate = useNavigate(); 
+  const [deletedCount, setDeletedCount] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -46,6 +50,23 @@ const AdminVehicleManagement = () => {
       })
       .catch(error => console.error('Error fetching vehicles:', error));
   }, []);
+
+  // Function to generate chart data
+  const getChartData = () => {
+    const approvedCount = vehicles.filter(vehicle => vehicle.status === 'approved').length;
+    const rejectedCount = vehicles.filter(vehicle => vehicle.status === 'rejected').length;
+
+    return {
+      labels: ['Approved', 'Rejected', 'Deleted'],
+      datasets: [
+        {
+          data: [approvedCount, rejectedCount, deletedCount], // Use deletedCount from state
+          backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+          hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'],
+        }
+      ]
+    };
+  };
 
   const handleStatusChange = (vehicleId, status) => {
 
@@ -121,8 +142,12 @@ const AdminVehicleManagement = () => {
             try {
                 await axios.delete(`http://localhost:8081/api/vehicles/${vehicleId}`);
                 
-                // Update the vehicle list
+                 // Increment deleted count instead of removing the vehicle from the chart data
+                setDeletedCount((prevCount) => prevCount + 1);
+
+                // Update the vehicle list by removing the deleted vehicle from the displayed table
                 setVehicles(vehicles.filter(vehicle => vehicle._id !== vehicleId));
+
 
                 // Show success message
                 Swal.fire({
@@ -185,7 +210,10 @@ const AdminVehicleManagement = () => {
             <button className="vehicle-button" onClick={goToHome}>Check Vehicle Rental Home</button>
              <button className="vehicle-button2" onClick={VehicleReport}>Generate Report</button>
             </div>
-
+            <div style={{ width: '400px', margin: '0 auto' }}>
+            <h2>Vehicle Status Summary</h2>
+            <Pie data={getChartData()} />
+          </div>
         {vehicles.length === 0 ? (
           <div className="vehicle-noVehicles">No vehicles available</div>
         ) : (
