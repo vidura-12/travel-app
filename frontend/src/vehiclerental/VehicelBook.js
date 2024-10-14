@@ -281,8 +281,14 @@ const VehicleBook = () => {
       doc.setFontSize(24);
       doc.setTextColor(44, 62, 80); // Color #2c3e50
       doc.text('Travel Mate', 25, 33);
-      doc.text('Good Travel !', 25, 45);
+
+      doc.setFontSize(16);
+      doc.setTextColor(44, 62, 80); // Color #2c3e50
+      doc.text('Book Your Vehicle And Have A Good Travel !', 25, 42);
     
+      doc.setFontSize(9);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 10, 51);
+
       // Booking Confirmation Header
       doc.setFontSize(18);
       doc.setTextColor(52, 73, 94); // Color #34495e
