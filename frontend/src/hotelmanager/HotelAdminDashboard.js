@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './HotelAdminDashboard.css';
 import { generateHotelReport } from './HotelReportGenerator';
+import SeeMoreModal from './SeeMoreModal'; // Import the new modal component
 
 // Modal component for notifications and confirmations
 const InfoModal = ({ message, onClose }) => (
@@ -21,6 +22,7 @@ const AdminHotelManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [deleteHotelId, setDeleteHotelId] = useState(null);
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null); // State for See More modal
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -189,6 +191,13 @@ const AdminHotelManagement = () => {
                         alt={hotel.name}
                         className="hotel-hotelImageStyle"
                       />
+                      {/* See More Button */}
+                      <button
+                        className="hotel-seeMoreButton"
+                        onClick={() => setSelectedHotel(hotel)}
+                      >
+                        See More
+                      </button>
                     </td>
                     <td className="hotel-td">{hotel.name}</td>
                     <td className="hotel-td">{hotel.location}</td>
@@ -257,8 +266,10 @@ const AdminHotelManagement = () => {
             </table>
           )}
 
+          {/* Info Modal */}
           {showModal && <InfoModal message={modalMessage} onClose={() => setShowModal(false)} />}
 
+          {/* Delete Confirmation Modal */}
           {deleteHotelId && (
             <div>
               <div className="hotel-overlay" onClick={() => setDeleteHotelId(null)} />
@@ -271,6 +282,14 @@ const AdminHotelManagement = () => {
                 </div>
               </div>
             </div>
+          )}
+
+          {/* See More Modal */}
+          {selectedHotel && (
+            <SeeMoreModal
+              hotel={selectedHotel}
+              onClose={() => setSelectedHotel(null)}
+            />
           )}
         </div>
       </div>
