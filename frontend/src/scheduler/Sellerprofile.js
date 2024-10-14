@@ -17,6 +17,7 @@ const Sellerprofile = () => {
   }
 
   return (
+    <div className='pic'>
     <center>
     <div className="seller-profile">
       <h2>Seller Profile</h2>
@@ -29,6 +30,7 @@ const Sellerprofile = () => {
       </div>
     </div>
     </center>
+    </div>
   );
 };
 
