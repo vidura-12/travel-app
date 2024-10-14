@@ -53,7 +53,8 @@ function VehicleOwnerRegister() {
   // Check if the password meets the requirements
   const isPasswordValid = (password) => {
     // Regex to check for at least one uppercase letter and one number
-    return /[A-Z]/.test(password) && /[0-9]/.test(password);
+    //return /[A-Z]/.test(password) && /[0-9]/.test(password);
+    return password.length >= 6;
   };
 
   const handleSubmit = async (e) => {

@@ -86,9 +86,6 @@ const ProfileEditModal = ({ ownerData, handleLogout }) => {
         {success && <p style={{ color: 'green' }}>{success}</p>}
         <button type="submit">Update Profile</button>
       </form>
-      <button className="vehicle-profile-logout" onClick={handleLogout}>
-        LogOut
-      </button>
     </div>
   );
 };

@@ -265,6 +265,7 @@ function App() {
         <Route path="/create-checklist" element={<UserLayout><ChecklistForm /></UserLayout>} />
         <Route path="/checklists" element={<UserLayout><ChecklistDisplay /></UserLayout>}  />
         <Route path="/checklists/:checklistId/:checklistTitle" element={<UserLayout><ChecklistItem /></UserLayout>}  />
+        <Route path="/booking" element={<UserLayout><ChecklistItem /></UserLayout>}  />
         
         {/* Vehicle Rental Routes */}
 

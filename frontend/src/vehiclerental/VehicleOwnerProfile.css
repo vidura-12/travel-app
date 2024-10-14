@@ -1,64 +1,134 @@
-.vehicle-profile-container-2 {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 120px;
-  }
-  
-  
-  
-  .vehicle-profile-container-2 {
-    padding: 30px;
-  }
-  
-  .vehicle-profile-container-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .vehicle-profile-container-p {
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .vehicle-profile-container-strong {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .vehicle-profile-edit {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    margin-left: 120px;
-  }
-  
-  .vehicle-profile-edit:hover {
-    background-color: #3e8e41;
-  }
-  
-  .vehicle-profile-logout {
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-  
-  .vehicle-profile-logout:hover {
-    background-color: #c0392b;
-  }
+ /* Background and container styling */
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  background-color: #f0f4f8;
+  color: #2d3748;
+}
+
+/* Profile Page Layout */
+.vehicle-profileContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Profile Content */
+.vehicle-profileContent {
+  flex-grow: 1;  /* Take up remaining space */
+  padding: 40px;
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;  /* Center vertically */
+  background: url('./Vehicle_Images/Vehicle_Owne_p.jpg');
+  background-size: cover;
+}
+
+/* Form Container */
+.vehicle-formContainer {
+  width: 100%;
+  max-width: 500px;
+  background-color: rgb(228, 227, 226);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(56, 41, 41, 0.1);
+  margin-top: 100px;
+}
+
+/* Form Title */
+.vehicle-formTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1b1d1c;
+}
+
+/* Form Group */
+.vehicle-formGroup {
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  display: block;
+  color: #4a5568;
+}
+
+/* Input display style */
+.vehicle-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f8f9fa;
+  color: #2d3748;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: default;
+}
+
+.vehicle-input:focus {
+  border-color: #2e8b57;
+  outline: none;
+}
+
+.vehicle-inputError {
+  border-color: #e53e3e;
+}
+
+/* Success Message */
+.vehicle-successMessage {
+  color: #48bb78;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Loading */
+.vehicle-loading {
+  text-align: center;
+  font-size: 1.2rem;
+}
+/* Button Group */
+.vehicle-buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Log Out Button */
+.vehicle-logoutButton {
+  background-color: #d9534f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.vehicle-logoutButton:hover {
+  background-color: #c9302c;
+}
+
+/* Edit Profile Button */
+.vehicle-editButton {
+  background-color: #5bc0de;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.vehicle-editButton:hover {
+  background-color: #31b0d5;
+}
