@@ -153,7 +153,7 @@ const TicketReport = () => {
             <th>Price</th>
             <th>Number of Tickets</th>
             <th>Total</th>
-            <th>Actions</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -167,9 +167,7 @@ const TicketReport = () => {
               <td style={{ color: 'black' }}>{ticket.price}.00</td>
               <td style={{ color: 'black' }}>{ticket.noOfTicket}</td>
               <td style={{ color: 'black' }}>{ticket.total}.00</td>
-              <td>
-                <button className="ticketReport-btn-delete" onClick={() => handleDelete(ticket._id)}>Delete</button>
-              </td>
+              
             </tr>
           ))}
         </tbody>
