@@ -24,3 +24,7 @@ backend/.env
 *.webm
 /frontend/node_modules
 /backend/node_modules
+frontend/node_modules/.cache/default-development/index.pack
+frontend/node_modules/.cache/default-development/index.pack
+frontend/node_modules/.package-lock.json
+/frontend/node_modules
