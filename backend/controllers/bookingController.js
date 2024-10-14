@@ -19,12 +19,6 @@ exports.createBooking = async (req, res) => {
     });
 
     try {
-        
-        //const isBooked = await Booking.isVehicleBooked(vehicleId, startDate, req.body.returnDate);
-
-        // if (isBooked) {
-        //     return res.status(400).json({ msg: 'Vehicle is already booked for the specified dates' });
-        // }
 
         // Validate required fields
         if (!vehicleId || !userName || !userEmail || !userPhoneNumber || !numberOfDays || !licenseId || !startDate || !totalCost) {
@@ -57,7 +51,16 @@ exports.createBooking = async (req, res) => {
             licenseId
         });
 
-        await booking.save();
+        // Save the booking
+        const savedBooking = await booking.save();
+
+        // Update the vehicle's bookings array with the new booking _id
+        await Vehicle.findByIdAndUpdate(
+            vehicleId,
+            { $push: { bookings: savedBooking._id } },
+            { new: true } // To return the updated document
+        );
+        
         res.status(201).json({ message: 'Booking created successfully' });
     } catch (error) {
         console.error('Error creating booking:', error);
