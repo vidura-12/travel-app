@@ -35,32 +35,36 @@ const Sellersignup = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-  
-    if (Object.keys(validationErrors).length === 0) {
-      const userData = { name, email, password, phone, address, role };
-  
-      try {
-        const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
-        console.log('Response:', response.data);
-  
-        // Save the current seller data to localStorage
-        localStorage.setItem('sellerData', JSON.stringify(userData));
-  
-        // Save email to localStorage as token
-        localStorage.setItem('token', email);
-  
-        alert('Registration successful! Please log in.');
-        navigate('/scheduler/sellersignin'); // Navigate to login or profile page
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('Error registering user. Please try again.');
-      }
+  e.preventDefault();
+  const validationErrors = validate();
+  setErrors(validationErrors);
+
+  if (Object.keys(validationErrors).length === 0) {
+    const userData = { name, email, password, phone, address, role, status: 'Pending' }; // Add status
+
+    try {
+      const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
+      console.log('Response:', response.data);
+
+      // Retrieve existing sellers from localStorage or create an empty array if none
+      const existingSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
+      // Add the new seller to the existing sellers array
+      existingSellers.push(userData);
+      // Save the updated sellers array back to localStorage
+      localStorage.setItem('sellersData', JSON.stringify(existingSellers));
+
+      // Save email to localStorage as token
+      localStorage.setItem('token', email);
+
+      alert('Registration successful! Please log in.');
+      navigate('/scheduler/sellersignin'); // Navigate to login or profile page
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Error registering user. Please try again.');
     }
-  };
-  
+  }
+};
+
 
   return (
     <div className='sellers'>
