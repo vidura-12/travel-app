@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import HotelItem from './hotelItem';
 import './hotels.css';
 
@@ -12,6 +13,8 @@ const Hotels = () => {
         roomTypes: [],
         amenities: []
     });
+
+    const navigate = useNavigate(); // Initialize navigate
 
     const roomTypesList = [
         "Single Room",
@@ -84,6 +87,14 @@ const Hotels = () => {
 
     return (
         <div className='container'>
+            
+            {/* List Your Property Button */}
+            <div className="list-property-container">
+                <button className="list-property-button" onClick={() => navigate('/hotelowner/dashboard')}>
+                    List Your Property Here...
+                </button>
+            </div>
+
             <div className="filter-bar">
                 <input 
                     type="text" 

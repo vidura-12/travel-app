@@ -5,7 +5,7 @@
     padding: 15px;
     background-color: #8b8b8b;
     border-radius: 8px;
-    margin-top: 100px;
+    margin-top: 10px;
     margin-bottom: 20px;
     flex-wrap: nowrap;
     
@@ -158,4 +158,26 @@
     .dropdown-content {
         width: 100%;
     }
+}
+
+
+.list-property-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.list-property-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.list-property-button:hover {
+    background-color: #0056b3;
 }
