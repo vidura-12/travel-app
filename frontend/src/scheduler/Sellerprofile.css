@@ -1,4 +1,17 @@
 
+.pic{
+    background: url('./sheduler image/profile.jpeg') no-repeat;
+    height:900px;
+     display:flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     background-attachment: fixed;
+     background-size: cover;
+     padding: 50px 0; /* Padding for extra space */
+     position: relative;
+}
+
 
 
 /* Styling the outer container */
@@ -26,9 +39,9 @@
     font-size: 1.8rem;
     margin-bottom: 1rem;
     letter-spacing: 0.5px;
-    color: #2c3e50;
+    color:green;
     font-weight: 600;
-   margin-top: 100px;
+   margin-top: 110px;
 }
 
 /* Profile details styling */
