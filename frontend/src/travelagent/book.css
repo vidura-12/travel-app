@@ -1,5 +1,4 @@
 /* dashboard.css */
-/* dashboard.css */
 
 .dashboard-container {
   padding: 20px;
@@ -30,8 +29,8 @@
 }
 
 .table th {
-  background-color: #687786; /* Change the background color here */
-  color: white;             /* Keep the text color white for contrast */
+  background-color: #4CAF50;
+  color: white;
   font-weight: bold;
 }
 
@@ -41,6 +40,9 @@
 
 .table td {
   color: #555;
+}
+.dashboard-container {
+  padding: 20px;
 }
 
 .table {
