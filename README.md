@@ -1,7 +1,5 @@
 # Travel Management System
 
-![Ella-Rock-hike](https://github.com/user-attachments/assets/5a5c8602-024f-492f-9edb-42e65e0c2de5)
-
 ## Overview
 Our web application allows travel businesses to attract more customers, offering services such as vehicle rental, hotel booking, travel guides, and location reviews. It enhances customer experience by providing detailed information about travel destinations, offering special event services, and supporting customers throughout their journey planning. This easy-to-use application is designed to be user-friendly, making it easier for customers to plan and enjoy their travels.
 ---
