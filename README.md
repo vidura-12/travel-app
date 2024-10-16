@@ -3,8 +3,7 @@
 ![Ella-Rock-hike](https://github.com/user-attachments/assets/5a5c8602-024f-492f-9edb-42e65e0c2de5)
 
 ## Overview
-With our web application, The travel business can attract more customers in order to expand its company. This could attract new customers with different needs and improve the visibility of the business. In this web application, customers can get the most accurate information about the company's behavior. For a customer, this application is very easy to use and useful for travel purposes. Our web application is very user-friendly. We offer a wide range of services, including vehicle rental, hotel booking, and access to a travel guide. This is a great opportunity to access all the useful services in one place. Customers can choose their preferred travel destination when searching for travel packages. Then they can find the most suitable place to visit with a beautiful environment.
-Other services for booking a hotel and renting a vehicle can help customers plan and have a comfortable travel experience. Customers can also obtain a travel guide to assist with their travel plans and acquire information about destinations. When customers have experienced our travel services, they can share a location review based on their own experiences. It is very important for our company to build a good reputation. Also, they plan special events such as surprise parties, offering customers special event services to make their day unforgettable. If customers encounter any issues with travel planning or the website, they can receive support and guidance. Because of this web application, customers can enjoy a new and adventurous experience anywhere, at any time. So our web application provides better support to the company for efficiently running the business.
+Our web application allows travel businesses to attract more customers, offering services such as vehicle rental, hotel booking, travel guides, and location reviews. It enhances customer experience by providing detailed information about travel destinations, offering special event services, and supporting customers throughout their journey planning. This easy-to-use application is designed to be user-friendly, making it easier for customers to plan and enjoy their travels.
 ---
 
 ## Key Features
@@ -161,11 +160,22 @@ Replace `WEATHER_API_KEY` in the backend `.env` file with your weather API key:
 WEATHER_API_KEY=8ec3ac71de234ff6f0a41ac53177b7f1
 ```
 
----
+# Contributors
 
-## Contributing
+We'd like to extend our heartfelt thanks to the following individuals who have contributed to the development of our Travel Management System:
 
-Feel free to fork the repository and make your changes. Contributions are welcome!
+| Contributor | GitHub Profile | Roles |
+|-------------|----------------|-------|
+| **Vidura**  | [vidura-12](https://github.com/vidura-12) | Project Owner, Full Stack Developer |
+| **Buwaneka** | [Buwaneka99](https://github.com/Buwaneka99) | Backend Developer, API Integration |
+| **Kalpa Vidusha** | [KalpaVidusha](https://github.com/KalpaVidusha) | Frontend Developer, UI/UX Design |
+| **Sonadi** | [Sonadi](https://github.com/Sonadi) | Quality Assurance, Testing |
+| **Dilshani** | [Dilshani16](https://github.com/Dilshani16) | Database Management, Data Modeling |
+| **Nimesha** | [Nimesha4](https://github.com/Nimesha4) | DevOps, Deployment, CI/CD |
+| **Harini Hettiarachchi** | [HariniHettiarachchi](https://github.com/HariniHettiarachchi) | Documentation, User Support |
+| **Kavitha Niwandi** | [kavithaniwandi](https://github.com/kavithaniwandi) | Frontend Developer, Feature Implementation |
+
+Each of these individuals has played a crucial role in making this project successful. Thank you for your time, energy, and dedication to building this platform!
 
 ---
 
