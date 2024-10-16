@@ -16,8 +16,6 @@ Our web application allows travel businesses to attract more customers, offering
 - **Customer Support:** Get assistance with travel planning or website issues.
 - **Weather Updates:** Integrated weather chatbot for real-time weather updates.
 
----
-
 ## Installation
 
 ### Prerequisites
