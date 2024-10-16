@@ -90,7 +90,7 @@ const Hotels = () => {
             
             {/* List Your Property Button */}
             <div className="list-property-container">
-                <button className="list-property-button" onClick={() => navigate('/hotelowner/dashboard')}>
+                <button className="list-property-button" onClick={() => navigate('/hotelowner/login')}>
                     List Your Property Here...
                 </button>
             </div>

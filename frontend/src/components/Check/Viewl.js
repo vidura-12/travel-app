@@ -122,7 +122,7 @@ const UserLocations = () => {
       try {
         await axios.delete(`http://localhost:8081/locationAdmin/delete/${locationId}`, {
           headers: {
-            authorization: token // Include the token in the request header
+            authorization: `Bearer ${token}`, // Include the token in the request header
           }
         });
         setLocations((prevLocations) => prevLocations.filter(location => location._id !== locationId));

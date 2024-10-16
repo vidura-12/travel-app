@@ -1,5 +1,3 @@
-// src/components/HotelItem.js
-
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Carousel, Form, Alert } from "react-bootstrap";
 import axios from "axios";
@@ -10,7 +8,7 @@ function HotelItem({ hotel }) {
     const [showDetails, setShowDetails] = useState(false);
     const [showBooking, setShowBooking] = useState(false);
     const [bookingDetails, setBookingDetails] = useState({
-        roomId: '', // Ensure roomId is correctly captured
+        roomId: '',
         numberOfGuests: 1,
         checkInDate: '',
         checkOutDate: ''
@@ -20,11 +18,11 @@ function HotelItem({ hotel }) {
 
     useEffect(() => {
         // Retrieve and decode the JWT token to get the user ID
-        const token = localStorage.getItem('token'); // Ensure this key matches where you store the token
+        const token = localStorage.getItem('token'); 
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                setUserId(decoded.userId); // Ensure your JWT payload contains 'userId'
+                setUserId(decoded.userId); 
             } catch (err) {
                 console.error("Invalid token:", err);
             }
@@ -36,7 +34,7 @@ function HotelItem({ hotel }) {
 
     const handleCloseBooking = () => {
         setShowBooking(false);
-        setError(null); // Reset error on close
+        setError(null); 
     };
     const handleShowBooking = () => setShowBooking(true);
 
@@ -46,11 +44,22 @@ function HotelItem({ hotel }) {
             ...prevDetails,
             [name]: value,
         }));
+
+        // Update checkout date range based on check-in date
+        if (name === 'checkInDate') {
+            const checkOutInput = document.getElementById('formCheckOutDate');
+            const minCheckOutDate = new Date(value);
+            minCheckOutDate.setDate(minCheckOutDate.getDate() + 1); // At least one day after check-in
+            const maxCheckOutDate = new Date(value);
+            maxCheckOutDate.setDate(maxCheckOutDate.getDate() + 14); // At most 14 days after check-in
+            checkOutInput.min = minCheckOutDate.toISOString().split('T')[0];
+            checkOutInput.max = maxCheckOutDate.toISOString().split('T')[0];
+        }
     };
 
     const handleBookingSubmit = async (e) => {
         e.preventDefault();
-        setError(null); // Reset error state
+        setError(null); 
 
         // Basic validation
         if (bookingDetails.checkInDate >= bookingDetails.checkOutDate) {
@@ -69,10 +78,10 @@ function HotelItem({ hotel }) {
         }
 
         try {
-            const token = localStorage.getItem('token'); // Ensure this key matches where you store the token
+            const token = localStorage.getItem('token'); 
             const response = await axios.post('http://localhost:8081/api/hotelBookings', {
-                roomId: bookingDetails.roomId, // Correctly send roomId
-                numberOfGuests: Number(bookingDetails.numberOfGuests), // Ensure it's a number
+                roomId: bookingDetails.roomId,
+                numberOfGuests: Number(bookingDetails.numberOfGuests),
                 checkInDate: bookingDetails.checkInDate,
                 checkOutDate: bookingDetails.checkOutDate,
                 hotelId: hotel._id,
@@ -84,7 +93,7 @@ function HotelItem({ hotel }) {
             });
 
             console.log("Booking successful:", response.data);
-            setShowBooking(false); // Close modal on success
+            setShowBooking(false); 
             alert("Booking successful!");
         } catch (error) {
             console.error("Error booking hotel:", error);
@@ -92,8 +101,12 @@ function HotelItem({ hotel }) {
                 error.response && error.response.data && error.response.data.message
                     ? error.response.data.message
                     : "There was an error booking the hotel. Please try again."
-            ); // Set error message based on response
+            ); 
         }
+    };
+
+    const getTodayDate = () => {
+        return new Date().toISOString().split('T')[0];
     };
 
     return (
@@ -127,32 +140,6 @@ function HotelItem({ hotel }) {
                 </div>
             </div>
 
-            {/* Details Modal */}
-            <Modal show={showDetails} onHide={handleCloseDetails} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>{hotel.name}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Carousel>
-                        {hotel.images.map((img, index) => (
-                            <Carousel.Item key={index}>
-                                <img
-                                    className="d-block w-100 bigImg"
-                                    src={`http://localhost:8081/hotel-uploads/${img}`}
-                                    alt={`Slide ${index + 1} for ${hotel.name}`}
-                                />
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
-                    <p className="popupDescription">{hotel.description}</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseDetails}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
             {/* Booking Modal */}
             <Modal show={showBooking} onHide={handleCloseBooking}>
                 <Modal.Header closeButton>
@@ -165,7 +152,7 @@ function HotelItem({ hotel }) {
                             <Form.Label>Room Type</Form.Label>
                             <Form.Control 
                                 as="select" 
-                                name="roomId" // Correctly name as roomId
+                                name="roomId" 
                                 onChange={handleInputChange} 
                                 required
                             >
@@ -196,6 +183,7 @@ function HotelItem({ hotel }) {
                                 type="date"
                                 name="checkInDate"
                                 value={bookingDetails.checkInDate}
+                                min={getTodayDate()}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -205,6 +193,7 @@ function HotelItem({ hotel }) {
                             <Form.Label>Check-out Date</Form.Label>
                             <Form.Control
                                 type="date"
+                                id="formCheckOutDate"
                                 name="checkOutDate"
                                 value={bookingDetails.checkOutDate}
                                 onChange={handleInputChange}

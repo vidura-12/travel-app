@@ -33,7 +33,7 @@ function Login() {
       localStorage.setItem('token', response.data.token);
       console.log('Login successful', response.data);
       alert('Login successful');
-      navigate('/profile');
+      navigate('/home');
     } catch (error) {
       console.error('Login failed', error);
       setErrors({ general: 'Login failed. Please check your credentials and try again.' });

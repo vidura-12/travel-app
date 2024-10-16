@@ -6,6 +6,9 @@ import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags } from 'react-icons/f
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const styles = {
@@ -135,6 +138,7 @@ const VehicleBook = () => {
   const [returnDate, setReturnDate] = useState('');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -191,9 +195,20 @@ const VehicleBook = () => {
     }
 
     if(!userId) { 
-      alert("You must be logged in to make a booking.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You need to log in first.',
+        confirmButtonText: 'OK',
+        customClass: {
+          icon: 'vehicle-red-icon',  // Apply custom class for the icon
+      }
+      }).then(() => {
+        navigate('/login'); // Redirect to login page after closing the alert
+        });
       return;
     }
+
 
     axios.post('http://localhost:8081/api/bookings', {
       vehicleId,
@@ -281,8 +296,14 @@ const VehicleBook = () => {
       doc.setFontSize(24);
       doc.setTextColor(44, 62, 80); // Color #2c3e50
       doc.text('Travel Mate', 25, 33);
-      doc.text('Good Travel !', 25, 45);
+
+      doc.setFontSize(16);
+      doc.setTextColor(44, 62, 80); // Color #2c3e50
+      doc.text('Book Your Vehicle And Have A Good Travel !', 25, 42);
     
+      doc.setFontSize(9);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 10, 51);
+
       // Booking Confirmation Header
       doc.setFontSize(18);
       doc.setTextColor(52, 73, 94); // Color #34495e
@@ -380,6 +401,7 @@ const VehicleBook = () => {
       doc.save('Booking_Confirmation.pdf');
     };
   };
+
 
   if (!vehicle) {
     return <div>Loading...</div>;
@@ -481,6 +503,8 @@ const VehicleBook = () => {
                 value={formData.startDate}
                 onChange={handleChange}
                 style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
+                min={new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]} // Minimum date is tomorrow
+                max={new Date(new Date().setMonth(new Date().getMonth() + 3)).toISOString().split('T')[0]}  // Maximum date is one month from today
                 required
               />
             </label><br/>

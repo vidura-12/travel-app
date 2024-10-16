@@ -46,7 +46,7 @@ const ChecklistDisplay = () => {
   doc.setFontSize(16);
   doc.text('Checklist Report', 105, 20, { align: 'center' });
   doc.rect(5, 5, 200, 285);
-  doc.addImage('/ll.jpg', 'PNG', 160, 10, 30, 30);
+  doc.addImage('./img/ll.png', 'PNG', 160, 10, 30, 30);
   
     doc.autoTable({
       startY: 50,
@@ -65,7 +65,7 @@ const ChecklistDisplay = () => {
   doc.text('Signature:', 10, finalY + 20); // Position the text slightly below the table
 
   // Add signature image under the "Signature" label
-  doc.addImage('/sig.jpg', 'PNG', 10, finalY + 25, 50, 20);
+  doc.addImage('./img/sign.jpg', 'PNG', 10, finalY + 25, 50, 20);
 
     doc.save('Checklist_Report.pdf');
   };
@@ -88,7 +88,7 @@ const ChecklistDisplay = () => {
   // Handle saving changes
   const handleSaveChanges = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/checklists/${editingChecklist._id}`, editingChecklist, {
+      await axios.put(`http://localhost:8081/api/checklists/${editingChecklist._id}`, editingChecklist, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setChecklists((prevChecklists) =>
@@ -105,7 +105,7 @@ const ChecklistDisplay = () => {
   const handleDeleteClick = async (checklistId) => {
     if (window.confirm('Are you sure you want to delete this checklist?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/checklists/${checklistId}`, {
+        await axios.delete(`http://localhost:8081/api/checklists/${checklistId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
 

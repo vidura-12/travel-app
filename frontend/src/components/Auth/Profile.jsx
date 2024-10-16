@@ -70,23 +70,26 @@ function Profile() {
       error = 'Enter only letters';
     }
 
-    // Validation for Date of Birth (DOB)
+    // Validation for Date of Birth (DOB) with automatic age calculation
     if (name === 'dob') {
       const today = new Date();
       const birthDate = new Date(value);
-      const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+      const currentYear = today.getFullYear();
+      const birthYear = birthDate.getFullYear();
+      const minAgeDate = new Date(currentYear - 18, today.getMonth(), today.getDate());
 
-      // Prevent selecting today or any future date
+      // Prevent future date or the current year being selected
       if (birthDate > today) {
         error = 'Date of birth cannot be in the future';
-      } 
-      // Ensure user is at least 18 years old
-      else if (birthDate > minAgeDate) {
+      } else if (birthYear >= currentYear) {
+        error = 'Invalid date, cannot select current or future year';
+      } else if (birthDate > minAgeDate) {
         error = 'You must be at least 18 years old to create an account';
+      } else {
+        const age = currentYear - birthYear;
+        setFormData({ ...formData, dob: value, age });
       }
 
-      const age = today.getFullYear() - birthDate.getFullYear();
-      setFormData({ ...formData, dob: value, age });
       setErrors({ ...errors, dob: error });
       return;
     }
@@ -125,11 +128,9 @@ function Profile() {
     setErrors({ ...errors, [name]: error });
   };
 
-  
-
   const handleKeyDown = (e, fieldName) => {
     const birthYear = formData.dob ? new Date(formData.dob).getFullYear() : null;
-  
+
     // Prevent non-digit characters except 'v' for the NIC field
     if (fieldName === 'NIC') {
       if (birthYear && birthYear <= 1999) {
@@ -144,14 +145,14 @@ function Profile() {
         }
       }
     }
-  
+
     // Prevent entering anything other than letters and spaces in Name field
     if (fieldName === 'name') {
       if (!/^[A-Za-z\s]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
         e.preventDefault();
       }
     }
-  
+
     // Prevent entering letters and special characters in Contact field
     if (fieldName === 'contact') {
       if (!/^[\d]$/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
@@ -159,7 +160,6 @@ function Profile() {
       }
     }
   };
-  
 
   const validate = () => {
     const newErrors = {};
@@ -223,7 +223,7 @@ function Profile() {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                onKeyDown={(e) => handleKeyDown(e, 'name')} // Prevent non-letter characters
+                onKeyDown={(e) => handleKeyDown(e, 'name')}
                 className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
                 required
                 placeholder="Enter your name"
@@ -248,71 +248,62 @@ function Profile() {
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="gender">Gender</label>
-                <select
+                <input
+                  type="text"
                   name="gender"
                   id="gender"
                   value={formData.gender}
                   onChange={handleChange}
                   className={`${styles.input} ${errors.gender ? styles.inputError : ''}`}
                   required
-                >
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
+                  placeholder="Enter your gender"
+                />
                 {errors.gender && <p className={styles.errorMessage}>{errors.gender}</p>}
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="age">Age</label>
                 <input
-                  type="number"
+                  type="text"
                   name="age"
                   id="age"
                   value={formData.age}
-                  onChange={handleChange}
-                  className={`${styles.input} ${errors.age ? styles.inputError : ''}`}
-                  required
-                  min="0"
-                  placeholder="Enter your age"
+                  readOnly
+                  className={styles.input}
                 />
-                {errors.age && <p className={styles.errorMessage}>{errors.age}</p>}
               </div>
             </div>
 
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="NIC">NIC</label>
-                <input
-                  type="text"
-                  name="NIC"
-                  id="NIC"
-                  value={formData.NIC}
-                  onChange={handleChange}
-                  onKeyDown={(e) => handleKeyDown(e, 'NIC')} // Prevent non-numeric characters
-                  className={`${styles.input} ${errors.NIC ? styles.inputError : ''}`}
-                  required
-                  placeholder="Enter NIC"
-                />
-                {errors.NIC && <p className={styles.errorMessage}>{errors.NIC}</p>}
-              </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="NIC">NIC</label>
+              <input
+                type="text"
+                name="NIC"
+                id="NIC"
+                value={formData.NIC}
+                onChange={handleChange}
+                onKeyDown={(e) => handleKeyDown(e, 'NIC')}
+                className={`${styles.input} ${errors.NIC ? styles.inputError : ''}`}
+                required
+                placeholder="Enter your NIC"
+              />
+              {errors.NIC && <p className={styles.errorMessage}>{errors.NIC}</p>}
+            </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="contact">Contact</label>
-                <input
-                  type="text"
-                  name="contact"
-                  id="contact"
-                  value={formData.contact}
-                  onChange={handleChange}
-                  onKeyDown={(e) => handleKeyDown(e, 'contact')} // Prevent non-numeric characters
-                  className={`${styles.input} ${errors.contact ? styles.inputError : ''}`}
-                  required
-                  placeholder="Enter your contact number"
-                />
-                {errors.contact && <p className={styles.errorMessage}>{errors.contact}</p>}
-              </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="contact">Contact Number</label>
+              <input
+                type="text"
+                name="contact"
+                id="contact"
+                value={formData.contact}
+                onChange={handleChange}
+                onKeyDown={(e) => handleKeyDown(e, 'contact')}
+                className={`${styles.input} ${errors.contact ? styles.inputError : ''}`}
+                required
+                placeholder="Enter your contact number"
+              />
+              {errors.contact && <p className={styles.errorMessage}>{errors.contact}</p>}
             </div>
 
             <button type="submit" className={styles.submitButton}>
