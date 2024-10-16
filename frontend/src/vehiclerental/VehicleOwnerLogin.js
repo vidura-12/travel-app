@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function VehicleOwnerLogin() {
   //const [username, setUsername] = useState('');
@@ -8,12 +9,13 @@ function VehicleOwnerLogin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8081/vehicle-owner/login', {
+      const response = await axios.post('http://localhost:8081/api/vehicle-owner/login', {
         email,
         password,
       });
@@ -33,12 +35,16 @@ function VehicleOwnerLogin() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const containerStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)', 
+    backgroundImage: 'url(/img/Vehicle_Log_Back.jpeg)', 
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   };
@@ -54,21 +60,31 @@ function VehicleOwnerLogin() {
   };
 
   const inputGroupStyle = {
-    marginBottom: '15px'
+    marginBottom: '15px',
+    position: 'relative', // Ensures the icon stays within the input
+    width: '100%'
   };
 
-  const labelStyle = {
+  const labelStyle_1 = {
     display: 'block',
     fontSize: '14px',
     color: '#555',
-    marginBottom: '5px'
+    marginBottom: '-7px'
+  };
+
+  const labelStyle_2 = {
+    display: 'block',
+    fontSize: '14px',
+    color: '#555',
+    marginTop: '-10px',
+    marginBottom: '-7px'
   };
 
   const inputStyle = {
     width: '100%',
     padding: '10px',
     border: '1px solid #ccc',
-    borderRadius: '5px'
+    borderRadius: '5px',
   };
 
   const buttonStyle = {
@@ -91,8 +107,8 @@ function VehicleOwnerLogin() {
     borderRadius: '5px',
     cursor: 'pointer',
     fontSize: '16px',
-    marginTop: '10px'
-
+    marginTop: '10px',
+    marginLeft: '0px'
   };
 
   const buttonHoverStyle = {
@@ -111,17 +127,34 @@ function VehicleOwnerLogin() {
     marginBottom: '10px'
   };
 
+  const vehicle_h2 = {  
+    fontSize: '30px',
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    //margin: '10px',
+   //marginTop: '0px'
+  };
+
+  const iconStyle = {
+    position: 'absolute',
+    right: '20px',
+    top: '58%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+  };
+
   return (
     <div>
 
     <div style={containerStyle}>
       <div style={boxStyle}>
-        <h2>Vehicle Owner Login</h2>
+        <h2 style={vehicle_h2}>Vehicle Owner Login</h2>
         {error && <p style={errorStyle}>{error}</p>}
         {success && <p style={successStyle}>{success}</p>}
         <form onSubmit={handleSubmit}>
           <div style={inputGroupStyle}>
-            <label htmlFor="email" style={labelStyle}>Email:</label>
+            <label htmlFor="email" style={labelStyle_1}>Email:</label>
             <input
               type="email"
               id="email"
@@ -132,15 +165,18 @@ function VehicleOwnerLogin() {
             />
           </div>
           <div style={inputGroupStyle}>
-            <label htmlFor="password" style={labelStyle}>Password:</label>
+            <label htmlFor="password" style={labelStyle_2}>Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               style={inputStyle}
             />
+            <span onClick={togglePasswordVisibility} style={iconStyle}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
           </div>
           <button
             type="submit"

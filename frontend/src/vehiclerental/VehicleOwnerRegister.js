@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function VehicleOwnerRegister() {
-  const [firstname, setFirstname] = useState('');
+  const [fullName, setFirstname] = useState('');
   // const [secondname, setSecondname] = useState('');
   const [phoneno, setPhoneNo] = useState('');
   const [username, setUsername] = useState('');
@@ -14,6 +15,9 @@ function VehicleOwnerRegister() {
   const [nameError, setNameError] = useState(''); // State for name error messages
   const [phoneError, setPhoneError] = useState(''); 
   //const [roleError, setRoleError] = useState(''); // State for role error messages
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
   // Handler for first name and second name input to allow only letters
@@ -49,7 +53,8 @@ function VehicleOwnerRegister() {
   // Check if the password meets the requirements
   const isPasswordValid = (password) => {
     // Regex to check for at least one uppercase letter and one number
-    return /[A-Z]/.test(password) && /[0-9]/.test(password);
+    //return /[A-Z]/.test(password) && /[0-9]/.test(password);
+    return password.length >= 6;
   };
 
   const handleSubmit = async (e) => {
@@ -63,16 +68,10 @@ function VehicleOwnerRegister() {
       setError('Password must contain at least one uppercase letter and number.');
       return; // Stop form submission
     }
-
-    // if(!role) {
-    //   setError('Please select a role.');
-    //   return;
-    // }
-
+    
     try {
-      const response = await axios.post('http://localhost:8081/vehicle-owner/register', {
-        firstname,
-        // secondname,
+      const response = await axios.post('http://localhost:8081/api/vehicle-owner/register', {
+        fullName,
         phoneno,
         username,
         email,
@@ -90,12 +89,20 @@ function VehicleOwnerRegister() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const containerStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)',
+    backgroundImage: 'url(/img/Vehicle_Log_Back.jpeg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
@@ -119,6 +126,7 @@ function VehicleOwnerRegister() {
     fontSize: '14px',
     color: '#555',
     marginBottom: '5px',
+    marginBottom: '-7px'
   };
 
   const inputStyle = {
@@ -148,41 +156,56 @@ function VehicleOwnerRegister() {
     borderRadius: '5px',
     cursor: 'pointer',
     fontSize: '16px',
-    marginTop: '10px'
+    marginTop: '10px',
+    marginLeft: '0px'
   };
 
   const buttonHoverStyle = {
     backgroundColor: '#39392d',
   };
+  
+  const vehicle_h2 = {  
+    fontSize: '30px',
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    //margin: '10px',
+   //marginTop: '0px'
+  };
+
+  const iconStyle_1 = {
+    position: 'absolute',
+    right: '815px',
+    top: '64%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+  };
+  const iconStyle_2 = {
+    position: 'absolute',
+    right: '815px',
+    top: '74%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    marginLeft: '10px',
+  };
 
   return (
     <div style={containerStyle}>
       <div style={boxStyle}>
-        <h2>Vehicle Owner Register</h2>
+        <h2 style={vehicle_h2}>Vehicle Owner Register</h2>
         {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>} {/* Display error message */}
         <form onSubmit={handleSubmit}>
            <div style={inputGroupStyle}>
-            <label htmlFor="firstname" style={labelStyle}> Full name:</label>
+            <label htmlFor="fullName" style={labelStyle}> Full name:</label>
             <input
               type="text"
-              id="name"
-              value={firstname}
+              id="fullName"
+              value={fullName}
               onChange={handleNameChange(setFirstname)}
               required
               style={inputStyle}
             />
           </div>
-          {/* {/* <div style={inputGroupStyle}>
-            <label htmlFor="secondname" style={labelStyle}> Second name:</label>
-            <input
-              type="text"
-              id="name"
-              value={secondname}
-              onChange={handleNameChange(setSecondname)}
-              required
-              style={inputStyle}
-            />
-          </div> */}
           <div style={inputGroupStyle}>
             <label htmlFor="phoneno" style={labelStyle}> Phone number:</label>
             <input
@@ -220,28 +243,34 @@ function VehicleOwnerRegister() {
           <div style={inputGroupStyle}>
             <label htmlFor="password" style={labelStyle}>Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               style={inputStyle}
             />
+            <span onClick={togglePasswordVisibility} style={iconStyle_1}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
           </div>
-          {/* <div style={inputGroupStyle}>
-          <label htmlFor="role" style={labelStyle}>Select Role:</label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)} // Add role state handling
-            required
-            style={inputStyle}>
-            <option value="">Choose your role</option>
-            <option value="vehicleOwner">Vehicle Owner</option>
-            <option value="tourGuide">Tour Guide</option>
-            <option value="agent">Agent</option>
-          </select>
-        </div> */}
+          <div style={inputGroupStyle}>
+            <label htmlFor="confirmPassword" style={labelStyle}>Confirm Password:</label>
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              style={inputStyle}
+            />
+            <span span onClick={toggleConfirmPasswordVisibility} style=  {iconStyle_2}>
+                {showConfirmPassword ? <FaEyeSlash /> :   <FaEye />}
+            </span>
+          </div>
+          {password !== confirmPassword && confirmPassword && (
+            <p style={{ color: 'red' }}>Passwords do not match</p>
+          )}
           <button
             type="submit"
             style={buttonStyle}

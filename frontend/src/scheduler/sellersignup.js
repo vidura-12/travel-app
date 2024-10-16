@@ -34,50 +34,37 @@ const Sellersignup = () => {
     return errors;
   };
 
-  // Handle name input (only letters allowed)
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(value)) {
-      setName(value);
-    }
-  };
-
-  // Handle phone input (only 10 digits allowed)
-  const handlePhoneChange = (e) => {
-    const value = e.target.value;
-    if (/^\d{0,10}$/.test(value)) {
-      setPhone(value);
-    }
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
+  e.preventDefault();
+  const validationErrors = validate();
+  setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      const userData = { name, email, password, phone, address, role };
+  if (Object.keys(validationErrors).length === 0) {
+    const userData = { name, email, password, phone, address, role, status: 'Pending' }; // Add status
 
-      try {
-        // Make POST request to the server (Optional)
-        const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
-        console.log('Response:', response.data);
+    try {
+      const response = await axios.post('http://localhost:8081/sellerlog/signup', userData);
+      console.log('Response:', response.data);
 
-        // Save seller data to localStorage
-        const savedSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
-        localStorage.setItem('sellersData', JSON.stringify([...savedSellers, userData]));
+      // Retrieve existing sellers from localStorage or create an empty array if none
+      const existingSellers = JSON.parse(localStorage.getItem('sellersData')) || [];
+      // Add the new seller to the existing sellers array
+      existingSellers.push(userData);
+      // Save the updated sellers array back to localStorage
+      localStorage.setItem('sellersData', JSON.stringify(existingSellers));
 
-        // Show alert on successful registration
-        alert('Registration successful! Please log in.');
+      // Save email to localStorage as token
+      localStorage.setItem('token', email);
 
-        // Navigate to login page
-        navigate('/scheduler/sellersignin');
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('Error registering user. Please try again.');
-      }
+      alert('Registration successful! Please log in.');
+      navigate('/scheduler/sellersignin'); // Navigate to login or profile page
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Error registering user. Please try again.');
     }
-  };
+  }
+};
+
 
   return (
     <div className='sellers'>
@@ -92,7 +79,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={name}
-                onChange={handleNameChange}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Enter Name"
                 className="form-control"
               />
@@ -137,7 +124,7 @@ const Sellersignup = () => {
               <input
                 type="text"
                 value={phone}
-                onChange={handlePhoneChange}
+                onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter Phone Number"
                 className="form-control"
               />
@@ -174,10 +161,8 @@ const Sellersignup = () => {
               {errors.role && <span className="text-danger">{errors.role}</span>}
             </div>
 
-            <div className='s'>
-              <div className='text-center'>
-                <button type="submit" className="btn btn-primary">Register</button>
-              </div>
+            <div className='text-center'>
+              <button type="submit" className="btn-success">Register</button>
             </div>
             <p className="text-center mt-3">Already Have an Account?</p>
             <div className='text-center'>

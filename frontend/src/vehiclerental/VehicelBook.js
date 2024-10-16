@@ -2,11 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const styles = {
+
+  bodyStyle: {
+    margin: '0',
+    padding: '0',
+    fontFamily: 'Poppins, sans-serif',
+    backgroundColor: '#f4f4f4',
+  },
   cardContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -14,8 +26,6 @@ const styles = {
     gap: '20px',
     marginRight: '20px',
     height: '200px',
-
-    
   },
   card: {
     position: 'relative',
@@ -110,7 +120,6 @@ const styles = {
 
 Modal.setAppElement('#root');
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const VehicleBook = () => {
   const { vehicleId } = useParams();
@@ -128,8 +137,21 @@ const VehicleBook = () => {
   const [totalCost, setTotalCost] = useState(0);
   const [returnDate, setReturnDate] = useState('');
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUserId(decoded.userId); // Ensure your JWT payload contains 'userId'
+      } catch (err) {
+        console.error("Invalid token:", err);
+      }
+    }
+
     axios.get(`http://localhost:8081/api/vehicles/${vehicleId}`)
       .then(response => setVehicle(response.data.data))
       .catch(error => console.error('Error fetching vehicle details:', error));
@@ -172,16 +194,41 @@ const VehicleBook = () => {
       return;
     }
 
+    if(!userId) { 
+      Swal.fire({
+        icon: 'warning',
+        title: 'Login Required',
+        text: 'You need to log in first.',
+        confirmButtonText: 'OK',
+        customClass: {
+          icon: 'vehicle-red-icon',  // Apply custom class for the icon
+      }
+      }).then(() => {
+        navigate('/login'); // Redirect to login page after closing the alert
+        });
+      return;
+    }
+
+
     axios.post('http://localhost:8081/api/bookings', {
       vehicleId,
       ...formData,
       startDate: formData.startDate,
       returnDate,
       totalCost
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     })
     .then(() => {
       setSuccessModalOpen(true);
-      generatePDF(); 
+      try{
+        generatePDF(formData, vehicle, totalCost, returnDate);
+        console.log(formData, vehicle, totalCost, returnDate);
+      } catch (pdfError) {
+        console.error('Error generating PDF:', pdfError);
+      } 
       setFormData({
         userName: '',
         userEmail: '',
@@ -195,8 +242,20 @@ const VehicleBook = () => {
       setReturnDate('');
     })
     .catch(error => {
-      console.error('Error submitting booking:', error);
-      setError('An error occurred while submitting the booking.');
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error submitting booking:', error.response.data);
+        setError(error.response.data.msg);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.error('Error submitting booking:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error submitting booking:', error.message);
+      }
     });
   };
 
@@ -218,120 +277,141 @@ const VehicleBook = () => {
     }
   };
 
-  const generatePDF = () => {
-    const docDefinition = {
-      content: [
+  const generatePDF = async (formData, vehicle, totalCost, returnDate) => {
+    const doc = new jsPDF();
+    
+    const logo = await import('./Vehicle_Images/logo.png');     // Adding logo (adjust path based on your project)
+    const signature = await import('./Vehicle_Images/signature.jpg'); // Adding signature image (adjust path based on your project)
+    const logoImg = new Image();
+    const signatureImg = new Image();
 
-        
-        {
-          text: 'Travel Mate',
-          style: 'companyName',
-          alignment: 'center',
-          margin: [0, 20, 0, 10]
-        },
-        {
-          text: 'Booking Confirmation',
-          style: 'header',
-          alignment: 'center',
-          margin: [0, 0, 0, 20]
-        },
-        {
-          text: 'Vehicle Details',
-          style: 'sectionHeader',
-          margin: [0, 0, 0, 10]
-        },
-        {
-          ul: [
-            `Make and Model : ${vehicle.make} ${vehicle.model}`,
-            `Color : ${vehicle.color}`,
-            `Category : ${vehicle.category}`,
-            `Price per Day : LKR ${vehicle.pricePerDay}`,
-            `Location : ${vehicle.location}`,
-            `Number of Seats : ${vehicle.numberOfSeats}`
-          ],
-          style: 'detailsList'
-        },
-        {
-          text: 'Customer Details',
-          style: 'sectionHeader',
-          margin: [0, 20, 0, 10]
-        },
-        {
-          ul: [
-            `Name : ${formData.userName}`,
-            `Email : ${formData.userEmail}`,
-            `Phone Number : ${formData.userPhoneNumber}`,
-            `Start Date : ${formData.startDate}`,
-            `Number of Days : ${formData.numberOfDays}`,
-            `License ID : ${formData.licenseId}`,
-            `Additional Notes : ${formData.additionalNotes || 'N/A'}`
-          ],
-          style: 'detailsList'
-        },
-        {
-          text: 'Cost Calculation',
-          style: 'sectionHeader',
-          margin: [0, 20, 0, 10]
-        },
-        {
-          ul: [
-            `Total Cost : LKR ${totalCost}`,
-            `Return Date : ${returnDate}`
-          ],
-          style: 'costList'
-        },
-        {
-          text: 'Thank you for booking with us!',
-          style: 'thankYou',
-          alignment: 'center',
-          margin: [0, 20, 0, 0]
-        }
-      ],
-      styles: {
-        companyName: {
-          fontSize: 24,
-          bold: true,
-          color: '#2c3e50'
-        },
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10],
-          color: '#34495e'
-        },
-        sectionHeader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5],
-          color: '#16a085'
-        },
-        detailsList: {
-          margin: [0, 0, 0, 10]
-        },
-        costList: {
-          margin: [0, 0, 0, 10],
-          bold: true
-        },
-        thankYou: {
-          fontSize: 16,
-          italics: true,
-          color: '#27ae60'
-        }
-      },
-      defaultStyle: {
-        // Default font is used if not specified
+    logoImg.src = logo.default;
+    logoImg.onload = () => {
+      doc.addImage(logoImg, 'PNG', 150, 10, 50, 50); // Position the logo (centered)
+
+      // Add a border frame
+      doc.rect(5, 5, 200, 287, 'S'); // Adjust size and position for the border 
+
+      // Company Name
+      doc.setFontSize(24);
+      doc.setTextColor(44, 62, 80); // Color #2c3e50
+      doc.text('Travel Mate', 25, 33);
+
+      doc.setFontSize(16);
+      doc.setTextColor(44, 62, 80); // Color #2c3e50
+      doc.text('Book Your Vehicle And Have A Good Travel !', 25, 42);
+    
+      doc.setFontSize(9);
+      doc.text(`Generated on: ${new Date().toLocaleString()}`, 10, 51);
+
+      // Booking Confirmation Header
+      doc.setFontSize(18);
+      doc.setTextColor(52, 73, 94); // Color #34495e
+      doc.text('Vehicle Booking Confirmation', 105, 64, null, null, 'center');
+    
+      // Vehicle Details Section
+      doc.setFontSize(16);
+      doc.setTextColor(22, 160, 133); // Color #16a085
+      doc.text('Vehicle Details', 10, 78);
+      
+      // Vehicle details in a horizontal table format
+      doc.autoTable({
+        head: [['Vehicle', 'Color', 'Category', 'Price per Day', 'Location', 'Number of Seats', 'Contact Number']],
+        body: [[
+          `${vehicle.make} ${vehicle.model}`,
+          vehicle.color,
+          vehicle.category,
+          `LKR ${vehicle.pricePerDay}`,
+          vehicle.location,
+          vehicle.numberOfSeats,
+          vehicle.contact
+        ]],
+        startY: 85, // Position the table below the header
+        theme: 'grid',
+        headStyles: { fillColor: [22, 160, 133] }, // Color for table headers
+        margin: { left: 10, right: 10 },
+      });
+
+      // Customer Details Section
+      doc.setFontSize(16);
+      doc.setTextColor(22, 160, 133);
+      doc.text('Customer Details', 10, 115);
+    
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`Name: ${formData.userName}`, 10, 125);
+      doc.text(`Email: ${formData.userEmail}`, 10, 132);
+      doc.text(`Phone Number: ${formData.userPhoneNumber}`, 10, 139);
+      doc.text(`Start Date: ${formData.startDate}`, 10, 146);
+      doc.text(`Number of Days: ${formData.numberOfDays}`, 10, 153);
+      doc.text(`License ID: ${formData.licenseId}`, 10, 160);
+      doc.text(`Additional Notes: ${formData.additionalNotes || 'N/A'}`, 10, 167);
+    
+      // Cost Calculation Section
+      doc.setFontSize(16);
+      doc.setTextColor(22, 160, 133);
+      doc.text('Cost Calculation', 10, 180);
+    
+      doc.autoTable({
+        head: [['Vehicle', 'Price per Day', 'Start Date', 'Return Date','Number of rent Days', 'Total Cost (LKR)']],
+        body: [[
+          vehicle.make + ' ' + vehicle.model,
+          `LKR ${vehicle.pricePerDay}`,
+          formData.startDate,
+          returnDate,
+          formData.numberOfDays,
+          `LKR ${totalCost}/=`,
+        ]],
+        startY: 187, // Position the table below the previous text
+        theme: 'grid',
+        headStyles: { fillColor: [22, 160, 133] }, // Color for table headers
+        margin: { left: 10, right: 10 },
+      });
+  
+      // Thank You Note
+      doc.setFontSize(16);
+      doc.setTextColor(39, 174, 96); // Color #27ae60
+      doc.text('Thank you for booking with us!', 105, doc.lastAutoTable.finalY + 20, null, null, 'center'); // Display below the table
+    
+      // Signature
+      signatureImg.src = signature.default;
+      signatureImg.onload = () => {
+        doc.addImage(signatureImg, 'JPG', 25, doc.lastAutoTable.finalY + 50, 50, 20); // Position the signature image 
+
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text('Vehicle Manager: Buwaneka Wijesinghe', 15,doc.lastAutoTable.finalY + 75, null, null);
+        doc.text('Customer Signature', 139,doc.lastAutoTable.finalY + 75, null, null);
+
+        // Save the PDF
+        doc.save('Booking_Confirmation.pdf');
+      };
+
+      signatureImg.onerror = () => {
+        console.error('Failed to load the signature image.');
+        // You can proceed without the signature or handle the error as needed
+        doc.save('Booking_Confirmation.pdf');
       }
+      
+    }
+    logoImg.onerror = () => {
+      console.error('Failed to load the logo image.');
+      // You can proceed without the logo or handle the error as needed
+      doc.text('Travel Mate', 105, 50, null, null, 'center');
+      doc.save('Booking_Confirmation.pdf');
     };
-
-    pdfMake.createPdf(docDefinition).download('Booking_Confirmation.pdf');
   };
+
 
   if (!vehicle) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
+    <div style={{margin: '0',
+                padding: '0',
+                fontFamily: 'Poppins, sans-serif',
+                backgroundColor: '#f4f4f4'}}>
       
       <div className="content" style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
         
@@ -365,7 +445,7 @@ const VehicleBook = () => {
 
 
         <div style={{
-          width: '40%',
+          width: '34%',
           marginRight: '20px',
           borderRadius: '8px',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.15)',
@@ -373,7 +453,7 @@ const VehicleBook = () => {
           padding: '15px',
           boxSizing: 'border-box'
         }}>
-          <h1 style={{ fontSize: '1.5em', marginBottom: '20px' }}>Book Your Vehicle</h1>
+          <h1 style={{ marginBottom: '20px', fontSize: '26px', fontWeight: 'bold', textAlign: 'center' }}>Book Your Vehicle</h1>
           <form onSubmit={handleSubmit}>
           <label>
               Name:
@@ -388,10 +468,11 @@ const VehicleBook = () => {
                     setFormData({ ...formData, userName: value });
                   }
                 }}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
             </label>
+            <br/>
             <label>
               Email:
               <input
@@ -399,10 +480,10 @@ const VehicleBook = () => {
                 name="userEmail"
                 value={formData.userEmail}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               Phone Number:
               <input
@@ -410,10 +491,10 @@ const VehicleBook = () => {
                 name="userPhoneNumber"
                 value={formData.userPhoneNumber}
                 onChange={handlePhoneNumberChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               Start Date:
               <input
@@ -421,10 +502,12 @@ const VehicleBook = () => {
                 name="startDate"
                 value={formData.startDate}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
+                min={new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]} // Minimum date is tomorrow
+                max={new Date(new Date().setMonth(new Date().getMonth() + 3)).toISOString().split('T')[0]}  // Maximum date is one month from today
                 required
               />
-            </label>
+            </label><br/>
             <label>
               Number of Days:
               <input
@@ -432,10 +515,10 @@ const VehicleBook = () => {
                 name="numberOfDays"
                 value={formData.numberOfDays}
                 onChange={handleNumberOfDaysChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               License ID:
               <input
@@ -443,17 +526,17 @@ const VehicleBook = () => {
                 name="licenseId"
                 value={formData.licenseId}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
                 required
               />
-            </label>
+            </label><br/>
             <label>
               Additional Notes:
               <textarea
                 name="additionalNotes"
                 value={formData.additionalNotes}
                 onChange={handleChange}
-                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '15px' }}
+                style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ddd', marginBottom: '-10px' }}
               />
             </label>
             <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Total Cost:</strong> LKR {totalCost}</p>
@@ -486,7 +569,7 @@ const VehicleBook = () => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '320px',
-            height: '170px',
+            height: '200px',
             padding: '20px',
             borderRadius: '8px',
             backgroundColor: '#f4f4f9',
@@ -494,19 +577,20 @@ const VehicleBook = () => {
           }
         }}
       >
-        <h2 style={{ color: '#27ae60' }}>Success</h2>
+        <h2 style={{ color: '#27ae60'}}>Success</h2>
         <p>Your booking was successful!</p>
         <button
           onClick={() => setSuccessModalOpen(false)}
           style={{
-            padding: '10px',
+            width: '110px',
+            padding: '8px',
             borderRadius: '5px',
             border: 'none',
             backgroundColor: '#27ae60',
             color: '#fff',
             cursor: 'pointer',
             marginTop: '20px',
-            marginLeft : '120px'
+            marginLeft : '80px'
           }}
         >
           OK

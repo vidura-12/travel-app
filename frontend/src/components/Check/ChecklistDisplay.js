@@ -35,15 +35,37 @@ const ChecklistDisplay = () => {
   // Generate PDF report
   const generatePDF = () => {
     const doc = new jsPDF();
-    doc.text('Checklist Report', 10, 10);
+    const pageWidth = doc.internal.pageSize.getWidth(); // Get the width of the page
+    const imageWidth = 30; // The width of the image you want to add
+    const margin = 10; // The margin from the right edge
 
+    // Calculate the X position for the right corner
+    const xPosition = pageWidth - imageWidth - margin;
+
+    // Add title
+  doc.setFontSize(16);
+  doc.text('Checklist Report', 105, 20, { align: 'center' });
+  doc.rect(5, 5, 200, 285);
+  doc.addImage('./img/ll.png', 'PNG', 160, 10, 30, 30);
+  
     doc.autoTable({
+      startY: 50,
       head: [['Title', 'Items Count']],
       body: checklists.map((checklist) => [
         checklist.title,
         checklist.items.length,
       ]),
     });
+
+      // Calculate the Y position for the signature section based on the table height
+  const finalY = doc.lastAutoTable.finalY || 60; // Get the position after the table ends
+
+  // Add "Signature" label below the table
+  doc.setFontSize(12);
+  doc.text('Signature:', 10, finalY + 20); // Position the text slightly below the table
+
+  // Add signature image under the "Signature" label
+  doc.addImage('./img/sign.jpg', 'PNG', 10, finalY + 25, 50, 20);
 
     doc.save('Checklist_Report.pdf');
   };

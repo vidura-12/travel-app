@@ -1,17 +1,19 @@
 const Vehicle = require('../models/Vehicle');
+const VehicleOwner = require('../models/VehicleOwner');
 
 // Create a new vehicle post
 exports.createVehicle = async (req, res) => {
-    const { email, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = req.body;
+    const { ownerEmail, make, model, numberOfSeats, pricePerDay, color, category, contact, ac, vnumber, location } = req.body;
     const image = req.file ? req.file.filename : ''; // Use filename here
-  
+    console.log(ownerEmail, make, model, numberOfSeats, pricePerDay, color, category, image, contact, ac, vnumber, location);
     try {
-      if (!email || !make || !model || !numberOfSeats || !pricePerDay || !color || !category || !image || !contact || !ac || !vnumber || !location) {
+      if (!ownerEmail || !make || !model || !numberOfSeats || !pricePerDay || !color || !category || !image || !contact || !ac || !vnumber || !location) {
         return res.status(400).json({ message: 'All fields are required' });
       }
   
       const vehicle = new Vehicle({
-        email,
+        ownerId: req.user.userId,
+        ownerEmail,
         make,
         model,
         numberOfSeats,
@@ -24,8 +26,15 @@ exports.createVehicle = async (req, res) => {
         vnumber,
         location 
       });
-  
-      await vehicle.save();
+      const savedVehicle = await vehicle.save();
+
+      // Update the HotelOwner's hotels array
+      await VehicleOwner.findByIdAndUpdate(
+        req.user.userId,
+        { $push: { vehicles: savedVehicle._id } },
+        { new: true }
+      );
+
       res.status(201).json({ message: 'Vehicle created successfully' });
     } catch (error) {
       console.error('Error creating vehicle:', error);

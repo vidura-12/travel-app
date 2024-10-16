@@ -27,16 +27,18 @@ function VehicleOwnerCreatePost() {
   const [vehicles, setVehicles] = useState([]);
   //const [editingVehicle, setEditingVehicle] = useState(null);
   const [deleteVehicleId, setDeleteVehicleId] = useState(null);
-  // const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
-
+  const [isHovered, setIsHovered] = useState(false);
   
-  const email = localStorage.getItem('email');
+  //const email = localStorage.getItem('email');
   useEffect(() => {
-    
+
+    const user = JSON.parse(localStorage.getItem('vehicleOwner'));
     // Check if the email exists in localStorage
-    if (email) {
-      fetchVehicles(email);
+    if (user && user.email) {
+      setEmail(user.email);
+      fetchVehicles(user.email);
     } else {
       Swal.fire({
         icon: 'warning',
@@ -47,7 +49,7 @@ function VehicleOwnerCreatePost() {
           icon: 'vehicle-red-icon',  // Apply custom class for the icon
       }
       }).then(() => {
-        navigate('/scheduler/sellersignin'); // Redirect to login page after closing the alert
+        navigate('/vehicle-owner/login'); // Redirect to login page after closing the alert
         });
       return;// If no email, navigate to login
     }
@@ -63,7 +65,7 @@ function VehicleOwnerCreatePost() {
           'Authorization': `Bearer ${token}`
         }
       });
-      const userVehicles = response.data.data.filter(vehicle => vehicle.email === email);
+      const userVehicles = response.data.data.filter(vehicle => vehicle.ownerEmail === email);
       setVehicles(userVehicles);
     } catch (err) {
       // Handle session expiration
@@ -71,13 +73,20 @@ function VehicleOwnerCreatePost() {
         alert('Session expired. Please log in again.');
         localStorage.removeItem('vehicleOwner'); // Clear user data
         localStorage.removeItem('token'); // Clear token
-        navigate('/scheduler/sellersignin'); // Redirect to login
+        navigate('/vehicle-owner/login'); // Redirect to login
       } else {
         setError(`Failed to fetch vehicles: ${err.response?.data?.message || err.message}`);
       }
     }
   };
     
+  const handleMouseOver = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -113,7 +122,7 @@ function VehicleOwnerCreatePost() {
     }
 
     const formData = new FormData();
-    formData.append('email', email);
+    formData.append('ownerEmail', email);
     formData.append('make', make);
     formData.append('model', model);
     formData.append('numberOfSeats', numberOfSeats);
@@ -182,15 +191,15 @@ function VehicleOwnerCreatePost() {
       if (result.isConfirmed) {
           // Proceed with logout
           localStorage.removeItem('token');
-          localStorage.removeItem('email'); 
+          localStorage.removeItem('vehicleOwner');
           sessionStorage.clear();  
-          navigate('/scheduler/sellersignin');  // Redirect to the login page
+          navigate('/vehicle-owner/login');  // Redirect to the login page
       }
     });  
   };
 
   const handleMyBookingsClick = () => {
-    navigate('/mybookings');
+    navigate('/vehicle-owner/mybookings');
   };
 
   const openModal = () => {
@@ -396,7 +405,7 @@ function VehicleOwnerCreatePost() {
     <div  style={body1Style}>
       
       <div className="content" style={contentStyle}>
-        <h2>My Vehicles</h2>
+        <h2 style={vehicle_h2_main}>My Vehicles</h2>
         <button onClick={openModal} style={addButtonStyle}>Add Vehicle</button>
         <button onClick={handleMyBookingsClick} style={myBookingButtonStyle}>My Bookings</button>
         {error && <p style={errorStyle}>{error}</p>}
@@ -447,7 +456,7 @@ function VehicleOwnerCreatePost() {
       <tr>
         <td colSpan="8" style={tableCellStyle}>No vehicles found</td>
       </tr>
-    )}
+      )}
   </tbody>
 
 </table>
@@ -455,7 +464,7 @@ function VehicleOwnerCreatePost() {
         </div>
 
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyles}>
-          <h2>Add Your Vehicle</h2>
+          <h2 style={vehicle_model_h2}>Add Your Vehicle</h2>
           {error && <p style={errorStyle}>{error}</p>}
           <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div style={formGroupStyle}>
@@ -602,15 +611,27 @@ function VehicleOwnerCreatePost() {
                
               </div>
             </div>
-            <button type="submit" style={submitButtonStyle}>Submit</button>
-            <button onClick={closeModal} style={closeButtonStyle}>Close</button>
+            <button
+              type="submit"
+              style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              Submit
+            </button>
+            <button
+              onClick={closeModal}
+              style={isHovered ? { ...closeButtonStyle, ...closeButtonStyleHover } : closeButtonStyle}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}>
+              Close
+            </button>
           </form>
         
         </Modal>
 
         {editingVehicle && (
           <Modal isOpen={editModalIsOpen} onRequestClose={closeEditModal} style={modalStyles}>
-      <h2>Edit Vehicle</h2>
+      <h2 style={vehicle_model_h2}>Edit Vehicle</h2>
       <form onSubmit={handleEditSubmit}>
         <div style={formGroupStyle}>
           <div style={inputRowStyle}>
@@ -751,8 +772,20 @@ function VehicleOwnerCreatePost() {
             </div>
           </div>
         </div>
-        <button type="submit" style={submitButtonStyle}>Save Changes</button>
-        <button onClick={closeEditModal} style={closeButtonStyle}>Close</button>
+        <button
+          type="submit"
+          style={isHovered ? { ...submitButtonStyle, ...submitButtonStyleHover } : submitButtonStyle}
+          onMouseOver={handleMouseOver}
+          nMouseOut={handleMouseOut}>
+          Save Changes
+        </button>
+        <button
+          onClick={closeEditModal}
+          style={isHovered ? { ...closeButtonStyle, ...closeButtonStyleHover } : closeButtonStyle}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+          Close
+        </button>
       </form>
     </Modal>
         )}
@@ -779,6 +812,12 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+const vehicle_h2_main = {
+  fontSize: '30px', 
+  fontWeight: 'bold', 
+  textAlign: 'center' 
+};
+
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column',
@@ -790,7 +829,7 @@ const containerStyle = {
 
 const contentStyle = {
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: '1300px',
   margin: '120px 120px 20px 120px',
   background: '#fff',
   padding: '20px',
@@ -827,7 +866,7 @@ const myBookingButtonStyle = {
   margin: '10px 0',
   cursor: 'pointer',
   borderRadius: '5px',
-  marginLeft: '850px',
+  marginLeft: '960px',
 };
 
 
@@ -838,12 +877,17 @@ const errorStyle = {
   
 };
 
+const vehicle_model_h2 = {
+  fontSize: '26px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+};
 const radioContainerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#f0f0f0',
-  padding: '10px',
+  padding: '0px',
   borderRadius: '15px',
 };
 
@@ -869,7 +913,7 @@ const tableContainerStyle = {
   marginTop: '20px',
   marginBottom: '20px',
   width: '100%',
-  maxWidth: '1200px',
+  maxWidth: '1300px',
   margin: '0 auto',
   padding: '20px',
   background: '#f0f0f0',
@@ -969,6 +1013,10 @@ const submitButtonStyle = {
   
 };
 
+const submitButtonStyleHover = {
+  backgroundColor: '#45a049',
+};
+
 const closeButtonStyle = {
   backgroundColor: '#ccc',
   color: 'black',
@@ -981,6 +1029,10 @@ const closeButtonStyle = {
   margin: '0 5px',
   cursor: 'pointer',
   borderRadius: '5px',
+};
+
+const closeButtonStyleHover = {
+  backgroundColor: '#bbb',
 };
 
 const inputStyle = {
@@ -1069,7 +1121,7 @@ const body1Style = {
   flexDirection: 'column',
   alignItems: 'center',
   padding: '20px',
-  backgroundImage: 'url(https://www.rentallsoftware.com/wp-content/uploads/2020/10/type-car-rental.jpg)',
+  backgroundImage: 'url(/img/Vehicle_Owne_p.jpg)',
   backgroundSize: 'cover',
   minHeight: '100vh',
   width: '100%',

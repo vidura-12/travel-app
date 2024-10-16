@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css'; // Importing the CSS module
 
 function Login() {
-  
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
@@ -30,10 +29,8 @@ function Login() {
     }
 
     try {
-   
       const response = await axios.post('http://localhost:8081/api/auth/login', formData);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('email', formData.email);
       console.log('Login successful', response.data);
       alert('Login successful');
       navigate('/home');

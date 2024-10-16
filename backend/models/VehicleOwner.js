@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const vehicleOwnerSchema = new mongoose.Schema({
 
-    firstname: {    
+    fullName: {    
         type: String, 
         required: true 
     },
@@ -33,7 +33,15 @@ const vehicleOwnerSchema = new mongoose.Schema({
     role: { 
         type: String, 
         default: 'vehicle-owner' 
-    }  // Default role for vehicle owners
+    }, // Default role for vehicle owners
+    location: {
+        type: String,
+        required: false  
+    },
+    vehicles: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Vehicle', // Reference to the Vehicle model
+    }],
   });
   
 const VehicleOwner = mongoose.model('VehicleOwner', vehicleOwnerSchema);

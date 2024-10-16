@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div 
       style={{
-        backgroundImage: "url(/img/event5.jpg)",   
+        backgroundImage: "url(/img/event3.jpg)",   
         backgroundSize: 'cover',                   
         backgroundPosition: 'center',              
         backgroundRepeat: 'no-repeat',             
@@ -53,7 +53,7 @@ const Dashboard = () => {
               <Card.Body>
                 <Card.Title>Manage Event Categories</Card.Title>
                 <Card.Text>
-                  Add, update, or remove event categories to keep your event list organized.
+                  Add event categories to keep your event list organized.
                 </Card.Text>
                 <Link to={`/EventManager/addEvent`}>
                 <Button variant="primary">Manage Categories</Button></Link>
@@ -110,7 +110,13 @@ const styles = `
     transform: scale(1.05);
 }
 
+button {
+    transition: background-color 0.3s ease;
+}
 
+button:hover {
+    background-color: #0056b3;
+}
 
 .animate__animated {
     animation-duration: 1s;

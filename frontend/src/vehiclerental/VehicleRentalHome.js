@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCar, FaPalette, FaMapMarkerAlt, FaUsers, FaTags, FaDollarSign } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const styles = {
   cardContainer: {
@@ -88,25 +89,25 @@ const styles = {
     fontSize: '16px',
     transition: 'background-color 0.3s ease, transform 0.3s ease',
     marginTop: '10px',
-    '&:hover': {
-      backgroundColor: '#07c1da',
+  },
+  bookNowButtonHover: {
+    backgroundColor: '#368acf',
       transform: 'scale(1.05)',
-    },
   },
   buttonStyle: {
     display: 'inline-block',
-    padding: '10px 20px',
-    backgroundColor: '#ff6f61',
+    padding: '12px 22px',
+    backgroundColor: '#076ede',
     color: '#fff',
     border: 'none',
-    borderRadius: '30px',
+    borderRadius: '10px',
     fontSize: '14px',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
   },
   buttonHoverStyle: {
-    backgroundColor: '#0056b3',
+    backgroundColor: '#204f85',
   },
   searchContainer: {
     margin: '20px 0',
@@ -149,6 +150,7 @@ const VehicleRentalHome = () => {
     maxPrice: '',
     location: '',
   });
+  const [error, setError] = useState(''); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -173,6 +175,13 @@ const VehicleRentalHome = () => {
         (maxPrice === '' || vehicle.pricePerDay <= parseFloat(maxPrice))
       );
     });
+
+    if (filtered.length === 0) {
+      setError('No vehicles found matching your search.');
+    } else {
+      setError(''); // Clear error if vehicles are found
+    }
+
     setFilteredVehicles(filtered);
   }, [filters, vehicles]);
 
@@ -185,14 +194,28 @@ const VehicleRentalHome = () => {
   };
 
   const handleVehicleBook = (vehicleId) => {
-    navigate(`/vehiclebook/${vehicleId}`); 
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Swal.fire({
+        title: 'Authentication Required',
+        text: 'Please login to Book vehicle.',
+        icon: 'warning',
+        confirmButtonText: 'Go to Login',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    } else {
+      navigate(`/vehiclebook/${vehicleId}`);
+    }
   };
 
   return (
     <div>
       
       <div className="content" style={{ textAlign: 'center' }}>
-        <h1>Vehicle Rental Home Page</h1>
         
         <button
           style={styles.buttonStyle}
@@ -271,7 +294,7 @@ const VehicleRentalHome = () => {
             <FaMapMarkerAlt style={styles.searchIcon} />
           </div>
         </div>
-
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <div style={styles.cardContainer}>
           {filteredVehicles.map(vehicle => (
             <div key={vehicle._id} style={styles.card}>
@@ -306,6 +329,8 @@ const VehicleRentalHome = () => {
                 </div>
                 <button
                   style={styles.bookNowButton}
+                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.bookNowButtonHover.backgroundColor}
+                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.bookNowButton.backgroundColor}
                   onClick={() => handleVehicleBook(vehicle._id)}
                 >
                   Book Now

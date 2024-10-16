@@ -1,21 +1,32 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap
 
 const UserSupportHome = () => {
     const navigate = useNavigate();
     const [hoverIndex, setHoverIndex] = useState(null); // State to track which box is hovered
+    const [searchTerm, setSearchTerm] = useState(''); // State to track the search term
 
     const handleNavigate = (path) => {
         navigate(path);
     };
 
-    const handleSearch = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            navigate('/contactus'); // Redirect to Contact Us page when "Enter" is pressed
-        }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value); // Update search term as user types
     };
+
+    const boxes = [
+        { name: 'Add Feedback', path: '/feedbackForm', img: 'feedback1' },
+        { name: 'Contact Us', path: '/contactus', img: 'contact' }, 
+        { name: 'Chatbox', path: '/AFAQ', img: 'chatbox' },
+        { name: 'Add Review', path: '/AddRating', img: 'review1' },
+        { name: 'FAQs', path: '/FAQ', img: 'faq1' }
+    ];
+
+    // Filter boxes based on the search term
+    const filteredBoxes = boxes.filter(box => 
+        box.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div
@@ -31,13 +42,17 @@ const UserSupportHome = () => {
             }}
         >
             <div className="container">
-                <h2 className="text-center mb-4" style={{ fontWeight: 'normal', color: 'white' }}>How can we help you?</h2> {/* Text color set to white */}
+                <h2 className="text-center mb-4" style={{ fontWeight: 'normal', color: 'white' }}>
+                    How can we help you?
+                </h2>
+                
                 <div className="d-flex justify-content-center mb-4">
                     <input
                         type="text"
                         className="form-control"
                         placeholder="Search for help..."
-                        onKeyDown={handleSearch} // Trigger search on 'Enter'
+                        value={searchTerm} // Bind input to state
+                        onChange={handleSearchChange} // Update search term on input change
                         style={{
                             width: '70%', // Make the search bar longer
                             borderRadius: '50px', // Rounded corners
@@ -51,41 +66,39 @@ const UserSupportHome = () => {
                 </div>
 
                 <div className="row justify-content-center">
-                    {[
-                        { name: 'Add Feedback', path: '/feedbackForm', img: 'feedback1' },
-                        { name: 'Contact Us', path: '/contactus', img: 'contact' },
-                        { name: 'Chatbox', path: '/chatbox', img: 'chatbox' },
-                        { name: 'Add Review', path: '/review', img: 'review1' },
-                        { name: 'FAQs', path: '/FAQ', img: 'faq1' }
-                    ].map((item, index) => (
-                        <div key={index} className="col-md-2 col-sm-6 mb-4 d-flex justify-content-center">
-                            <div
-                                className="p-3 border rounded shadow-sm"
-                                style={{
-                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                    height: hoverIndex === index ? '280px' : '250px', // Increase height when hovered
-                                    width: hoverIndex === index ? '220px' : '200px', // Increase width when hovered
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center', // Center content vertically
-                                    cursor: 'pointer', // Cursor indicates clickable
-                                    transition: 'all 0.3s ease-in-out' // Smooth transition
-                                }}
-                                onMouseEnter={() => setHoverIndex(index)} // Set the hovered box index
-                                onMouseLeave={() => setHoverIndex(null)} // Reset the hovered index
-                                onClick={() => handleNavigate(item.path)} // Navigation
-                            >
-                                <img
-                                    src={`/img/${item.img}.jpg`}
-                                    alt={item.name}
-                                    className="img-fluid mb-2"
-                                    style={{ maxHeight: '100px', objectFit: 'contain' }} // Image styling
-                                />
-                                <h5 style={{ color: 'black', textAlign: 'center' }}>{item.name}</h5> {/* Center align the text */}
+                    {filteredBoxes.length > 0 ? (
+                        filteredBoxes.map((item, index) => (
+                            <div key={index} className="col-md-2 col-sm-6 mb-4 d-flex justify-content-center">
+                                <div
+                                    className="p-3 border rounded shadow-sm"
+                                    style={{
+                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                        height: hoverIndex === index ? '280px' : '250px', // Increase height when hovered
+                                        width: hoverIndex === index ? '220px' : '200px', // Increase width when hovered
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center', // Center content vertically
+                                        cursor: 'pointer', // Cursor indicates clickable
+                                        transition: 'all 0.3s ease-in-out' // Smooth transition
+                                    }}
+                                    onMouseEnter={() => setHoverIndex(index)} // Set the hovered box index
+                                    onMouseLeave={() => setHoverIndex(null)} // Reset the hovered index
+                                    onClick={() => handleNavigate(item.path)} // Navigation
+                                >
+                                    <img
+                                        src={`/img/${item.img}.jpg`}
+                                        alt={item.name}
+                                        className="img-fluid mb-2"
+                                        style={{ maxHeight: '100px', objectFit: 'contain' }} // Image styling
+                                    />
+                                    <h5 style={{ color: 'black', textAlign: 'center' }}>{item.name}</h5> {/* Center align the text */}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p className="text-white">No results found for "{searchTerm}"</p>
+                    )}
                 </div>
 
                 <div className="text-center mt-5">

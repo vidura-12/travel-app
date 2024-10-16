@@ -36,7 +36,7 @@ const Sellersprofile = () => {
         </div>
 
         <div className="profile-info">
-          <h2>Uthara Sonadi, 22</h2>
+          
           <p>Southern Province, Matara</p>
           <p>Travel agency owner</p>
 

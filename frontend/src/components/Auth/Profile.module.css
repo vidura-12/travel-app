@@ -21,20 +21,19 @@ body, html {
     display: flex;
     justify-content: center;  /* Center horizontally */
     align-items: center;  /* Center vertically */
-    background-color: #f9f9f9;
     background: url('https://cdn.pixabay.com/photo/2020/02/06/10/08/sunrise-4823732_1280.jpg') no-repeat center center fixed;
     background-size: cover;
-   
 }
 
 /* Form Container */
 .formContainer {
     width: 100%;
     max-width: 500px;
-    background-color: white;
+    background-color: rgb(228, 227, 226);
+    backdrop-filter: blur(12px);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(56, 41, 41, 0.1);
 }
 
 /* Form Title */
@@ -43,7 +42,7 @@ body, html {
     margin-bottom: 20px;
     font-size: 1.8rem;
     font-weight: bold;
-    color: #2e8b57;
+    color: #1b1d1c;
 }
 
 /* Form Group */
@@ -92,8 +91,8 @@ label {
 }
 
 /* Submit Button */
-.submitBtn {
-    background-color: #2e8b57;
+.submitButton {
+    background-color: #151cd5;
     color: white;
     padding: 12px;
     width: 100%;
@@ -104,7 +103,7 @@ label {
     transition: background-color 0.2s;
 }
 
-.submitBtn:hover {
+.submitButton:hover {
     background-color: #276749;
 }
 

@@ -78,7 +78,6 @@ export default function AllGuides() {
             color: rgba(255, 255, 255, 0.7); /* Light color for visibility */
             font-size: 1rem; /* Font size */
             font-style: italic; /* Italic style */
-            /* Removed text-align to keep the placeholder left-aligned */
           }
         `}</style>
 
@@ -96,9 +95,18 @@ export default function AllGuides() {
                     <p className="card-text"><strong>Language:</strong> {guide.language}</p>
                     <button
                       className="btn btn-success"
+                      style={{
+                        borderRadius: '20px', // Make the button rounder
+                        fontFamily: "'Roboto', sans-serif", // Beautiful font
+                        fontWeight: 'bold', // Make the text bold
+                        padding: '10px 20px',
+                        transition: 'background-color 0.3s, transform 0.3s',
+                      }}
                       onClick={() => handleAddTourGuide(guide)}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#1e7e34'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
                     >
-                      Add Tour Guide
+                      Hire Tour Guide
                     </button>
                   </div>
                 </div>
