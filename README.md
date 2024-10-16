@@ -27,7 +27,7 @@ Our web application allows travel businesses to attract more customers, offering
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-repo/travel-management-system.git
+git clone https://github.com/vidura-12/travel-app.git
 cd travel-management-system
 ```
 
