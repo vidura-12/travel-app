@@ -3,7 +3,7 @@
 ![Artboard-2](https://github.com/user-attachments/assets/4b941c54-f5d8-40ab-9049-a44412c88042)
 
 ## Overview
-Our web application allows travel businesses to attract more customers, offering services such as vehicle rental, hotel booking, travel guides, and location reviews. It enhances customer experience by providing detailed information about travel destinations, offering special event services, and supporting customers throughout their journey planning. This easy-to-use application is designed to be user-friendly, making it easier for customers to plan and enjoy their travels.
+Our web application allows travel businesses to attract more customers, offering services such as vehicle rentals, hotel booking, travel guides, and location reviews. It enhances customer experience by providing detailed information about travel destinations, offering special event services, and supporting customers throughout their journey planning. This easy-to-use application is designed to be user-friendly, making it easier for customers to plan and enjoy their travels.
 
 
 ## Key Features
