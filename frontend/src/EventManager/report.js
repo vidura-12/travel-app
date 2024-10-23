@@ -112,7 +112,7 @@ const TicketReport = () => {
     // Add signature below the pie chart in the bottom left corner
     doc.addImage(signatureImg, 'JPEG', 10, doc.autoTable.previous.finalY + 80, 50, 15); // Adjusted position and size
      
-    // Add "Admin Signature" text below the signature
+    // Add "Admin Signature" 
     doc.setFontSize(10); // Decrease font size for "Admin Signature"
     doc.text('Admin Signature', 10, doc.autoTable.previous.finalY + 95); // Adjust position for the text
 
