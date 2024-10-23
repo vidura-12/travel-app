@@ -164,7 +164,7 @@ We'd like to extend our heartfelt thanks to the following individuals who have c
 
 | Contributor | GitHub Profile | Roles |
 |-------------|----------------|-------|
-| **Vidura**  | [vidura-12](https://github.com/vidura-12) | Project Owner, Full Stack Developer |
+| **Vidura**  | [vidura-12](https://github.com/vidura-12) | Full Stack Developer |
 | **Buwaneka** | [Buwaneka99](https://github.com/Buwaneka99) | Frontend Developer, UI/UX Design |
 | **Kalpa Vidusha** | [KalpaVidusha](https://github.com/KalpaVidusha) | Backend Developer, API Integration |
 | **Sonadi** | [Sonadi](https://github.com/Sonadi) | Quality Assurance, Testing |
