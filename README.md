@@ -170,7 +170,7 @@ We'd like to extend our heartfelt thanks to the following individuals who have c
 | **Sonadi** | [Sonadi](https://github.com/Sonadi) | Quality Assurance, Testing |
 | **Dilshani** | [Dilshani16](https://github.com/Dilshani16) | Database Management, Data Modeling |
 | **Nimesha** | [Nimesha4](https://github.com/Nimesha4) | DevOps, Deployment, CI/CD |
-| **Harini Hettiarachchi** | [HariniHettiarachchi](https://github.com/HariniHettiarachchi) | Documentation, User Support |
+| **Harini Hettiarachchi** | [HariniHettiarachchi](https://github.com/HariniHettiarachchi) | Documentation, User Support, QA |
 | **Kavitha Niwandi** | [kavithaniwandi](https://github.com/kavithaniwandi) | Frontend Developer, Feature Implementation |
 
 Each of these individuals has played a crucial role in making this project successful. Thank you for your time, energy, and dedication to building this platform!
