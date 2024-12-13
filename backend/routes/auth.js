@@ -5,7 +5,6 @@ const Admin = require('../models/admin');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const middle = require('../middleware/auth.js');
-
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   
