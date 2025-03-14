@@ -6,7 +6,11 @@ const { upload, uploadToGridFS } = require('../middleware/upload');
 const { GridFSBucket } = require('mongodb');
 const mongoose = require('mongoose');
 
-const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss');
+// Load environment variables
+require('dotenv').config();
+
+// Create MongoDB connection using environment variable
+const conn = mongoose.createConnection(process.env.MONGODB_URL || 'mongodb+srv://vidura:vidura123@cluster0.tl1vezg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 // Serve images from GridFS
 router.get('/image/:filename', (req, res) => {
@@ -19,7 +23,6 @@ router.get('/image/:filename', (req, res) => {
 
     downloadStream.pipe(res);
 });
-
 
 router.post('/add', authMiddleware, upload.single('image'), uploadToGridFS, vehicleController.createVehicle);
 router.get('/', vehicleController.getVehicles);

@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 
-// Create MongoDB connection
-const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss');
+// Load environment variables
+require('dotenv').config();
 
+// Create MongoDB connection
+const conn = mongoose.createConnection(process.env.MONGODB_URL);
 
 // Multer storage configuration (memory storage)
 const storage = multer.memoryStorage();
@@ -42,4 +44,3 @@ const uploadToGridFS = (req, res, next) => {
   };
   
   module.exports = { upload, uploadToGridFS };
-  

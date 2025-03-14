@@ -36,15 +36,18 @@ app.use(cors());
 app.use(express.json()); // Use express.json() to parse JSON bodies
 
 // Connect to MongoDB
-const URL = process.env.MONGODB_URL;
-mongoose.connect(URL)
-    .then(() => {
-        console.log("MongoDB database connection established successfully");
-    })
-    .catch((error) => {
-        console.error("Connection error:", error);
-    });
- 
+const MONGODB_URL = process.env.MONGODB_URL;
+const connectWithRetry = () => {
+    mongoose.connect(MONGODB_URL)
+      .then(() => console.log('MongoDB connected successfully'))
+      .catch(err => {
+        console.error('MongoDB connection error:', err);
+        console.error('Retrying connection in 5 seconds...');
+        setTimeout(connectWithRetry, 5000);
+      });
+  };
+  
+  connectWithRetry();
 app.use('/TourGuide', addRoute);
 app.use('/auth', authRoutes);
 app.use('/location', locationRoutes);

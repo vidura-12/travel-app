@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 
-// Create MongoDB connection
-const conn = mongoose.createConnection('mongodb+srv://vidura123:1234@boss.eobl4lm.mongodb.net/?retryWrites=true&w=majority&appName=boss');
+// Load environment variables
+require('dotenv').config();
+
+// Create MongoDB connection using environment variable
+const conn = mongoose.createConnection(process.env.MONGODB_URL || 'mongodb+srv://vidura:vidura123@cluster0.tl1vezg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 // Initialize GridFSBucket once the connection is open
 let bucket;
